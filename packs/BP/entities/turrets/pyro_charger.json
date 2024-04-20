@@ -1,0 +1,332 @@
+{
+	"format_version": "1.20.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "zom:pyro_charger",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false,
+			"properties": {
+				"zom:active": {
+					"type": "bool",
+					"client_sync": true,
+					"default": false
+				},
+				"zom:cooldown": {
+					"type": "bool",
+					"client_sync": true,
+					"default": false
+				}
+			}
+		},
+		"component_groups": {
+			"overheating": {
+				"minecraft:timer": {
+					"time": 20,
+					"looping": false,
+					"time_down_event": {
+						"event": "zom:start_cooldown",
+						"target": "self"
+					}
+				}
+			},
+			"cooldown": {
+				"minecraft:timer": {
+					"time": 15,
+					"looping": true,
+					"time_down_event": {
+						"event": "zom:end_cooldown",
+						"target": "self"
+					}
+				}
+			},
+			"active": {
+				"minecraft:behavior.random_look_around": {
+					"priority": 4
+				},
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval": 0.05,
+					"attack_radius": 32,
+					"attack_radius_min": 8,
+					"swing": true,
+					"x_max_rotation": 15,
+					"ranged_fov": 45
+				},
+				"minecraft:shooter": {
+					"def": "zom:pyro_charger_fireball"
+				},
+				"minecraft:behavior.nearest_attackable_target": {
+					"priority": 2,
+					"must_see": true,
+					"reselect_targets": true,
+					"must_see_forget_duration": 0,
+					"entity_types": [
+						{
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"operator": "!=",
+										"value": "zombie_villager"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"operator": "!=",
+										"value": "zombie_illager"
+									},
+									{
+										"test": "on_fire",
+										"subject": "other",
+										"value": false
+									},
+									{
+										"test": "is_in_village",
+										"subject": "other",
+										"value": false
+									}
+								]
+							},
+							"max_dist": 32
+						}
+					]
+				},
+				"minecraft:on_target_acquired": {
+					"filters": {
+						"test": "has_component",
+						"subject": "self",
+						"operator": "!=",
+						"value": "minecraft:timer"
+					},
+					"event": "zom:start_overheating",
+					"target": "self"
+				}
+			}
+		},
+		"events": {
+			"minecraft:entity_spawned": {
+				"sequence": [
+					{
+						"run_command": {
+							"command": "playsound random.anvil_break @a ~ ~ ~"
+						}
+					}
+				]
+			},
+			"zom:activate": {
+				"sequence": [
+					{
+						"set_property": {
+							"zom:active": true
+						}
+					},
+					{
+						"add": {
+							"component_groups": [
+								"active"
+							]
+						}
+					}
+				]
+			},
+			"zom:deactivate": {
+				"sequence": [
+					{
+						"set_property": {
+							"zom:active": false
+						}
+					},
+					{
+						"remove": {
+							"component_groups": [
+								"active",
+								"cooldown",
+								"overheating"
+							]
+						}
+					}
+				]
+			},
+			"zom:start_overheating": {
+				"add": {
+					"component_groups": [
+						"overheating"
+					]
+				}
+			},
+			"zom:start_cooldown": {
+				"sequence": [
+					{
+						"set_property": {
+							"zom:cooldown": true
+						}
+					},
+					{
+						"remove": {
+							"component_groups": [
+								"active",
+								"overheating"
+							]
+						},
+						"add": {
+							"component_groups": [
+								"cooldown"
+							]
+						}
+					}
+				]
+			},
+			"zom:end_cooldown": {
+				"sequence": [
+					{
+						"set_property": {
+							"zom:cooldown": false
+						}
+					},
+					{
+						"remove": {
+							"component_groups": [
+								"cooldown"
+							]
+						},
+						"add": {
+							"component_groups": [
+								"active"
+							]
+						}
+					}
+				]
+			},
+			"zom:despawn": {
+				"run_command": {
+					"command": "function world/turrets/pyro_charger"
+				}
+			}
+		},
+		"components": {
+			"minecraft:type_family": {
+				"family": [
+					"turret",
+					"pyro_charger"
+				]
+			},
+			"minecraft:collision_box": {
+				"width": 0.8,
+				"height": 1.3
+			},
+			"minecraft:persistent": {},
+			"minecraft:health": {
+				"value": 200
+			},
+			"minecraft:movement": {
+				"value": 0
+			},
+			"minecraft:interact": {
+				"interactions": {
+					"on_interact": {
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "player"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "hand",
+									"subject": "other",
+									"value": "iron_ingot"
+								},
+								{
+									"test": "is_missing_health",
+									"value": true
+								}
+							]
+						}
+					},
+					"use_item": true,
+					"swing": true,
+					"health_amount": 25,
+					"play_sounds": "irongolem.repair",
+					"interact_text": "action.interact.repair"
+				}
+			},
+			"minecraft:navigation.walk": {
+				"is_amphibious": true,
+				"avoid_water": true
+			},
+			"minecraft:movement.basic": {},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"cause": "entity_attack",
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"operator": "==",
+								"value": "player"
+							},
+							"event": "zom:despawn",
+							"target": "self"
+						},
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"value": "turret"
+							}
+						},
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"value": "villager"
+							}
+						},
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"value": "illager"
+							}
+						},
+						"deals_damage": false
+					},
+					{
+						"cause": "fire",
+						"deals_damage": false
+					}
+				]
+			},
+			"minecraft:follow_range": {
+				"value": 64
+			},
+			"minecraft:knockback_resistance": {
+				"value": 1
+			},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": false
+			},
+			"minecraft:physics": {},
+			"minecraft:conditional_bandwidth_optimization": {}
+		}
+	}
+}

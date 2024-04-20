@@ -1,0 +1,57 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "zom:charged_iron_golem",
+			"materials": {
+				"default": "iron_golem"
+			},
+			"textures": {
+				"default": "textures/entity/iron_golem/iron_golem_new",
+				"cracked_high": "textures/entity/iron_golem/cracked_high",
+				"cracked_med": "textures/entity/iron_golem/cracked_medium",
+				"cracked_low": "textures/entity/iron_golem/cracked_low",
+				"cracked_none": "textures/entity/iron_golem/cracked_none",
+				"lvl1": "textures/entity/iron_golem/charged_iron_golem_lvl1",
+				"lvl2": "textures/entity/iron_golem/charged_iron_golem_lvl2",
+				"lvl3": "textures/entity/iron_golem/charged_iron_golem_lvl3"
+			},
+			"geometry": {
+				"default": "geometry.iron_golem.new"
+			},
+			"animations": {
+				"walk": "animation.irongolem.walk",
+				"idle": "animation.irongolem.idle",
+				"has_target": "animation.irongolem.has_target",
+				"attack": "animation.irongolem.attack",
+				"flower": "animation.irongolem.flower",
+				"death": "animation.charged_irongolem.death",
+				"look_at_target": "animation.common.look_at_target",
+				"general": "controller.animation.iron_golem.general"
+			},
+			"scripts": {
+				"pre_animation": [
+					"variable.modified_tcos0 = Math.clamp(((Math.cos(query.modified_distance_moved * 13.5) * Math.min(query.modified_move_speed, 0.6) / variable.gliding_speed_value) * 25.0), -12.5, 12.5);"
+				],
+				"animate": [
+					"general",
+					{
+						"look_at_target": "query.is_alive"
+					},
+					{
+						"death": "!query.is_alive"
+					}
+				]
+			},
+			"render_controllers": [
+				"controller.render.iron_golem",
+				"controller.render.iron_golem_cracks",
+				"controller.render.iron_golem.level"
+			],
+			"spawn_egg": {
+				"base_color": "#A7A2A2",
+				"overlay_color": "#75B058"
+			}
+		}
+	}
+}

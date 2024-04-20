@@ -1,0 +1,202 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.vindicator.general": {
+			"states": {
+				"default": {
+					"animations": [
+						{
+							"idle": "!q.is_riding"
+						}
+					],
+					"transitions": [
+						{
+							"walking": "q.ground_speed>0.3"
+						},
+						{
+							"celebrate": "q.is_celebrating||q.is_celebrating_special"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"walking": {
+					"animations": [
+						{
+							"walk": "!q.is_riding&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_axe')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:diamond_axe'))"
+						},
+						{
+							"walk_drinking": "!q.is_riding&&!(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_axe')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:diamond_axe'))"
+						}
+					],
+					"transitions": [
+						{
+							"default": "q.ground_speed<0.2"
+						},
+						{
+							"celebrate": "q.is_celebrating||q.is_celebrating_special"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"celebrate": {
+					"animations": [
+						{
+							"celebrate": "!q.is_riding"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!(q.is_celebrating||q.is_celebrating_special)"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.vindicator.item_visibility": {
+			"states": {
+				"default": {
+					"animations": [
+						"hide_item"
+					],
+					"transitions": [
+						{
+							"shown": "((q.has_target&&q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_axe')||q.has_target&&q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:diamond_axe'))||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))||v.attack_time>0"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"shown": {
+					"transitions": [
+						{
+							"default": "(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_axe')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:diamond_axe'))&&!q.has_target&&v.attack_time<=0"
+						}
+					],
+					"blend_transition": 1,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.vindicator.arms_visibility": {
+			"initial_state": "hands_hidden",
+			"states": {
+				"hands_hidden": {
+					"animations": [
+						"hide_hands"
+					],
+					"transitions": [
+						{
+							"arms_hidden": "((q.has_target&&q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_axe')||q.has_target&&q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:diamond_axe'))||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))||v.attack_time>0"
+						}
+					]
+				},
+				"arms_hidden": {
+					"animations": [
+						"hide_arms",
+						{
+							"drink": "(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_axe')||q.has_target&&q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:diamond_axe'))&&!q.has_target&&v.attack_time<=0"
+						}
+					],
+					"transitions": [
+						{
+							"hands_hidden": "(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_axe')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:diamond_axe'))&&!q.has_target&&v.attack_time<=0"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.vindicator.attack": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"attacking": "v.attack_time>0"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"attacking": {
+					"animations": [
+						"attack"
+					],
+					"transitions": [
+						{
+							"default": "v.attack_time<=0"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.vindicator.ride": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"riding": "q.is_riding"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"riding": {
+					"animations": [
+						{
+							"idle": "!q.has_target"
+						},
+						{
+							"walk": "q.has_target"
+						},
+						"riding_legs"
+					],
+					"transitions": [
+						{
+							"default": "!q.is_riding"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.vindicator.death": {
+			"states": {
+				"default": {
+					"animations": [
+						"controller_look_at_target",
+						"blink",
+						"attack_cont",
+						"general",
+						"ride_cont"
+					],
+					"transitions": [
+						{
+							"dead": "!q.is_alive"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"dead": {
+					"animations": [
+						"death",
+						"death_rot"
+					],
+					"transitions": [
+						{
+							"default": "q.is_alive"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				}
+			}
+		}
+	}
+}

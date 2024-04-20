@@ -1,0 +1,73 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "zom:walker",
+			"materials": {
+				"default": "entity",
+				"face": "zombie_face"
+			},
+			"textures": {
+				"body_base": "textures/entity/walker/body_base",
+				"face1": "textures/entity/zombie_faces/face1",
+				"face2": "textures/entity/zombie_faces/face2",
+				"face3": "textures/entity/zombie_faces/face3",
+				"face4": "textures/entity/zombie_faces/face4",
+				"face5": "textures/entity/zombie_faces/face5",
+				"variant1": "textures/entity/walker/variants/variant1",
+				"variant2": "textures/entity/walker/variants/variant2",
+				"variant3": "textures/entity/walker/variants/variant3",
+				"variant4": "textures/entity/walker/variants/variant4",
+				"variant5": "textures/entity/walker/variants/variant5",
+				"variant6": "textures/entity/walker/variants/variant6",
+				"variant7": "textures/entity/walker/variants/variant7",
+				"variant8": "textures/entity/walker/variants/variant8",
+				"variant9": "textures/entity/walker/variants/variant9",
+				"variant10": "textures/entity/walker/variants/variant10"
+			},
+			"geometry": {
+				"default": "geometry.walker.normal",
+				"death": "geometry.walker.normal.death"
+			},
+			"animations": {
+				"look_at_target": "animation.common.look_at_target",
+				"idle1": "animation.walker.normal.idle1",
+				"idle2": "animation.walker.normal.idle2",
+				"walk": "animation.walker.normal.walk",
+				"attack1": "animation.walker.normal.attack1",
+				"attack2": "animation.walker.normal.attack2",
+				"attack3": "animation.walker.normal.attack3",
+				"damage": "animation.walker.normal.damage",
+				"death1": "animation.walker.normal.death1",
+				"death2": "animation.walker.normal.death2",
+				"death3": "animation.walker.normal.death3",
+				"death4": "animation.walker.normal.death4",
+				"death_rot": "animation.general.death_rot",
+				"general": "controller.animation.walker.normal.general",
+				"attack_controller": "controller.animation.walker.normal.attack",
+				"damage_controller": "controller.animation.walker.normal.damage",
+				"death_controller": "controller.animation.walker.normal.death"
+			},
+			"scripts": {
+				"initialize": [
+					"variable.variants = math.random_integer(0, 30);",
+					"variable.faces = math.random(0, 30);"
+				],
+				"animate": [
+					"death_controller"
+				]
+			},
+			"particle_effects": {
+				"blood": "zom:blood"
+			},
+			"render_controllers": [
+				"controller.render.walker.base",
+				"controller.render.zombie.faces"
+			],
+			"spawn_egg": {
+				"base_color": "#351101",
+				"overlay_color": "#B81313"
+			}
+		}
+	}
+}

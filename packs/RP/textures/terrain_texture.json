@@ -1,0 +1,11 @@
+{
+	"num_mip_levels": 4,
+	"padding": 8,
+	"resource_pack_name": "Raboy's Zombie Apocalypse",
+	"texture_name": "atlas.terrain",
+	"texture_data": {
+		"zom_turret_base": {
+			"textures": "textures/blocks/turret_base"
+		}
+	}
+}

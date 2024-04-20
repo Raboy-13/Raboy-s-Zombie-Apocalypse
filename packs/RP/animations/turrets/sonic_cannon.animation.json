@@ -1,0 +1,57 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.sonic_cannon.fire": {
+			"animation_length": 2,
+			"bones": {
+				"base": {
+					"position": {
+						"0.0": [
+							0,
+							0,
+							0
+						],
+						"0.0417": [
+							0,
+							0,
+							4
+						],
+						"2.0": [
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"barrel": {
+					"position": {
+						"0.0": [
+							0,
+							0,
+							0
+						],
+						"0.0417": [
+							0,
+							0,
+							4
+						],
+						"2.0": [
+							0,
+							0,
+							0
+						]
+					}
+				}
+			}
+		},
+		"animation.sonic_cannon.sonic_charge": {
+			"animation_length": 0,
+			"loop": true,
+			"particle_effects": {
+				"0": {
+					"effect": "sonic_charge"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,64 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "minecraft:vindicator",
+			"min_engine_version": "1.8.0",
+			"materials": {
+				"default": "vindicator"
+			},
+			"textures": {
+				"default": "textures/entity/vindicator"
+			},
+			"geometry": {
+				"default": "geometry.vindicator.rza"
+			},
+			"animations": {
+				"look_at_target_default": "animation.humanoid.look_at_target.default",
+				"look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+				"look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+				"blink": "animation.general_front.blink",
+				"idle": "animation.vindicator.idle",
+				"hide_item": "animation.vindicator.hide_item",
+				"hide_arms": "animation.vindicator.hide_arms",
+				"hide_hands": "animation.vindicator.hide_hands",
+				"walk": "animation.vindicator.walk",
+				"walk_drinking": "animation.vindicator.walk_drinking",
+				"riding_arms": "animation.vindicator.riding_arms",
+				"riding_legs": "animation.vindicator.riding_legs",
+				"drink": "animation.vindicator.drink",
+				"attack": "animation.vindicator.attack",
+				"celebrate": "animation.vindicator.celebrate",
+				"death": "animation.vindicator.death",
+				"death_rot": "animation.general.death_rot",
+				"controller_look_at_target": "controller.animation.humanoid.look_at_target",
+				"item_visibility": "controller.animation.vindicator.item_visibility",
+				"arms_visibility": "controller.animation.vindicator.arms_visibility",
+				"attack_cont": "controller.animation.vindicator.attack",
+				"general": "controller.animation.vindicator.general",
+				"ride_cont": "controller.animation.vindicator.ride",
+				"death_cont": "controller.animation.vindicator.death"
+			},
+			"scripts": {
+				"scale": "0.9375",
+				"initialize": [
+					"v.blink_speed = math.random(0.6, 3);"
+				],
+				"animate": [
+					"death_cont",
+					"item_visibility",
+					"arms_visibility"
+				]
+			},
+			"render_controllers": [
+				"controller.render.vindicator"
+			],
+			"spawn_egg": {
+				"texture": "spawn_egg",
+				"texture_index": 39
+			},
+			"enable_attachables": true,
+			"hide_armor": true
+		}
+	}
+}

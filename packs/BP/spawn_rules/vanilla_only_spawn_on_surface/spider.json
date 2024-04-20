@@ -1,0 +1,40 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "minecraft:spider",
+      "population_control": "monster"
+    },
+    "conditions": [
+      //To walker
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:brightness_filter": {
+          "min": 0,
+          "max": 7,
+          "adjust_for_weather": true
+        },
+        "minecraft:difficulty_filter": {
+          "min": "easy",
+          "max": "hard"
+        },
+        "minecraft:world_age_filter": {
+          "min": 1200 //Day 2
+        },
+        "minecraft:weight": {
+          "default": 100
+        },
+        "minecraft:spawns_on_block_filter": [
+          "dirt",
+          "stone",
+          "grass"
+        ],
+        "minecraft:biome_filter": {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "monster"
+        }
+      }
+    ]
+  }
+}

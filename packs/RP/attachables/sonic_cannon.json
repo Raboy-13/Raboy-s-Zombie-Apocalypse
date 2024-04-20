@@ -1,0 +1,30 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "zom:sonic_cannon_item",
+      "materials": {
+        "default": "entity_emissive_alpha"
+      },
+      "textures": {
+        "default": "textures/entity/turrets/sonic_cannon/sonic_cannon_active"
+      },
+      "geometry": {
+        "default": "geometry.sonic_cannon_item"
+      },
+      "animations": {
+        "first_person_hold": "animation.sonic_cannon.first_person_hold",
+        "third_person_hold": "animation.sonic_cannon.third_person_hold",
+        "general": "controller.animation.attachable.general"
+      },
+      "scripts": {
+        "animate": [
+          "general"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.model_default"
+      ]
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "minecraft:pillager",
+			"materials": {
+				"default": "pillager"
+			},
+			"textures": {
+				"default": "textures/entity/pillager"
+			},
+			"geometry": {
+				"default": "geometry.pillager.rza"
+			},
+			"animations": {
+				"humanoid_base_pose": "animation.humanoid.base_pose",
+				"look_at_target_default": "animation.humanoid.look_at_target.default",
+				"look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+				"look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+				"blink": "animation.general_front.blink",
+				"idle_not_charged": "animation.pillager.idle_not_charged",
+				"idle_charged": "animation.pillager.idle_charged",
+				"idle_arms_not_charged": "animation.pillager.idle_arms_not_charged",
+				"idle_arms_charged": "animation.pillager.idle_arms_charged",
+				"walk_not_charged": "animation.pillager.walk_not_charged",
+				"walk_charged": "animation.pillager.walk_charged",
+				"walk_arms_not_charged": "animation.pillager.walk_arms_not_charged",
+				"walk_arms_charged": "animation.pillager.walk_arms_charged",
+				"walk_arms_melee": "animation.pillager.walk_arms_melee",
+				"idle_drink": "animation.pillager.idle_drink",
+				"walk_drink": "animation.pillager.walk_drink",
+				"riding_arms_not_charged": "animation.pillager.riding_arms_not_charged",
+				"riding_legs": "animation.pillager.riding_legs",
+				"charge": "animation.pillager.charge",
+				"aim": "animation.pillager.aim",
+				"attack": "animation.vindicator.attack",
+				"celebrate": "animation.pillager.celebrate",
+				"death": "animation.pillager.death",
+				"death_rot": "animation.general.death_rot",
+				"general": "controller.animation.pillager.general",
+				"controller_look_at_target": "controller.animation.humanoid.look_at_target",
+				"arms_cont": "controller.animation.pillager.arms",
+				"ride_cont": "controller.animation.pillager.ride",
+				"attack_cont": "controller.animation.pillager.attack",
+				"melee_attack_cont": "controller.animation.pillager.melee_attack",
+				"death_cont": "controller.animation.pillager.death"
+			},
+			"scripts": {
+				"initialize": [
+					"v.blink_speed = math.random(0.6, 3);"
+				],
+				"animate": [
+					"death_cont"
+				]
+			},
+			"render_controllers": [
+				"controller.render.pillager"
+			],
+			"spawn_egg": {
+				"texture": "spawn_egg",
+				"texture_index": 56
+			},
+			"enable_attachables": true,
+			"hide_armor": true
+		}
+	}
+}

@@ -1,0 +1,31 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "zom:sonic_charge",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/turret_base_placer"
+			},
+			"geometry": {
+				"default": "geometry.turret_base_placer"
+			},
+			"animations": {
+				"sonic_charge": "animation.sonic_cannon.sonic_charge"
+			},
+			"scripts": {
+				"animate": [
+					"sonic_charge"
+				]
+			},
+			"particle_effects": {
+				"sonic_charge": "zom:sonic_charge"
+			},
+			"render_controllers": [
+				"controller.render.model_default"
+			]
+		}
+	}
+}

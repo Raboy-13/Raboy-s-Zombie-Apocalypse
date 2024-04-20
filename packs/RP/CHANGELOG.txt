@@ -1,0 +1,137 @@
+[Raboy's Zombie Apocalypse v1.0.0]
+============================================================================
+# Apocalyptic Ambience
+-less vegetation: dead trees are everywhere and no grass
+-new subtle fog setting for an apocalyptic atmosphere
+
+# New game mechanics
+-all hostile vanilla mobs are kept from spawning except for illagers to make room for the zombies
+-rare zombies will have a higher chance spawning when the moon is full
+-zombie horde size and spawn rate is low on easy difficulty
+-zombie horde size and spawn rate is normal on normal difficulty
+-zombie horde size and spawn rate is high on hard difficulty
+-huge zombie hordes and fast spawn rate when the moon is full
+-increased rare zombie spawn rate when the moon is full
+-increased rare zombie spawn rate when the player doesn't sleep enough (replaced phantoms with rare zombies)
+
+# New Vanilla Game Mechanics
+-villages now spawn infested with zombies instead of villagers in them
+-no iron golem is present in every village
+-animals now only spawn in villages, except for biome-specific mobs such as the parrot and panda
+
+# New Vanilla Mob Mechanics
+> Iron Golem
+-can be given tnt that will enable it explode upon death
+-immune to explosions
+
+============================================================================
+# Zombie Types
+> Walker
+-spawns during night time and only on the surface
+-15 hitpoints
+-3 attack damage
+
+> Player walker variant (special zombie)
+-Raboy13's cameo and patron zombified skins (all of Raboy13's patrons will be added to the addon as a zombie)
+-spawns during night time and only on the surface
+-15 hitpoints
+-3 attack damage
+
+> Feral (rare zombie)
+-spawns very rarely but more often during full moon and when the player doesn't sleep enough. Can only spawn on the surface
+-doesn't spawn in easy difficulty
+-25 hitpoints
+-3 attack damage
+-the fastest zombie in the addon
+-can climb walls
+-immune to fall damage
+-smarter than walker zombie (avoids lava)
+
+> Miner (rare zombie)
+-spawns only underground
+-30 hitpoints
+-4 attack damage
+-smarter than walker zombie (avoids lava)
+
+============================================================================
+# Zombie Drops
+> Walker
+-transferred every hostile mob drops in the overworld to walker zombies except for the phantom and witch
+
+> Feral
+- has the same drops as the witch
+
+> Miner
+-gold nugget
+-coal
+-raw copper
+-raw iron
+-tnt
+-iron pickaxe
+
+============================================================================
+# New Mobs
+> Charged Iron Golem
+-new iron golem variant when a regular iron golem is given a tnt
+-unique refined texture (no vines)
+-same health as a regular iron golem
+-can be upgraded to 3 levels using tnt, the level indicator can be found in its chest
+-can be given an enchanted golden apple to turn it into a supercharged iron golem
+-explosion power doubles exponentially each level
+-base explosion power is 4
+-immune to explosions
+
+> Supercharged Iron Golem
+-the most powerful version of the iron golem
+-new smash attack to damage multiple targets at once
+-300 hitpoints
+-produces an explosion that's more powerful than a level 3 charged golem when killed
+-immune to explosions
+
+============================================================================
+
+[Raboy's Zombie Apocalypse v1.1.0]
+
+*Compatibility
+-full 1.20 support
+
+*Gameplay
+-fixed saplings don't grow with leaves (only works with oak saplings for now)
+-charged and supercharged iron golems now destroy blocks when exploding
+-significantly improved wandering trader trades
+
+*World Generation
+-removed flowers that generate on some parts of the world
+-slightly tweaked world generation
+-added abandoned houses (only spawn on wooded areas)
+
+*Visuals
+-improved zombie walking animation speed (walk animation speed now depends on how fast the zombie is moving)
+-added sponge with gun zombie variant (patron skin)
+
+*Mobs
+-zombies now drop xp when killed
+-zombies are now slightly faster except for the miner zombies
+-zombies now attack faster
+-match zombie villager behaviors to other zombies
+-improved zombie villager animations
+-illagers now attack zombies and vice versa
+-illagers are now friendly towards villagers
+-illagers are now neutral towards players
+-illagers are now friendly towards iron golems and vice versa
+-pillagers will now try to avoid zombies
+-ravagers are now friendly towards iron golems and players and vice versa
+-added zombie evoker (only summons evocation fangs)
+-added zombie pillager
+-added zombie vindicator
+-changed charged iron golem health from 100 to 600
+-changed supercharged iron golem health from 300 to 1200
+-wandering trader now fights back when attacked by players
+-wandering trader now fights zombies by throwing potions at them like the witch
+-wandering trader now drinks potions depending on the circumstance
+-wandering trader now runs faster when avoiding zombies
+
+
+# Known Bugs
+-some saplings don't grow with leaves
+-zombie villagers still burn during the day

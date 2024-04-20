@@ -1,0 +1,30 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.zombie_evoker": {
+			"arrays": {
+				"geometries": {
+					"array.geos": [
+						"Geometry.default",
+						"Geometry.death"
+					]
+				}
+			},
+			"geometry": "q.is_alive?geometry.default:geometry.death",
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"texture.default"
+			],
+			"is_hurt_color": {
+				"r": 1,
+				"g": 0,
+				"b": 0,
+				"a": "q.is_alive?0.5:0"
+			}
+		}
+	}
+}

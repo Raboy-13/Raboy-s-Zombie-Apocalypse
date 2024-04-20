@@ -1,0 +1,427 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.pillager.general": {
+			"initial_state": "idle_not_charged",
+			"states": {
+				"idle_not_charged": {
+					"animations": [
+						{
+							"idle_not_charged": "!q.is_riding"
+						},
+						{
+							"walk_arms_melee": "!q.is_riding&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:diamond_sword'))"
+						}
+					],
+					"transitions": [
+						{
+							"idle_charged": "q.ground_speed<0.3&&v.attack_state==1"
+						},
+						{
+							"walking_not_charged": "q.ground_speed>0.3&&v.attack_state==0"
+						},
+						{
+							"walking_charged": "q.ground_speed>0.3&&v.attack_state==1"
+						},
+						{
+							"celebrating": "q.is_celebrating"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"idle_charged": {
+					"animations": [
+						{
+							"idle_charged": "!q.is_riding"
+						},
+						{
+							"walk_arms_melee": "!q.is_riding&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:diamond_sword'))"
+						}
+					],
+					"transitions": [
+						{
+							"idle_not_charged": "q.ground_speed<0.3&&v.attack_state==0"
+						},
+						{
+							"walking_not_charged": "q.ground_speed>0.3&&v.attack_state==0"
+						},
+						{
+							"walking_charged": "q.ground_speed>0.3&&v.attack_state==1"
+						},
+						{
+							"celebrating": "q.is_celebrating"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"walking_not_charged": {
+					"animations": [
+						{
+							"walk_not_charged": "!q.is_riding"
+						},
+						{
+							"walk_arms_melee": "!q.is_riding&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:diamond_sword'))"
+						}
+					],
+					"transitions": [
+						{
+							"idle_not_charged": "q.ground_speed<0.3&&v.attack_state==0"
+						},
+						{
+							"idle_charged": "q.ground_speed<0.3&&v.attack_state==1"
+						},
+						{
+							"walking_charged": "q.ground_speed>0.3&&v.attack_state==1"
+						},
+						{
+							"celebrating": "q.is_celebrating"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"walking_charged": {
+					"animations": [
+						{
+							"walk_charged": "!q.is_riding"
+						},
+						{
+							"walk_arms_melee": "!q.is_riding&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:diamond_sword'))"
+						}
+					],
+					"transitions": [
+						{
+							"idle_not_charged": "q.ground_speed<0.3&&v.attack_state==0"
+						},
+						{
+							"idle_charged": "q.ground_speed<0.3&&v.attack_state==1"
+						},
+						{
+							"walking_not_charged": "q.ground_speed>0.3&&v.attack_state==0"
+						},
+						{
+							"celebrating": "q.is_celebrating"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"celebrating": {
+					"animations": [
+						"celebrate"
+					],
+					"transitions": [
+						{
+							"idle_not_charged": "v.attack_state==0&&!q.is_celebrating"
+						},
+						{
+							"idle_charged": "v.attack_state==1&&!q.is_celebrating"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.pillager.attack": {
+			"states": {
+				"default": {
+					"animations": [
+						"blink"
+					],
+					"transitions": [
+						{
+							"charging": "v.attack_state==2&&v.attack_time<=0&&q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')"
+						},
+						{
+							"aiming": "v.attack_state==1&&q.has_target&&v.attack_time<=0&&q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"charging": {
+					"animations": [
+						{
+							"charge": "q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')"
+						},
+						"blink"
+					],
+					"transitions": [
+						{
+							"aiming": "v.attack_state==1"
+						},
+						{
+							"default": "v.attack_time>0"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"aiming": {
+					"animations": [
+						{
+							"aim": "q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')"
+						}
+					],
+					"transitions": [
+						{
+							"default": "v.attack_state==0||!q.has_target||v.attack_time>0||!q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.pillager.arms": {
+			"initial_state": "idle_not_charged",
+			"states": {
+				"idle_not_charged": {
+					"animations": [
+						{
+							"idle_arms_not_charged": "!q.has_target&&!q.is_riding&&!q.is_celebrating&&q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')"
+						}
+					],
+					"transitions": [
+						{
+							"idle_charged": "q.ground_speed<0.3&&v.attack_state==1"
+						},
+						{
+							"walking_not_charged": "q.ground_speed>0.3&&v.attack_state==0"
+						},
+						{
+							"walking_charged": "q.ground_speed>0.3&&v.attack_state==1"
+						},
+						{
+							"idle_drinking": "q.ground_speed<0.3&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))"
+						},
+						{
+							"walk_drinking": "q.ground_speed>0.3&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"idle_charged": {
+					"animations": [
+						{
+							"idle_arms_charged": "!q.has_target&&!q.is_riding&&!q.is_celebrating&&q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')"
+						}
+					],
+					"transitions": [
+						{
+							"idle_not_charged": "q.ground_speed<0.3&&v.attack_state==0"
+						},
+						{
+							"walking_not_charged": "q.ground_speed>0.3&&v.attack_state==0"
+						},
+						{
+							"walking_charged": "q.ground_speed>0.3&&v.attack_state==1"
+						},
+						{
+							"idle_drinking": "q.ground_speed<0.3&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))"
+						},
+						{
+							"walk_drinking": "q.ground_speed>0.3&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"walking_not_charged": {
+					"animations": [
+						{
+							"walk_arms_not_charged": "!q.has_target&&!q.is_riding&&!q.is_celebrating&&q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')"
+						}
+					],
+					"transitions": [
+						{
+							"idle_not_charged": "q.ground_speed<0.3&&v.attack_state==0"
+						},
+						{
+							"idle_charged": "q.ground_speed<0.3&&v.attack_state==1"
+						},
+						{
+							"walking_charged": "q.ground_speed>0.3&&v.attack_state==1"
+						},
+						{
+							"idle_drinking": "q.ground_speed<0.3&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))"
+						},
+						{
+							"walk_drinking": "q.ground_speed>0.3&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"walking_charged": {
+					"animations": [
+						{
+							"walk_arms_charged": "!q.has_target&&!q.is_riding&&!q.is_celebrating&&q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')"
+						}
+					],
+					"transitions": [
+						{
+							"idle_not_charged": "q.ground_speed<0.3&&v.attack_state==0"
+						},
+						{
+							"idle_charged": "q.ground_speed<0.3&&v.attack_state==1"
+						},
+						{
+							"walking_not_charged": "q.ground_speed>0.3&&v.attack_state==0"
+						},
+						{
+							"idle_drinking": "q.ground_speed<0.3&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))"
+						},
+						{
+							"walk_drinking": "q.ground_speed>0.3&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"idle_drinking": {
+					"animations": [
+						"idle_drink"
+					],
+					"transitions": [
+						{
+							"idle_not_charged": "q.ground_speed<0.3&&v.attack_state==0&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword'))"
+						},
+						{
+							"idle_charged": "q.ground_speed<0.3&&v.attack_state==1&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword'))"
+						},
+						{
+							"walking_not_charged": "q.ground_speed>0.3&&v.attack_state==0&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword'))"
+						},
+						{
+							"walking_charged": "q.ground_speed>0.3&&v.attack_state==1&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword'))"
+						},
+						{
+							"walk_drinking": "q.ground_speed>0.3&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"walk_drinking": {
+					"animations": [
+						"walk_drink"
+					],
+					"transitions": [
+						{
+							"idle_not_charged": "q.ground_speed<0.3&&v.attack_state==0&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword'))"
+						},
+						{
+							"idle_charged": "q.ground_speed<0.3&&v.attack_state==1&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword'))"
+						},
+						{
+							"walking_not_charged": "q.ground_speed>0.3&&v.attack_state==0&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword'))"
+						},
+						{
+							"walking_charged": "q.ground_speed>0.3&&v.attack_state==1&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:iron_sword'))"
+						},
+						{
+							"idle_drinking": "q.ground_speed<0.3&&(q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:potion')||q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:milk_bucket'))"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.pillager.melee_attack": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"attacking": "v.attack_time>0"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"attacking": {
+					"animations": [
+						"attack"
+					],
+					"transitions": [
+						{
+							"default": "v.attack_time<=0&&q.all_animations_finished"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.pillager.ride": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"riding": "q.is_riding"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"riding": {
+					"animations": [
+						{
+							"riding_arms_not_charged": "!q.has_target"
+						},
+						{
+							"walk_arms_melee": "!q.is_item_name_any('slot.weapon.mainhand',0,'minecraft:crossbow')"
+						},
+						"riding_legs"
+					],
+					"transitions": [
+						{
+							"default": "!q.is_riding"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.pillager.death": {
+			"states": {
+				"default": {
+					"animations": [
+						"controller_look_at_target",
+						"general",
+						"melee_attack_cont",
+						"attack_cont",
+						"arms_cont",
+						"ride_cont"
+					],
+					"transitions": [
+						{
+							"dead": "!q.is_alive"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"dead": {
+					"animations": [
+						"death",
+						"death_rot"
+					],
+					"transitions": [
+						{
+							"default": "q.is_alive"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				}
+			}
+		}
+	}
+}

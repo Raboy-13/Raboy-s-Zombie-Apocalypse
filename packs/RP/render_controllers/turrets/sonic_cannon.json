@@ -1,0 +1,22 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.sonic_cannon": {
+			"geometry": "geometry.default",
+			"materials": [
+				{
+					"*": "query.property('zom:active')==true?material.active:material.inactive"
+				}
+			],
+			"textures": [
+				"query.property('zom:active')==true?texture.active:texture.inactive"
+			],
+			"is_hurt_color": {
+				"r": 1,
+				"g": 1,
+				"b": 1,
+				"a": "q.is_alive?0.3:0.1"
+			}
+		}
+	}
+}

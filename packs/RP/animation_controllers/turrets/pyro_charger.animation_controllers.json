@@ -1,0 +1,235 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.pyro_charger.fire": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"firing": "v.attack_time>0"
+						}
+					]
+				},
+				"firing": {
+					"animations": [
+						"fire"
+					],
+					"particle_effects": [
+						{
+							"effect": "spark",
+							"locator": "sparks1"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks2"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks3"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks4"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks5"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks6"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks7"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks8"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks9"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks10"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks11"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks12"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks13"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks14"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks15"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks16"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks17"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks18"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks19"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks20"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks21"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks22"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks23"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks24"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks25"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks26"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks27"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks28"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks29"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks30"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks31"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks32"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks33"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks34"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks35"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks36"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks37"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks38"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks39"
+						},
+						{
+							"effect": "spark",
+							"locator": "sparks40"
+						},
+						{
+							"effect": "fire",
+							"locator": "nozzle"
+						},
+						{
+							"effect": "smoke",
+							"locator": "nozzle"
+						}
+					],
+					"transitions": [
+						{
+							"default": "v.attack_time==0&&q.all_animations_finished"
+						}
+					],
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.pyro_charger.cooldown": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"cooldown": "q.property('zom:cooldown')==true"
+						}
+					],
+					"blend_via_shortest_path": true
+				},
+				"cooldown": {
+					"particle_effects": [
+						{
+							"effect": "steam",
+							"locator": "steam1"
+						},
+						{
+							"effect": "steam",
+							"locator": "steam2"
+						},
+						{
+							"effect": "cooldown"
+						}
+					],
+					"sound_effects": [
+						{
+							"effect": "cooldown"
+						}
+					],
+					"transitions": [
+						{
+							"default": "q.property('zom:cooldown')==false"
+						}
+					],
+					"blend_via_shortest_path": true
+				}
+			}
+		}
+	}
+}

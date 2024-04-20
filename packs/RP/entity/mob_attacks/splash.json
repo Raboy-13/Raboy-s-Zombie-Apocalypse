@@ -1,0 +1,20 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "zom:splash",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/balloon"
+			},
+			"geometry": {
+				"default": "geometry.splash"
+			},
+			"render_controllers": [
+				"controller.render.model_default"
+			]
+		}
+	}
+}

@@ -1,0 +1,143 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.feral.general": {
+			"states": {
+				"default": {
+					"animations": [
+						"idle"
+					],
+					"transitions": [
+						{
+							"walking": "query.ground_speed>0.3"
+						},
+						{
+							"attacking": "query.is_delayed_attacking"
+						}
+					],
+					"blend_transition": 0.2
+				},
+				"walking": {
+					"animations": [
+						{
+							"walk": "query.modified_move_speed*2&&!query.has_target&&!query.is_wall_climbing"
+						},
+						{
+							"run": "query.has_target&&!query.is_wall_climbing"
+						}
+					],
+					"transitions": [
+						{
+							"default": "query.ground_speed<0.2"
+						},
+						{
+							"climbing": "query.is_wall_climbing"
+						},
+						{
+							"attacking": "query.is_delayed_attacking"
+						}
+					],
+					"blend_transition": 0.2
+				},
+				"climbing": {
+					"animations": [
+						"climb"
+					],
+					"transitions": [
+						{
+							"walking": "query.ground_speed>0.2&&!query.is_wall_climbing"
+						},
+						{
+							"default": "query.ground_speed<0.2"
+						},
+						{
+							"attacking": "query.is_delayed_attacking"
+						}
+					],
+					"blend_transition": 0.2
+				},
+				"attacking": {
+					"animations": [
+						"attack"
+					],
+					"transitions": [
+						{
+							"climbing": "!query.is_delayed_attacking&&query.is_wall_climbing&&query.all_animations_finished"
+						},
+						{
+							"walking": "!query.is_delayed_attacking&&query.ground_speed>0.2&&query.all_animations_finished"
+						},
+						{
+							"default": "!query.is_delayed_attacking&&query.ground_speed<0.2&&query.all_animations_finished"
+						}
+					],
+					"blend_transition": 0.2
+				}
+			}
+		},
+		"controller.animation.feral.orientation_controller": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"vertical": "query.is_wall_climbing"
+						}
+					],
+					"blend_transition": 0.3
+				},
+				"vertical": {
+					"animations": [
+						"vertical"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_wall_climbing"
+						}
+					],
+					"blend_transition": 0.3
+				}
+			}
+		},
+		"controller.animation.feral.death": {
+			"states": {
+				"default": {
+					"animations": [
+						"look_at_target",
+						"general",
+						"orientation_controller"
+					],
+					"transitions": [
+						{
+							"dead": "!q.is_alive"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"dead": {
+					"animations": [
+						"death",
+						"death_rot"
+					],
+					"particle_effects": [
+						{
+							"effect": "neck_blood",
+							"locator": "blood1"
+						},
+						{
+							"effect": "left_shoulder_blood",
+							"locator": "blood2"
+						}
+					],
+					"transitions": [
+						{
+							"default": "q.is_alive"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				}
+			}
+		}
+	}
+}

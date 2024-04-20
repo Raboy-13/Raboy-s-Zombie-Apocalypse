@@ -1,0 +1,121 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.sonic_cannon.general": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"firing": "v.attack_time>0"
+						}
+					]
+				},
+				"firing": {
+					"animations": [
+						"fire"
+					],
+					"particle_effects": [
+						{
+							"effect": "exhaust",
+							"locator": "exhaust1"
+						},
+						{
+							"effect": "exhaust",
+							"locator": "exhaust2"
+						},
+						{
+							"effect": "exhaust",
+							"locator": "exhaust3"
+						},
+						{
+							"effect": "exhaust",
+							"locator": "exhaust4"
+						},
+						{
+							"effect": "exhaust_front",
+							"locator": "fire"
+						}
+					],
+					"transitions": [
+						{
+							"default": "v.attack_time<=0&&q.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.sonic_cannon.charge": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"charging": "v.attack_time<=0&&q.has_target"
+						}
+					]
+				},
+				"charging": {
+					"particle_effects": [
+						{
+							"effect": "charge",
+							"locator": "charge1"
+						},
+						{
+							"effect": "charge",
+							"locator": "charge2"
+						},
+						{
+							"effect": "charge",
+							"locator": "charge3"
+						},
+						{
+							"effect": "charge",
+							"locator": "charge4"
+						},
+						{
+							"effect": "charge",
+							"locator": "charge5"
+						},
+						{
+							"effect": "charge",
+							"locator": "charge6"
+						},
+						{
+							"effect": "charge",
+							"locator": "charge7"
+						},
+						{
+							"effect": "charge",
+							"locator": "charge8"
+						},
+						{
+							"effect": "charge",
+							"locator": "charge9"
+						},
+						{
+							"effect": "charge",
+							"locator": "charge10"
+						},
+						{
+							"effect": "charge",
+							"locator": "charge11"
+						},
+						{
+							"effect": "charge",
+							"locator": "charge12"
+						}
+					],
+					"sound_effects": [
+						{
+							"effect": "charge"
+						}
+					],
+					"transitions": [
+						{
+							"default": "v.attack_time>0"
+						}
+					]
+				}
+			}
+		}
+	}
+}

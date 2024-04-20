@@ -1,0 +1,36 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.sonic_cannon.first_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [
+						49.84053,
+						53.50626,
+						-52.97359
+					],
+					"position": [
+						15,
+						13,
+						12
+					],
+					"scale": 0.8
+				}
+			}
+		},
+		"animation.sonic_cannon.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"position": [
+						0,
+						20,
+						-6
+					],
+					"scale": 0.4
+				}
+			}
+		}
+	}
+}

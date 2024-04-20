@@ -1,0 +1,30 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "zom:arrow_turret_item",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/turrets/arrow_turret"
+      },
+      "geometry": {
+        "default": "geometry.arrow_turret_item"
+      },
+      "animations": {
+        "first_person_hold": "animation.arrow_turret.first_person_hold",
+        "third_person_hold": "animation.arrow_turret.third_person_hold",
+        "general": "controller.animation.attachable.general"
+      },
+      "scripts": {
+        "animate": [
+          "general"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.model_default"
+      ]
+    }
+  }
+}

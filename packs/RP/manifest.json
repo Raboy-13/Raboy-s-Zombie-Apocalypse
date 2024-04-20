@@ -1,0 +1,45 @@
+{
+	"format_version": 2,
+	"metadata": {
+		"authors": [
+			"Raboy13"
+		],
+		"url": "https://mcpedl.com/raboy-s-zombie-apocalypse/"
+	},
+	"header": {
+		"name": "Raboy's Zombie Apocalypse",
+		"description": "§fThe most§r §l§2Realistic§r§l§r §4§oZombie Apocalypse Addon§r§4§r§f for§r§6 MCPE§r§f / §r§6Minecraft Bedrock§r\n\n§fby §rRaboy13\n§4YouTube§r§f:§r §cRaboy13§r",
+		"min_engine_version": [
+			1,
+			20,
+			20
+		],
+		"uuid": "c94f77c7-97a7-4ada-aec3-b528f92ab13f",
+		"version": [
+			1,
+			2,
+			11
+		]
+	},
+	"modules": [
+		{
+			"type": "resources",
+			"uuid": "c88e988b-d68d-404f-a24d-b5be89cfa3a6",
+			"version": [
+				1,
+				2,
+				11
+			]
+		}
+	],
+	"dependencies": [
+		{
+			"uuid": "f8d9bfdc-f3b2-411e-9004-0e9c764b89d7",
+			"version": [
+				1,
+				2,
+				11
+			]
+		}
+	]
+}

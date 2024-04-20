@@ -1,0 +1,150 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.villager.general": {
+			"states": {
+				"default": {
+					"animations": [
+						"idle"
+					],
+					"transitions": [
+						{
+							"walking": "query.ground_speed>0.1"
+						},
+						{
+							"sleeping": "q.is_sleeping"
+						}
+					],
+					"blend_transition": 0.1
+				},
+				"walking": {
+					"animations": [
+						{
+							"walk": "q.modified_move_speed"
+						}
+					],
+					"transitions": [
+						{
+							"default": "query.ground_speed<0.1"
+						},
+						{
+							"running": "query.is_avoiding_mobs"
+						},
+						{
+							"sleeping": "q.is_sleeping"
+						}
+					],
+					"blend_transition": 0.6
+				},
+				"running": {
+					"animations": [
+						{
+							"run": "query.modified_move_speed"
+						}
+					],
+					"transitions": [
+						{
+							"default": "query.ground_speed<0.1"
+						},
+						{
+							"sleeping": "q.is_sleeping"
+						}
+					],
+					"blend_transition": 0.6
+				},
+				"sleeping": {
+					"animations": [
+						"get_in_bed"
+					],
+					"transitions": [
+						{
+							"default": "!q.is_sleeping"
+						}
+					],
+					"blend_transition": 0.2
+				}
+			}
+		},
+		"controller.animation.villager.raise_arms": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"raising": "variable.raise_arms>0"
+						}
+					]
+				},
+				"raising": {
+					"animations": [
+						"raise_arms"
+					],
+					"transitions": [
+						{
+							"default": "variable.raise_arms==0"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.villager.throw": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"throwing": "variable.attack_time>0"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"throwing": {
+					"animations": [
+						"throw"
+					],
+					"transitions": [
+						{
+							"default": "variable.attack_time<=0&&q.all_animations_finished"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.villager.death": {
+			"states": {
+				"default": {
+					"animations": [
+						{
+							"look_at_target": "!q.is_sleeping&&!q.is_avoiding_mobs"
+						},
+						{
+							"blink": "!q.is_sleeping"
+						},
+						"general",
+						"arms_controller",
+						"throw_controller"
+					],
+					"transitions": [
+						{
+							"death": "!q.is_alive"
+						}
+					],
+					"blend_transition": 0.2
+				},
+				"death": {
+					"animations": [
+						"death_rot",
+						"death"
+					],
+					"transitions": [
+						{
+							"default": "q.is_alive"
+						}
+					],
+					"blend_transition": 0.2
+				}
+			}
+		}
+	}
+}

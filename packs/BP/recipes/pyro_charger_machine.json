@@ -1,0 +1,40 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "zom:pyro_charger_machine"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"B": {
+				"item": "blaze_powder"
+			},
+			"i": {
+				"item": "iron_ingot"
+			},
+			"I": {
+				"item": "iron_block"
+			},
+			"O": {
+				"item": "observer"
+			},
+			"W": {
+				"item": "sticky_piston"
+			},
+			"L": {
+				"item": "lava_bucket"
+			}
+		},
+		"pattern": [
+			"ii",
+			"BLO",
+			"IW "
+		],
+		"result": {
+			"item": "zom:pyro_charger_machine",
+			"count": 1
+		}
+	}
+}

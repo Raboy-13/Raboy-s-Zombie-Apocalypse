@@ -1,0 +1,86 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.walker.base": {
+			"arrays": {
+				"textures": {
+					"Array.variants": [
+						"Texture.variant1",
+						"Texture.variant2",
+						"Texture.variant3",
+						"Texture.variant4",
+						"Texture.variant5",
+						"Texture.variant6",
+						"Texture.variant7",
+						"Texture.variant8",
+						"Texture.variant9",
+						"Texture.variant10"
+					]
+				},
+				"geometries": {
+					"array.geos": [
+						"Geometry.default",
+						"Geometry.death"
+					]
+				}
+			},
+			"geometry": "q.is_alive?geometry.default:geometry.death",
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"array.variants[variable.variants]"
+			],
+			"is_hurt_color": {
+				"r": 1,
+				"g": 0,
+				"b": 0,
+				"a": "q.is_alive?0.5:0"
+			}
+		},
+		"controller.render.zombie.faces": {
+			"arrays": {
+				"textures": {
+					"Array.faces": [
+						"Texture.face1",
+						"Texture.face2",
+						"Texture.face3",
+						"Texture.face4",
+						"Texture.face5"
+					]
+				},
+				"geometries": {
+					"array.geos": [
+						"Geometry.default",
+						"Geometry.death"
+					]
+				}
+			},
+			"geometry": "q.is_alive?geometry.default:geometry.death",
+			"materials": [
+				{
+					"*": "material.face"
+				}
+			],
+			"textures": [
+				"array.faces[variable.faces]"
+			],
+			"part_visibility": [
+				{
+					"*": "!query.is_alive"
+				},
+				{
+					"head": "query.is_alive"
+				}
+			],
+			"is_hurt_color": {
+				"r": 1,
+				"g": 0,
+				"b": 0,
+				"a": "q.is_alive?0.5:0"
+			}
+		}
+	}
+}

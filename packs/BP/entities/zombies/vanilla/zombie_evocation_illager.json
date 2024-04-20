@@ -1,0 +1,367 @@
+{
+	"format_version": "1.19.80",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "zom:zombie_evocation_illager",
+			"is_spawnable": true,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"component_groups": {
+			"zom:to_evoker": {
+				"minecraft:transformation": {
+					"into": "minecraft:evocation_illager",
+					"begin_transform_sound": "remedy",
+					"transformation_sound": "unfect",
+					"delay": {
+						"value": 30,
+						"block_assist_chance": 0.01,
+						"block_radius": 4,
+						"block_chance": 0.3,
+						"block_types": [
+							"minecraft:bed",
+							"minecraft:iron_bars"
+						]
+					}
+				},
+				"minecraft:spell_effects": {
+					"add_effects": [
+						{
+							"effect": "strength",
+							"duration": 100
+						},
+						{
+							"effect": "heal",
+							"duration": 100
+						}
+					],
+					"remove_effects": "weakness"
+				},
+				"minecraft:is_shaking": {}
+			}
+		},
+		"events": {
+			"minecraft:entity_spawned": {},
+			"minecraft:entity_transformed": {},
+			"zom:cure": {
+				"add": {
+					"component_groups": [
+						"zom:to_evoker"
+					]
+				}
+			},
+			"zom:blood_splatter": {
+				"run_command": {
+					"command": "playsound mob.zombie.blood_splatter @a ~ ~ ~ 1",
+					"target": "self"
+				}
+			}
+		},
+		"components": {
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:nameable": {},
+			"minecraft:type_family": {
+				"family": [
+					"zombie_illager",
+					"zombie",
+					"undead",
+					"monster",
+					"mob"
+				]
+			},
+			"minecraft:collision_box": {
+				"width": 0.6,
+				"height": 1.9
+			},
+			"minecraft:experience_reward": {
+				"on_death": "query.last_hit_by_player?5+(query.equipment_count*math.random(1,3)):0"
+			},
+			"minecraft:movement": {
+				"value": 0.25
+			},
+			"minecraft:movement.basic": {},
+			"minecraft:navigation.walk": {
+				"is_amphibious": true,
+				"can_pass_doors": true,
+				"can_walk": true,
+				"can_float": true,
+				"can_path_over_water": true,
+				"avoid_damage_blocks": false
+			},
+			"minecraft:jump.static": {},
+			"minecraft:health": {
+				"value": 15
+			},
+			"minecraft:behavior.float": {
+				"priority": 5
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+			"minecraft:breathable": {
+				"total_supply": 15,
+				"suffocate_time": 0,
+				"breathes_air": true,
+				"breathes_water": true
+			},
+			"minecraft:behavior.summon_entity": {
+				"priority": 4,
+				"summon_choices": [
+					{
+						"min_activation_range": 0,
+						"max_activation_range": 3,
+						"cooldown_time": 5,
+						"weight": 8,
+						"cast_duration": 2,
+						"particle_color": "#FF664D59",
+						"start_sound_event": "cast.spell",
+						"sequence": [
+							{
+								"shape": "circle",
+								"target": "self",
+								"base_delay": 1,
+								"delay_per_summon": 0.2,
+								"num_entities_spawned": 1,
+								"entity_type": "zom:walker",
+								"entity_lifespan": -1,
+								"sound_event": "prepare.attack"
+							},
+							{
+								"shape": "circle",
+								"target": "self",
+								"base_delay": 0.15,
+								"delay_per_summon": 0.2,
+								"num_entities_spawned": 2,
+								"entity_type": "zom:walker",
+								"entity_lifespan": -1
+							}
+						]
+					},
+					{
+						"min_activation_range": 3,
+						"weight": 1,
+						"cooldown_time": 5,
+						"cast_duration": 2,
+						"particle_color": "#FF664D59",
+						"start_sound_event": "cast.spell",
+						"sequence": [
+							{
+								"shape": "circle",
+								"target": "self",
+								"base_delay": 1,
+								"delay_per_summon": 0.2,
+								"num_entities_spawned": 5,
+								"entity_type": "zom:walker",
+								"entity_lifespan": -1
+							}
+						]
+					}
+				]
+			},
+			"minecraft:attack": {
+				"damage": 3
+			},
+			"minecraft:loot": {
+				"table": "loot_tables/entities/zombie_evocation_illager.json"
+			},
+			"minecraft:despawn": {
+				"despawn_from_distance": {
+					"max_distance": 64,
+					"min_distance": 32
+				}
+			},
+			"minecraft:behavior.delayed_attack": {
+				"priority": 5,
+				"speed_multiplier": 1.1,
+				"attack_duration": 0.1,
+				"hit_delay_pct": 0.85,
+				"max_path_time": 1,
+				"random_stop_interval": 120,
+				"x_max_rotation": 30
+			},
+			"minecraft:behavior.random_stroll": {
+				"priority": 7,
+				"speed_multiplier": 1
+			},
+			"minecraft:behavior.look_at_player": {
+				"priority": 8,
+				"look_distance": 6,
+				"probability": 0.02
+			},
+			"minecraft:behavior.random_look_around": {
+				"priority": 9
+			},
+			"minecraft:interact": {
+				"interactions": {
+					"on_interact": {
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_equipment",
+									"domain": "hand",
+									"subject": "other",
+									"value": "golden_apple"
+								},
+								{
+									"test": "has_component",
+									"subject": "self",
+									"value": "minecraft:effect.weakness"
+								}
+							]
+						},
+						"event": "zom:cure",
+						"target": "self"
+					},
+					"use_item": true,
+					"interact_text": "action.interact.cure"
+				}
+			},
+			"minecraft:behavior.hurt_by_target": {
+				"priority": 1,
+				"alert_same_type": true,
+				"entity_types": {
+					"filters": {
+						"all_of": [
+							{
+								"test": "is_family",
+								"subject": "other",
+								"operator": "!=",
+								"value": "turret"
+							},
+							{
+								"test": "is_family",
+								"subject": "other",
+								"operator": "!=",
+								"value": "villager"
+							},
+							{
+								"test": "is_family",
+								"subject": "other",
+								"operator": "!=",
+								"value": "illager"
+							},
+							{
+								"test": "is_visible",
+								"subject": "other",
+								"value": true
+							}
+						]
+					}
+				}
+			},
+			"minecraft:follow_range": {
+				"value": 64
+			},
+			"minecraft:dweller": {
+				"dwelling_type": "village",
+				"dweller_role": "hostile",
+				"update_interval_base": 60,
+				"update_interval_variant": 40,
+				"can_find_poi": false,
+				"can_migrate": true,
+				"first_founding_reward": 0
+			},
+			"minecraft:behavior.move_to_village": {
+				"priority": 4,
+				"speed_multiplier": 1,
+				"goal_radius": 2
+			},
+			"minecraft:behavior.nearest_attackable_target": {
+				"priority": 2,
+				"must_see": true,
+				"reselect_targets": true,
+				"within_radius": 16,
+				"must_see_forget_duration": 0,
+				"entity_types": [
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "player"
+								},
+								{
+									"test": "is_visible",
+									"subject": "self",
+									"value": true
+								}
+							]
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_visible",
+									"subject": "other",
+									"value": true
+								},
+								{
+									"none_of": [
+										{
+											"test": "has_mob_effect",
+											"subject": "self",
+											"value": "weakness"
+										}
+									]
+								},
+								{
+									"any_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "player"
+										},
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "snowgolem"
+										},
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "irongolem"
+										},
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "villager"
+										},
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "wandering_trader"
+										}
+									]
+								}
+							]
+						},
+						"max_dist": 16
+					}
+				]
+			},
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": true,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:conditional_bandwidth_optimization": {},
+			"minecraft:on_death": {
+				"event": "zom:blood_splatter",
+				"target": "self"
+			}
+		}
+	}
+}

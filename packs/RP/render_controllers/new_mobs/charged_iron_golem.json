@@ -1,0 +1,28 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.iron_golem.level": {
+			"arrays": {
+				"textures": {
+					"Array.levels": [
+						"Texture.lvl1",
+						"Texture.lvl2",
+						"Texture.lvl3"
+					]
+				}
+			},
+			"geometry": "geometry.default",
+			"textures": [
+				"array.levels[query.property('zom:upgrade_phases')]"
+			],
+			"part_visibility": [
+				{
+					"*": false
+				},
+				{
+					"spine": true
+				}
+			]
+		}
+	}
+}

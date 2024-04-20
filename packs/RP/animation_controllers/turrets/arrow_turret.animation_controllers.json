@@ -1,0 +1,46 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.arrow_turret.general": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"charge": "q.property('zom:active')==true"
+						}
+					]
+				},
+				"charge": {
+					"animations": [
+						"charge"
+					],
+					"transitions": [
+						{
+							"firing": "variable.attack_time>0&&q.all_animations_finished"
+						},
+						{
+							"default": "q.property('zom:active')==false"
+						}
+					]
+				},
+				"firing": {
+					"animations": [
+						"fire"
+					],
+					"particle_effects": [
+						{
+							"effect": "shoot_dust",
+							"locator": "dust"
+						}
+					],
+					"transitions": [
+						{
+							"charge": "q.all_animations_finished"
+						}
+					],
+					"blend_transition": 0.4
+				}
+			}
+		}
+	}
+}

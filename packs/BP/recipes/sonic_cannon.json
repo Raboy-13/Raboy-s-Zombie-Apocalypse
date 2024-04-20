@@ -1,0 +1,33 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "zom:sonic_cannon"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"S": {
+				"item": "zom:sonic_compressor"
+			},
+			"O": {
+				"item": "observer"
+			},
+			"D": {
+				"item": "dispenser"
+			},
+			"B": {
+				"item": "bone_block"
+			}
+		},
+		"pattern": [
+			"BBB",
+			"SOD"
+		],
+		"result": {
+			"item": "zom:sonic_cannon_item",
+			"count": 1
+		}
+	}
+}

@@ -1,0 +1,400 @@
+{
+	"biomes": {
+		"bamboo_jungle": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"bamboo_jungle_hills": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"birch_forest": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"birch_forest_hills": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"cherry_grove": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"cold_taiga": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"cold_taiga_hills": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"cold_taiga_mutated": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"default": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"remove_all_prior_fog": false,
+			"water_surface_color": "#44AFF5",
+			"water_surface_transparency": 0.650
+		},
+		"desert": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"desert_hills": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"extreme_hills": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"extreme_hills_edge": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"extreme_hills_mutated": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"extreme_hills_plus_trees": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"extreme_hills_plus_trees_mutated": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"flower_forest": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"forest": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"forest_hills": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"frozen_river": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#185390"
+		},
+		"jungle": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"jungle_edge": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"jungle_hills": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"jungle_mutated": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mangrove_swamp": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mega_spruce_taiga": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mega_spruce_taiga_mutated": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mega_taiga": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mega_taiga_hills": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mega_taiga_mutated": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mesa": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#4E7F81"
+		},
+		"mesa_bryce": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mesa_mutated": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mesa_plateau": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mesa_plateau_stone": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mushroom_island": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"mushroom_island_shore": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"plains": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"river": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"roofed_forest": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"savanna": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"savanna_mutated": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"savanna_plateau": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"sunflower_plains": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"swampland": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#786557",
+			"water_surface_transparency": 1.0
+		},
+		"swampland_mutated": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#786557",
+			"water_surface_transparency": 1.0
+		},
+		"taiga": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"taiga_hills": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		},
+		"taiga_mutated": {
+			"fog_identifier": "zom:apocalyptic_fog_setting",
+			"fog_ids_to_merge": [
+				"zom:apocalyptic_fog_setting"
+			],
+			"inherit_from_prior_fog": false,
+			"water_surface_color": "#6a3c1a"
+		}
+	}
+}

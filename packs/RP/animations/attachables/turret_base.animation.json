@@ -1,0 +1,40 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.turret_base.first_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [
+						129.8944,
+						23.48832,
+						3.96499
+					],
+					"position": [
+						0,
+						23,
+						1
+					]
+				}
+			}
+		},
+		"animation.turret_base.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [
+						21.50315,
+						40.8212,
+						14.86334
+					],
+					"position": [
+						0,
+						21,
+						-5
+					],
+					"scale": 0.4
+				}
+			}
+		}
+	}
+}

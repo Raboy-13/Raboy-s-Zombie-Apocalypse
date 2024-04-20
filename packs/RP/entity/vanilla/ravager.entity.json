@@ -1,0 +1,51 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "minecraft:ravager",
+			"min_engine_version": "1.16.0",
+			"textures": {
+				"default": "textures/entity/illager/ravager"
+			},
+			"materials": {
+				"default": "ravager"
+			},
+			"geometry": {
+				"default": "geometry.ravager.rza"
+			},
+			"render_controllers": [
+				"controller.render.ravager"
+			],
+			"spawn_egg": {
+				"texture": "spawn_egg",
+				"texture_index": 57
+			},
+			"animations": {
+				"look_at_target": "animation.common.look_at_target",
+				"blink": "animation.general_front.blink",
+				"idle": "animation.ravager.idle",
+				"walk": "animation.ravager.walk",
+				"run": "animation.ravager.run",
+				"attack": "animation.ravager.attack",
+				"stunned": "animation.ravager.stunned",
+				"roar": "animation.ravager.roar",
+				"death": "animation.ravager.death",
+				"death_rot": "animation.general.death_rot",
+				"general": "controller.animation.ravager.general",
+				"attack_cont": "controller.animation.ravager.attack",
+				"death_cont": "controller.animation.ravager.death"
+			},
+			"scripts": {
+				"initialize": [
+					"v.blink_speed = math.random(0.6, 3);"
+				],
+				"animate": [
+					"death_cont"
+				]
+			},
+			"particle_effects": {
+				"stun_particles": "minecraft:stunned_emitter"
+			}
+		}
+	}
+}

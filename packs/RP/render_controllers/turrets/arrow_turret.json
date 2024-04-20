@@ -1,0 +1,27 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.arrow_turret": {
+			"geometry": "geometry.default",
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"texture.default"
+			],
+			"part_visibility": [
+				{
+					"arrow": "q.property('zom:active') == true"
+				}
+			],
+			"is_hurt_color": {
+				"r": 1,
+				"g": 1,
+				"b": 1,
+				"a": "q.is_alive?0.3:0.1"
+			}
+		}
+	}
+}

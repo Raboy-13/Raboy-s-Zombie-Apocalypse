@@ -1,0 +1,192 @@
+{
+	"format_version": "1.16.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "minecraft:vex",
+			"is_spawnable": true,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"components": {
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:experience_reward": {
+				"on_death": "query.last_hit_by_player?5+(query.equipment_count*math.random(1,3)):0"
+			},
+			"minecraft:nameable": {},
+			"minecraft:type_family": {
+				"family": [
+					"vex",
+					"illager",
+					"mob"
+				]
+			},
+			"minecraft:equipment": {
+				"table": "loot_tables/entities/vex_gear.json"
+			},
+			"minecraft:health": {
+				"value": 14,
+				"max": 14
+			},
+			"minecraft:attack": {
+				"damage": 3
+			},
+			"minecraft:collision_box": {
+				"width": 0.4,
+				"height": 0.8
+			},
+			"minecraft:movement": {
+				"value": 1
+			},
+			"minecraft:navigation.walk": {
+				"can_path_over_water": true
+			},
+			"minecraft:movement.basic": {},
+			"minecraft:jump.static": {},
+			"minecraft:can_climb": {},
+			"minecraft:fire_immune": {},
+			"minecraft:despawn": {
+				"despawn_from_distance": {}
+			},
+			"minecraft:damage_sensor": {
+				"triggers": {
+					"cause": "all",
+					"on_damage": {
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "turret"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "illager"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "villager"
+								}
+							]
+						}
+					},
+					"deals_damage": false
+				}
+			},
+			"minecraft:behavior.float": {
+				"priority": 0
+			},
+			"minecraft:behavior.charge_attack": {
+				"priority": 4
+			},
+			"minecraft:behavior.nearest_prioritized_attackable_target": {
+				"priority": 2,
+				"must_see": true,
+				"reselect_targets": true,
+				"within_radius": 12,
+				"entity_types": [
+					{
+						"priority": 0,
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "zombie"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "zombie_villager"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "zombie_illager"
+								}
+							]
+						},
+						"max_dist": 12
+					},
+					{
+						"priority": 2,
+						"filters": {
+							"any_of": [
+								{
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "zombie_villager"
+										},
+										{
+											"test": "has_mob_effect",
+											"subject": "other",
+											"operator": "!=",
+											"value": "weakness"
+										}
+									]
+								},
+								{
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "zombie_illager"
+										},
+										{
+											"test": "has_mob_effect",
+											"subject": "other",
+											"operator": "!=",
+											"value": "weakness"
+										}
+									]
+								}
+							]
+						},
+						"max_dist": 12
+					}
+				]
+			},
+			"minecraft:behavior.look_at_player": {
+				"priority": 9,
+				"look_distance": 6,
+				"probability": 0.02
+			},
+			"minecraft:behavior.look_at_entity": {
+				"priority": 9,
+				"look_distance": 6,
+				"probability": 0.02,
+				"filters": {
+					"test": "is_family",
+					"subject": "other",
+					"value": "mob"
+				}
+			},
+			"minecraft:behavior.hurt_by_target": {
+				"priority": 5,
+				"entity_types": {
+					"must_see": true,
+					"must_see_forget_duration": 0,
+					"filters": {
+						"test": "is_family",
+						"subject": "other",
+						"value": "player"
+					}
+				}
+			},
+			"minecraft:physics": {
+				"has_gravity": false,
+				"has_collision": false
+			},
+			"minecraft:conditional_bandwidth_optimization": {},
+			"minecraft:game_event_movement_tracking": {
+				"emit_move": false,
+				"emit_swim": false
+			}
+		}
+	}
+}

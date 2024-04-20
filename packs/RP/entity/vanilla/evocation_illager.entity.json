@@ -1,0 +1,51 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "minecraft:evocation_illager",
+			"min_engine_version": "1.16.0",
+			"materials": {
+				"default": "evoker"
+			},
+			"textures": {
+				"default": "textures/entity/illager/evoker"
+			},
+			"geometry": {
+				"default": "geometry.evoker.rza"
+			},
+			"animations": {
+				"look_at_target": "animation.common.look_at_target",
+				"blink": "animation.general_front.blink",
+				"idle": "animation.villager.idle",
+				"walk": "animation.evoker.walk",
+				"riding_legs": "animation.evoker.riding_legs",
+				"cast": "animation.evoker.cast",
+				"celebrate": "animation.evoker.celebrate",
+				"death": "animation.evoker.death",
+				"death_rot": "animation.general.death_rot",
+				"general": "controller.animation.evoker.general",
+				"ride_cont": "controller.animation.evoker.ride",
+				"death_cont": "controller.animation.evoker.death"
+			},
+			"scripts": {
+				"scale": "0.9375",
+				"initialize": [
+					"v.blink_speed = math.random(0.6, 3);"
+				],
+				"animate": [
+					"death_cont"
+				]
+			},
+			"particle_effects": {
+				"spell": "minecraft:evoker_spell"
+			},
+			"render_controllers": [
+				"controller.render.evoker"
+			],
+			"spawn_egg": {
+				"texture": "spawn_egg",
+				"texture_index": 40
+			}
+		}
+	}
+}

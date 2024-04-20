@@ -1,0 +1,289 @@
+[Raboy's Zombie Apocalypse v1.0.0]
+============================================================================
+# Apocalyptic Ambience
+-less vegetation: dead trees are everywhere and no grass
+-new subtle fog setting for an apocalyptic atmosphere
+
+# New game mechanics
+-all hostile vanilla mobs are kept from spawning except for illagers to make room for the zombies
+-rare zombies will have a higher chance spawning when the moon is full
+-zombie horde size and spawn rate is low on easy difficulty
+-zombie horde size and spawn rate is normal on normal difficulty
+-zombie horde size and spawn rate is high on hard difficulty
+-huge zombie hordes and fast spawn rate when the moon is full
+-increased rare zombie spawn rate when the moon is full
+-increased rare zombie spawn rate when the player doesn't sleep enough (replaced phantoms with rare zombies)
+
+# New Vanilla Game Mechanics
+-villages now spawn infested with zombies instead of villagers in them
+-no iron golem is present in every village
+-animals now only spawn in villages, except for biome-specific mobs such as the parrot and panda
+
+# New Vanilla Mob Mechanics
+> Iron Golem
+-can be given tnt that will enable it to explode upon death
+-immune to explosions
+
+============================================================================
+# Zombie Types
+> Walker
+-spawns during night time and only on the surface
+-15 hitpoints
+-3 attack damage
+
+> Player walker variant (special zombie)
+-Raboy13's cameo and patron zombified skins (all of Raboy13's patrons will be added to the addon as a zombie)
+-spawns during night time and only on the surface
+-15 hitpoints
+-3 attack damage
+
+> Feral (rare zombie)
+-spawns very rarely but more often during full moon and when the player doesn't sleep enough. Can only spawn on the surface
+-doesn't spawn in easy difficulty
+-25 hitpoints
+-3 attack damage
+-the fastest zombie in the addon
+-can climb walls
+-immune to fall damage
+-smarter than walker zombie (avoids lava)
+
+> Miner (rare zombie)
+-spawns only underground
+-30 hitpoints
+-4 attack damage
+-smarter than walker zombie (avoids lava)
+
+============================================================================
+# Zombie Drops
+> Walker
+-transferred every hostile mob drops in the overworld to walker zombies except for the phantom and witch
+
+> Feral
+- has the same drops as the witch
+
+> Miner
+-gold nugget
+-coal
+-raw copper
+-raw iron
+-tnt
+-iron pickaxe
+
+============================================================================
+# New Mobs
+> Charged Iron Golem
+-new iron golem variant when a regular iron golem is given a tnt
+-unique refined texture (no vines)
+-same health as a regular iron golem
+-can be upgraded to 3 levels using tnt, the level indicator can be found in its chest
+-can be given an enchanted golden apple to turn it into a supercharged iron golem
+-explosion power doubles exponentially each level
+-base explosion power is 4
+-immune to explosions
+
+> Supercharged Iron Golem
+-the most powerful version of the iron golem
+-new smash attack to damage multiple targets at once
+-300 hitpoints
+-produces an explosion that's more powerful than a level 3 charged golem when killed
+-immune to explosions
+
+============================================================================
+
+[Raboy's Zombie Apocalypse v1.1.0]
+
+*Compatibility
+-full 1.20 support
+
+*Gameplay
+-fixed saplings don't grow with leaves (only works with oak saplings for now)
+-charged and supercharged iron golems now destroy blocks when exploding
+-significantly improved wandering trader trades
+
+*World Generation
+-removed flowers that generate on some parts of the world
+-slightly tweaked world generation
+-added abandoned houses (only spawn on wooded areas)
+
+*Visuals
+-improved zombie walking animation speed (walk animation speed now depends on how fast the zombie is moving)
+-added sponge with gun zombie variant (patron skin)
+
+*Mobs
+-zombies now drop xp when killed
+-zombies are now slightly faster except for the miner zombies
+-zombies now attack faster
+-match zombie villager behaviors to other zombies
+-improved zombie villager animations
+-illagers now attack zombies and vice versa
+-illagers are now friendly towards villagers
+-illagers are now neutral towards players
+-illagers are now friendly towards iron golems and vice versa
+-pillagers will now try to avoid zombies
+-ravagers are now friendly towards iron golems and players and vice versa
+-added zombie evoker (only summons evocation fangs)
+-added zombie pillager
+-added zombie vindicator
+-changed charged iron golem health from 100 to 600
+-changed supercharged iron golem health from 300 to 1200
+-wandering trader now fights back when attacked by players
+-wandering trader now fights zombies by throwing potions at them like the witch
+-wandering trader now drinks potions depending on the circumstance
+-wandering trader now runs faster when avoiding zombies
+
+[RABOY'S ZOMBIE APOCALYPSE v1.2.1]
+*Bug Fixes
+-all tree types now grow with leaves
+-fixed supercharged iron golem splash attack sometimes being above its head
+-fixed supercharged iron golem sometimes unable to move for no reason
+-fixed zombie villager still burning in daylight
+
+*Game Mechanics
+-rebalanced zombie spawning
+(
+-there will now be no zombies that will spawn on the first day, although some will spawn on the first night. After day one, zombie spawn rate will return back to normal
+-miners will now start spawning around day 6
+-ferals will now start spawning around day 8
+-walker zombie spawn rate during full moon now depends on the difficulty(lower difficulty, lower zombie spawn rate but still a higher spawn rate when it's not full moon in the same difficulty, same logic applies on higher difficulties)
+-disabled phantoms and phantoms into ferals
+-walker zombie now has a 3% chance of becoming a runner zombie on easy difficulty when not on a full moon, and 5% chance on a full moon
+-walker zombie now has a 15% chance of becoming a runner zombie on normal difficulty when not on a full moon, and 25% chance on a full moon
+-walker zombie now has a 25% chance of becoming a runner zombie on hard difficulty when not on a full moon, and 50% chance on a full moon
+)
+-iron golem splash damage now occurs in front of the supercharged iron golem rather than the middle
+-illagers now spawn naturally within a village when an iron golem spawns
+-illagers now stay in a village when there is at least a villager in it to activate the village
+-zombies now actually move and stay into an active village (at least one villager is linked to a bed); otherwise, they will just wander around
+-vindicator now has a 30% chance of spawming with a diamond axe
+-illager captain vindicator now has a  70% chance of spawning  with a diamond axe
+-pillager now has a 30% chance of spawning with a diamond sword as a secondary melee weapon
+-illager captain pillager now has a 70% chance of spawning with a diamond sword as a secondary melee weapon
+-curing a zombie pillager holding a crossbow now has a 70% chance of having diamond sword as secondary weapon
+
+*Turrets
+-added arrow turret
+(
+-shoots fast arrows up to 48 blocks away and can be repaired using iron ingot or string
+-only targets walkers, miners, and ferals
+-has 200 health points
+-only works when placed on a turret base
+)
+-added pyro charger
+(
+-burns every target within a 32-block radius
+-only targets walkers, miners, and ferals that are outside a villager and at least 8 blocks away from the turret, doesn't target zombies that are already on fire
+-has 200 health points
+-immune to fire damage
+-starts to overheat within 20 seconds after acquiring a target
+-has a 15-second cooldown when overheated
+-only works when placed on a turret base
+)
+-added sonic cannon
+(
+-fires a sonic charge every 2.5 seconds up to 48 blocks away
+-sonic charge does 8 damage within a 6-block radius every tick
+-can one-hit any target with a direct hit
+-only targets walkers, miners, and ferals
+-has 200 health points
+-only works when placed on a turret base
+)
+
+*Blocks
+-added turret base block
+
+*Items
+-added turret base item
+-added arrow turret item
+-added pyro charger item
+-added sonic cannon item
+
+*Recipes
+-added turret base recipe
+-added arrow turret recipe
+-added pyro charger pre-requisite recipe
+-added pyro charger final recipe
+-added sonic cannon pre-requisite recipe
+-added sonic cannon final recipe
+
+*Zombies
+-added the runner zombie which runs almost as fast as a feral
+-ferals now attack turrets
+-ferals can now spot a turret from 64 blocks away
+-all zombies except for ferals are passive to turrets
+-zombies now only spawn on dirt and stone blocks
+-ferals and miner zombies now drop more xp than walker zombies
+-zombie illagers can now be cured using the same mechanics as curing a zombie villager
+-zombie villagers and illagers can now be cured  within 30 seconds after curing process
+-zombie evoker now summons zombies instead of evocation fangs
+-ferals now break blocks above them when trying to reach a target
+-zombie villagers and illagers now be passive when they have the weakness effect, except for the player
+
+*Mobs
+-all neutral and friendly mobs (except for animals) now don't take damage from turrets
+-all new iron golems now have the same explosion power when killed
+-changed level charged iron golem health to 200
+-changed leve2 charged iron golem health to 400
+-changed leve3 charged iron golem health to 800
+-improved supercharged iron golem smash attack
+-villagers now drink potions depending on various conditions
+-adult villagers now fight zombies by throwing different potions at them
+-villagers now heal the ravager and iron golem and its variant when it reaches a low health threshold by throwing a splash potion of regeneration at them
+-villagers will now avoid attacking zombie villagers and illagers with the weakness status effect but will still attack them if they were already targeted without the weakness effect first
+-villagers will now throw potions of weakness at zombie villagers and illagers that don't have the weakness status effect
+-illagers can now mingle with one another and villagers around the village bell during the day
+-illagers now temporarily withdraw from battle when they lost enough health and replenish by drinking a health potion
+-evoker now heals the ravager and iron golem and its variant when it reaches a low health threshold, and it will also heal them to max health when it doesn't have a target
+-pillagers now switch to melee mode with an iron sword when cornered or outnumbered
+-tower guard pillagers now have significantly longer range (48 blocks) than settler pillagers
+-ravager now roars during battle when its health reaches a low health threshold
+-ravager now doesn't break blocks around it
+-wolf now attacks zombies when tamed
+-added village defender dweller type on illagers
+-illagers will now avoid attacking zombie villagers and illagers with the weakness status effect but will still attack them if they were already targeted without the weakness effect first
+-iron golem and its variants will now avoid attacking zombie villagers and illagers with the weakness status effect but will still attack them if they were already targeted without the weakness effect first
+
+*Zombie Loot
+-reduced feral loot drop chance 
+-reduced walker loot drop chance
+
+*Structures
+-Added illager settlement - a large, protected village that is 105 by 102 blocks in size, it is surrounded by a wall with 8 towers and a bunch of arrow turrets.
+-illager settlement now spawns naturally but rarely
+
+*Structure Loot
+-slightly reduced the loot count on each chest inside abandoned houses
+-all sapling types can now be found in chests inside abndoned houses
+-cherry saplings can now be found in chests inside abandoned houses
+-bamboo saplings can now be found in chests inside abandoned houses
+-mangrove propagules can now be found in chests inside abandoned houses
+-sugarcane can now be found in chests inside abandoned houses
+-quartz can now be found in chests inside abandoned houses
+-slime ball can now be found in chests inside abandoned houses
+-Arrow Turret and turret base can now be found in chests inside abandoned houses but are very rare
+-increased loot spawn rate inside illager settlements
+-increased rare loot found inside illager settlements
+
+*Trading
+-turrets and the turret base are now available for trading from the weaponsmith villager and only available on max level
+-price for turrets and turret base can be discounted when a cured zombie villager becomes a weaponsmith or is already a zombie weaponsmith
+
+*Visuals
+-leaves and grass block top part are now green in color except for grass and tall grass
+-improved zombie blood particle effect
+-added 2 new general zombie death animations
+-added a new feral death aniamtion
+-added a new villager throwing animation
+-added a new wandering trader throwing animation
+-improved villager animations
+-improved wandering trader animations
+-improved evoker animations
+-improved pillager animations
+-improved vindicator animations
+-improved ravager animations
+-improved supercharged iron golem particles
+
+*Sounds
+-added blood splatter sound effects
+
+*Known Issues
+-wandering trader throwing animation doesn't work

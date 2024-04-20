@@ -1,0 +1,46 @@
+{
+	"format_version": "1.20.0",
+	"minecraft:block": {
+		"description": {
+			"identifier": "zom:turret_base"
+		},
+		"components": {
+			"minecraft:geometry": "geometry.turret_base",
+			"minecraft:material_instances": {
+				"*": {
+					"texture": "zom_turret_base",
+					"render_method": "opaque"
+				}
+			},
+			"minecraft:loot": "loot_tables/blocks/turret_base.json",
+			"minecraft:destructible_by_mining": true,
+			"minecraft:destructible_by_explosion": {
+				"explosion_resistance": 999
+			},
+			"minecraft:collision_box": {
+				"origin": [
+					-7,
+					0,
+					-7
+				],
+				"size": [
+					14,
+					12,
+					14
+				]
+			},
+			"minecraft:selection_box": {
+				"origin": [
+					-7,
+					0,
+					-7
+				],
+				"size": [
+					14,
+					12,
+					14
+				]
+			}
+		}
+	}
+}

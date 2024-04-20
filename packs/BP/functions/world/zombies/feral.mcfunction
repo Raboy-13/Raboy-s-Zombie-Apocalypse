@@ -1,0 +1,1 @@
+execute as @e[type=zom:feral] at @s unless block ~ ~1 ~ air run setblock ~ ~1 ~ air destroy

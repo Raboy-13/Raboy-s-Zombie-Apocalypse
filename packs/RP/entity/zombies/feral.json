@@ -1,0 +1,74 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "zom:feral",
+			"materials": {
+				"default": "rab_zombie",
+				"face": "zombie_face"
+			},
+			"textures": {
+				"default": "textures/entity/feral/feral",
+				"face1": "textures/entity/zombie_faces/face1",
+				"face2": "textures/entity/zombie_faces/face2",
+				"face3": "textures/entity/zombie_faces/face3",
+				"face4": "textures/entity/zombie_faces/face4",
+				"face5": "textures/entity/zombie_faces/face5",
+				"torso_wound1": "textures/entity/zombie_wounds/torso_wound1",
+				"torso_wound2": "textures/entity/zombie_wounds/torso_wound2",
+				"torso_wound3": "textures/entity/zombie_wounds/torso_wound3",
+				"torso_wound4": "textures/entity/zombie_wounds/torso_wound4",
+				"torso_wound5": "textures/entity/zombie_wounds/torso_wound5",
+				"limb_wound1": "textures/entity/zombie_wounds/limb_wound1",
+				"limb_wound2": "textures/entity/zombie_wounds/limb_wound2",
+				"limb_wound3": "textures/entity/zombie_wounds/limb_wound3",
+				"limb_wound4": "textures/entity/zombie_wounds/limb_wound4",
+				"limb_wound5": "textures/entity/zombie_wounds/limb_wound5",
+				"limb_wound6": "textures/entity/zombie_wounds/limb_wound6",
+				"limb_wound7": "textures/entity/zombie_wounds/limb_wound7"
+			},
+			"geometry": {
+				"default": "geometry.feral",
+				"death": "geometry.feral_death"
+			},
+			"animations": {
+				"look_at_target": "animation.feral.look_at_target",
+				"idle": "animation.feral.idle",
+				"walk": "animation.feral.walk",
+				"run": "animation.feral.run",
+				"climb": "animation.feral.climb",
+				"vertical": "animation.feral.vertical",
+				"attack": "animation.feral.attack",
+				"death": "animation.feral.death",
+				"death_rot": "animation.general.death_rot",
+				"general": "controller.animation.feral.general",
+				"orientation_controller": "controller.animation.feral.orientation_controller",
+				"death_cont": "controller.animation.feral.death"
+			},
+			"scripts": {
+				"initialize": [
+					"variable.faces = math.random(0, 30);",
+					"variable.torso_wounds =  math.random_integer(0, 30);",
+					"variable.limb_wounds = math.random_integer(0, 30);"
+				],
+				"animate": [
+					"death_cont"
+				]
+			},
+			"particle_effects": {
+				"neck_blood": "zom:blood",
+				"left_shoulder_blood": "zom:left_shoulder_blood"
+			},
+			"render_controllers": [
+				"controller.render.feral.base",
+				"controller.render.zombie.faces",
+				"controller.render.feral.torso_wounds",
+				"controller.render.feral.limb_wounds"
+			],
+			"spawn_egg": {
+				"base_color": "#503C34",
+				"overlay_color": "#6D1818"
+			}
+		}
+	}
+}

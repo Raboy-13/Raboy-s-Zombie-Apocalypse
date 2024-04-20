@@ -1,0 +1,24 @@
+{
+	"resource_pack_name": "Raboy's Zombie Apocalypse",
+	"texture_name": "atlas.items",
+	"texture_data": {
+		"zom_arrow_turret": {
+			"textures": "textures/items/arrow_turret"
+		},
+		"zom_pyro_charger_machine": {
+			"textures": "textures/items/pyro_charger_machine"
+		},
+		"zom_pyro_charger": {
+			"textures": "textures/items/pyro_charger"
+		},
+		"zom_sonic_compressor": {
+			"textures": "textures/items/sonic_compressor"
+		},
+		"zom_sonic_cannon": {
+			"textures": "textures/items/sonic_cannon"
+		},
+		"zom_turret_base": {
+			"textures": "textures/items/turret_base"
+		}
+	}
+}

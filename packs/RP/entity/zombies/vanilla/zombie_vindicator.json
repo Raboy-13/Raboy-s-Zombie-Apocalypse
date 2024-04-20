@@ -1,0 +1,53 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "zom:zombie_vindicator",
+			"materials": {
+				"default": "entity_emissive_alpha"
+			},
+			"textures": {
+				"default": "textures/entity/zombie_illagers/zombie_vindicator"
+			},
+			"geometry": {
+				"default": "geometry.zombie_vindicator",
+				"death": "geometry.zombie_vindicator_death"
+			},
+			"animations": {
+				"look_at_target": "animation.common.look_at_target",
+				"idle1": "animation.walker.normal.idle1",
+				"idle2": "animation.walker.normal.idle2",
+				"walk": "animation.walker.normal.walk",
+				"attack1": "animation.walker.normal.attack1",
+				"attack2": "animation.walker.normal.attack2",
+				"attack3": "animation.walker.normal.attack3",
+				"damage": "animation.walker.normal.damage",
+				"death1": "animation.walker.normal.death1",
+				"death2": "animation.walker.normal.death2",
+				"death3": "animation.walker.normal.death3",
+				"death4": "animation.walker.normal.death4",
+				"death_rot": "animation.general.death_rot",
+				"general": "controller.animation.walker.normal.general",
+				"attack_controller": "controller.animation.walker.normal.attack",
+				"damage_controller": "controller.animation.walker.normal.damage",
+				"death_controller": "controller.animation.walker.normal.death"
+			},
+			"scripts": {
+				"scale": "0.9375",
+				"animate": [
+					"death_controller"
+				]
+			},
+			"particle_effects": {
+				"blood": "zom:blood"
+			},
+			"render_controllers": [
+				"controller.render.zombie_vindicator"
+			],
+			"spawn_egg": {
+				"texture": "spawn_egg",
+				"texture_index": 39
+			}
+		}
+	}
+}

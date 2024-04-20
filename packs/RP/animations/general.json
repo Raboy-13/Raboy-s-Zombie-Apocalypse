@@ -1,0 +1,43 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.general_front.blink": {
+			"loop": true,
+			"animation_length": 3,
+			"anim_time_update": "q.anim_time+(q.delta_time*v.blink_speed)",
+			"bones": {
+				"eyelids": {
+					"position": {
+						"0.0": [
+							0,
+							0,
+							1
+						],
+						"1.0": [
+							0,
+							0,
+							0
+						],
+						"3.0": [
+							0,
+							0,
+							1
+						]
+					}
+				}
+			}
+		},
+		"animation.general.death_rot": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [
+						0,
+						0,
+						"math.min(math.sqrt(math.max(0,query.anim_time*20-0.5)/20*1.6),1)*-90"
+					]
+				}
+			}
+		}
+	}
+}

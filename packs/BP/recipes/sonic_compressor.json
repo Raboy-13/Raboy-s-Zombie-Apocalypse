@@ -1,0 +1,40 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "zom:sonic_compressor"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"H": {
+				"item": "hopper"
+			},
+			"i": {
+				"item": "iron_ingot"
+			},
+			"I": {
+				"item": "iron_block"
+			},
+			"S": {
+				"item": "sculk_catalyst"
+			},
+			"W": {
+				"item": "sticky_piston"
+			},
+			"C": {
+				"item": "trapped_chest"
+			}
+		},
+		"pattern": [
+			"ii",
+			"HCS",
+			"IW "
+		],
+		"result": {
+			"item": "zom:sonic_compressor",
+			"count": 1
+		}
+	}
+}

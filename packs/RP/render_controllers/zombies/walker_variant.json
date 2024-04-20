@@ -1,0 +1,36 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.walker_variant": {
+			"arrays": {
+				"textures": {
+					"Array.variants": [
+						"Texture.variant1",
+						"Texture.variant2"
+					]
+				},
+				"geometries": {
+					"array.geos": [
+						"Geometry.default",
+						"Geometry.death"
+					]
+				}
+			},
+			"geometry": "q.is_alive?geometry.default:geometry.death",
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"array.variants[variable.variants]"
+			],
+			"is_hurt_color": {
+				"r": 1,
+				"g": 0,
+				"b": 0,
+				"a": "q.is_alive?0.5:0"
+			}
+		}
+	}
+}

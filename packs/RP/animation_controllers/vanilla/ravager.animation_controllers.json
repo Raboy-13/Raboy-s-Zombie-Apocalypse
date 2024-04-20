@@ -1,0 +1,158 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.ravager.general": {
+			"states": {
+				"default": {
+					"animations": [
+						"idle"
+					],
+					"transitions": [
+						{
+							"walking": "q.ground_speed>0.3"
+						},
+						{
+							"running": "q.ground_speed>4"
+						},
+						{
+							"stunned": "q.is_stunned"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"walking": {
+					"animations": [
+						{
+							"walk": "q.modified_move_speed*2"
+						}
+					],
+					"transitions": [
+						{
+							"default": "q.ground_speed<0.3"
+						},
+						{
+							"running": "q.ground_speed>4"
+						},
+						{
+							"stunned": "q.is_stunned"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"running": {
+					"animations": [
+						"run"
+					],
+					"transitions": [
+						{
+							"default": "q.ground_speed<0.3"
+						},
+						{
+							"walking": "q.ground_speed<2"
+						},
+						{
+							"stunned": "q.is_stunned"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"stunned": {
+					"animations": [
+						"stunned"
+					],
+					"particle_effects": [
+						{
+							"effect": "stun_particles",
+							"locator": "stun"
+						}
+					],
+					"transitions": [
+						{
+							"roaring": "q.is_roaring"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"roaring": {
+					"animations": [
+						"roar"
+					],
+					"transitions": [
+						{
+							"default": "q.ground_speed<0.3&&!q.is_roaring&&q.any_animation_finished"
+						},
+						{
+							"walking": "q.ground_speed>0.3&&!q.is_roaring&&q.any_animation_finished"
+						},
+						{
+							"running": "q.ground_speed>4&&!q.is_roaring&&q.any_animation_finished"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.ravager.attack": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"attacking": "q.is_delayed_attacking"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"attacking": {
+					"animations": [
+						"attack"
+					],
+					"transitions": [
+						{
+							"default": "!q.is_delayed_attacking==0&&q.all_animations_finished"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.ravager.death": {
+			"states": {
+				"default": {
+					"animations": [
+						"look_at_target",
+						"blink",
+						"general",
+						"attack_cont"
+					],
+					"transitions": [
+						{
+							"dead": "!q.is_alive"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"dead": {
+					"animations": [
+						"death",
+						"death_rot"
+					],
+					"transitions": [
+						{
+							"default": "q.is_alive"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				}
+			}
+		}
+	}
+}

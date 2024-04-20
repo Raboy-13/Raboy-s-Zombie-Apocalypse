@@ -1,0 +1,158 @@
+{
+	"format_version": "1.14.0",
+	"sound_definitions": {
+		"game.player.hurt": {
+			"__use_legacy_max_distance": false,
+			"category": "player",
+			"sounds": [
+				"sounds/damage/hit",
+				{
+					"load_on_low_memory": true,
+					"name": "sounds/damage/hit"
+				},
+				"sounds/damage/hit"
+			]
+		},
+		"game.player.die": {
+			"__use_legacy_max_distance": false,
+			"category": "player",
+			"sounds": [
+				"sounds/damage/hit",
+				{
+					"load_on_low_memory": true,
+					"name": "sounds/damage/hit"
+				},
+				"sounds/damage/hit"
+			]
+		},
+		"mob.zombie.rab.ambient": {
+			"__use_legacy_max_distance": false,
+			"category": "hostile",
+			"sounds": [
+				{
+					"load_on_low_memory": true,
+					"name": "sounds/mob/zombies/walker/ambient1"
+				},
+				"sounds/mob/zombies/walker/ambient2",
+				"sounds/mob/zombies/walker/ambient3",
+				"sounds/mob/zombies/walker/ambient4",
+				"sounds/mob/zombies/walker/ambient5",
+				"sounds/mob/zombies/walker/ambient6",
+				"sounds/mob/zombies/walker/ambient7",
+				"sounds/mob/zombies/walker/ambient8",
+				"sounds/mob/zombies/walker/ambient9",
+				"sounds/mob/zombies/walker/ambient10"
+			]
+		},
+		"mob.zombie.rab.attack": {
+			"__use_legacy_max_distance": false,
+			"category": "hostile",
+			"sounds": [
+				{
+					"load_on_low_memory": true,
+					"name": "sounds/mob/zombies/walker/attack1"
+				},
+				"sounds/mob/zombies/walker/attack2",
+				"sounds/mob/zombies/walker/attack3"
+			]
+		},
+		"mob.zombie.rab.hurt": {
+			"__use_legacy_max_distance": false,
+			"category": "hostile",
+			"sounds": [
+				{
+					"load_on_low_memory": true,
+					"name": "sounds/mob/zombies/walker/hurt1"
+				},
+				"sounds/mob/zombies/walker/hurt2",
+				"sounds/mob/zombies/walker/hurt3",
+				"sounds/mob/zombies/walker/hurt4"
+			]
+		},
+		"mob.zombie.rab.death": {
+			"__use_legacy_max_distance": false,
+			"category": "hostile",
+			"sounds": [
+				{
+					"load_on_low_memory": true,
+					"name": "sounds/mob/zombies/walker/death1"
+				},
+				"sounds/mob/zombies/walker/death2",
+				"sounds/mob/zombies/walker/death3",
+				"sounds/mob/zombies/walker/death4",
+				"sounds/mob/zombies/walker/death5"
+			]
+		},
+		"mob.zombie.blood_splatter": {
+			"__use_legacy_max_distance": false,
+			"category": "hostile",
+			"sounds": [
+				"sounds/mob/zombies/blood_splat/zombie_blood_splat1",
+				"sounds/mob/zombies/blood_splat/zombie_blood_splat2",
+				"sounds/mob/zombies/blood_splat/zombie_blood_splat3"
+			]
+		},
+		"mob.charged_iron_golem.upgrade": {
+			"__use_legacy_max_distance": false,
+			"category": "hostile",
+			"sounds": [
+				"sounds/mob/iron_golem/charged_iron_golem_upgrade"
+			]
+		},
+		"turret.pyro_charger.fire": {
+			"category": "hostile",
+			"sounds": [
+				{
+					"name": "sounds/mob/ghast/fireball4",
+					"volume": 3
+				}
+			]
+		},
+		"turret.pyro_charger.cooldown": {
+			"__use_legacy_max_distance": false,
+			"category": "hostile",
+			"sounds": [
+				"sounds/turrets/pyro_charger/steam1",
+				"sounds/turrets/pyro_charger/steam1"
+			]
+		},
+		"turret.sonic_cannon.charge": {
+			"category": "hostile",
+			"__use_legacy_max_distance": false,
+			"sounds": [
+				{
+					"name": "sounds/mob/warden/sonic_charge1"
+				},
+				{
+					"name": "sounds/mob/warden/sonic_charge2"
+				},
+				{
+					"name": "sounds/mob/warden/sonic_charge3"
+				},
+				{
+					"name": "sounds/mob/warden/sonic_charge4"
+				}
+			]
+		},
+		"turret.sonic_cannon.fire": {
+			"category": "hostile",
+			"__use_legacy_max_distance": true,
+			"max_distance": 160.0,
+			"min_distance": null,
+			"sounds": [
+				{
+					"name": "sounds/mob/warden/sonic_boom1"
+				},
+				{
+					"name": "sounds/mob/warden/sonic_boom2"
+				},
+				{
+					"name": "sounds/mob/warden/sonic_boom3"
+				},
+				{
+					"name": "sounds/mob/warden/sonic_boom4"
+				}
+			]
+		}
+	}
+}

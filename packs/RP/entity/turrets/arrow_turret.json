@@ -1,0 +1,35 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "zom:arrow_turret",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/turrets/arrow_turret"
+			},
+			"geometry": {
+				"default": "geometry.arrow_turret"
+			},
+			"animations": {
+				"look_at_target": "animation.turret.look_at_target",
+				"charge": "animation.arrow_turret.charge",
+				"fire": "animation.arrow_turret.fire",
+				"general": "controller.animation.arrow_turret.general"
+			},
+			"scripts": {
+				"animate": [
+					"look_at_target",
+					"general"
+				]
+			},
+			"particle_effects": {
+				"shoot_dust": "zom:shoot_dust"
+			},
+			"render_controllers": [
+				"controller.render.arrow_turret"
+			]
+		}
+	}
+}

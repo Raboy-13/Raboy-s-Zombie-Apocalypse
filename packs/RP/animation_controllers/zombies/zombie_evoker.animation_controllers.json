@@ -1,0 +1,37 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.zombie_evoker.cast": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"casting": "q.is_casting"
+						}
+					]
+				},
+				"casting": {
+					"animations": [
+						"cast"
+					],
+					"particle_effects": [
+						{
+							"effect": "spell",
+							"locator": "left_particle"
+						},
+						{
+							"effect": "spell",
+							"locator": "right_particle"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!q.is_casting"
+						}
+					]
+				}
+			}
+		}
+	}
+}

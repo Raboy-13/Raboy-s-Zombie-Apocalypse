@@ -1,0 +1,908 @@
+{
+	"format_version": "1.16.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "minecraft:evocation_illager",
+			"is_spawnable": true,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"component_groups": {
+			"transform_to_zombie": {
+				"minecraft:transformation": {
+					"into": "zom:zombie_evocation_illager"
+				}
+			},
+			"zom:can_mingle": {
+				"minecraft:behavior.mingle": {
+					"priority": 2,
+					"speed_multiplier": 0.5,
+					"duration": 60,
+					"cooldown_time": 10,
+					"mingle_partner_type": [
+						"minecraft:villager_v2",
+						"minecraft:vindicator",
+						"minecraft:pillager",
+						"minecraft:evocation_illager"
+					],
+					"mingle_distance": 2
+				}
+			}
+		},
+		"events": {
+			"minecraft:entity_spawned": {
+				"add": {
+					"component_groups": [
+						"zom:can_mingle"
+					]
+				}
+			},
+			"minecraft:entity_transformed": {
+				"add": {
+					"component_groups": [
+						"zom:can_mingle"
+					]
+				}
+			},
+			"zom:transform": {
+				"randomize": [
+					{
+						"weight": 100
+					},
+					{
+						"add": {
+							"component_groups": [
+								"transform_to_zombie"
+							]
+						},
+						"weight": 60
+					}
+				]
+			},
+			"zom:can_mingle": {
+				"add": {
+					"component_groups": [
+						"zom:can_mingle"
+					]
+				}
+			},
+			"zom:cant_mingle": {
+				"remove": {
+					"component_groups": [
+						"zom:can_mingle"
+					]
+				}
+			}
+		},
+		"components": {
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:experience_reward": {
+				"on_death": "10"
+			},
+			"minecraft:type_family": {
+				"family": [
+					"evocation_illager",
+					"monster",
+					"illager",
+					"mob"
+				]
+			},
+			"minecraft:breathable": {
+				"total_supply": 15,
+				"suffocate_time": 0
+			},
+			"minecraft:nameable": {},
+			"minecraft:loot": {
+				"table": "loot_tables/entities/evocation_illager.json"
+			},
+			"minecraft:health": {
+				"value": 24,
+				"max": 24
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+			"minecraft:collision_box": {
+				"width": 0.6,
+				"height": 1.9
+			},
+			"minecraft:movement": {
+				"value": 0.5
+			},
+			"minecraft:navigation.walk": {
+				"can_path_over_water": true,
+				"avoid_water": true,
+				"avoid_damage_blocks": true,
+				"can_open_doors": true,
+				"can_pass_doors": true
+			},
+			"minecraft:behavior.open_door": {
+				"priority": 2,
+				"close_door_after": true
+			},
+			"minecraft:annotation.open_door": {},
+			"minecraft:movement.basic": {},
+			"minecraft:jump.static": {},
+			"minecraft:can_climb": {},
+			"minecraft:behavior.float": {
+				"priority": 0
+			},
+			"minecraft:preferred_path": {
+				"max_fall_blocks": 1,
+				"jump_cost": 10,
+				"default_block_cost": 3,
+				"preferred_path_blocks": [
+					{
+						"cost": 0,
+						"blocks": [
+							"grass_path"
+						]
+					},
+					{
+						"cost": 1,
+						"blocks": [
+							"cobblestone",
+							"stone",
+							"stonebrick",
+							"sandstone",
+							"mossy_cobblestone",
+							"stone_slab",
+							"stone_slab2",
+							"stone_slab3",
+							"stone_slab4",
+							"double_stone_slab",
+							"double_stone_slab2",
+							"double_stone_slab3",
+							"double_stone_slab4",
+							"wooden_slab",
+							"double_wooden_slab",
+							"planks",
+							"brick_block",
+							"nether_brick",
+							"red_nether_brick",
+							"end_bricks",
+							"red_sandstone",
+							"stained_glass",
+							"glass",
+							"glowstone",
+							"prismarine",
+							"emerald_block",
+							"diamond_block",
+							"lapis_block",
+							"gold_block",
+							"redstone_block",
+							"purple_glazed_terracotta",
+							"white_glazed_terracotta",
+							"orange_glazed_terracotta",
+							"magenta_glazed_terracotta",
+							"light_blue_glazed_terracotta",
+							"yellow_glazed_terracotta",
+							"lime_glazed_terracotta",
+							"pink_glazed_terracotta",
+							"gray_glazed_terracotta",
+							"silver_glazed_terracotta",
+							"cyan_glazed_terracotta",
+							"blue_glazed_terracotta",
+							"brown_glazed_terracotta",
+							"green_glazed_terracotta",
+							"red_glazed_terracotta",
+							"black_glazed_terracotta"
+						]
+					},
+					{
+						"cost": 50,
+						"blocks": [
+							"bed",
+							"lectern",
+							"composter",
+							"grindstone",
+							"blast_furnace",
+							"smoker",
+							"fletching_table",
+							"cartography_table",
+							"brewing_stand",
+							"smithing_table",
+							"cauldron",
+							"barrel",
+							"loom",
+							"stonecutter"
+						]
+					}
+				]
+			},
+			"minecraft:behavior.move_to_land": {
+				"priority": 2,
+				"goal_radius": 0.5,
+				"speed_multiplier": 1.1
+			},
+			"minecraft:behavior.defend_village_target": {
+				"priority": 1,
+				"attack_chance": 0.75,
+				"entity_types": {
+					"filters": {
+						"any_of": [
+							{
+								"test": "is_family",
+								"subject": "other",
+								"value": "zombie"
+							},
+							{
+								"test": "is_family",
+								"subject": "other",
+								"value": "player"
+							}
+						]
+					}
+				}
+			},
+			"minecraft:behavior.move_towards_dwelling_restriction": {
+				"priority": 0,
+				"speed_multiplier": 0.8
+			},
+			"minecraft:dweller": {
+				"dwelling_type": "village",
+				"dweller_role": "inhabitant",
+				"update_interval_base": 60,
+				"update_interval_variant": 40,
+				"can_find_poi": false,
+				"can_migrate": true,
+				"first_founding_reward": 5
+			},
+			"minecraft:behavior.drink_potion": {
+				"priority": 1,
+				"speed_modifier": -0.2,
+				"potions": [
+					{
+						"id": 7,
+						"chance": 0.03,
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_visible",
+									"subject": "self",
+									"value": true
+								},
+								{
+									"test": "has_target",
+									"subject": "self",
+									"value": true
+								}
+							]
+						}
+					},
+					{
+						"id": 19,
+						"chance": 0.15,
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_underwater",
+									"subject": "self",
+									"value": true
+								},
+								{
+									"none_of": [
+										{
+											"test": "has_mob_effect",
+											"subject": "self",
+											"value": "water_breathing"
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"id": 12,
+						"chance": 0.15,
+						"filters": {
+							"all_of": [
+								{
+									"any_of": [
+										{
+											"test": "on_fire",
+											"subject": "self",
+											"value": true
+										},
+										{
+											"test": "on_hot_block",
+											"subject": "self",
+											"value": true
+										},
+										{
+											"test": "taking_fire_damage",
+											"subject": "self",
+											"value": true
+										}
+									]
+								},
+								{
+									"none_of": [
+										{
+											"test": "has_mob_effect",
+											"subject": "self",
+											"value": "fire_resistance"
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"id": 22,
+						"chance": 0.5,
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_missing_health",
+									"subject": "self",
+									"value": true
+								}
+							]
+						}
+					}
+				]
+			},
+			"minecraft:behavior.drink_milk": {
+				"priority": 3,
+				"filters": {
+					"all_of": [
+						{
+							"test": "actor_health",
+							"subject": "self",
+							"operator": ">=",
+							"value": 20
+						},
+						{
+							"test": "is_visible",
+							"subject": "self",
+							"value": false
+						},
+						{
+							"test": "is_avoiding_mobs",
+							"subject": "self",
+							"value": false
+						},
+						{
+							"any_of": [
+								{
+									"all_of": [
+										{
+											"test": "has_target",
+											"subject": "self",
+											"value": true
+										},
+										{
+											"test": "has_mob_effect",
+											"subject": "self",
+											"value": "speed"
+										}
+									]
+								},
+								{
+									"all_of": [
+										{
+											"test": "has_target",
+											"subject": "self",
+											"value": false
+										},
+										{
+											"test": "has_mob_effect",
+											"subject": "self",
+											"value": "speed"
+										}
+									]
+								},
+								{
+									"test": "has_target",
+									"subject": "self",
+									"value": true
+								},
+								{
+									"test": "has_target",
+									"subject": "self",
+									"value": false
+								}
+							]
+						}
+					]
+				}
+			},
+			"minecraft:behavior.summon_entity": {
+				"priority": 2,
+				"summon_choices": [
+					{
+						"min_activation_range": 0,
+						"max_activation_range": 2,
+						"cooldown_time": 1,
+						"weight": 100,
+						"cast_duration": 2,
+						"particle_color": "#FF664D59",
+						"start_sound_event": "cast.spell",
+						"sequence": [
+							{
+								"shape": "circle",
+								"target": "self",
+								"base_delay": 1,
+								"delay_per_summon": 0,
+								"num_entities_spawned": 8,
+								"entity_type": "minecraft:evocation_fang",
+								"size": 1.5,
+								"entity_lifespan": 1.1,
+								"sound_event": "prepare.attack"
+							},
+							{
+								"shape": "circle",
+								"target": "self",
+								"base_delay": 0.15,
+								"delay_per_summon": 0,
+								"num_entities_spawned": 12,
+								"entity_type": "minecraft:evocation_fang",
+								"size": 2.5,
+								"entity_lifespan": 1.1
+							}
+						]
+					},
+					{
+						"min_activation_range": 1,
+						"weight": 100,
+						"cooldown_time": 2,
+						"cast_duration": 2,
+						"particle_color": "#FF664D59",
+						"start_sound_event": "cast.spell",
+						"sequence": [
+							{
+								"shape": "line",
+								"target": "self",
+								"base_delay": 1,
+								"delay_per_summon": 0.05,
+								"num_entities_spawned": 16,
+								"entity_type": "minecraft:evocation_fang",
+								"size": 20,
+								"entity_lifespan": 1.1
+							}
+						]
+					},
+					{
+						"weight": 1,
+						"cooldown_time": 0,
+						"cast_duration": 5,
+						"particle_color": "#FFB3B3CC",
+						"sequence": [
+							{
+								"shape": "circle",
+								"target": "self",
+								"base_delay": 5,
+								"num_entities_spawned": 3,
+								"entity_type": "minecraft:vex",
+								"summon_cap": 8,
+								"summon_cap_radius": 16,
+								"size": 1,
+								"sound_event": "prepare.summon"
+							}
+						]
+					}
+				]
+			},
+			"minecraft:behavior.send_event": {
+				"priority": 1,
+				"event_choices": [
+					{
+						"min_activation_range": 0,
+						"max_activation_range": 16,
+						"cooldown_time": 5,
+						"cast_duration": 3,
+						"particle_color": "#FFB38033",
+						"weight": 3,
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "sheep"
+								},
+								{
+									"test": "is_color",
+									"subject": "other",
+									"value": "blue"
+								}
+							]
+						},
+						"start_sound_event": "cast.spell",
+						"sequence": [
+							{
+								"base_delay": 2,
+								"event": "wololo",
+								"sound_event": "prepare.wololo"
+							}
+						]
+					},
+					{
+						"min_activation_range": 0,
+						"max_activation_range": 64,
+						"cooldown_time": 5,
+						"cast_duration": 3,
+						"particle_color": "#CD5CAB",
+						"weight": 3,
+						"filters": {
+							"any_of": [
+								{
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "ravager"
+										},
+										{
+											"test": "actor_health",
+											"subject": "other",
+											"operator": "<=",
+											"value": 20
+										}
+									]
+								},
+								{
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "irongolem"
+										},
+										{
+											"test": "actor_health",
+											"subject": "other",
+											"operator": "<=",
+											"value": 20
+										}
+									]
+								}
+							]
+						},
+						"start_sound_event": "cast.spell",
+						"sequence": [
+							{
+								"base_delay": 2,
+								"event": "zom:heal",
+								"sound_event": "prepare.wololo"
+							}
+						]
+					},
+					{
+						"min_activation_range": 0,
+						"max_activation_range": 64,
+						"cooldown_time": 5,
+						"cast_duration": 3,
+						"particle_color": "#CD5CAB",
+						"weight": 3,
+						"filters": {
+							"any_of": [
+								{
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "ravager"
+										},
+										{
+											"test": "actor_health",
+											"subject": "other",
+											"operator": "<",
+											"value": 100
+										},
+										{
+											"all_of": [
+												{
+													"test": "has_target",
+													"subject": "self",
+													"value": false
+												},
+												{
+													"test": "is_family",
+													"subject": "other",
+													"operator": "!=",
+													"value": "zombie"
+												}
+											]
+										}
+									]
+								},
+								{
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "irongolem"
+										},
+										{
+											"test": "actor_health",
+											"subject": "other",
+											"operator": "<",
+											"value": 100
+										},
+										{
+											"all_of": [
+												{
+													"test": "has_target",
+													"subject": "self",
+													"value": false
+												},
+												{
+													"test": "is_family",
+													"subject": "other",
+													"operator": "!=",
+													"value": "zombie"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						"start_sound_event": "cast.spell",
+						"sequence": [
+							{
+								"base_delay": 2,
+								"event": "zom:heal",
+								"sound_event": "prepare.wololo"
+							}
+						]
+					}
+				]
+			},
+			"minecraft:behavior.avoid_mob_type": {
+				"priority": 5,
+				"entity_types": [
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "zombie"
+								},
+								{
+									"test": "is_visible",
+									"subject": "self",
+									"value": true
+								}
+							]
+						},
+						"max_dist": 8,
+						"walk_speed_multiplier": 0.6,
+						"sprint_speed_multiplier": 0.6
+					}
+				]
+			},
+			"minecraft:scheduler": {
+				"min_delay_secs": 0,
+				"max_delay_secs": 10,
+				"scheduled_events": [
+					{
+						"filters": {
+							"any_of": [
+								{
+									"test": "has_target",
+									"subject": "self",
+									"value": true
+								},
+								{
+									"test": "hourly_clock_time",
+									"operator": "<=",
+									"value": 8000
+								},
+								{
+									"test": "hourly_clock_time",
+									"operator": ">",
+									"value": 10000
+								}
+							]
+						},
+						"event": "zom:cant_mingle",
+						"target": "self"
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_target",
+									"subject": "self",
+									"value": false
+								},
+								{
+									"test": "hourly_clock_time",
+									"operator": ">=",
+									"value": 8000
+								},
+								{
+									"test": "hourly_clock_time",
+									"operator": "<",
+									"value": 10000
+								}
+							]
+						},
+						"event": "zom:can_mingle",
+						"target": "self"
+					}
+				]
+			},
+			"minecraft:behavior.random_stroll": {
+				"priority": 8,
+				"speed_multiplier": 0.6
+			},
+			"minecraft:behavior.nearest_prioritized_attackable_target": {
+				"priority": 2,
+				"must_see": true,
+				"reselect_targets": true,
+				"within_radius": 12,
+				"entity_types": [
+					{
+						"priority": 0,
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "zombie"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "zombie_villager"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "zombie_illager"
+								}
+							]
+						},
+						"max_dist": 12
+					},
+					{
+						"priority": 2,
+						"filters": {
+							"any_of": [
+								{
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "zombie_villager"
+										},
+										{
+											"test": "has_mob_effect",
+											"subject": "other",
+											"operator": "!=",
+											"value": "weakness"
+										}
+									]
+								},
+								{
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "zombie_illager"
+										},
+										{
+											"test": "has_mob_effect",
+											"subject": "other",
+											"operator": "!=",
+											"value": "weakness"
+										}
+									]
+								}
+							]
+						},
+						"max_dist": 12
+					}
+				]
+			},
+			"minecraft:behavior.look_at_player": {
+				"priority": 9,
+				"look_distance": 3,
+				"probability": 1
+			},
+			"minecraft:behavior.look_at_entity": {
+				"priority": 10,
+				"look_distance": 8,
+				"filters": {
+					"test": "is_family",
+					"subject": "other",
+					"value": "mob"
+				}
+			},
+			"minecraft:behavior.hurt_by_target": {
+				"priority": 5,
+				"entity_types": {
+					"must_see": true,
+					"filters": {
+						"all_of": [
+							{
+								"test": "is_family",
+								"subject": "other",
+								"value": "player"
+							}
+						]
+					}
+				}
+			},
+			"minecraft:persistent": {},
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": true,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:follow_range": {
+				"value": 64
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									}
+								],
+								"all_of": [
+									{
+										"test": "has_damage",
+										"value": "fatal"
+									}
+								]
+							},
+							"event": "zom:transform"
+						}
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "turret"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "illager"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "villager"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "wandering_trader"
+									}
+								]
+							}
+						},
+						"deals_damage": false
+					}
+				]
+			},
+			"minecraft:conditional_bandwidth_optimization": {}
+		}
+	}
+}

@@ -1,0 +1,201 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.arrow_turret.charge": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.25,
+			"bones": {
+				"left_part": {
+					"rotation": {
+						"0.0": [
+							0,
+							0,
+							0
+						],
+						"0.25": [
+							0,
+							-20,
+							0
+						]
+					}
+				},
+				"left_string": {
+					"rotation": {
+						"0.0": [
+							0,
+							0,
+							0
+						],
+						"0.25": [
+							0,
+							45,
+							0
+						]
+					}
+				},
+				"right_part": {
+					"rotation": {
+						"0.0": [
+							0,
+							0,
+							0
+						],
+						"0.25": [
+							0,
+							20,
+							0
+						]
+					}
+				},
+				"right_string": {
+					"rotation": {
+						"0.0": [
+							0,
+							0,
+							0
+						],
+						"0.25": [
+							0,
+							-45,
+							0
+						]
+					}
+				},
+				"arrow": {
+					"position": {
+						"0.0": [
+							0,
+							0,
+							0
+						],
+						"0.25": [
+							0,
+							0,
+							10
+						]
+					},
+					"scale": {
+						"0.0": [
+							0,
+							0,
+							0
+						],
+						"0.0833": [
+							1,
+							1,
+							1
+						]
+					}
+				}
+			}
+		},
+		"animation.arrow_turret.fire": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.125,
+			"anim_time_update": "q.anim_time+q.delta_time*3",
+			"bones": {
+				"base": {
+					"position": {
+						"0.0": [
+							0,
+							0,
+							0
+						],
+						"0.0417": [
+							0,
+							0,
+							1
+						],
+						"0.125": [
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"left_part": {
+					"rotation": {
+						"0.0": [
+							0,
+							-20,
+							0
+						],
+						"0.125": [
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"left_string": {
+					"rotation": {
+						"0.0": [
+							0,
+							45,
+							0
+						],
+						"0.125": [
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"right_part": {
+					"rotation": {
+						"0.0": [
+							0,
+							20,
+							0
+						],
+						"0.125": [
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"right_string": {
+					"rotation": {
+						"0.0": [
+							0,
+							-45,
+							0
+						],
+						"0.125": [
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"arrow": {
+					"position": {
+						"0.0": [
+							0,
+							0,
+							10
+						],
+						"0.125": [
+							0,
+							0,
+							0
+						]
+					},
+					"scale": {
+						"0.0417": [
+							1,
+							1,
+							1
+						],
+						"0.125": [
+							0,
+							0,
+							0
+						]
+					}
+				}
+			}
+		}
+	}
+}

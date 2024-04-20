@@ -1,0 +1,43 @@
+{
+	"format_version": "1.19.50",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "zom:iron_golem_explosions",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"components": {
+			"minecraft:type_family": {
+				"family": [
+					"dummy",
+					"iron_golem_explosions"
+				]
+			},
+			"minecraft:explode": {
+				"fuse_length": 1,
+				"fuse_lit": true,
+				"power": 4,
+				"causes_fire": false,
+				"breaks_blocks": true,
+				"destroy_affected_by_griefing": true
+			},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": false
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"cause": "all",
+						"deals_damage": false
+					}
+				]
+			},
+			"minecraft:collision_box": {
+				"height": 0.001,
+				"width": 0.001
+			}
+		}
+	}
+}
