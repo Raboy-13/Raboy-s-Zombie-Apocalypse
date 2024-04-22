@@ -1,0 +1,51 @@
+{
+	"format_version": "1.19.60",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "zom:turret_base_placer",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"component_groups": {
+			"despawn": {
+				"minecraft:instant_despawn": {}
+			}
+		},
+		"events": {
+			"minecraft:entity_spawned": {
+				"queue_command": {
+					"command": "function world/turrets/turret_base_placer"
+				}
+			},
+			"zom:despawn": {
+				"add": {
+					"component_groups": [
+						"despawn"
+					]
+				}
+			}
+		},
+		"components": {
+			"minecraft:scale": {
+				"value": 0
+			},
+			"minecraft:type_family": {
+				"family": [
+					"dummy",
+					"turret_base_placer"
+				]
+			},
+			"minecraft:timer": {
+				"time": 1,
+				"looping": true,
+				"time_down_event": {
+					"event": "zom:despawn",
+					"target": "self"
+				}
+			},
+			"minecraft:physics": {},
+			"minecraft:conditional_bandwidth_optimization": {}
+		}
+	}
+}

@@ -1,2 +1,2 @@
-loot spawn ~ ~ ~ loot "entities/sonic_cannon"
+loot spawn ~ ~ ~ loot "entities/turrets/sonic_cannon.lt"
 kill @s

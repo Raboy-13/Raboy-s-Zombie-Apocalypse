@@ -12,13 +12,13 @@
 		"min_engine_version": [
 			1,
 			20,
-			20
+			70
 		],
 		"uuid": "f8d9bfdc-f3b2-411e-9004-0e9c764b89d7",
 		"version": [
 			1,
 			2,
-			11
+			2
 		]
 	},
 	"modules": [
@@ -28,7 +28,7 @@
 			"version": [
 				1,
 				2,
-				11
+				2
 			]
 		}
 	],
@@ -39,7 +39,7 @@
 			"version": [
 				1,
 				2,
-				11
+				2
 			]
 		},
 		//Structure Pack
@@ -48,7 +48,7 @@
 			"version": [
 				1,
 				2,
-				11
+				2
 			]
 		}
 	]
