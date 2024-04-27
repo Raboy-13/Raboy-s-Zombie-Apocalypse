@@ -12,23 +12,34 @@
 		"min_engine_version": [
 			1,
 			20,
-			70
+			80
 		],
 		"uuid": "f8d9bfdc-f3b2-411e-9004-0e9c764b89d7",
 		"version": [
 			1,
 			2,
-			2
+			21
 		]
 	},
 	"modules": [
 		{
 			"type": "data",
-			"uuid": "d1a1e98e-3439-4c2a-a071-b4ae3123b79c",
+			"uuid": "9254e30e-0bae-4c4e-b43a-3525dcaef7e5",
 			"version": [
 				1,
 				2,
-				2
+				21
+			]
+		},
+		{
+			"type": "script",
+			"uuid": "256818fe-a2c1-41fd-a814-dc1c4b449165",
+			"language": "javascript",
+			"entry": "scripts/rza/main.js",
+			"version": [
+				1,
+				2,
+				21
 			]
 		}
 	],
@@ -39,7 +50,7 @@
 			"version": [
 				1,
 				2,
-				2
+				21
 			]
 		},
 		//Structure Pack
@@ -48,8 +59,12 @@
 			"version": [
 				1,
 				2,
-				2
+				21
 			]
+		},
+		{
+			"module_name": "@minecraft/server",
+			"version": "1.10.0"
 		}
 	]
 }
