@@ -1,7 +1,7 @@
 {
 	"entity_sounds": {
 		"entities": {
-			"zom:walker": {
+			"rza:walker": {
 				"events": {
 					"ambient": "mob.zombie.rab.ambient",
 					"attack": "mob.zombie.rab.attack",
@@ -19,7 +19,7 @@
 					0.8
 				]
 			},
-			"zom:walker_variant": {
+			"rza:walker_variant": {
 				"events": {
 					"ambient": "mob.zombie.rab.ambient",
 					"attack": "mob.zombie.rab.attack",
@@ -37,7 +37,7 @@
 					0.8
 				]
 			},
-			"zom:feral": {
+			"rza:feral": {
 				"events": {
 					"ambient": "mob.zombie.rab.ambient",
 					"attack": "mob.zombie.rab.attack",
@@ -55,7 +55,7 @@
 					0.8
 				]
 			},
-			"zom:miner": {
+			"rza:miner": {
 				"events": {
 					"ambient": "mob.zombie.rab.ambient",
 					"attack": "mob.zombie.rab.attack",
@@ -73,7 +73,7 @@
 					0.8
 				]
 			},
-			"zom:zombie_evocation_illager": {
+			"rza:zombie_evocation_illager": {
 				"events": {
 					"ambient": "mob.zombie_villager.say",
 					"death": "mob.zombie_villager.death",
@@ -90,24 +90,7 @@
 					0.8
 				]
 			},
-			"zom:zombie_pillager": {
-				"events": {
-					"ambient": "mob.zombie_villager.say",
-					"death": "mob.zombie_villager.death",
-					"hurt": "mob.zombie_villager.hurt",
-					"step": {
-						"pitch": 1.0,
-						"sound": "mob.zombie.step",
-						"volume": 0.45
-					}
-				},
-				"volume": 0.7,
-				"pitch": [
-					1,
-					0.8
-				]
-			},
-			"zom:zombie_vindicator": {
+			"rza:zombie_pillager": {
 				"events": {
 					"ambient": "mob.zombie_villager.say",
 					"death": "mob.zombie_villager.death",
@@ -124,7 +107,24 @@
 					0.8
 				]
 			},
-			"zom:charged_iron_golem": {
+			"rza:zombie_vindicator": {
+				"events": {
+					"ambient": "mob.zombie_villager.say",
+					"death": "mob.zombie_villager.death",
+					"hurt": "mob.zombie_villager.hurt",
+					"step": {
+						"pitch": 1.0,
+						"sound": "mob.zombie.step",
+						"volume": 0.45
+					}
+				},
+				"volume": 0.7,
+				"pitch": [
+					1,
+					0.8
+				]
+			},
+			"rza:charged_iron_golem": {
 				"events": {
 					"ambient": "mob.irongolem.say",
 					"death": "mob.irongolem.death",
@@ -153,7 +153,7 @@
 				],
 				"volume": 1
 			},
-			"zom:supercharged_iron_golem": {
+			"rza:supercharged_iron_golem": {
 				"events": {
 					"ambient": "mob.irongolem.say",
 					"death": "mob.irongolem.death",
@@ -177,7 +177,7 @@
 				],
 				"volume": 1
 			},
-			"zom:arrow_turret": {
+			"rza:arrow_turret": {
 				"events": {
 					"shoot": "crossbow.shoot",
 					"hurt": "mob.irongolem.crack",
@@ -189,7 +189,7 @@
 				],
 				"volume": 1
 			},
-			"zom:pyro_charger": {
+			"rza:pyro_charger": {
 				"events": {
 					"shoot": {
 						"sound": "turret.pyro_charger.fire",
@@ -205,7 +205,7 @@
 				],
 				"volume": 1
 			},
-			"zom:sonic_cannon": {
+			"rza:sonic_cannon": {
 				"events": {
 					"shoot": "turret.sonic_cannon.fire",
 					"hurt": "mob.irongolem.crack",

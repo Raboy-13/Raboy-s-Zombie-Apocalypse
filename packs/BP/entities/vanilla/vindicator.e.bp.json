@@ -10,12 +10,12 @@
 		"component_groups": {
 			"transform_to_zombie": {
 				"minecraft:transformation": {
-					"into": "zom:zombie_vindicator",
+					"into": "rza:zombie_vindicator",
 					"preserve_equipment": true,
 					"delay": 0
 				}
 			},
-			"zom:can_mingle": {
+			"rza:can_mingle": {
 				"minecraft:behavior.mingle": {
 					"priority": 2,
 					"speed_multiplier": 0.5,
@@ -113,7 +113,7 @@
 							"operator": "<=",
 							"value": 15
 						},
-						"event": "zom:avoid_mobs_iron",
+						"event": "rza:avoid_mobs_iron",
 						"target": "self"
 					}
 				}
@@ -201,12 +201,12 @@
 							"operator": "<=",
 							"value": 15
 						},
-						"event": "zom:avoid_mobs_diamond",
+						"event": "rza:avoid_mobs_diamond",
 						"target": "self"
 					}
 				}
 			},
-			"zom:avoid_mobs_iron": {
+			"rza:avoid_mobs_iron": {
 				"minecraft:is_hidden_when_invisible": {},
 				"minecraft:behavior.avoid_mob_type": {
 					"priority": 0,
@@ -314,12 +314,12 @@
 							"operator": ">=",
 							"value": 20
 						},
-						"event": "zom:on_avoid_iron",
+						"event": "rza:on_avoid_iron",
 						"target": "self"
 					}
 				}
 			},
-			"zom:avoid_mobs_diamond": {
+			"rza:avoid_mobs_diamond": {
 				"minecraft:is_hidden_when_invisible": {},
 				"minecraft:behavior.avoid_mob_type": {
 					"priority": 0,
@@ -369,7 +369,7 @@
 							"operator": ">=",
 							"value": 20
 						},
-						"event": "zom:on_avoid_diamond",
+						"event": "rza:on_avoid_diamond",
 						"target": "self"
 					}
 				}
@@ -396,7 +396,7 @@
 					{
 						"add": {
 							"component_groups": [
-								"zom:can_mingle"
+								"rza:can_mingle"
 							]
 						}
 					},
@@ -427,7 +427,7 @@
 					{
 						"add": {
 							"component_groups": [
-								"zom:can_mingle"
+								"rza:can_mingle"
 							]
 						}
 					},
@@ -462,7 +462,7 @@
 					{
 						"add": {
 							"component_groups": [
-								"zom:can_mingle",
+								"rza:can_mingle",
 								"minecraft:illager_squad_captain"
 							]
 						}
@@ -489,7 +489,7 @@
 					}
 				]
 			},
-			"zom:avoid_mobs_iron": {
+			"rza:avoid_mobs_iron": {
 				"remove": {
 					"component_groups": [
 						"minecraft:default_targeting_iron"
@@ -497,14 +497,14 @@
 				},
 				"add": {
 					"component_groups": [
-						"zom:avoid_mobs_iron"
+						"rza:avoid_mobs_iron"
 					]
 				}
 			},
-			"zom:on_avoid_iron": {
+			"rza:on_avoid_iron": {
 				"remove": {
 					"component_groups": [
-						"zom:avoid_mobs_iron"
+						"rza:avoid_mobs_iron"
 					]
 				},
 				"add": {
@@ -513,7 +513,7 @@
 					]
 				}
 			},
-			"zom:avoid_mobs_diamond": {
+			"rza:avoid_mobs_diamond": {
 				"remove": {
 					"component_groups": [
 						"minecraft:default_targeting_diamond"
@@ -521,14 +521,14 @@
 				},
 				"add": {
 					"component_groups": [
-						"zom:avoid_mobs_diamond"
+						"rza:avoid_mobs_diamond"
 					]
 				}
 			},
-			"zom:on_avoid_diamond": {
+			"rza:on_avoid_diamond": {
 				"remove": {
 					"component_groups": [
-						"zom:avoid_mobs_diamond"
+						"rza:avoid_mobs_diamond"
 					]
 				},
 				"add": {
@@ -537,24 +537,24 @@
 					]
 				}
 			},
-			"zom:transform_to_zombie": {
+			"rza:transform_to_zombie": {
 				"add": {
 					"component_groups": [
 						"transform_to_zombie"
 					]
 				}
 			},
-			"zom:can_mingle": {
+			"rza:can_mingle": {
 				"add": {
 					"component_groups": [
-						"zom:can_mingle"
+						"rza:can_mingle"
 					]
 				}
 			},
-			"zom:cant_mingle": {
+			"rza:cant_mingle": {
 				"remove": {
 					"component_groups": [
-						"zom:can_mingle"
+						"rza:can_mingle"
 					]
 				}
 			}
@@ -789,7 +789,7 @@
 								}
 							]
 						},
-						"event": "zom:cant_mingle"
+						"event": "rza:cant_mingle"
 					},
 					{
 						"filters": {
@@ -811,7 +811,7 @@
 								}
 							]
 						},
-						"event": "zom:can_mingle"
+						"event": "rza:can_mingle"
 					}
 				]
 			},
@@ -864,7 +864,7 @@
 									}
 								]
 							},
-							"event": "zom:transform_to_zombie"
+							"event": "rza:transform_to_zombie"
 						}
 					},
 					{

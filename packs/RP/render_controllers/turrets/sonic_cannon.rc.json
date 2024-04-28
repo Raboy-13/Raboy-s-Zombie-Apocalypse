@@ -5,11 +5,11 @@
 			"geometry": "geometry.default",
 			"materials": [
 				{
-					"*": "query.property('zom:active')==true?material.active:material.inactive"
+					"*": "query.property('rza:active')==true?material.active:material.inactive"
 				}
 			],
 			"textures": [
-				"query.property('zom:active')==true?texture.active:texture.inactive"
+				"query.property('rza:active')==true?texture.active:texture.inactive"
 			],
 			"is_hurt_color": {
 				"r": 1,

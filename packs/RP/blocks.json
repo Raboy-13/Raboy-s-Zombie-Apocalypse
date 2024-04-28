@@ -4,7 +4,7 @@
 		1,
 		0
 	],
-	"zom:turret_base": {
+	"rza:turret_base": {
 		"sound": "stone"
 	}
 }

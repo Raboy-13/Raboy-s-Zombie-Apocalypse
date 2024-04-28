@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"minecraft:client_entity": {
 		"description": {
-			"identifier": "zom:miner",
+			"identifier": "rza:miner",
 			"materials": {
 				"default": "rab_zombie",
 				"face": "zombie_face"
@@ -61,7 +61,7 @@
 				]
 			},
 			"particle_effects": {
-				"blood": "zom:blood"
+				"blood": "rza:blood"
 			},
 			"render_controllers": [
 				"controller.render.miner.base",

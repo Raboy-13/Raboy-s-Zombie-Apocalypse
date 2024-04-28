@@ -838,7 +838,7 @@
 				"is_pushable_by_piston": true
 			},
 			"minecraft:on_death": {
-				"event": "zom:blood_splatter",
+				"event": "rza:blood_splatter",
 				"target": "self"
 			}
 		},
@@ -1736,7 +1736,7 @@
 					}
 				]
 			},
-			"zom:blood_splatter": {
+			"rza:blood_splatter": {
 				"queue_command": {
 					"command": "playsound mob.zombie.blood_splatter @a ~ ~ ~ 1",
 					"target": "self"

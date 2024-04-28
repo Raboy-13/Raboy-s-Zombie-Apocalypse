@@ -198,7 +198,7 @@
 				"default": {
 					"transitions": [
 						{
-							"cooldown": "q.property('zom:cooldown')==true"
+							"cooldown": "q.property('rza:cooldown')==true"
 						}
 					],
 					"blend_via_shortest_path": true
@@ -224,7 +224,7 @@
 					],
 					"transitions": [
 						{
-							"default": "q.property('zom:cooldown')==false"
+							"default": "q.property('rza:cooldown')==false"
 						}
 					],
 					"blend_via_shortest_path": true

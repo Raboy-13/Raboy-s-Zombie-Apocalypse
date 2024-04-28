@@ -2,7 +2,7 @@
 	"format_version": "1.20.70",
 	"minecraft:item": {
 		"description": {
-			"identifier": "zom:pyro_charger_machine",
+			"identifier": "rza:pyro_charger_machine",
 			"menu_category": {
 				"category": "items"
 			}

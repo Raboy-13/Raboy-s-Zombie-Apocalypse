@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:attachable": {
     "description": {
-      "identifier": "zom:sonic_cannon_item",
+      "identifier": "rza:sonic_cannon_item",
       "materials": {
         "default": "entity_emissive_alpha"
       },

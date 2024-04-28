@@ -2,7 +2,7 @@
 	"format_version": "1.20.70",
 	"minecraft:item": {
 		"description": {
-			"identifier": "zom:turret_base"
+			"identifier": "rza:turret_base"
 		},
 		"components": {
 			"minecraft:icon": {
@@ -17,7 +17,7 @@
 				"value": 64
 			},
 			"minecraft:entity_placer": {
-				"entity": "zom:turret_base_placer"
+				"entity": "rza:turret_base_placer"
 			}
 		}
 	}

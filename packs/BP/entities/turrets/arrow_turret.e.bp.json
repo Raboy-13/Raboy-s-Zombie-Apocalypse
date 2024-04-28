@@ -2,12 +2,12 @@
 	"format_version": "1.20.0",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:arrow_turret",
+			"identifier": "rza:arrow_turret",
 			"is_spawnable": false,
 			"is_summonable": true,
 			"is_experimental": false,
 			"properties": {
-				"zom:active": {
+				"rza:active": {
 					"type": "bool",
 					"client_sync": true,
 					"default": false
@@ -74,11 +74,11 @@
 					}
 				]
 			},
-			"zom:activate": {
+			"rza:activate": {
 				"sequence": [
 					{
 						"set_property": {
-							"zom:active": true
+							"rza:active": true
 						}
 					},
 					{
@@ -90,11 +90,11 @@
 					}
 				]
 			},
-			"zom:deactivate": {
+			"rza:deactivate": {
 				"sequence": [
 					{
 						"set_property": {
-							"zom:active": false
+							"rza:active": false
 						}
 					},
 					{
@@ -106,7 +106,7 @@
 					}
 				]
 			},
-			"zom:despawn": {
+			"rza:despawn": {
 				"queue_command": {
 					"command": "function world/turrets/arrow_turret"
 				}
@@ -176,7 +176,7 @@
 								"operator": "==",
 								"value": "player"
 							},
-							"event": "zom:despawn",
+							"event": "rza:despawn",
 							"target": "self"
 						},
 						"deals_damage": false

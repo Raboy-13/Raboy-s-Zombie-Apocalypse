@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"minecraft:client_entity": {
 		"description": {
-			"identifier": "zom:walker_variant",
+			"identifier": "rza:walker_variant",
 			"materials": {
 				"default": "entity_emissive_alpha"
 			},
@@ -42,7 +42,7 @@
 				]
 			},
 			"particle_effects": {
-				"blood": "zom:blood"
+				"blood": "rza:blood"
 			},
 			"render_controllers": [
 				"controller.render.walker_variant"

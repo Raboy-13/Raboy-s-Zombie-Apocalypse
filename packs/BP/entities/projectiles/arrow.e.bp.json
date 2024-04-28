@@ -8,7 +8,7 @@
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:despawn": {
+			"rza:despawn": {
 				"minecraft:instant_despawn": {}
 			},
 			"minecraft:hard_arrow": {
@@ -78,7 +78,7 @@
 					"looping": true,
 					"time": 8,
 					"time_down_event": {
-						"event": "zom:despawn",
+						"event": "rza:despawn",
 						"target": "self"
 					}
 				},
@@ -112,12 +112,12 @@
 					]
 				}
 			},
-			"zom:turret_arrow": {
+			"rza:turret_arrow": {
 				"minecraft:timer": {
 					"looping": true,
 					"time": 4,
 					"time_down_event": {
-						"event": "zom:despawn",
+						"event": "rza:despawn",
 						"target": "self"
 					}
 				},
@@ -261,16 +261,16 @@
 						},
 						"add": {
 							"component_groups": [
-								"zom:turret_arrow"
+								"rza:turret_arrow"
 							]
 						}
 					}
 				]
 			},
-			"zom:despawn": {
+			"rza:despawn": {
 				"add": {
 					"component_groups": [
-						"zom:despawn"
+						"rza:despawn"
 					]
 				}
 			}

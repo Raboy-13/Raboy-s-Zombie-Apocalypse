@@ -8,7 +8,7 @@
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:from_villager": {
+			"rza:from_villager": {
 				"minecraft:projectile": {
 					"on_hit": {
 						"douse_fire": {},
@@ -47,7 +47,7 @@
 						},
 						"add": {
 							"component_groups": [
-								"zom:from_villager"
+								"rza:from_villager"
 							]
 						}
 					}

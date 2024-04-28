@@ -2,13 +2,13 @@
 	"format_version": "1.20.0",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:charged_iron_golem",
+			"identifier": "rza:charged_iron_golem",
 			"is_spawnable": true,
 			"is_summonable": true,
 			"is_experimental": false,
 			"runtime_identifier": "iron_golem",
 			"properties": {
-				"zom:upgrade_phases": {
+				"rza:upgrade_phases": {
 					"client_sync": true,
 					"type": "int",
 					"range": [
@@ -109,14 +109,14 @@
 									},
 									{
 										"test": "int_property",
-										"domain": "zom:upgrade_phases",
+										"domain": "rza:upgrade_phases",
 										"subject": "self",
 										"operator": "<",
 										"value": 2
 									}
 								]
 							},
-							"event": "zom:upgrade",
+							"event": "rza:upgrade",
 							"target": "self"
 						},
 						"use_item": true,
@@ -141,14 +141,14 @@
 									},
 									{
 										"test": "int_property",
-										"domain": "zom:upgrade_phases",
+										"domain": "rza:upgrade_phases",
 										"subject": "self",
 										"operator": "==",
 										"value": 2
 									}
 								]
 							},
-							"event": "zom:to_super_iron_golem",
+							"event": "rza:to_super_iron_golem",
 							"target": "self"
 						},
 						"use_item": true,
@@ -334,30 +334,30 @@
 				"value": 64
 			},
 			"minecraft:on_death": {
-				"event": "zom:explode",
+				"event": "rza:explode",
 				"target": "self"
 			},
 			"minecraft:conditional_bandwidth_optimization": {}
 		},
 		"component_groups": {
-			"zom:level1": {
+			"rza:level1": {
 				"minecraft:health": {
 					"value": 200
 				}
 			},
-			"zom:level2": {
+			"rza:level2": {
 				"minecraft:health": {
 					"value": 400
 				}
 			},
-			"zom:level3": {
+			"rza:level3": {
 				"minecraft:health": {
 					"value": 800
 				}
 			},
-			"zom:to_supercharged_iron_golem": {
+			"rza:to_supercharged_iron_golem": {
 				"minecraft:transformation": {
-					"into": "zom:supercharged_iron_golem",
+					"into": "rza:supercharged_iron_golem",
 					"delay": 0
 				}
 			}
@@ -366,24 +366,24 @@
 			"minecraft:entity_spawned": {
 				"add": {
 					"component_groups": [
-						"zom:level1"
+						"rza:level1"
 					]
 				}
 			},
 			"minecraft:entity_transformed": {
 				"add": {
 					"component_groups": [
-						"zom:level1"
+						"rza:level1"
 					]
 				}
 			},
-			"zom:upgrade": {
+			"rza:upgrade": {
 				"sequence": [
 					{
 						"filters": {
 							"test": "int_property",
 							"subject": "self",
-							"domain": "zom:upgrade_phases",
+							"domain": "rza:upgrade_phases",
 							"operator": "==",
 							"value": 0
 						},
@@ -391,20 +391,20 @@
 							{
 								"remove": {
 									"component_groups": [
-										"zom:level1"
+										"rza:level1"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:level2"
+										"rza:level2"
 									]
 								}
 							},
 							{
 								"set_property": {
-									"zom:upgrade_phases": "query.property('zom:upgrade_phases') + 1"
+									"rza:upgrade_phases": "query.property('rza:upgrade_phases') + 1"
 								}
 							}
 						]
@@ -413,7 +413,7 @@
 						"filters": {
 							"test": "int_property",
 							"subject": "self",
-							"domain": "zom:upgrade_phases",
+							"domain": "rza:upgrade_phases",
 							"operator": "==",
 							"value": 1
 						},
@@ -421,42 +421,42 @@
 							{
 								"remove": {
 									"component_groups": [
-										"zom:level2"
+										"rza:level2"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:level3"
+										"rza:level3"
 									]
 								}
 							},
 							{
 								"set_property": {
-									"zom:upgrade_phases": "query.property('zom:upgrade_phases') + 1"
+									"rza:upgrade_phases": "query.property('rza:upgrade_phases') + 1"
 								}
 							}
 						]
 					}
 				]
 			},
-			"zom:to_super_iron_golem": {
+			"rza:to_super_iron_golem": {
 				"add": {
 					"component_groups": [
-						"zom:to_supercharged_iron_golem"
+						"rza:to_supercharged_iron_golem"
 					]
 				}
 			},
-			"zom:heal": {
+			"rza:heal": {
 				"queue_command": {
 					"command": "effect @s regeneration 2 5"
 				}
 			},
-			"zom:explode": {
+			"rza:explode": {
 				"queue_command": {
 					"command": [
-						"summon zom:iron_golem_explosions ~ ~ ~"
+						"summon rza:iron_golem_explosions ~ ~ ~"
 					]
 				}
 			}

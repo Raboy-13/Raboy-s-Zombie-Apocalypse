@@ -10,10 +10,10 @@
 		"component_groups": {
 			"transform_to_zombie": {
 				"minecraft:transformation": {
-					"into": "zom:zombie_evocation_illager"
+					"into": "rza:zombie_evocation_illager"
 				}
 			},
-			"zom:can_mingle": {
+			"rza:can_mingle": {
 				"minecraft:behavior.mingle": {
 					"priority": 2,
 					"speed_multiplier": 0.5,
@@ -33,18 +33,18 @@
 			"minecraft:entity_spawned": {
 				"add": {
 					"component_groups": [
-						"zom:can_mingle"
+						"rza:can_mingle"
 					]
 				}
 			},
 			"minecraft:entity_transformed": {
 				"add": {
 					"component_groups": [
-						"zom:can_mingle"
+						"rza:can_mingle"
 					]
 				}
 			},
-			"zom:transform": {
+			"rza:transform": {
 				"randomize": [
 					{
 						"weight": 100
@@ -59,17 +59,17 @@
 					}
 				]
 			},
-			"zom:can_mingle": {
+			"rza:can_mingle": {
 				"add": {
 					"component_groups": [
-						"zom:can_mingle"
+						"rza:can_mingle"
 					]
 				}
 			},
-			"zom:cant_mingle": {
+			"rza:cant_mingle": {
 				"remove": {
 					"component_groups": [
-						"zom:can_mingle"
+						"rza:can_mingle"
 					]
 				}
 			}
@@ -573,7 +573,7 @@
 						"sequence": [
 							{
 								"base_delay": 2,
-								"event": "zom:heal",
+								"event": "rza:heal",
 								"sound_event": "prepare.wololo"
 							}
 						]
@@ -653,7 +653,7 @@
 						"sequence": [
 							{
 								"base_delay": 2,
-								"event": "zom:heal",
+								"event": "rza:heal",
 								"sound_event": "prepare.wololo"
 							}
 						]
@@ -708,7 +708,7 @@
 								}
 							]
 						},
-						"event": "zom:cant_mingle",
+						"event": "rza:cant_mingle",
 						"target": "self"
 					},
 					{
@@ -731,7 +731,7 @@
 								}
 							]
 						},
-						"event": "zom:can_mingle",
+						"event": "rza:can_mingle",
 						"target": "self"
 					}
 				]
@@ -868,7 +868,7 @@
 									}
 								]
 							},
-							"event": "zom:transform"
+							"event": "rza:transform"
 						}
 					},
 					{

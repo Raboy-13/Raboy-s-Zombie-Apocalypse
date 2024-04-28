@@ -278,7 +278,7 @@
                      ],
                      "gives": [
                         {
-                           "item": "zom:turret_base",
+                           "item": "rza:turret_base",
                            "quantity": 1
                         }
                      ],
@@ -296,7 +296,7 @@
                      ],
                      "gives": [
                         {
-                           "item": "zom:arrow_turret_item",
+                           "item": "rza:arrow_turret_item",
                            "quantity": 1
                         }
                      ],
@@ -314,7 +314,7 @@
                      ],
                      "gives": [
                         {
-                           "item": "zom:pyro_charger_item",
+                           "item": "rza:pyro_charger_item",
                            "quantity": 1
                         }
                      ],
@@ -332,7 +332,7 @@
                      ],
                      "gives": [
                         {
-                           "item": "zom:sonic_cannon_item",
+                           "item": "rza:sonic_cannon_item",
                            "quantity": 1
                         }
                      ],

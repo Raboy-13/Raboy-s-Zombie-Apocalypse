@@ -2,7 +2,7 @@
 	"format_version": "1.12",
 	"minecraft:recipe_shaped": {
 		"description": {
-			"identifier": "zom:pyro_charger_machine"
+			"identifier": "rza:pyro_charger_machine"
 		},
 		"tags": [
 			"crafting_table"
@@ -33,7 +33,7 @@
 			"IW "
 		],
 		"result": {
-			"item": "zom:pyro_charger_machine",
+			"item": "rza:pyro_charger_machine",
 			"count": 1
 		}
 	}

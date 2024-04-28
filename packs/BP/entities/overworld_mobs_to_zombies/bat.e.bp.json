@@ -8,9 +8,9 @@
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:transform_to_miner": {
+			"rza:transform_to_miner": {
 				"minecraft:transformation": {
-					"into": "zom:miner",
+					"into": "rza:miner",
 					"delay": 0
 				}
 			}
@@ -91,7 +91,7 @@
 			"minecraft:entity_spawned": {
 				"add": {
 					"component_groups": [
-						"zom:transform_to_miner"
+						"rza:transform_to_miner"
 					]
 				}
 			}

@@ -104,7 +104,7 @@
 					"attack_duration": 0.75,
 					"hit_delay_pct": 0.5,
 					"on_attack": {
-						"event": "zom:damage_zombies",
+						"event": "rza:damage_zombies",
 						"target": "self"
 					}
 				},
@@ -321,7 +321,7 @@
 					]
 				}
 			},
-			"zom:spawn_for_village": {
+			"rza:spawn_for_village": {
 				"sequence": [
 					{
 						"add": {
@@ -360,7 +360,7 @@
 					}
 				]
 			},
-			"zom:damage_zombies": {
+			"rza:damage_zombies": {
 				"queue_command": {
 					"command": "damage @e[family=zombie, r=4] 4 entity_attack entity @s"
 				}
@@ -506,7 +506,7 @@
 					}
 				]
 			},
-			"zom:heal": {
+			"rza:heal": {
 				"queue_command": {
 					"command": "effect @s regeneration 2 3"
 				}

@@ -2,22 +2,22 @@
 	"format_version": "1.19.60",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:walker",
+			"identifier": "rza:walker",
 			"is_spawnable": true,
 			"is_summonable": true,
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:transform_to_variant": {
+			"rza:transform_to_variant": {
 				"minecraft:transformation": {
-					"into": "zom:walker_variant",
+					"into": "rza:walker_variant",
 					"preserve_equipment": false,
 					"delay": {
 						"value": 0
 					}
 				}
 			},
-			"zom:walker": {
+			"rza:walker": {
 				"minecraft:behavior.delayed_attack": {
 					"priority": 3,
 					"attack_duration": 0.1,
@@ -27,7 +27,7 @@
 					"x_max_rotation": 30
 				}
 			},
-			"zom:runner": {
+			"rza:runner": {
 				"minecraft:behavior.delayed_attack": {
 					"priority": 3,
 					"speed_multiplier": 1.6,
@@ -38,7 +38,7 @@
 					"x_max_rotation": 30
 				}
 			},
-			"zom:alert_others": {
+			"rza:alert_others": {
 				"minecraft:angry": {
 					"broadcast_anger": true,
 					"broadcast_range": 48,
@@ -81,7 +81,7 @@
 						]
 					},
 					"calm_event": {
-						"event": "zom:idle",
+						"event": "rza:idle",
 						"target": "self"
 					}
 				}
@@ -96,14 +96,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 3
@@ -130,14 +130,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 15
@@ -164,14 +164,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 25
@@ -198,14 +198,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 5
@@ -232,14 +232,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 25
@@ -266,14 +266,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 50
@@ -302,7 +302,7 @@
 							{
 								"add": {
 									"component_groups": [
-										"zom:transform_to_variant"
+										"rza:transform_to_variant"
 									]
 								},
 								"weight": 7
@@ -321,14 +321,14 @@
 										"weight": 100,
 										"add": {
 											"component_groups": [
-												"zom:walker"
+												"rza:walker"
 											]
 										}
 									},
 									{
 										"add": {
 											"component_groups": [
-												"zom:runner"
+												"rza:runner"
 											]
 										},
 										"weight": 3
@@ -355,14 +355,14 @@
 										"weight": 100,
 										"add": {
 											"component_groups": [
-												"zom:walker"
+												"rza:walker"
 											]
 										}
 									},
 									{
 										"add": {
 											"component_groups": [
-												"zom:runner"
+												"rza:runner"
 											]
 										},
 										"weight": 15
@@ -389,14 +389,14 @@
 										"weight": 100,
 										"add": {
 											"component_groups": [
-												"zom:walker"
+												"rza:walker"
 											]
 										}
 									},
 									{
 										"add": {
 											"component_groups": [
-												"zom:runner"
+												"rza:runner"
 											]
 										},
 										"weight": 25
@@ -423,14 +423,14 @@
 										"weight": 100,
 										"add": {
 											"component_groups": [
-												"zom:walker"
+												"rza:walker"
 											]
 										}
 									},
 									{
 										"add": {
 											"component_groups": [
-												"zom:runner"
+												"rza:runner"
 											]
 										},
 										"weight": 5
@@ -457,14 +457,14 @@
 										"weight": 100,
 										"add": {
 											"component_groups": [
-												"zom:walker"
+												"rza:walker"
 											]
 										}
 									},
 									{
 										"add": {
 											"component_groups": [
-												"zom:runner"
+												"rza:runner"
 											]
 										},
 										"weight": 25
@@ -491,14 +491,14 @@
 										"weight": 100,
 										"add": {
 											"component_groups": [
-												"zom:walker"
+												"rza:walker"
 											]
 										}
 									},
 									{
 										"add": {
 											"component_groups": [
-												"zom:runner"
+												"rza:runner"
 											]
 										},
 										"weight": 50
@@ -531,7 +531,7 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~-1"
+												"summon rza:walker ~1 ~ ~-1"
 											]
 										}
 									}
@@ -543,14 +543,14 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~-1"
+												"summon rza:walker ~1 ~ ~-1"
 											]
 										}
 									},
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~-1 ~ ~1"
+												"summon rza:walker ~-1 ~ ~1"
 											]
 										}
 									}
@@ -583,7 +583,7 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~-1"
+												"summon rza:walker ~1 ~ ~-1"
 											]
 										}
 									}
@@ -595,14 +595,14 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~-1"
+												"summon rza:walker ~1 ~ ~-1"
 											]
 										}
 									},
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~-1 ~ ~-1"
+												"summon rza:walker ~-1 ~ ~-1"
 											]
 										}
 									}
@@ -614,21 +614,21 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~-1"
+												"summon rza:walker ~1 ~ ~-1"
 											]
 										}
 									},
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~-1 ~ ~-1"
+												"summon rza:walker ~-1 ~ ~-1"
 											]
 										}
 									},
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~-1 ~ ~1"
+												"summon rza:walker ~-1 ~ ~1"
 											]
 										}
 									}
@@ -661,7 +661,7 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~1"
+												"summon rza:walker ~1 ~ ~1"
 											]
 										}
 									}
@@ -673,21 +673,21 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~1"
+												"summon rza:walker ~1 ~ ~1"
 											]
 										}
 									},
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~-1 ~ ~1"
+												"summon rza:walker ~-1 ~ ~1"
 											]
 										}
 									},
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~-1"
+												"summon rza:walker ~1 ~ ~-1"
 											]
 										}
 									}
@@ -720,7 +720,7 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~1"
+												"summon rza:walker ~1 ~ ~1"
 											]
 										}
 									}
@@ -732,21 +732,21 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~1"
+												"summon rza:walker ~1 ~ ~1"
 											]
 										}
 									},
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~-1 ~ ~1"
+												"summon rza:walker ~-1 ~ ~1"
 											]
 										}
 									},
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~-1"
+												"summon rza:walker ~1 ~ ~-1"
 											]
 										}
 									}
@@ -779,7 +779,7 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~1"
+												"summon rza:walker ~1 ~ ~1"
 											]
 										}
 									}
@@ -791,21 +791,21 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~1"
+												"summon rza:walker ~1 ~ ~1"
 											]
 										}
 									},
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~-1 ~ ~1"
+												"summon rza:walker ~-1 ~ ~1"
 											]
 										}
 									},
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:walker ~1 ~ ~-1"
+												"summon rza:walker ~1 ~ ~-1"
 											]
 										}
 									}
@@ -830,21 +830,21 @@
 					}
 				]
 			},
-			"zom:alert_others": {
+			"rza:alert_others": {
 				"add": {
 					"component_groups": [
-						"zom:alert_others"
+						"rza:alert_others"
 					]
 				}
 			},
-			"zom:idle": {
+			"rza:idle": {
 				"remove": {
 					"component_groups": [
-						"zom:alert_others"
+						"rza:alert_others"
 					]
 				}
 			},
-			"zom:blood_splatter": {
+			"rza:blood_splatter": {
 				"queue_command": {
 					"command": "playsound mob.zombie.blood_splatter @a ~ ~ ~ 1",
 					"target": "self"
@@ -1027,7 +1027,7 @@
 				]
 			},
 			"minecraft:on_target_acquired": {
-				"event": "zom:alert_others",
+				"event": "rza:alert_others",
 				"target": "self"
 			},
 			"minecraft:pushable": {
@@ -1037,7 +1037,7 @@
 			"minecraft:physics": {},
 			"minecraft:conditional_bandwidth_optimization": {},
 			"minecraft:on_death": {
-				"event": "zom:blood_splatter",
+				"event": "rza:blood_splatter",
 				"target": "self"
 			}
 		}

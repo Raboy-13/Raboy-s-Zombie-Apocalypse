@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"minecraft:client_entity": {
 		"description": {
-			"identifier": "zom:sonic_charge",
+			"identifier": "rza:sonic_charge",
 			"materials": {
 				"default": "entity_alphatest"
 			},
@@ -21,7 +21,7 @@
 				]
 			},
 			"particle_effects": {
-				"sonic_charge": "zom:sonic_charge"
+				"sonic_charge": "rza:sonic_charge"
 			},
 			"render_controllers": [
 				"controller.render.model_default"

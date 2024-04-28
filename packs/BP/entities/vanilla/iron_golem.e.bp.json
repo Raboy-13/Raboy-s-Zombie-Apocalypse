@@ -8,9 +8,9 @@
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:transform_to_charged_iron_golem": {
+			"rza:transform_to_charged_iron_golem": {
 				"minecraft:transformation": {
-					"into": "zom:charged_iron_golem",
+					"into": "rza:charged_iron_golem",
 					"delay": 0
 				}
 			},
@@ -100,14 +100,14 @@
 					"command": "function world/mobs/village_summon_illagers"
 				}
 			},
-			"zom:to_charged_iron_golem": {
+			"rza:to_charged_iron_golem": {
 				"add": {
 					"component_groups": [
-						"zom:transform_to_charged_iron_golem"
+						"rza:transform_to_charged_iron_golem"
 					]
 				}
 			},
-			"zom:heal": {
+			"rza:heal": {
 				"queue_command": {
 					"command": "effect @s regeneration 2 3"
 				}
@@ -206,7 +206,7 @@
 									}
 								]
 							},
-							"event": "zom:to_charged_iron_golem",
+							"event": "rza:to_charged_iron_golem",
 							"target": "self"
 						},
 						"use_item": true,

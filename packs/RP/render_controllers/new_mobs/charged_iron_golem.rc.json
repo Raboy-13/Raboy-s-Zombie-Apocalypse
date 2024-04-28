@@ -13,7 +13,7 @@
 			},
 			"geometry": "geometry.default",
 			"textures": [
-				"array.levels[query.property('zom:upgrade_phases')]"
+				"array.levels[query.property('rza:upgrade_phases')]"
 			],
 			"part_visibility": [
 				{

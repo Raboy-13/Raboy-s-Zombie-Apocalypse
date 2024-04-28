@@ -73,7 +73,7 @@
 				"controller.render.zombie_villager_v2_masked"
 			],
 			"particle_effects": {
-				"blood": "zom:blood"
+				"blood": "rza:blood"
 			},
 			"enable_attachables": true,
 			"spawn_egg": {

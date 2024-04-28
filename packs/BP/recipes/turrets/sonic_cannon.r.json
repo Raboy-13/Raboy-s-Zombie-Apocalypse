@@ -2,14 +2,14 @@
 	"format_version": "1.12",
 	"minecraft:recipe_shaped": {
 		"description": {
-			"identifier": "zom:sonic_cannon"
+			"identifier": "rza:sonic_cannon"
 		},
 		"tags": [
 			"crafting_table"
 		],
 		"key": {
 			"S": {
-				"item": "zom:sonic_compressor"
+				"item": "rza:sonic_compressor"
 			},
 			"O": {
 				"item": "observer"
@@ -26,7 +26,7 @@
 			"SOD"
 		],
 		"result": {
-			"item": "zom:sonic_cannon_item",
+			"item": "rza:sonic_cannon_item",
 			"count": 1
 		}
 	}

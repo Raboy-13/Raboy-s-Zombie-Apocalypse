@@ -8,7 +8,7 @@
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:settler": {
+			"rza:settler": {
 				"minecraft:preferred_path": {
 					"max_fall_blocks": 1,
 					"jump_cost": 10,
@@ -126,7 +126,7 @@
 					"first_founding_reward": 5
 				}
 			},
-			"zom:tower_guard": {
+			"rza:tower_guard": {
 				"minecraft:equipment": {
 					"table": "loot_tables/equipment/pillager_ranged_gear.lt.json"
 				},
@@ -227,7 +227,7 @@
 								"operator": "<=",
 								"value": 3
 							},
-							"event": "zom:melee_mode_tower_guard",
+							"event": "rza:melee_mode_tower_guard",
 							"target": "self"
 						},
 						{
@@ -237,7 +237,7 @@
 								"operator": "<=",
 								"value": 15
 							},
-							"event": "zom:avoid_mobs_tower_guard",
+							"event": "rza:avoid_mobs_tower_guard",
 							"target": "self"
 						}
 					]
@@ -245,14 +245,14 @@
 			},
 			"transform_to_zombie": {
 				"minecraft:transformation": {
-					"into": "zom:zombie_pillager",
+					"into": "rza:zombie_pillager",
 					"preserve_equipment": true,
 					"delay": {
 						"value": 0
 					}
 				}
 			},
-			"zom:can_mingle": {
+			"rza:can_mingle": {
 				"minecraft:behavior.mingle": {
 					"priority": 2,
 					"speed_multiplier": 0.5,
@@ -409,7 +409,7 @@
 								"operator": "<=",
 								"value": 15
 							},
-							"event": "zom:avoid_mobs_iron",
+							"event": "rza:avoid_mobs_iron",
 							"target": "self"
 						}
 					]
@@ -557,7 +557,7 @@
 								"operator": "<=",
 								"value": 15
 							},
-							"event": "zom:avoid_mobs_diamond",
+							"event": "rza:avoid_mobs_diamond",
 							"target": "self"
 						}
 					]
@@ -711,7 +711,7 @@
 								"operator": "<=",
 								"value": 15
 							},
-							"event": "zom:avoid_mobs_iron",
+							"event": "rza:avoid_mobs_iron",
 							"target": "self"
 						}
 					]
@@ -807,7 +807,7 @@
 								"operator": "<=",
 								"value": 15
 							},
-							"event": "zom:avoid_mobs_diamond",
+							"event": "rza:avoid_mobs_diamond",
 							"target": "self"
 						}
 					]
@@ -942,7 +942,7 @@
 								"operator": ">=",
 								"value": 3
 							},
-							"event": "zom:ranged_mode_tower_guard",
+							"event": "rza:ranged_mode_tower_guard",
 							"target": "self"
 						},
 						{
@@ -951,7 +951,7 @@
 								"subject": "self",
 								"value": false
 							},
-							"event": "zom:ranged_mode_tower_guard",
+							"event": "rza:ranged_mode_tower_guard",
 							"target": "self"
 						},
 						{
@@ -961,13 +961,13 @@
 								"operator": "<=",
 								"value": 15
 							},
-							"event": "zom:avoid_mobs_tower_guard",
+							"event": "rza:avoid_mobs_tower_guard",
 							"target": "self"
 						}
 					]
 				}
 			},
-			"zom:avoid_mobs_iron": {
+			"rza:avoid_mobs_iron": {
 				"minecraft:is_hidden_when_invisible": {},
 				"minecraft:behavior.avoid_mob_type": {
 					"priority": 0,
@@ -1017,12 +1017,12 @@
 							"operator": ">=",
 							"value": 20
 						},
-						"event": "zom:on_avoid_iron",
+						"event": "rza:on_avoid_iron",
 						"target": "self"
 					}
 				}
 			},
-			"zom:avoid_mobs_diamond": {
+			"rza:avoid_mobs_diamond": {
 				"minecraft:is_hidden_when_invisible": {},
 				"minecraft:behavior.avoid_mob_type": {
 					"priority": 0,
@@ -1072,12 +1072,12 @@
 							"operator": ">=",
 							"value": 20
 						},
-						"event": "zom:on_avoid_diamond",
+						"event": "rza:on_avoid_diamond",
 						"target": "self"
 					}
 				}
 			},
-			"zom:avoid_mobs_tower_guard": {
+			"rza:avoid_mobs_tower_guard": {
 				"minecraft:is_hidden_when_invisible": {},
 				"minecraft:behavior.avoid_mob_type": {
 					"priority": 0,
@@ -1127,7 +1127,7 @@
 							"operator": ">=",
 							"value": 20
 						},
-						"event": "zom:on_avoid_tower_guard",
+						"event": "rza:on_avoid_tower_guard",
 						"target": "self"
 					}
 				}
@@ -1154,8 +1154,8 @@
 					{
 						"add": {
 							"component_groups": [
-								"zom:can_mingle",
-								"zom:settler"
+								"rza:can_mingle",
+								"rza:settler"
 							]
 						}
 					},
@@ -1181,15 +1181,15 @@
 					}
 				]
 			},
-			"zom:as_tower_guard": {
+			"rza:as_tower_guard": {
 				"remove": {
 					"component_groups": [
-						"zom:settler"
+						"rza:settler"
 					]
 				},
 				"add": {
 					"component_groups": [
-						"zom:tower_guard"
+						"rza:tower_guard"
 					]
 				}
 			},
@@ -1198,7 +1198,7 @@
 					{
 						"add": {
 							"component_groups": [
-								"zom:can_mingle"
+								"rza:can_mingle"
 							]
 						}
 					},
@@ -1258,7 +1258,7 @@
 					{
 						"add": {
 							"component_groups": [
-								"zom:can_mingle",
+								"rza:can_mingle",
 								"minecraft:illager_squad_captain"
 							]
 						}
@@ -1309,10 +1309,10 @@
 					]
 				}
 			},
-			"zom:melee_mode_tower_guard": {
+			"rza:melee_mode_tower_guard": {
 				"remove": {
 					"component_groups": [
-						"zom:tower_guard"
+						"rza:tower_guard"
 					]
 				},
 				"add": {
@@ -1345,7 +1345,7 @@
 					]
 				}
 			},
-			"zom:ranged_mode_tower_guard": {
+			"rza:ranged_mode_tower_guard": {
 				"remove": {
 					"component_groups": [
 						"minecraft:melee_attack_tower_guard"
@@ -1353,11 +1353,11 @@
 				},
 				"add": {
 					"component_groups": [
-						"zom:tower_guard"
+						"rza:tower_guard"
 					]
 				}
 			},
-			"zom:avoid_mobs_iron": {
+			"rza:avoid_mobs_iron": {
 				"remove": {
 					"component_groups": [
 						"minecraft:melee_attack_iron",
@@ -1366,11 +1366,11 @@
 				},
 				"add": {
 					"component_groups": [
-						"zom:avoid_mobs_iron"
+						"rza:avoid_mobs_iron"
 					]
 				}
 			},
-			"zom:avoid_mobs_diamond": {
+			"rza:avoid_mobs_diamond": {
 				"remove": {
 					"component_groups": [
 						"minecraft:melee_attack_diamond",
@@ -1379,27 +1379,27 @@
 				},
 				"add": {
 					"component_groups": [
-						"zom:avoid_mobs_diamond"
+						"rza:avoid_mobs_diamond"
 					]
 				}
 			},
-			"zom:avoid_mobs_tower_guard": {
+			"rza:avoid_mobs_tower_guard": {
 				"remove": {
 					"component_groups": [
 						"minecraft:melee_attack_tower_guard",
-						"zom:tower_guard"
+						"rza:tower_guard"
 					]
 				},
 				"add": {
 					"component_groups": [
-						"zom:avoid_mobs_tower_guard"
+						"rza:avoid_mobs_tower_guard"
 					]
 				}
 			},
-			"zom:on_avoid_iron": {
+			"rza:on_avoid_iron": {
 				"remove": {
 					"component_groups": [
-						"zom:avoid_mobs_iron"
+						"rza:avoid_mobs_iron"
 					]
 				},
 				"add": {
@@ -1408,10 +1408,10 @@
 					]
 				}
 			},
-			"zom:on_avoid_diamond": {
+			"rza:on_avoid_diamond": {
 				"remove": {
 					"component_groups": [
-						"zom:avoid_mobs_diamond"
+						"rza:avoid_mobs_diamond"
 					]
 				},
 				"add": {
@@ -1420,36 +1420,36 @@
 					]
 				}
 			},
-			"zom:on_avoid_tower_guard": {
+			"rza:on_avoid_tower_guard": {
 				"remove": {
 					"component_groups": [
-						"zom:avoid_mobs_tower_guard"
+						"rza:avoid_mobs_tower_guard"
 					]
 				},
 				"add": {
 					"component_groups": [
-						"zom:tower_guard"
+						"rza:tower_guard"
 					]
 				}
 			},
-			"zom:transform_to_zombie": {
+			"rza:transform_to_zombie": {
 				"add": {
 					"component_groups": [
 						"transform_to_zombie"
 					]
 				}
 			},
-			"zom:can_mingle": {
+			"rza:can_mingle": {
 				"add": {
 					"component_groups": [
-						"zom:can_mingle"
+						"rza:can_mingle"
 					]
 				}
 			},
-			"zom:cant_mingle": {
+			"rza:cant_mingle": {
 				"remove": {
 					"component_groups": [
-						"zom:can_mingle"
+						"rza:can_mingle"
 					]
 				}
 			}
@@ -1587,7 +1587,7 @@
 								}
 							]
 						},
-						"event": "zom:cant_mingle"
+						"event": "rza:cant_mingle"
 					},
 					{
 						"filters": {
@@ -1609,7 +1609,7 @@
 								}
 							]
 						},
-						"event": "zom:can_mingle"
+						"event": "rza:can_mingle"
 					}
 				]
 			},
@@ -1651,7 +1651,7 @@
 									}
 								]
 							},
-							"event": "zom:transform_to_zombie"
+							"event": "rza:transform_to_zombie"
 						}
 					},
 					{

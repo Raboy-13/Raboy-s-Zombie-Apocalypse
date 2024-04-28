@@ -2,13 +2,13 @@
 	"format_version": "1.19.80",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:zombie_evocation_illager",
+			"identifier": "rza:zombie_evocation_illager",
 			"is_spawnable": true,
 			"is_summonable": true,
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:to_evoker": {
+			"rza:to_evoker": {
 				"minecraft:transformation": {
 					"into": "minecraft:evocation_illager",
 					"begin_transform_sound": "remedy",
@@ -43,14 +43,14 @@
 		"events": {
 			"minecraft:entity_spawned": {},
 			"minecraft:entity_transformed": {},
-			"zom:cure": {
+			"rza:cure": {
 				"add": {
 					"component_groups": [
-						"zom:to_evoker"
+						"rza:to_evoker"
 					]
 				}
 			},
-			"zom:blood_splatter": {
+			"rza:blood_splatter": {
 				"queue_command": {
 					"command": "playsound mob.zombie.blood_splatter @a ~ ~ ~ 1",
 					"target": "self"
@@ -133,7 +133,7 @@
 								"base_delay": 1,
 								"delay_per_summon": 0.2,
 								"num_entities_spawned": 1,
-								"entity_type": "zom:walker",
+								"entity_type": "rza:walker",
 								"entity_lifespan": -1,
 								"sound_event": "prepare.attack"
 							},
@@ -143,7 +143,7 @@
 								"base_delay": 0.15,
 								"delay_per_summon": 0.2,
 								"num_entities_spawned": 2,
-								"entity_type": "zom:walker",
+								"entity_type": "rza:walker",
 								"entity_lifespan": -1
 							}
 						]
@@ -162,7 +162,7 @@
 								"base_delay": 1,
 								"delay_per_summon": 0.2,
 								"num_entities_spawned": 5,
-								"entity_type": "zom:walker",
+								"entity_type": "rza:walker",
 								"entity_lifespan": -1
 							}
 						]
@@ -220,7 +220,7 @@
 								}
 							]
 						},
-						"event": "zom:cure",
+						"event": "rza:cure",
 						"target": "self"
 					},
 					"use_item": true,
@@ -359,7 +359,7 @@
 			},
 			"minecraft:conditional_bandwidth_optimization": {},
 			"minecraft:on_death": {
-				"event": "zom:blood_splatter",
+				"event": "rza:blood_splatter",
 				"target": "self"
 			}
 		}

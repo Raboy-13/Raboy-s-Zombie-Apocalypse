@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:attachable": {
     "description": {
-      "identifier": "zom:arrow_turret_item",
+      "identifier": "rza:arrow_turret_item",
       "materials": {
         "default": "entity_alphatest"
       },

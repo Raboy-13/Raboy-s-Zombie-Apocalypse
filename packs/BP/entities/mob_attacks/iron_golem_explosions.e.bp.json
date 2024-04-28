@@ -2,7 +2,7 @@
 	"format_version": "1.19.50",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:iron_golem_explosions",
+			"identifier": "rza:iron_golem_explosions",
 			"is_spawnable": false,
 			"is_summonable": true,
 			"is_experimental": false

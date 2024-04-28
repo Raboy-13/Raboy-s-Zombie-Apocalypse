@@ -3,47 +3,47 @@ action.interact.upgrade=Upgrade
 
 
 ##Zombies
-item.spawn_egg.entity.zom:walker.name=Spawn Walker
-entity.zom:walker.name=Walker
-item.spawn_egg.entity.zom:walker_variant.name=Spawn Walker Variant
-entity.zom:walker_variant.name=Walker Variant
-item.spawn_egg.entity.zom:feral.name=Spawn Feral
-entity.zom:feral.name=Feral
-item.spawn_egg.entity.zom:miner.name=Spawn Miner
-entity.zom:miner.name=Miner
+item.spawn_egg.entity.rza:walker.name=Spawn Walker
+entity.rza:walker.name=Walker
+item.spawn_egg.entity.rza:walker_variant.name=Spawn Walker Variant
+entity.rza:walker_variant.name=Walker Variant
+item.spawn_egg.entity.rza:feral.name=Spawn Feral
+entity.rza:feral.name=Feral
+item.spawn_egg.entity.rza:miner.name=Spawn Miner
+entity.rza:miner.name=Miner
 
 ##Vanilla Zombies
-item.spawn_egg.entity.zom:zombie_evocation_illager.name=Spawn Zombie Evoker
-entity.zom:zombie_evocation_illager.name=Zombie Evoker
-item.spawn_egg.entity.zom:zombie_pillager.name=Spawn Zombie Pillager
-entity.zom:zombie_pillager.name=Zombie Pillager
-item.spawn_egg.entity.zom:zombie_vindicator.name=Spawn Zombie Vindicator
-entity.zom:zombie_vindicator.name=Zombie Vindicator
+item.spawn_egg.entity.rza:zombie_evocation_illager.name=Spawn Zombie Evoker
+entity.rza:zombie_evocation_illager.name=Zombie Evoker
+item.spawn_egg.entity.rza:zombie_pillager.name=Spawn Zombie Pillager
+entity.rza:zombie_pillager.name=Zombie Pillager
+item.spawn_egg.entity.rza:zombie_vindicator.name=Spawn Zombie Vindicator
+entity.rza:zombie_vindicator.name=Zombie Vindicator
 
 ## Charged Iron Golems
-item.spawn_egg.entity.zom:charged_iron_golem.name=Spawn Charged Iron Golem
-entity.zom:charged_iron_golem.name=Charged Iron Golem
-item.spawn_egg.entity.zom:supercharged_iron_golem.name=Spawn Supercharged Iron Golem
-entity.zom:supercharged_iron_golem.name=Supercharged Iron Golem
+item.spawn_egg.entity.rza:charged_iron_golem.name=Spawn Charged Iron Golem
+entity.rza:charged_iron_golem.name=Charged Iron Golem
+item.spawn_egg.entity.rza:supercharged_iron_golem.name=Spawn Supercharged Iron Golem
+entity.rza:supercharged_iron_golem.name=Supercharged Iron Golem
 
 ##Turrets
-entity.zom:arrow_turret.name=§aArrow Turret§r
-entity.zom:pyro_charger.name=§6Pyro Charger§r
-entity.zom:sonic_cannon.name=§5Sonic Cannon§r
+entity.rza:arrow_turret.name=§aArrow Turret§r
+entity.rza:pyro_charger.name=§6Pyro Charger§r
+entity.rza:sonic_cannon.name=§5Sonic Cannon§r
 
 ##Dummy Entities
-entity.zom:iron_golem_splash.name=Supercharged Iron Golem
-entity.zom:iron_golem_explosion.name=Supercharged Iron Golem
-entity.zom:turret_base_placer.name=Turret Base Placer
-entity.zom:pyro_charger_fireball.name=Pyro Charger Fireball
+entity.rza:iron_golem_splash.name=Supercharged Iron Golem
+entity.rza:iron_golem_explosion.name=Supercharged Iron Golem
+entity.rza:turret_base_placer.name=Turret Base Placer
+entity.rza:pyro_charger_fireball.name=Pyro Charger Fireball
 
 ##Items
-item.zom:turret_base=Turret Base
-item.zom:arrow_turret_item=§aArrow Turret§r
-item.zom:pyro_charger_item=§6Pyro Charger§r
-item.zom:pyro_charger_machine=Pyro Charger Machine
-item.zom:sonic_cannon_item=§5Sonic Cannon§r
-item.zom:sonic_compressor=Sonic Compressor
+item.rza:turret_base=Turret Base
+item.rza:arrow_turret_item=§aArrow Turret§r
+item.rza:pyro_charger_item=§6Pyro Charger§r
+item.rza:pyro_charger_machine=Pyro Charger Machine
+item.rza:sonic_cannon_item=§5Sonic Cannon§r
+item.rza:sonic_compressor=Sonic Compressor
 
 ##Blocks
-tile.zom:turret_base.name=Turret Base
+tile.rza:turret_base.name=Turret Base

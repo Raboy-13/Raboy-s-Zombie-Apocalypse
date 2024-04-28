@@ -2,13 +2,13 @@
 	"format_version": "1.19.80",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:zombie_vindicator",
+			"identifier": "rza:zombie_vindicator",
 			"is_spawnable": true,
 			"is_summonable": true,
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:to_vindicator": {
+			"rza:to_vindicator": {
 				"minecraft:transformation": {
 					"into": "minecraft:vindicator",
 					"begin_transform_sound": "remedy",
@@ -43,14 +43,14 @@
 		"events": {
 			"minecraft:entity_spawned": {},
 			"minecraft:entity_transformed": {},
-			"zom:cure": {
+			"rza:cure": {
 				"add": {
 					"component_groups": [
-						"zom:to_vindicator"
+						"rza:to_vindicator"
 					]
 				}
 			},
-			"zom:blood_splatter": {
+			"rza:blood_splatter": {
 				"queue_command": {
 					"command": "playsound mob.zombie.blood_splatter @a ~ ~ ~ 1",
 					"target": "self"
@@ -169,7 +169,7 @@
 								}
 							]
 						},
-						"event": "zom:cure",
+						"event": "rza:cure",
 						"target": "self"
 					},
 					"use_item": true,
@@ -313,7 +313,7 @@
 			},
 			"minecraft:conditional_bandwidth_optimization": {},
 			"minecraft:on_death": {
-				"event": "zom:blood_splatter",
+				"event": "rza:blood_splatter",
 				"target": "self"
 			}
 		}

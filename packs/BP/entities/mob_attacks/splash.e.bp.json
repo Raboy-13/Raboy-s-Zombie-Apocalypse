@@ -2,13 +2,13 @@
 	"format_version": "1.19.50",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:splash",
+			"identifier": "rza:splash",
 			"is_spawnable": false,
 			"is_summonable": true,
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:splash": {
+			"rza:splash": {
 				"minecraft:type_family": {
 					"family": [
 						"dummy",
@@ -133,29 +133,29 @@
 				"minecraft:timer": {
 					"time": 0.3,
 					"time_down_event": {
-						"event": "zom:despawn",
+						"event": "rza:despawn",
 						"target": "self"
 					}
 				}
 			},
-			"zom:attack_despawn": {
+			"rza:attack_despawn": {
 				"minecraft:instant_despawn": {
 					"remove_child_entities": false
 				}
 			}
 		},
 		"events": {
-			"zom:splash": {
+			"rza:splash": {
 				"add": {
 					"component_groups": [
-						"zom:splash"
+						"rza:splash"
 					]
 				}
 			},
-			"zom:despawn": {
+			"rza:despawn": {
 				"add": {
 					"component_groups": [
-						"zom:attack_despawn"
+						"rza:attack_despawn"
 					]
 				}
 			}
@@ -185,7 +185,7 @@
 			"minecraft:timer": {
 				"time": 0.5,
 				"time_down_event": {
-					"event": "zom:splash",
+					"event": "rza:splash",
 					"target": "self"
 				}
 			},

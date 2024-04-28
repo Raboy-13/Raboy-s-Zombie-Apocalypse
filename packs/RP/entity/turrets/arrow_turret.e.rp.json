@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"minecraft:client_entity": {
 		"description": {
-			"identifier": "zom:arrow_turret",
+			"identifier": "rza:arrow_turret",
 			"materials": {
 				"default": "entity_alphatest"
 			},
@@ -25,7 +25,7 @@
 				]
 			},
 			"particle_effects": {
-				"shoot_dust": "zom:shoot_dust"
+				"shoot_dust": "rza:shoot_dust"
 			},
 			"render_controllers": [
 				"controller.render.arrow_turret"

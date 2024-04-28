@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"minecraft:client_entity": {
 		"description": {
-			"identifier": "zom:illager_settlement",
+			"identifier": "rza:illager_settlement",
 			"materials": {
 				"default": "entity_alphatest"
 			},

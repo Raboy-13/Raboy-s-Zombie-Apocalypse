@@ -2,19 +2,19 @@
 	"format_version": "1.12.0",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:pyro_charger_fireball",
+			"identifier": "rza:pyro_charger_fireball",
 			"is_spawnable": false,
 			"is_summonable": false,
 			"is_experimental": false,
 			"runtime_identifier": "small_fireball"
 		},
 		"component_groups": {
-			"zom:despawn": {
+			"rza:despawn": {
 				"minecraft:instant_despawn": {}
 			}
 		},
 		"events": {
-			"zom:splash_fire": {
+			"rza:splash_fire": {
 				"queue_command": {
 					"command": [
 						"fill ~-2 ~-3 ~-3 ~3 ~1 ~2 fire replace air",
@@ -24,10 +24,10 @@
 					]
 				}
 			},
-			"zom:despawn": {
+			"rza:despawn": {
 				"add": {
 					"component_groups": [
-						"zom:despawn"
+						"rza:despawn"
 					]
 				}
 			}
@@ -51,7 +51,7 @@
 					"catch_fire": true,
 					"definition_event": {
 						"event_trigger": {
-							"event": "zom:splash_fire",
+							"event": "rza:splash_fire",
 							"target": "self"
 						}
 					}
@@ -78,7 +78,7 @@
 				"time": 8,
 				"looping": true,
 				"time_down_event": {
-					"event": "zom:despawn",
+					"event": "rza:despawn",
 					"target": "self"
 				}
 			},

@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"minecraft:client_entity": {
 		"description": {
-			"identifier": "zom:supercharged_iron_golem",
+			"identifier": "rza:supercharged_iron_golem",
 			"materials": {
 				"default": "iron_golem"
 			},
@@ -44,7 +44,7 @@
 				]
 			},
 			"particle_effects": {
-				"supercharged_iron_golem_particle": "zom:supercharged_iron_golem_particle"
+				"supercharged_iron_golem_particle": "rza:supercharged_iron_golem_particle"
 			},
 			"render_controllers": [
 				"controller.render.iron_golem",

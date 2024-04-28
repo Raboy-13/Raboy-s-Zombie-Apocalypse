@@ -2,14 +2,14 @@
 	"format_version": "1.12",
 	"minecraft:recipe_shaped": {
 		"description": {
-			"identifier": "zom:pyro_charger"
+			"identifier": "rza:pyro_charger"
 		},
 		"tags": [
 			"crafting_table"
 		],
 		"key": {
 			"P": {
-				"item": "zom:pyro_charger_machine"
+				"item": "rza:pyro_charger_machine"
 			},
 			"D": {
 				"item": "dispenser"
@@ -26,7 +26,7 @@
 			"PDI"
 		],
 		"result": {
-			"item": "zom:pyro_charger_item",
+			"item": "rza:pyro_charger_item",
 			"count": 1
 		}
 	}

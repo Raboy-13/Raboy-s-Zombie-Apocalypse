@@ -2,7 +2,7 @@
 	"format_version": "1.19.60",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:turret_base_placer",
+			"identifier": "rza:turret_base_placer",
 			"is_spawnable": false,
 			"is_summonable": true,
 			"is_experimental": false
@@ -18,7 +18,7 @@
 					"command": "function world/turrets/turret_base_placer"
 				}
 			},
-			"zom:despawn": {
+			"rza:despawn": {
 				"add": {
 					"component_groups": [
 						"despawn"
@@ -40,7 +40,7 @@
 				"time": 1,
 				"looping": true,
 				"time_down_event": {
-					"event": "zom:despawn",
+					"event": "rza:despawn",
 					"target": "self"
 				}
 			},

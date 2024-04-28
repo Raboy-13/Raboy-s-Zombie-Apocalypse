@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"minecraft:client_entity": {
 		"description": {
-			"identifier": "zom:pyro_charger",
+			"identifier": "rza:pyro_charger",
 			"materials": {
 				"default": "entity_emissive_alpha",
 				"tubes": "pyro_tubes"
@@ -28,11 +28,11 @@
 				]
 			},
 			"particle_effects": {
-				"spark": "zom:spark",
-				"fire": "zom:fire",
-				"smoke": "zom:smoke",
-				"steam": "zom:steam",
-				"cooldown": "zom:cooldown"
+				"spark": "rza:spark",
+				"fire": "rza:fire",
+				"smoke": "rza:smoke",
+				"steam": "rza:steam",
+				"cooldown": "rza:cooldown"
 			},
 			"sound_effects": {
 				"cooldown": "turret.pyro_charger.cooldown"

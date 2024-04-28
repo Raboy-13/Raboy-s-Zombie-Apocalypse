@@ -2,13 +2,13 @@
 	"format_version": "1.19.80",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:walker_variant",
+			"identifier": "rza:walker_variant",
 			"is_spawnable": true,
 			"is_summonable": true,
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:walker": {
+			"rza:walker": {
 				"minecraft:behavior.delayed_attack": {
 					"priority": 3,
 					"attack_duration": 0.1,
@@ -18,7 +18,7 @@
 					"x_max_rotation": 30
 				}
 			},
-			"zom:runner": {
+			"rza:runner": {
 				"minecraft:behavior.delayed_attack": {
 					"priority": 3,
 					"speed_multiplier": 1.6,
@@ -29,7 +29,7 @@
 					"x_max_rotation": 30
 				}
 			},
-			"zom:zombie_idle": {
+			"rza:zombie_idle": {
 				"minecraft:on_target_acquired": {
 					"event": "minecraft:become_angry",
 					"target": "self"
@@ -81,7 +81,7 @@
 					]
 				}
 			},
-			"zom:zombie_target_acquired": {
+			"rza:zombie_target_acquired": {
 				"minecraft:angry": {
 					"broadcast_anger": true,
 					"broadcast_range": 48,
@@ -139,14 +139,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 3
@@ -173,14 +173,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 15
@@ -207,14 +207,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 25
@@ -241,14 +241,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 5
@@ -275,14 +275,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 25
@@ -309,14 +309,14 @@
 								"weight": 100,
 								"add": {
 									"component_groups": [
-										"zom:walker"
+										"rza:walker"
 									]
 								}
 							},
 							{
 								"add": {
 									"component_groups": [
-										"zom:runner"
+										"rza:runner"
 									]
 								},
 								"weight": 50
@@ -342,28 +342,28 @@
 			"minecraft:become_angry": {
 				"remove": {
 					"component_groups": [
-						"zom:zombie_idle"
+						"rza:zombie_idle"
 					]
 				},
 				"add": {
 					"component_groups": [
-						"zom:zombie_target_acquired"
+						"rza:zombie_target_acquired"
 					]
 				}
 			},
 			"minecraft:on_calm": {
 				"remove": {
 					"component_groups": [
-						"zom:zombie_target_acquired"
+						"rza:zombie_target_acquired"
 					]
 				},
 				"add": {
 					"component_groups": [
-						"zom:zombie_idle"
+						"rza:zombie_idle"
 					]
 				}
 			},
-			"zom:blood_splatter": {
+			"rza:blood_splatter": {
 				"queue_command": {
 					"command": "playsound mob.zombie.blood_splatter @a ~ ~ ~ 1",
 					"target": "self"
@@ -652,7 +652,7 @@
 			},
 			"minecraft:conditional_bandwidth_optimization": {},
 			"minecraft:on_death": {
-				"event": "zom:blood_splatter",
+				"event": "rza:blood_splatter",
 				"target": "self"
 			}
 		}

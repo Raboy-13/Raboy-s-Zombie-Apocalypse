@@ -13,7 +13,7 @@
 				},
 				"attacking": {
 					"on_entry": [
-						"/summon zom:splash ^ ^1 ^1"
+						"/summon rza:splash ^ ^1 ^1"
 					],
 					"on_exit": [
 						"/playsound mob.wither.break_block @a ~ ~ ~"

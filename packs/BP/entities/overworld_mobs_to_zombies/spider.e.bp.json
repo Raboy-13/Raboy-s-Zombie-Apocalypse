@@ -8,9 +8,9 @@
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:transform_to_walker": {
+			"rza:transform_to_walker": {
 				"minecraft:transformation": {
-					"into": "zom:walker",
+					"into": "rza:walker",
 					"delay": {
 						"value": 0
 					}
@@ -260,7 +260,7 @@
 							{
 								"add": {
 									"component_groups": [
-										"zom:transform_to_walker"
+										"rza:transform_to_walker"
 									]
 								},
 								"weight": 100

@@ -2,7 +2,7 @@
 	"format_version": "1.10.0",
 	"minecraft:client_entity": {
 		"description": {
-			"identifier": "zom:sonic_cannon",
+			"identifier": "rza:sonic_cannon",
 			"materials": {
 				"active": "entity_emissive_alpha",
 				"inactive": "entity"
@@ -28,10 +28,10 @@
 				]
 			},
 			"particle_effects": {
-				"charge": "zom:charge",
-				"sonic_charge": "zom:sonic_charge",
-				"exhaust": "zom:exhaust",
-				"exhaust_front": "zom:exhaust_front"
+				"charge": "rza:charge",
+				"sonic_charge": "rza:sonic_charge",
+				"exhaust": "rza:exhaust",
+				"exhaust_front": "rza:exhaust_front"
 			},
 			"sound_effects": {
 				"charge": "turret.sonic_cannon.charge"

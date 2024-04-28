@@ -2,7 +2,7 @@
 	"format_version": "1.19.60",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:supercharged_iron_golem",
+			"identifier": "rza:supercharged_iron_golem",
 			"is_spawnable": true,
 			"is_summonable": true,
 			"is_experimental": false,
@@ -258,7 +258,7 @@
 				"value": 64
 			},
 			"minecraft:on_death": {
-				"event": "zom:explode",
+				"event": "rza:explode",
 				"target": "self"
 			},
 			"minecraft:conditional_bandwidth_optimization": {}
@@ -283,15 +283,15 @@
 					}
 				]
 			},
-			"zom:heal": {
+			"rza:heal": {
 				"queue_command": {
 					"command": "effect @s regeneration 2 5"
 				}
 			},
-			"zom:explode": {
+			"rza:explode": {
 				"queue_command": {
 					"command": [
-						"summon zom:iron_golem_explosions"
+						"summon rza:iron_golem_explosions"
 					]
 				}
 			}

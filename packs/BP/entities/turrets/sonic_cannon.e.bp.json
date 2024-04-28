@@ -2,12 +2,12 @@
 	"format_version": "1.19.60",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:sonic_cannon",
+			"identifier": "rza:sonic_cannon",
 			"is_spawnable": false,
 			"is_summonable": true,
 			"is_experimental": false,
 			"properties": {
-				"zom:active": {
+				"rza:active": {
 					"type": "bool",
 					"client_sync": true,
 					"default": false
@@ -28,7 +28,7 @@
 					"ranged_fov": 45
 				},
 				"minecraft:shooter": {
-					"def": "zom:sonic_charge"
+					"def": "rza:sonic_charge"
 				},
 				"minecraft:behavior.nearest_attackable_target": {
 					"priority": 2,
@@ -74,11 +74,11 @@
 					}
 				]
 			},
-			"zom:activate": {
+			"rza:activate": {
 				"sequence": [
 					{
 						"set_property": {
-							"zom:active": true
+							"rza:active": true
 						}
 					},
 					{
@@ -90,11 +90,11 @@
 					}
 				]
 			},
-			"zom:deactivate": {
+			"rza:deactivate": {
 				"sequence": [
 					{
 						"set_property": {
-							"zom:active": false
+							"rza:active": false
 						}
 					},
 					{
@@ -106,7 +106,7 @@
 					}
 				]
 			},
-			"zom:despawn": {
+			"rza:despawn": {
 				"queue_command": {
 					"command": "function world/turrets/sonic_cannon"
 				}
@@ -176,7 +176,7 @@
 								"operator": "==",
 								"value": "player"
 							},
-							"event": "zom:despawn",
+							"event": "rza:despawn",
 							"target": "self"
 						},
 						"deals_damage": false

@@ -8,9 +8,9 @@
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:transform_to_feral": {
+			"rza:transform_to_feral": {
 				"minecraft:transformation": {
-					"into": "zom:feral",
+					"into": "rza:feral",
 					"delay": {
 						"value": 0
 					}
@@ -361,7 +361,7 @@
 			"minecraft:entity_spawned": {
 				"add": {
 					"component_groups": [
-						"zom:transform_to_feral"
+						"rza:transform_to_feral"
 					]
 				}
 			},

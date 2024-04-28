@@ -2,13 +2,13 @@
 	"format_version": "1.19.80",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:miner",
+			"identifier": "rza:miner",
 			"is_spawnable": true,
 			"is_summonable": true,
 			"is_experimental": false
 		},
 		"component_groups": {
-			"zom:zombie_idle": {
+			"rza:zombie_idle": {
 				"minecraft:on_target_acquired": {
 					"event": "minecraft:become_angry",
 					"target": "self"
@@ -60,7 +60,7 @@
 					]
 				}
 			},
-			"zom:zombie_target_acquired": {
+			"rza:zombie_target_acquired": {
 				"minecraft:angry": {
 					"broadcast_anger": true,
 					"broadcast_range": 48,
@@ -122,7 +122,7 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:miner ~1 ~ ~-1"
+												"summon rza:miner ~1 ~ ~-1"
 											]
 										}
 									}
@@ -155,7 +155,7 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:miner ~1 ~ ~-1"
+												"summon rza:miner ~1 ~ ~-1"
 											]
 										}
 									}
@@ -188,7 +188,7 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:miner ~1 ~ ~1"
+												"summon rza:miner ~1 ~ ~1"
 											]
 										}
 									}
@@ -221,7 +221,7 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:miner ~1 ~ ~1"
+												"summon rza:miner ~1 ~ ~1"
 											]
 										}
 									}
@@ -254,7 +254,7 @@
 									{
 										"queue_command": {
 											"command": [
-												"summon zom:miner ~1 ~ ~1"
+												"summon rza:miner ~1 ~ ~1"
 											]
 										}
 									}
@@ -282,28 +282,28 @@
 			"minecraft:become_angry": {
 				"remove": {
 					"component_groups": [
-						"zom:zombie_idle"
+						"rza:zombie_idle"
 					]
 				},
 				"add": {
 					"component_groups": [
-						"zom:zombie_target_acquired"
+						"rza:zombie_target_acquired"
 					]
 				}
 			},
 			"minecraft:on_calm": {
 				"remove": {
 					"component_groups": [
-						"zom:zombie_target_acquired"
+						"rza:zombie_target_acquired"
 					]
 				},
 				"add": {
 					"component_groups": [
-						"zom:zombie_idle"
+						"rza:zombie_idle"
 					]
 				}
 			},
-			"zom:blood_splatter": {
+			"rza:blood_splatter": {
 				"queue_command": {
 					"command": "playsound mob.zombie.blood_splatter @a ~ ~ ~ 1",
 					"target": "self"
@@ -519,7 +519,7 @@
 			},
 			"minecraft:conditional_bandwidth_optimization": {},
 			"minecraft:on_death": {
-				"event": "zom:blood_splatter",
+				"event": "rza:blood_splatter",
 				"target": "self"
 			}
 		}

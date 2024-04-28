@@ -2,7 +2,7 @@
 	"format_version": "1.12",
 	"minecraft:recipe_shaped": {
 		"description": {
-			"identifier": "zom:turret_base"
+			"identifier": "rza:turret_base"
 		},
 		"tags": [
 			"crafting_table"
@@ -20,7 +20,7 @@
 			"AAA"
 		],
 		"result": {
-			"item": "zom:turret_base",
+			"item": "rza:turret_base",
 			"count": 1
 		}
 	}

@@ -2,7 +2,7 @@
   "format_version": "1.13.0",
   "minecraft:attachable": {
     "description": {
-      "identifier": "zom:sonic_compressor",
+      "identifier": "rza:sonic_compressor",
       "materials": {
         "default": "entity_emissive_alpha"
       },

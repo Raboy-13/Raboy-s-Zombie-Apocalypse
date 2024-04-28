@@ -2,7 +2,7 @@
 	"format_version": "1.20.0",
 	"minecraft:block": {
 		"description": {
-			"identifier": "zom:turret_base"
+			"identifier": "rza:turret_base"
 		},
 		"components": {
 			"minecraft:geometry": "geometry.turret_base",

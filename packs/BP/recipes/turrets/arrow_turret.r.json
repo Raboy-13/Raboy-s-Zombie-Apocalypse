@@ -2,7 +2,7 @@
 	"format_version": "1.12",
 	"minecraft:recipe_shaped": {
 		"description": {
-			"identifier": "zom:arrow_turret"
+			"identifier": "rza:arrow_turret"
 		},
 		"tags": [
 			"crafting_table"
@@ -27,7 +27,7 @@
 			" W "
 		],
 		"result": {
-			"item": "zom:arrow_turret_item",
+			"item": "rza:arrow_turret_item",
 			"count": 1
 		}
 	}

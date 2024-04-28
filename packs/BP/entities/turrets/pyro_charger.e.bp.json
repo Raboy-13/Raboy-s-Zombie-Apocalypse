@@ -2,17 +2,17 @@
 	"format_version": "1.20.0",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "zom:pyro_charger",
+			"identifier": "rza:pyro_charger",
 			"is_spawnable": false,
 			"is_summonable": true,
 			"is_experimental": false,
 			"properties": {
-				"zom:active": {
+				"rza:active": {
 					"type": "bool",
 					"client_sync": true,
 					"default": false
 				},
-				"zom:cooldown": {
+				"rza:cooldown": {
 					"type": "bool",
 					"client_sync": true,
 					"default": false
@@ -25,7 +25,7 @@
 					"time": 20,
 					"looping": false,
 					"time_down_event": {
-						"event": "zom:start_cooldown",
+						"event": "rza:start_cooldown",
 						"target": "self"
 					}
 				}
@@ -35,7 +35,7 @@
 					"time": 15,
 					"looping": true,
 					"time_down_event": {
-						"event": "zom:end_cooldown",
+						"event": "rza:end_cooldown",
 						"target": "self"
 					}
 				}
@@ -54,7 +54,7 @@
 					"ranged_fov": 45
 				},
 				"minecraft:shooter": {
-					"def": "zom:pyro_charger_fireball"
+					"def": "rza:pyro_charger_fireball"
 				},
 				"minecraft:behavior.nearest_attackable_target": {
 					"priority": 2,
@@ -105,7 +105,7 @@
 						"operator": "!=",
 						"value": "minecraft:timer"
 					},
-					"event": "zom:start_overheating",
+					"event": "rza:start_overheating",
 					"target": "self"
 				}
 			}
@@ -120,11 +120,11 @@
 					}
 				]
 			},
-			"zom:activate": {
+			"rza:activate": {
 				"sequence": [
 					{
 						"set_property": {
-							"zom:active": true
+							"rza:active": true
 						}
 					},
 					{
@@ -136,11 +136,11 @@
 					}
 				]
 			},
-			"zom:deactivate": {
+			"rza:deactivate": {
 				"sequence": [
 					{
 						"set_property": {
-							"zom:active": false
+							"rza:active": false
 						}
 					},
 					{
@@ -154,18 +154,18 @@
 					}
 				]
 			},
-			"zom:start_overheating": {
+			"rza:start_overheating": {
 				"add": {
 					"component_groups": [
 						"overheating"
 					]
 				}
 			},
-			"zom:start_cooldown": {
+			"rza:start_cooldown": {
 				"sequence": [
 					{
 						"set_property": {
-							"zom:cooldown": true
+							"rza:cooldown": true
 						}
 					},
 					{
@@ -183,11 +183,11 @@
 					}
 				]
 			},
-			"zom:end_cooldown": {
+			"rza:end_cooldown": {
 				"sequence": [
 					{
 						"set_property": {
-							"zom:cooldown": false
+							"rza:cooldown": false
 						}
 					},
 					{
@@ -204,7 +204,7 @@
 					}
 				]
 			},
-			"zom:despawn": {
+			"rza:despawn": {
 				"queue_command": {
 					"command": "function world/turrets/pyro_charger"
 				}
@@ -274,7 +274,7 @@
 								"operator": "==",
 								"value": "player"
 							},
-							"event": "zom:despawn",
+							"event": "rza:despawn",
 							"target": "self"
 						},
 						"deals_damage": false
