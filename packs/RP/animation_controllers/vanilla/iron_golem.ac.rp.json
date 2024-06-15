@@ -4,73 +4,38 @@
 		"controller.animation.supercharged_iron_golem.general": {
 			"states": {
 				"default": {
-					"animations": [
-						"idle"
-					],
+					"animations": ["idle"],
 					"transitions": [
-						{
-							"walking": "query.ground_speed>0.2"
-						},
-						{
-							"has_target": "query.has_target"
-						},
-						{
-							"attack": "query.is_delayed_attacking>0"
-						}
+						{"walking": "query.ground_speed>0.2"},
+						{"attack": "query.is_delayed_attacking>0"}
 					],
 					"blend_transition": 0.3,
 					"blend_via_shortest_path": true
 				},
 				"walking": {
-					"animations": [
-						"walk"
-					],
+					"animations": ["walk"],
 					"transitions": [
-						{
-							"default": "query.ground_speed<0.2"
-						},
-						{
-							"has_target": "query.has_target"
-						},
-						{
-							"attack": "query.is_delayed_attacking>0"
-						}
+						{"default": "query.ground_speed<0.2"},
+						{"attack": "query.is_delayed_attacking>0"}
 					],
 					"blend_transition": 0.3,
 					"blend_via_shortest_path": true
 				},
 				"has_target": {
-					"animations": [
-						"has_target"
-					],
+					"animations": ["has_target"],
 					"transitions": [
-						{
-							"attack": "query.is_delayed_attacking>0"
-						},
-						{
-							"default": "query.ground_speed<0.2&&!query.has_target"
-						},
-						{
-							"walking": "query.ground_speed>0.2&&!query.has_target"
-						}
+						{"attack": "query.is_delayed_attacking>0"},
+						{"default": "query.ground_speed<0.2&&!query.has_target"},
+						{"walking": "query.ground_speed>0.2&&!query.has_target"}
 					],
 					"blend_transition": 0.3,
 					"blend_via_shortest_path": true
 				},
 				"attack": {
-					"animations": [
-						"smash"
-					],
+					"animations": ["smash"],
 					"transitions": [
-						{
-							"default": "!query.has_target&&query.is_delayed_attacking<=0"
-						},
-						{
-							"has_target": "query.has_target&&query.is_delayed_attacking<=0"
-						},
-						{
-							"walking": "query.ground_speed>0.2&&query.is_delayed_attacking<=0"
-						}
+						{"default": "!query.has_target&&query.is_delayed_attacking<=0"},
+						{"walking": "query.ground_speed>0.2&&query.is_delayed_attacking<=0"}
 					],
 					"blend_transition": 0.3
 				}
@@ -79,73 +44,28 @@
 		"controller.animation.iron_golem.general": {
 			"states": {
 				"default": {
-					"animations": [
-						"idle"
-					],
+					"animations": ["idle"],
 					"transitions": [
-						{
-							"walking": "query.ground_speed>0.2"
-						},
-						{
-							"has_target": "query.has_target"
-						},
-						{
-							"attack": "variable.attack_animation_tick>0"
-						}
+						{"walking": "query.ground_speed>0.2"},
+						{"attack": "variable.attack_animation_tick>0"}
 					],
 					"blend_transition": 0.3,
 					"blend_via_shortest_path": true
 				},
 				"walking": {
-					"animations": [
-						"walk"
-					],
+					"animations": ["walk"],
 					"transitions": [
-						{
-							"default": "query.ground_speed<0.2"
-						},
-						{
-							"has_target": "query.has_target"
-						},
-						{
-							"attack": "variable.attack_animation_tick>0"
-						}
-					],
-					"blend_transition": 0.3,
-					"blend_via_shortest_path": true
-				},
-				"has_target": {
-					"animations": [
-						"has_target"
-					],
-					"transitions": [
-						{
-							"attack": "variable.attack_animation_tick>0"
-						},
-						{
-							"default": "query.ground_speed<0.2&&!query.has_target"
-						},
-						{
-							"walking": "query.ground_speed>0.2&&!query.has_target"
-						}
+						{"default": "query.ground_speed<0.2"},
+						{"attack": "variable.attack_animation_tick>0"}
 					],
 					"blend_transition": 0.3,
 					"blend_via_shortest_path": true
 				},
 				"attack": {
-					"animations": [
-						"attack"
-					],
+					"animations": ["attack"],
 					"transitions": [
-						{
-							"default": "!query.has_target&&variable.attack_animation_tick<=0"
-						},
-						{
-							"has_target": "query.has_target&&variable.attack_animation_tick<=0"
-						},
-						{
-							"walking": "query.ground_speed>0.2&&variable.attack_animation_tick<=0"
-						}
+						{"default": "!query.has_target&&variable.attack_animation_tick<=0"},
+						{"walking": "query.ground_speed>0.2&&variable.attack_animation_tick<=0"}
 					],
 					"blend_transition": 0.3
 				}

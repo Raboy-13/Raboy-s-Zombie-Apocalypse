@@ -65,7 +65,7 @@
 				"default": {
 					"transitions": [
 						{
-							"attacking": "query.is_delayed_attacking"
+							"attacking": "v.attack_time > 0"
 						}
 					],
 					"blend_transition": 0.2
@@ -87,7 +87,7 @@
 					],
 					"transitions": [
 						{
-							"default": "!query.is_delayed_attacking&&query.any_animation_finished"
+							"default": "v.attack_time <= 0 && query.any_animation_finished"
 						}
 					],
 					"blend_transition": 0.2

@@ -37,12 +37,19 @@
 				]
 			},
 			"minecraft:timer": {
-				"time": 1,
+				"time": 0.1,
 				"looping": true,
 				"time_down_event": {
 					"event": "rza:despawn",
 					"target": "self"
 				}
+			},
+			"minecraft:breathable": {
+				"total_supply": 9999,
+				"suffocate_time": 0,
+				"breathes_air": true,
+				"breathes_water": true,
+				"breathes_solids": true
 			},
 			"minecraft:physics": {},
 			"minecraft:conditional_bandwidth_optimization": {}

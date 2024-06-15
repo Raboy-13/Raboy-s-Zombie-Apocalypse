@@ -1,0 +1,2 @@
+execute if score @s remove_chainer_tag_delay matches 1.. run scoreboard players remove @s remove_chainer_tag_delay 1
+execute if score @s remove_chainer_tag_delay matches 1 run tag @e[tag=chainer] remove chainer

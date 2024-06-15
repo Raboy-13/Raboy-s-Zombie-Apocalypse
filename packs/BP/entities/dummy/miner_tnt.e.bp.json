@@ -1,0 +1,72 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "rza:miner_tnt",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "runtime_identifier": "minecraft:snowball"
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "miner_tnt"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.98,
+        "height": 0.98
+      },
+      "minecraft:explode": {
+        "fuse_length": 4,
+        "fuse_lit": true,
+        "power": 2,
+        "causes_fire": false,
+        "destroy_affected_by_griefing": true
+      },
+      "minecraft:projectile": {
+        "on_hit": {
+          "stick_in_ground": {}
+        },
+        "shoot_target": true,
+				"power": 1.4,
+				"gravity": 0.05,
+				"inertia": 0.95,
+        "angle_offset": -5,
+				"liquid_inertia": 0.5,
+				"anchor": 1,
+				"offset": [
+					0,
+					0,
+					0
+				],
+				"semi_random_diff_damage": false,
+				"uncertainty_base": 20,
+				"uncertainty_multiplier": 3,
+				"reflect_on_hurt": false
+			},
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deals_damage": false
+          }
+        ]
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 80.0,
+          "max_dropped_ticks": 5,
+          "use_motion_prediction_hints": true
+        }
+      }
+    },
+    "events": {}
+  }
+}

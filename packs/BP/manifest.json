@@ -11,8 +11,8 @@
 		"description": "§fThe most§r §l§2Realistic§r§l§r §4§oZombie Apocalypse Addon§r§4§r§f for§r§6 MCPE§r§f / §r§6Minecraft Bedrock§r\n\n§fby §rRaboy13\n§4YouTube§r§f:§r §cRaboy13§r",
 		"min_engine_version": [
 			1,
-			20,
-			80
+			21,
+			0
 		],
 		"uuid": "f8d9bfdc-f3b2-411e-9004-0e9c764b89d7",
 		"version": [
@@ -64,7 +64,11 @@
 		},
 		{
 			"module_name": "@minecraft/server",
-			"version": "1.10.0"
+			"version": "1.11.0"
+		},
+		{
+			"module_name": "@minecraft/server-ui",
+			"version": "1.1.0"
 		}
 	]
 }

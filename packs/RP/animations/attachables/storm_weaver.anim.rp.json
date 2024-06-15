@@ -1,0 +1,23 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.storm_weaver.first_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [67.35498, 59.72282, -53.89014],
+					"position": [0, 12, -2]
+				}
+			}
+		},
+		"animation.storm_weaver.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"position": [0, 16, -7],
+					"scale": 0.5
+				}
+			}
+		}
+	}
+}

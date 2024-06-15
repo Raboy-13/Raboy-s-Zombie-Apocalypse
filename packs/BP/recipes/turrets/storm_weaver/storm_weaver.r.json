@@ -1,0 +1,26 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:storm_weaver"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"M": {
+				"item": "rza:electron_magnifier"
+			},
+			"C": {
+				"item": "rza:electron_channeler"
+			}
+		},
+		"pattern": [
+			"MC"
+		],
+		"result": {
+			"item": "rza:storm_weaver_item",
+			"count": 1
+		}
+	}
+}

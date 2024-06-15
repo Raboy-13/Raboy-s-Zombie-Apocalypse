@@ -1,0 +1,30 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "rza:electron_magnifier",
+      "materials": {
+        "default": "entity_emissive_alpha"
+      },
+      "textures": {
+        "default": "textures/entity/turrets/storm_weaver/storm_weaver_inactive"
+      },
+      "geometry": {
+        "default": "geometry.electron_magnifier"
+      },
+      "animations": {
+        "first_person_hold": "animation.electron_magnifier.first_person_hold",
+        "third_person_hold": "animation.electron_magnifier.third_person_hold",
+        "general": "controller.animation.attachable.general"
+      },
+      "scripts": {
+        "animate": [
+          "general"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.model_default"
+      ]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.drone_remote.general": {
+			"states": {
+				"default": {
+					"transitions": [
+						{"interact": "q.is_using_item"}
+					]
+				},
+				"interact": {
+					"animations": [
+						{"interact1": "v.random == 0"},
+						{"interact2": "v.random == 1"},
+						{"interact3": "v.random == 2"},
+						{"interact4": "v.random == 3"},
+						{"interact5": "v.random == 4"},
+						{"interact6": "v.random == 5"}
+					],
+					"on_entry": ["v.random=math.random_integer(0, 5);"],
+					"transitions": [
+						{"default": "!q.is_using_item"}
+					]
+				}
+			}
+		}
+	}
+}

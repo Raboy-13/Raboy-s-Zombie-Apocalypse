@@ -1,0 +1,22 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.miner_tnt": {
+			"geometry": "geometry.default",
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"texture.default"
+			],
+			"overlay_color": {
+				"r": 1,
+				"g": 1,
+				"b": 1,
+				"a": "math.mod(q.life_time,0.5)>0.26"
+			}
+		}
+	}
+}

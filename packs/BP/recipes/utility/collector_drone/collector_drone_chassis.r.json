@@ -1,0 +1,25 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:collector_drone_chassis"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"i": {
+				"item": "iron_ingot"
+			}
+		},
+		"pattern": [
+			"iii",
+			"i i",
+			"iii"
+		],
+		"result": {
+			"item": "rza:collector_drone_chassis",
+			"count": 1
+		}
+	}
+}

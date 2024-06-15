@@ -285,5 +285,68 @@
 *Sounds
 -added blood splatter sound effects
 
+[RABOY'S ZOMBIE APOCALYPSE V1.2.21]
+
+*Compatibility
+- added support for the latest version of Minecraft (Currently 1.20.80)
+
+*Mechanics
+- reduced the spawn rate of the Illager settlement
+- slightly increased the spawn rate of Abandoned houses
+
+
+[RABOY'S ZOMBIE APOCALYPSE V1.2.3]
+
+*Mobs
+- supercharged Iron Golems can now have turret attachments on their shoulders that fire independently
+
+*Zombies
+NEW ZOMBIE BEHAVIORS: Mutated Zombies - existing and new zombie types now have a chance to have a unique mutation on the 30th day. Mutated zombies also drop more XP than regular ones and have a distinguishable red glowing eyes!
+- ferals now don't break blocks
+- reduced feral detection range from 128 blocks to 96 blocks
+- improved feral behavior: ferals now doesn't switch between turrets and other attackables (players, villagers and illagers) as targets every tick
+- other zombies now doesn't alert the feral when they acquire a target
+- after 30 minecraft days, miner zombies will now have a chance to become a TNT throwing miner and will throw TNT at targets
+- when not on a full moon, the walker zombie now has a 10% chance of becoming a mutated walker which has more health, moves faster, and slightly has more damage on easy difficulty, 20% on normal, and 40% on hard difficulty. When on a full moon, it has a 25% chance to mutate on easy difficulty, 40% on normal, and 60% chance on hard difficulty on spawn
+- when not on a full moon, the miner zombie now has a 3% chance of becoming a mutated miner which is a TNT throwing miner, has more health and moves faster on easy difficulty, 8% on normal, and 12% on hard difficulty. When on a full moon, it has an 8% chance to mutate on easy difficulty, 16% chance on normal, and 30% on hard on spawn
+- when not on a full moon, the feral zombie now has a 10% chance of becoming a mutated feral which has the ability to leap really high, more health, slightly has more damage, and a chance to headbutt its target on easy difficulty, 20% on normal, and 40% on hard difficulty. When on a full moon, it has a 25% chance to mutate on easy difficulty, 40% on normal, and 60% chance on hard difficulty on spawn
+
+*Turrets
+NEW TURRET BEHAVIOR: Turrets are now configurable to what zombie type they should prioritize targeting!
+- Right click on the turret that you want to configure and select the zombie types and mutant priority to your liking
+
+Turret Prioties:
+- Don't Prioritize Mutants: Will target a zombie that is nearest to the turret within its detection range
+- Prioritize Mutants: Will target the nearest mutated zombie within its detection range - will still target unmutated zombies if there are not any mutated ones inside its detection range
+- All Zombies: Targets any zombie that is nearest to the turret within the turret's detection range
+- Walkers: Only targets walkers
+- Miners: Only targets miners
+- Ferals: Only targets ferals
+
+NEW TURRET: The Storm Weaver - fires a bolt of lightning that bounces off zombies; its detection range is short but each bolt of lightning reaches far and wide!
+- firing rate of the storm weaver is 10 seconds
+- detection range of the storm weaver is 18 blocks
+- the sonic cannon now fires its sonic blast similar to the warden
+- zombies now get pushed back by the sonic blast of the sonic cannon
+- reduced sonic cannon firing rate
+- slightly reduced sonic cannon damage
+- improved pyro charger flamethrower physics and particles
+- pyro charger now only burns zombies
+
+*Utility
+NEW UTILITY ENTITY: The Collector Drone
+- an incredibly useful tool for the player when they want to collect items and XP in the area but there are too many zombies
+- the drone can collect whether items or XPs within a radius of 64 blocks
+- fully configurable by the player by right clicking it
+- it also has a remote control that the player can use to whether set between two modes: Collection Mode and Follow Owner
+- when first spawning the drone, you have to set it to active first before it can start collecting anything by right clicking and setting the active toggle to on
+- in the configuration UI, there are 2 collection modes for the drone: Auto Collect - collects nearby items or XPs until it reaches full capacity, delivers the collected items to the player owner and repeat the same process. Manual Collection - Collects nearby items or XPs until full capacity, delivers the collected items/XPs to the player owner and deactivates, but can be reactivated again
+- there is an optional delivery location for items: Player owner or a player-owned hopper
+- Health points: 15
+- WARNING: The drones are world tickers, so there can only be a maximum of 3 drones for each players to avoid lag
+
+*Loot Drops
+- ferals now have a chance to drop a phantom membrane when killed
+
 *Known Issues
 -wandering trader throwing animation doesn't work

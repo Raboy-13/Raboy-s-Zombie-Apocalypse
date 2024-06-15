@@ -14,6 +14,7 @@
 			}
 		},
 		"events": {
+			"minecraft:entity_spawned": {},
 			"rza:despawn": {
 				"add": {
 					"component_groups": [
@@ -39,15 +40,27 @@
 			"minecraft:scale": {
 				"value": 0.00001
 			},
+			"minecraft:tick_world": {
+				"never_despawn": true,
+				"radius": 2
+			},
+			"minecraft:timer": {
+				"time": 0.05,
+				"looping": true,
+				"time_down_event": {
+					"event": "rza:despawn",
+					"target": "self"
+				}
+			},
 			"minecraft:projectile": {
 				"on_hit": {
 					"impact_damage": {
-						"damage": 60,
+						"damage": 10,
 						"knockback": true,
 						"semi_random_diff_damage": false
 					}
 				},
-				"power": 6,
+				"power": 0.1,
 				"gravity": 0,
 				"inertia": 1,
 				"liquid_inertia": 1,
@@ -61,14 +74,10 @@
 				"uncertainty_base": 0,
 				"reflect_on_hurt": false
 			},
-			"minecraft:tick_world": {
-				"never_despawn": true,
-				"radius": 2
-			},
 			"minecraft:area_attack": {
-				"damage_range": 6,
-				"damage_per_tick": 8,
-				"damage_cooldown": 0.5,
+				"damage_range": 3,
+				"damage_per_tick": 3,
+				"damage_cooldown": 1,
 				"cause": "anvil",
 				"entity_filter": {
 					"any_of": [
@@ -78,14 +87,6 @@
 							"value": "zombie"
 						}
 					]
-				}
-			},
-			"minecraft:timer": {
-				"time": 3,
-				"looping": true,
-				"time_down_event": {
-					"event": "rza:despawn",
-					"target": "self"
 				}
 			},
 			"minecraft:physics": {

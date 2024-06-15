@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.41",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "rza:collector_drone",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/utility/collector_drone"
+      },
+      "geometry": {
+        "default": "geometry.collector_drone"
+      },
+      "animations": {
+        "active": "animation.collector_drone.active",
+        "general": "controller.animation.collector_drone.general"
+      },
+      "scripts": {
+        "animate": [
+          "general"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

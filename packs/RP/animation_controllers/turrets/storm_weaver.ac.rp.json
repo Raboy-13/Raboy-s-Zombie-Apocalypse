@@ -1,0 +1,341 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.storm_weaver.general": {
+			"states": {
+				"default": {
+					"transitions": [
+						{"charging": "q.property('rza:active') == true"}
+					],
+					"blend_transition": 0.4,
+					"blend_via_shortest_path": true
+				},
+				"charging": {
+					"animations": ["charge"],
+					"particle_effects": [
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla1"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla2"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla3"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla4"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla5"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla6"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla7"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla8"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla9"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla10"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla11"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla12"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla13"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla1"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla2"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla3"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla4"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla5"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla6"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla7"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla8"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla9"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla10"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla11"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla12"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla13"
+						}
+					],
+					"sound_effects": [
+						{"effect": "charge"}
+					],
+					"transitions": [
+						{"idle": "v.attack_time <=0&& q.all_animations_finished"},
+						{"firing": "v.attack_time > 0 && q.all_animations_finished"},
+						{"default": "q.property('rza:active') == false"}
+					],
+					"blend_transition": 0.4,
+					"blend_via_shortest_path": true
+				},
+				"idle": {
+					"animations": ["idle_active"],
+					"particle_effects": [
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla1"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla2"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "left_tesla3"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla9"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla10"
+						},
+						{
+							"effect": "tesla_steady",
+							"locator": "right_tesla11"
+						}
+					],
+					"transitions": [
+						{"firing": "v.attack_time > 0"},
+						{"default": "q.property('rza:active') == false"}
+					],
+					"blend_transition": 0.4,
+					"blend_via_shortest_path": true
+				},
+				"firing": {
+					"animations": ["fire"],
+					"particle_effects": [
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel1"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel2"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel3"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel4"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel5"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel6"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel7"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel8"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel9"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel10"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel11"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel12"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel13"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "barrel14"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla1"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla2"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla3"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla4"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla5"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla6"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla7"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla8"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla9"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla10"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla11"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla12"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "left_tesla13"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla1"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla2"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla3"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla4"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla5"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla6"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla7"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla8"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla9"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla10"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla11"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla12"
+						},
+						{
+							"effect": "tesla_instant",
+							"locator": "right_tesla13"
+						}
+					],
+					"transitions": [
+						{"charging": "v.attack_time <= 0 && q.all_animations_finished"},
+						{"default": "q.property('rza:active') == false"}
+					],
+					"blend_transition": 0.4,
+					"blend_via_shortest_path": true
+				}
+			}
+		}
+	}
+}

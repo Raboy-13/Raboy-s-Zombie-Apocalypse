@@ -1,0 +1,34 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:collector_drone_generator"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"i": {
+				"item": "iron_ingot"
+			},
+			"g": {
+				"item": "gold_ingot"
+			},
+			"P": {
+				"item": "piston"
+			},
+			"R": {
+				"item": "redstone_block"
+			}
+		},
+		"pattern": [
+			"gPg",
+			"iRi",
+			"gPg"
+		],
+		"result": {
+			"item": "rza:collector_drone_generator",
+			"count": 1
+		}
+	}
+}

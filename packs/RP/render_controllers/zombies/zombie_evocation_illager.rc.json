@@ -17,7 +17,7 @@
 				}
 			],
 			"textures": [
-				"texture.default"
+				"q.property('rza:mutated') == false ? texture.default"
 			],
 			"is_hurt_color": {
 				"r": 1,

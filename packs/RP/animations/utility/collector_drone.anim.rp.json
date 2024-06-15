@@ -1,0 +1,22 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.collector_drone.active": {
+			"loop": true,
+			"bones": {
+				"rotor_blade": {
+					"rotation": [0, "q.anim_time * 1000", 0]
+				},
+				"rotor_blade2": {
+					"rotation": [0, "q.anim_time * 1000", 0]
+				},
+				"rotor_blade3": {
+					"rotation": [0, "q.anim_time * 1000", 0]
+				},
+				"rotor_blade4": {
+					"rotation": [0, "q.anim_time * 1000", 0]
+				}
+			}
+		}
+	}
+}

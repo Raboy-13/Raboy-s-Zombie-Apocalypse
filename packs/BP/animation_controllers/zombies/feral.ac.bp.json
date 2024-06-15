@@ -1,0 +1,27 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.feral.leap": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"leap": "q.target_x_rotation < -40 && q.is_on_ground"
+						}
+					]
+				},
+				"leap": {
+					"on_entry": [
+						"/event entity @s rza:leap"
+					],
+					"transitions": [
+						{
+							"default": "q.target_x_rotation >= -40"
+						}
+					]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,184 @@
+{
+	"format_version": "1.19.60",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "rza:sonic_cannon_attachment",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false,
+			"animations": {
+				"general": "controller.animation.sonic_cannon.general"
+			},
+			"scripts": {
+				"animate": [
+					"general"
+				]
+			}
+		},
+		"component_groups": {},
+		"events": {
+			"minecraft:entity_spawned": {}
+		},
+		"components": {
+			"minecraft:type_family": {
+				"family": [
+					"turret",
+					"sonic_cannon_attachment"
+				]
+			},
+			"minecraft:collision_box": {
+				"height": 0.05,
+				"width": 0.05
+			},
+			"minecraft:custom_hit_test": {
+				"hitboxes": [
+					{
+						"width": 0.4,
+						"height": 0.7,
+						"pivot": [
+							0,
+							0.35,
+							0
+						]
+					}
+				]
+			},
+			"minecraft:persistent": {},
+			"minecraft:health": {
+				"value": 200
+			},
+			"minecraft:movement": {
+				"value": 0
+			},
+			"minecraft:behavior.random_look_around": {
+				"priority": 4
+			},
+			"minecraft:behavior.ranged_attack": {
+				"priority": 0,
+				"attack_interval": 5,
+				"attack_radius": 48,
+				"swing": true,
+				"x_max_rotation": 15,
+				"ranged_fov": 45
+			},
+			"minecraft:shooter": {
+				"def": "rza:sonic_charge"
+			},
+			"minecraft:behavior.nearest_attackable_target": {
+				"priority": 2,
+				"must_see": true,
+				"reselect_targets": true,
+				"must_see_forget_duration": 0,
+				"entity_types": [
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "zombie"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "zombie_villager"
+								},
+								{
+									"test": "is_family",
+									"subject": "other",
+									"operator": "!=",
+									"value": "zombie_illager"
+								}
+							]
+						},
+						"max_dist": 32
+					}
+				]
+			},
+			"minecraft:interact": {
+				"interactions": {
+					"on_interact": {
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_family",
+									"subject": "other",
+									"value": "player"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "hand",
+									"subject": "other",
+									"value": "iron_ingot"
+								},
+								{
+									"test": "is_missing_health",
+									"value": true
+								}
+							]
+						}
+					},
+					"use_item": true,
+					"swing": true,
+					"health_amount": 25,
+					"play_sounds": "irongolem.repair",
+					"interact_text": "action.interact.repair"
+				}
+			},
+			"minecraft:navigation.walk": {
+				"is_amphibious": true,
+				"avoid_water": true
+			},
+			"minecraft:movement.basic": {},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"value": "turret"
+							}
+						},
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"value": "villager"
+							}
+						},
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"value": "illager"
+							}
+						},
+						"deals_damage": false
+					}
+				]
+			},
+			"minecraft:follow_range": {
+				"value": 64
+			},
+			"minecraft:knockback_resistance": {
+				"value": 1
+			},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": false
+			},
+			"minecraft:physics": {
+				"has_collision": false
+			},
+			"minecraft:conditional_bandwidth_optimization": {}
+		}
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.storm_weaver.general": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"firing": "v.attack_time > 0"
+						}
+					]
+				},
+				"firing": {
+					"on_entry": [
+						"/#execute as @s[type=rza:storm_weaver_attachment] run world/turrets/storm_weaver/attachment/lightning_attack",
+						"/execute as @s[type=rza:storm_weaver] run function world/turrets/storm_weaver/turret/lightning_attack"
+					],
+					"transitions": [
+						{
+							"default": "v.attack_time <= 0"
+						}
+					]
+				}
+			}
+		}
+	}
+}

@@ -8,7 +8,7 @@
 			"minecraft:geometry": "geometry.turret_base",
 			"minecraft:material_instances": {
 				"*": {
-					"texture": "zom_turret_base",
+					"texture": "rza_turret_base",
 					"render_method": "opaque"
 				}
 			},

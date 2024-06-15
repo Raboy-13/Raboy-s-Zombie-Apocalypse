@@ -12,6 +12,14 @@
 					"client_sync": true,
 					"default": false
 				}
+			},
+			"animations": {
+				"general": "controller.animation.sonic_cannon.general"
+			},
+			"scripts": {
+				"animate": [
+					"general"
+				]
 			}
 		},
 		"component_groups": {
@@ -21,7 +29,7 @@
 				},
 				"minecraft:behavior.ranged_attack": {
 					"priority": 0,
-					"attack_interval": 2.5,
+					"attack_interval": 5,
 					"attack_radius": 48,
 					"swing": true,
 					"x_max_rotation": 15,
@@ -33,7 +41,7 @@
 				"minecraft:behavior.nearest_attackable_target": {
 					"priority": 2,
 					"must_see": true,
-					"reselect_targets": true,
+					"reselect_targets": false,
 					"must_see_forget_duration": 0,
 					"entity_types": [
 						{
@@ -108,7 +116,7 @@
 			},
 			"rza:despawn": {
 				"queue_command": {
-					"command": "function world/turrets/sonic_cannon"
+					"command": "function world/turrets/turret_drop/sonic_cannon"
 				}
 			}
 		},
@@ -164,7 +172,9 @@
 				"is_amphibious": true,
 				"avoid_water": true
 			},
-			"minecraft:movement.basic": {},
+			"minecraft:movement.basic": {
+				"max_turn": 0.05
+			},
 			"minecraft:damage_sensor": {
 				"triggers": [
 					{

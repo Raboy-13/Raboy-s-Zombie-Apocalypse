@@ -1,0 +1,30 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "rza:collector_drone_item",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/utility/collector_drone"
+      },
+      "geometry": {
+        "default": "geometry.collector_drone_item"
+      },
+      "animations": {
+        "first_person_hold": "animation.collector_drone.first_person_hold",
+        "third_person_hold": "animation.collector_drone.third_person_hold",
+        "general": "controller.animation.attachable.general"
+      },
+      "scripts": {
+        "animate": [
+          "general"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.model_default"
+      ]
+    }
+  }
+}

@@ -216,6 +216,44 @@
 					1
 				],
 				"volume": 1
+			},
+			"rza:sonic_cannon_attachment": {
+				"events": {
+					"shoot": {
+						"sound": "turret.sonic_cannon.fire",
+						"volume": 0.5
+					},
+					"hurt": "mob.irongolem.crack",
+					"death": "mob.irongolem.crack"
+				},
+				"pitch": [
+					0.8,
+					1
+				],
+				"volume": 1
+			},
+			"rza:storm_weaver": {
+				"events": {
+					"shoot": "turret.storm_weaver.fire",
+					"hurt": "mob.irongolem.crack",
+					"death": "mob.irongolem.crack"
+				},
+				"pitch": [
+					0.8,
+					1
+				],
+				"volume": 1
+			},
+			"rza:collector_drone": {
+				"events": {
+					"hurt": "use.chain",
+					"death": "mob.irongolem.crack"
+				},
+				"pitch": [
+					0.8,
+					1
+				],
+				"volume": 1
 			}
 		}
 	}

@@ -1,1 +1,0 @@
-execute as @e[type=rza:feral] at @s unless block ~ ~1 ~ air run setblock ~ ~1 ~ air [] destroy

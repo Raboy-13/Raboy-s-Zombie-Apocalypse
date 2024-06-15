@@ -6,5 +6,11 @@
 	],
 	"rza:turret_base": {
 		"sound": "stone"
+	},
+	"rza:electron_reactor_core": {
+		"sound": "metal"
+	},
+	"rza:active_electron_reactor_core": {
+		"sound": "metal"
 	}
 }

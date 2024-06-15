@@ -1,0 +1,42 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "rza:storm_weaver",
+			"materials": {
+				"active": "entity_emissive_alpha",
+				"inactive": "entity"
+			},
+			"textures": {
+				"inactive": "textures/entity/turrets/storm_weaver/storm_weaver_inactive",
+				"active": "textures/entity/turrets/storm_weaver/storm_weaver_active"
+			},
+			"geometry": {
+				"default": "geometry.storm_weaver"
+			},
+			"animations": {
+				"look_at_target": "animation.turret.look_at_target",
+				"charge": "animation.storm_weaver.charge",
+				"idle_active": "animation.storm_weaver.idle_active",
+				"fire": "animation.storm_weaver.fire",
+				"general": "controller.animation.storm_weaver.general"
+			},
+			"scripts": {
+				"animate": [
+					"look_at_target",
+					"general"
+				]
+			},
+			"particle_effects": {
+				"tesla_steady": "rza:tesla_lightning_steady",
+				"tesla_instant": "rza:tesla_lightning_instant"
+			},
+			"sound_effects": {
+				"charge": "turret.storm_weaver.charge"
+			},
+			"render_controllers": [
+				"controller.render.storm_weaver"
+			]
+		}
+	}
+}

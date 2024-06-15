@@ -5,15 +5,11 @@
 			"states": {
 				"default": {
 					"transitions": [
-						{
-							"firing": "v.attack_time>0"
-						}
+						{"firing": "v.attack_time>0"}
 					]
 				},
 				"firing": {
-					"animations": [
-						"fire"
-					],
+					"animations": ["fire"],
 					"particle_effects": [
 						{
 							"effect": "spark",
@@ -174,20 +170,10 @@
 						{
 							"effect": "spark",
 							"locator": "sparks40"
-						},
-						{
-							"effect": "fire",
-							"locator": "nozzle"
-						},
-						{
-							"effect": "smoke",
-							"locator": "nozzle"
 						}
 					],
 					"transitions": [
-						{
-							"default": "v.attack_time==0&&q.all_animations_finished"
-						}
+						{"default": "v.attack_time==0&&q.all_animations_finished"}
 					],
 					"blend_via_shortest_path": true
 				}
@@ -197,9 +183,7 @@
 			"states": {
 				"default": {
 					"transitions": [
-						{
-							"cooldown": "q.property('rza:cooldown')==true"
-						}
+						{"cooldown": "q.property('rza:cooldown')==true"}
 					],
 					"blend_via_shortest_path": true
 				},
@@ -223,9 +207,7 @@
 						}
 					],
 					"transitions": [
-						{
-							"default": "q.property('rza:cooldown')==false"
-						}
+						{"default": "q.property('rza:cooldown')==false"}
 					],
 					"blend_via_shortest_path": true
 				}

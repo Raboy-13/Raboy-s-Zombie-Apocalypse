@@ -43,12 +43,19 @@
 		"controller.render.zombie.faces": {
 			"arrays": {
 				"textures": {
-					"Array.faces": [
-						"Texture.face1",
-						"Texture.face2",
-						"Texture.face3",
-						"Texture.face4",
-						"Texture.face5"
+					"Array.faces_regular": [
+						"Texture.face1_regular",
+						"Texture.face2_regular",
+						"Texture.face3_regular",
+						"Texture.face4_regular",
+						"Texture.face5_regular"
+					],
+					"Array.faces_mutated": [
+						"Texture.face1_mutated",
+						"Texture.face2_mutated",
+						"Texture.face3_mutated",
+						"Texture.face4_mutated",
+						"Texture.face5_mutated"
 					]
 				},
 				"geometries": {
@@ -65,14 +72,14 @@
 				}
 			],
 			"textures": [
-				"array.faces[variable.faces]"
+				"q.property('rza:mutated') == false ? array.faces_regular[variable.faces] : array.faces_mutated[variable.faces]"
 			],
 			"part_visibility": [
 				{
-					"*": "!query.is_alive"
+					"*": false
 				},
 				{
-					"head": "query.is_alive"
+					"head": true
 				}
 			],
 			"is_hurt_color": {

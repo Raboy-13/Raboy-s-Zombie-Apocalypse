@@ -15,6 +15,52 @@
 				]
 			}
 		},
+		"component_groups": {
+			"rza:sonic_cannon_attached": {
+				"minecraft:addrider": {
+					"entity_type": "rza:sonic_cannon_attachment"
+				}
+			}
+		},
+		"events": {
+			"minecraft:entity_transformed": {
+				"sequence": [
+					{
+						"queue_command": {
+							"command": [
+								"playsound mob.irongolem.repair @p ~ ~ ~ 3 1"
+							]
+						}
+					},
+					{
+						"queue_command": {
+							"command": [
+								"playsound mob.charged_iron_golem.upgrade @p ~ ~ ~ 3 1"
+							]
+						}
+					}
+				]
+			},
+			"rza:attach_sonic_cannon": {
+				"add": {
+					"component_groups": [
+						"rza:sonic_cannon_attached"
+					]
+				}
+			},
+			"rza:heal": {
+				"queue_command": {
+					"command": "effect @s regeneration 2 5"
+				}
+			},
+			"rza:explode": {
+				"queue_command": {
+					"command": [
+						"summon rza:iron_golem_explosions"
+					]
+				}
+			}
+		},
 		"components": {
 			"minecraft:is_hidden_when_invisible": {},
 			"minecraft:type_family": {
@@ -50,10 +96,10 @@
 				]
 			},
 			"minecraft:movement": {
-				"value": 0.25
+				"value": 0.18
 			},
 			"minecraft:navigation.walk": {
-				"can_path_over_water": false,
+				"can_path_over_water": true,
 				"avoid_water": true,
 				"is_amphibious": true,
 				"avoid_damage_blocks": true
@@ -90,6 +136,36 @@
 						"health_amount": 25,
 						"play_sounds": "irongolem.repair",
 						"interact_text": "action.interact.repair"
+					},
+					{
+						"on_interact": {
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "has_equipment",
+										"domain": "hand",
+										"subject": "other",
+										"value": "rza:sonic_cannon_item"
+									},
+									{
+										"test": "rider_count",
+										"operator": "<",
+										"value": 2
+									}
+								]
+							},
+							"event": "rza:attach_sonic_cannon",
+							"target": "self"
+						},
+						"use_item": true,
+						"swing": true,
+						"play_sounds": "irongolem.repair",
+						"interact_text": "action.interact.attach_turret"
 					}
 				]
 			},
@@ -144,6 +220,30 @@
 					}
 				]
 			},
+			"minecraft:rideable": {
+				"family_types": [
+					"turret"
+				],
+				"seat_count": 2,
+				"seats": [
+					{
+						"position": [
+							0.6,
+							1.8,
+							0.1
+						],
+						"rotate_rider_by": -10
+					},
+					{
+						"position": [
+							-0.6,
+							1.8,
+							0.1
+						],
+						"rotate_rider_by": 10
+					}
+				]
+			},
 			"minecraft:knockback_resistance": {
 				"value": 1
 			},
@@ -166,7 +266,6 @@
 			},
 			"minecraft:behavior.random_stroll": {
 				"priority": 6,
-				"speed_multiplier": 0.6,
 				"xz_dist": 16
 			},
 			"minecraft:behavior.look_at_player": {
@@ -262,39 +361,6 @@
 				"target": "self"
 			},
 			"minecraft:conditional_bandwidth_optimization": {}
-		},
-		"component_groups": {},
-		"events": {
-			"minecraft:entity_transformed": {
-				"sequence": [
-					{
-						"queue_command": {
-							"command": [
-								"playsound mob.irongolem.repair @p ~ ~ ~ 3 1"
-							]
-						}
-					},
-					{
-						"queue_command": {
-							"command": [
-								"playsound mob.charged_iron_golem.upgrade @p ~ ~ ~ 3 1"
-							]
-						}
-					}
-				]
-			},
-			"rza:heal": {
-				"queue_command": {
-					"command": "effect @s regeneration 2 5"
-				}
-			},
-			"rza:explode": {
-				"queue_command": {
-					"command": [
-						"summon rza:iron_golem_explosions"
-					]
-				}
-			}
 		}
 	}
 }

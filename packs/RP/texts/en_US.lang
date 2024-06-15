@@ -1,6 +1,7 @@
 action.interact.upgrade=Upgrade
-
-
+action.interact.attach_turret=Attach Turret
+action.hint.turret.configure=Configure
+action.hint.collector_drone.configure=Configure
 
 ##Zombies
 item.spawn_egg.entity.rza:walker.name=Spawn Walker
@@ -26,10 +27,17 @@ entity.rza:charged_iron_golem.name=Charged Iron Golem
 item.spawn_egg.entity.rza:supercharged_iron_golem.name=Spawn Supercharged Iron Golem
 entity.rza:supercharged_iron_golem.name=Supercharged Iron Golem
 
+##Utility
+entity.rza:collector_drone.name=Collector Drone
+
 ##Turrets
 entity.rza:arrow_turret.name=§aArrow Turret§r
 entity.rza:pyro_charger.name=§6Pyro Charger§r
 entity.rza:sonic_cannon.name=§5Sonic Cannon§r
+entity.rza:storm_weaver.name=§cStorm Weaver§r
+
+##Turret Attachmanets
+entity.rza:sonic_cannon_attachment.name=§5Sonic Cannon Attachment§r
 
 ##Dummy Entities
 entity.rza:iron_golem_splash.name=Supercharged Iron Golem
@@ -38,12 +46,22 @@ entity.rza:turret_base_placer.name=Turret Base Placer
 entity.rza:pyro_charger_fireball.name=Pyro Charger Fireball
 
 ##Items
+item.rza:collector_drone_item=Collector Drone
+item.rza:drone_remote=Drone Remote
+item.rza:collector_drone_chassis=Collector Drone Chassis
+item.rza:collector_drone_rotor=Collector Drone Rotor
+item.rza:collector_drone_generator=Collector Drone Generator
 item.rza:turret_base=Turret Base
 item.rza:arrow_turret_item=§aArrow Turret§r
 item.rza:pyro_charger_item=§6Pyro Charger§r
 item.rza:pyro_charger_machine=Pyro Charger Machine
 item.rza:sonic_cannon_item=§5Sonic Cannon§r
 item.rza:sonic_compressor=Sonic Compressor
+item.rza:storm_weaver_item=§cStorm Weaver§r
+item.rza:electron_magnifier=Electron Magnifier
+item.rza:electron_channeler=Electron Channeler
 
 ##Blocks
 tile.rza:turret_base.name=Turret Base
+tile.rza:electron_reactor_core.name=Electron Reactor Core
+tile.rza:active_electron_reactor_core.name=Active Electron Reactor Core

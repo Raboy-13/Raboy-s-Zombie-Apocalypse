@@ -104,7 +104,7 @@
 			"sounds": [
 				{
 					"name": "sounds/mob/ghast/fireball4",
-					"volume": 3
+					"volume": 1
 				}
 			]
 		},
@@ -151,6 +151,31 @@
 				},
 				{
 					"name": "sounds/mob/warden/sonic_boom4"
+				}
+			]
+		},
+		"turret.storm_weaver.charge": {
+			"category": "neutral",
+			"sounds": [
+				{
+					"name": "sounds/turrets/storm_weaver/charge"
+				}
+			]
+		},
+		"turret.storm_weaver.fire": {
+			"category": "weather",
+			"sounds": [
+				{
+					"name": "sounds/turrets/storm_weaver/storm_weaver_thunder1",
+					"volume": 8
+				},
+				{
+					"name": "sounds/turrets/storm_weaver/storm_weaver_thunder2",
+					"volume": 8
+				},
+				{
+					"name": "sounds/turrets/storm_weaver/storm_weaver_thunder3",
+					"volume": 5
 				}
 			]
 		}

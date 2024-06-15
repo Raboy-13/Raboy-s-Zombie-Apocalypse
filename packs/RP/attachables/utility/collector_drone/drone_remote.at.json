@@ -1,0 +1,38 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "rza:drone_remote",
+      "materials": {
+        "default": "entity_emissive_alpha"
+      },
+      "textures": {
+        "default": "textures/entity/utility/drone_remote"
+      },
+      "geometry": {
+        "default": "geometry.drone_remote"
+      },
+      "animations": {
+        "first_person_hold": "animation.drone_remote.first_person_hold",
+        "third_person_hold": "animation.drone_remote.third_person_hold",
+        "interact1": "animation.drone_remote.interact1",
+        "interact2": "animation.drone_remote.interact2",
+        "interact3": "animation.drone_remote.interact3",
+        "interact4": "animation.drone_remote.interact4",
+        "interact5": "animation.drone_remote.interact5",
+        "interact6": "animation.drone_remote.interact6",
+        "general": "controller.animation.drone_remote.general",
+        "perspective_hold": "controller.animation.attachable.general"
+      },
+      "scripts": {
+        "animate": [
+          "general",
+          "perspective_hold"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.model_default"
+      ]
+    }
+  }
+}

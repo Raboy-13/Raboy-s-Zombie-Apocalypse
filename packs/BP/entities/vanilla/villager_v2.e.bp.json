@@ -1348,7 +1348,7 @@
 				},
 				"minecraft:economy_trade_table": {
 					"display_name": "entity.villager.weapon",
-					"table": "trading/economy_trades/weapon_smith_trades.json",
+					"table": "trading/economy_trades/weapon_smith_trades.tt.json",
 					"new_screen": true,
 					"persist_trades": true,
 					"cured_discount": [

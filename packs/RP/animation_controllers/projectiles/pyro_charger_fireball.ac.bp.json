@@ -1,0 +1,26 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.pyro_charger_fireball.particles": {
+			"states": {
+				"default": {
+					"transitions": [
+						{"active": "true"}
+					]
+				},
+				"active": {
+					"particle_effects": [
+						{
+							"effect": "fire",
+							"locator": "particle_general"
+						},
+						{
+							"effect": "smoke",
+							"locator": "particle_general"
+						}
+					]
+				}
+			}
+		}
+	}
+}

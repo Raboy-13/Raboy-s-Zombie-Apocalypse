@@ -48,7 +48,6 @@
 					"priority": 0,
 					"attack_interval": 0.05,
 					"attack_radius": 32,
-					"attack_radius_min": 8,
 					"swing": true,
 					"x_max_rotation": 15,
 					"ranged_fov": 45
@@ -59,7 +58,7 @@
 				"minecraft:behavior.nearest_attackable_target": {
 					"priority": 2,
 					"must_see": true,
-					"reselect_targets": true,
+					"reselect_targets": false,
 					"must_see_forget_duration": 0,
 					"entity_types": [
 						{
@@ -81,16 +80,6 @@
 										"subject": "other",
 										"operator": "!=",
 										"value": "zombie_illager"
-									},
-									{
-										"test": "on_fire",
-										"subject": "other",
-										"value": false
-									},
-									{
-										"test": "is_in_village",
-										"subject": "other",
-										"value": false
 									}
 								]
 							},
@@ -206,7 +195,7 @@
 			},
 			"rza:despawn": {
 				"queue_command": {
-					"command": "function world/turrets/pyro_charger"
+					"command": "function world/turrets/turret_drop/pyro_charger"
 				}
 			}
 		},

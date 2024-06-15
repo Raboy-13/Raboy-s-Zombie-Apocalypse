@@ -29,8 +29,6 @@
 			},
 			"particle_effects": {
 				"spark": "rza:spark",
-				"fire": "rza:fire",
-				"smoke": "rza:smoke",
 				"steam": "rza:steam",
 				"cooldown": "rza:cooldown"
 			},

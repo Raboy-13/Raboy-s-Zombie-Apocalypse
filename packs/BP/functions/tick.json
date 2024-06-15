@@ -1,7 +1,5 @@
 {
 	"values": [
-		"world/start",
-		"world/turrets/turrets",
-		"world/zombies/feral"
+		"main"
 	]
 }

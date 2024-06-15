@@ -5,15 +5,11 @@
 			"states": {
 				"default": {
 					"transitions": [
-						{
-							"firing": "v.attack_time>0"
-						}
+						{"firing": "v.attack_time>0"}
 					]
 				},
 				"firing": {
-					"animations": [
-						"fire"
-					],
+					"animations": ["fire"],
 					"particle_effects": [
 						{
 							"effect": "exhaust",
@@ -37,9 +33,7 @@
 						}
 					],
 					"transitions": [
-						{
-							"default": "v.attack_time<=0&&q.all_animations_finished"
-						}
+						{"default": "v.attack_time<=0&&q.all_animations_finished"}
 					]
 				}
 			}
@@ -48,9 +42,7 @@
 			"states": {
 				"default": {
 					"transitions": [
-						{
-							"charging": "v.attack_time<=0&&q.has_target"
-						}
+						{"charging": "v.attack_time<=0&&q.has_target"}
 					]
 				},
 				"charging": {
@@ -110,9 +102,7 @@
 						}
 					],
 					"transitions": [
-						{
-							"default": "v.attack_time>0"
-						}
+						{"default": "v.attack_time>0"}
 					]
 				}
 			}

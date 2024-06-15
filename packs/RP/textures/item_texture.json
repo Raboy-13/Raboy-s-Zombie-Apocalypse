@@ -2,23 +2,47 @@
 	"resource_pack_name": "Raboy's Zombie Apocalypse",
 	"texture_name": "atlas.items",
 	"texture_data": {
-		"zom_arrow_turret": {
-			"textures": "textures/items/arrow_turret"
+		"rza_arrow_turret": {
+			"textures": "textures/items/turrets/arrow_turret/arrow_turret"
 		},
-		"zom_pyro_charger_machine": {
-			"textures": "textures/items/pyro_charger_machine"
+		"rza_pyro_charger_machine": {
+			"textures": "textures/items/turrets/pyro_charger/pyro_charger_machine"
 		},
-		"zom_pyro_charger": {
-			"textures": "textures/items/pyro_charger"
+		"rza_pyro_charger": {
+			"textures": "textures/items/turrets/pyro_charger/pyro_charger"
 		},
-		"zom_sonic_compressor": {
-			"textures": "textures/items/sonic_compressor"
+		"rza_sonic_compressor": {
+			"textures": "textures/items/turrets/sonic_cannon/sonic_compressor"
 		},
-		"zom_sonic_cannon": {
-			"textures": "textures/items/sonic_cannon"
+		"rza_sonic_cannon": {
+			"textures": "textures/items/turrets/sonic_cannon/sonic_cannon"
 		},
-		"zom_turret_base": {
+		"rza_electron_magnifier": {
+			"textures": "textures/items/turrets/storm_weaver/electron_magnifier"
+		},
+		"rza_electron_channeler": {
+			"textures": "textures/items/turrets/storm_weaver/electron_channeler"
+		},
+		"rza_storm_weaver": {
+			"textures": "textures/items/turrets/storm_weaver/storm_weaver"
+		},
+		"rza_turret_base": {
 			"textures": "textures/items/turret_base"
+		},
+		"rza_drone_remote": {
+			"textures": "textures/items/utility/collector_drone/drone_remote"
+		},
+		"rza_collector_drone_chassis": {
+			"textures": "textures/items/utility/collector_drone/collector_drone_chassis"
+		},
+		"rza_collector_drone_rotor": {
+			"textures": "textures/items/utility/collector_drone/collector_drone_rotor"
+		},
+		"rza_collector_drone_generator": {
+			"textures": "textures/items/utility/collector_drone/collector_drone_generator"
+		},
+		"rza_collector_drone": {
+			"textures": "textures/items/utility/collector_drone/collector_drone"
 		}
 	}
 }

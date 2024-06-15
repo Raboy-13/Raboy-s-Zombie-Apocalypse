@@ -5,14 +5,7 @@
 			"loop": true,
 			"bones": {
 				"root": {
-					"relative_to": {
-						"rotation": "entity"
-					},
-					"rotation": [
-						"query.target_x_rotation-this",
-						"query.target_y_rotation-this",
-						0
-					]
+					"rotation": ["query.target_x_rotation-this", "query.target_y_rotation-this", 0]
 				}
 			}
 		}

@@ -1,0 +1,25 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:collector_drone_rotor"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"i": {
+				"item": "iron_ingot"
+			}
+		},
+		"pattern": [
+			" i ",
+			"iii",
+			" i "
+		],
+		"result": {
+			"item": "rza:collector_drone_rotor",
+			"count": 1
+		}
+	}
+}

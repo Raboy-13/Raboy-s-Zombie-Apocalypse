@@ -6,7 +6,7 @@
 			"is_spawnable": false,
 			"is_summonable": false,
 			"is_experimental": false,
-			"runtime_identifier": "small_fireball"
+			"runtime_identifier": "snowball"
 		},
 		"component_groups": {
 			"rza:despawn": {
@@ -14,16 +14,6 @@
 			}
 		},
 		"events": {
-			"rza:splash_fire": {
-				"queue_command": {
-					"command": [
-						"fill ~-2 ~-3 ~-3 ~3 ~1 ~2 fire replace air",
-						"fill ~2 ~1 ~3 ~-3 ~-3 ~-2 fire replace air",
-						"fill ~-3 ~-3 ~-2 ~2 ~1 ~3 fire replace air",
-						"fill ~3 ~1 ~2 ~-2 ~-3 ~-3 fire replace air"
-					]
-				}
-			},
 			"rza:despawn": {
 				"add": {
 					"component_groups": [
@@ -41,25 +31,10 @@
 				"value": 0.00001
 			},
 			"minecraft:projectile": {
-				"on_hit": {
-					"impact_damage": {
-						"damage": 3,
-						"knockback": false,
-						"catch_fire": true,
-						"semi_random_diff_damage": false
-					},
-					"catch_fire": true,
-					"definition_event": {
-						"event_trigger": {
-							"event": "rza:splash_fire",
-							"target": "self"
-						}
-					}
-				},
-				"power": 4,
-				"gravity": 0,
-				"inertia": 1,
-				"liquid_inertia": 1,
+				"power": 1,
+				"gravity": 0.005,
+				"inertia": 0.95,
+				"liquid_inertia": 0.5,
 				"anchor": 99,
 				"offset": [
 					0,
@@ -67,7 +42,8 @@
 					1
 				],
 				"semi_random_diff_damage": false,
-				"uncertainty_base": 0,
+				"uncertainty_base": 5,
+				"uncertainty_multiplier": 3,
 				"reflect_on_hurt": false
 			},
 			"minecraft:tick_world": {
@@ -75,14 +51,16 @@
 				"radius": 2
 			},
 			"minecraft:timer": {
-				"time": 8,
+				"time": 4,
 				"looping": true,
 				"time_down_event": {
 					"event": "rza:despawn",
 					"target": "self"
 				}
 			},
-			"minecraft:physics": {},
+			"minecraft:physics": {
+				"has_collision": false
+			},
 			"minecraft:pushable": {
 				"is_pushable": true,
 				"is_pushable_by_piston": true

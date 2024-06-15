@@ -1,1 +1,15 @@
-[]
+[
+    {
+        "flipbook_texture": "textures/blocks/turrets/storm_weaver/active_electron_reactor_core",
+        "atlas_tile": "active_electron_reactor_core",
+        "ticks_per_frame": 8,
+        "blend_frames": true,
+        "atlas_index": 0,
+        "frames": [
+            0,
+            1,
+            2,
+            3
+        ]
+    }
+]

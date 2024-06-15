@@ -1,0 +1,31 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:drone_remote"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"C": {
+				"item": "comparator"
+			},
+			"P": {
+				"item": "planks"
+			},
+			"b": {
+				"item": "stone_button"
+			}
+		},
+		"pattern": [
+			" C ",
+			"bPb",
+			"bPb"
+		],
+		"result": {
+			"item": "rza:drone_remote",
+			"count": 1
+		}
+	}
+}

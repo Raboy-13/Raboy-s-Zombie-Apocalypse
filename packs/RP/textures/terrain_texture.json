@@ -4,8 +4,14 @@
 	"resource_pack_name": "Raboy's Zombie Apocalypse",
 	"texture_name": "atlas.terrain",
 	"texture_data": {
-		"zom_turret_base": {
+		"rza_turret_base": {
 			"textures": "textures/blocks/turret_base"
+		},
+		"electron_reactor_core": {
+			"textures": "textures/blocks/turrets/storm_weaver/electron_reactor_core"
+		},
+		"active_electron_reactor_core": {
+			"textures": "textures/blocks/turrets/storm_weaver/active_electron_reactor_core"
 		}
 	}
 }

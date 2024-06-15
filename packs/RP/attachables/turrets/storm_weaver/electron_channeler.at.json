@@ -1,0 +1,30 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "rza:electron_channeler",
+      "materials": {
+        "default": "entity_emissive_alpha"
+      },
+      "textures": {
+        "default": "textures/entity/turrets/storm_weaver/storm_weaver_inactive"
+      },
+      "geometry": {
+        "default": "geometry.electron_channeler"
+      },
+      "animations": {
+        "first_person_hold": "animation.electron_channeler.first_person_hold",
+        "third_person_hold": "animation.electron_channeler.third_person_hold",
+        "general": "controller.animation.attachable.general"
+      },
+      "scripts": {
+        "animate": [
+          "general"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.model_default"
+      ]
+    }
+  }
+}

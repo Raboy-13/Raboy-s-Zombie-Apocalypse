@@ -1,0 +1,31 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:electron_channeler"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"R": {
+				"item": "redstone_block"
+			},
+			"c": {
+				"item": "chain"
+			},
+			"i": {
+				"item": "iron_ingot"
+			}
+		},
+		"pattern": [
+			"cRc",
+			"cic",
+			"cic"
+		],
+		"result": {
+			"item": "rza:electron_channeler",
+			"count": 1
+		}
+	}
+}

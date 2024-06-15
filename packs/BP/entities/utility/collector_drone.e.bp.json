@@ -1,0 +1,259 @@
+{
+	"format_version": "1.19.80",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "rza:collector_drone",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false,
+			"properties": {
+				"rza:active": {
+					"client_sync": true,
+					"type": "bool",
+					"default": false
+				},
+				"rza:auto_collect": {
+					"type": "bool",
+					"default": false
+				},
+				"rza:collections": {
+					"type": "enum",
+					"default": "Items",
+					"values": [
+						"Items",
+						"XP"
+					]
+				},
+				"rza:target_capacity": {
+					"client_sync": true,
+					"type": "int",
+					"default": 0,
+					"range": [
+						0,
+						64
+					]
+				},
+				"rza:capacity": {
+					"client_sync": true,
+					"type": "int",
+					"default": 0,
+					"range": [
+						0,
+						64
+					]
+				},
+				"rza:follow_owner": {
+					"type": "bool",
+					"default": false
+				},
+				"rza:deliver_incomplete": {
+					"type": "bool",
+					"default": true
+				},
+				"rza:delivery_location": {
+					"type": "enum",
+					"default": "Player",
+					"values": [
+						"Player",
+						"Hopper"
+					]
+				}
+			}
+		},
+		"component_groups": {
+			"rza:drone_land": {
+				"minecraft:movement": {
+					"value": 0.25
+				},
+				"minecraft:movement.basic": {},
+				"minecraft:navigation.hover": {
+					"can_path_from_air": true,
+					"can_path_over_lava": true,
+					"can_path_over_water": true
+				},
+				"minecraft:physics": {}
+			},
+			"rza:drone_hover": {
+				"minecraft:can_fly": {},
+				"minecraft:movement.hover": {},
+				"minecraft:navigation.hover": {
+					"can_path_from_air": true,
+					"can_path_over_lava": true,
+					"can_path_over_water": true
+				},
+				"minecraft:flying_speed": {
+					"value": 0.02
+				},
+				"minecraft:behavior.float": {
+					"priority": 5
+				},
+				"minecraft:tick_world": {
+					"never_despawn": true,
+					"radius": 2
+				}
+			}
+		},
+		"events": {
+			"minecraft:entity_spawned": {
+				"add": {
+					"component_groups": [
+						"rza:drone_land"
+					]
+				}
+			},
+			"minecraft:entity_transformed": {},
+			"rza:configure": {},
+			"rza:add_target_capacity": {
+				"set_property": {
+					"rza:target_capacity": "query.property('rza:target_capacity') + 1"
+				}
+			},
+			"rza:add_capacity": {
+				"set_property": {
+					"rza:capacity": "query.property('rza:capacity') + 1"
+				}
+			},
+			"rza:drone_land": {
+				"sequence": [
+					{
+						"remove": {
+							"component_groups": [
+								"rza:drone_hover"
+							]
+						}
+					},
+					{
+						"add": {
+							"component_groups": [
+								"rza:drone_land"
+							]
+						}
+					}
+				]
+			},
+			"rza:drone_hover": {
+				"sequence": [
+					{
+						"remove": {
+							"component_groups": [
+								"rza:drone_land"
+							]
+						}
+					},
+					{
+						"add": {
+							"component_groups": [
+								"rza:drone_hover"
+							]
+						}
+					}
+				]
+			},
+			"rza:despawn": {
+				"queue_command": {
+					"command": "kill @s"
+				}
+			}
+		},
+		"components": {
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:nameable": {
+				"always_show": true
+			},
+			"minecraft:type_family": {
+				"family": [
+					"utility",
+					"drone",
+					"collector_drone"
+				]
+			},
+			"minecraft:collision_box": {
+				"width": 1.1,
+				"height": 0.6
+			},
+			"minecraft:jump.static": {},
+			"minecraft:health": {
+				"value": 15
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+			"minecraft:breathable": {
+				"total_supply": 9999,
+				"suffocate_time": 0,
+				"breathes_air": true,
+				"breathes_water": true,
+				"breathes_solids": true
+			},
+			"minecraft:despawn": {
+				"despawn_from_distance": {
+					"max_distance": 64,
+					"min_distance": 32
+				}
+			},
+			"minecraft:interact": {
+				"interactions": {
+					"on_interact": {
+						"event": "rza:configure",
+						"target": "self"
+					},
+					"use_item": true,
+					"interact_text": "action.hint.collector_drone.configure"
+				}
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "turret"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "illager"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "villager"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "wandering_trader"
+									}
+								]
+							}
+						},
+						"deals_damage": false
+					}
+				]
+			},
+			"minecraft:follow_range": {
+				"value": 64
+			},
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": true,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:conditional_bandwidth_optimization": {}
+		}
+	}
+}

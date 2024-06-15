@@ -1,0 +1,31 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:electron_magnifier"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"E": {
+				"item": "rza:active_electron_reactor_core"
+			},
+			"P": {
+				"item": "sticky_piston"
+			},
+			"I": {
+				"item": "iron_block"
+			}
+		},
+		"pattern": [
+			"PIP",
+			"PEP",
+			"PIP"
+		],
+		"result": {
+			"item": "rza:electron_magnifier",
+			"count": 1
+		}
+	}
+}

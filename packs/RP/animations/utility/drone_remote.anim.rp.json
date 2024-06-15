@@ -1,0 +1,94 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.drone_remote.first_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [47.8874, 52.52223, -42.5937],
+					"position": [-6, 27, -5]
+				}
+			}
+		},
+		"animation.drone_remote.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"position": [0, 22, -4.5]
+				}
+			}
+		},
+		"animation.drone_remote.interact1": {
+			"animation_length": 0.1667,
+			"bones": {
+				"button1": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0833": [0, -0.175, 0],
+						"0.1667": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.drone_remote.interact2": {
+			"animation_length": 0.1667,
+			"bones": {
+				"button2": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0833": [0, -0.175, 0],
+						"0.1667": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.drone_remote.interact3": {
+			"animation_length": 0.1667,
+			"bones": {
+				"button4": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0833": [0, -0.175, 0],
+						"0.1667": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.drone_remote.interact4": {
+			"animation_length": 0.1667,
+			"bones": {
+				"button3": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0833": [0, -0.175, 0],
+						"0.1667": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.drone_remote.interact5": {
+			"animation_length": 0.1667,
+			"bones": {
+				"button5": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0833": [0, -0.175, 0],
+						"0.1667": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.drone_remote.interact6": {
+			"animation_length": 0.1667,
+			"bones": {
+				"button6": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0833": [0, -0.175, 0],
+						"0.1667": [0, 0, 0]
+					}
+				}
+			}
+		}
+	}
+}

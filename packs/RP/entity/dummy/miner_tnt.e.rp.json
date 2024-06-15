@@ -1,0 +1,20 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "rza:miner_tnt",
+			"materials": {
+				"default": "entity_lead_base"
+			},
+			"textures": {
+				"default": "textures/entity/dummy/miner_tnt"
+			},
+			"geometry": {
+				"default": "geometry.custom_tnt"
+			},
+			"render_controllers": [
+				"controller.render.miner_tnt"
+			]
+		}
+	}
+}

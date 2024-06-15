@@ -12,6 +12,18 @@
 			"geometry": {
 				"default": "geometry.turret_base_placer"
 			},
+			"animations": {
+				"particles": "controller.animation.pyro_charger_fireball.particles"
+			},
+			"scripts": {
+				"animate": [
+					"particles"
+				]
+			},
+			"particle_effects": {
+				"fire": "rza:fire",
+				"smoke": "rza:smoke"
+			},
 			"render_controllers": [
 				"controller.render.model_default"
 			]

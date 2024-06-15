@@ -16,7 +16,7 @@
                             "function": "set_count",
                             "count": {
                                 "min": 0,
-                                "max": 1
+                                "max": 2
                             }
                         },
                         {
@@ -31,7 +31,7 @@
                 {
                     "type": "item",
                     "name": "minecraft:glowstone_dust",
-                    "weight": 1,
+                    "weight": 2,
                     "functions": [
                         {
                             "function": "set_count",
@@ -52,7 +52,7 @@
                 {
                     "type": "item",
                     "name": "minecraft:sugar",
-                    "weight": 1,
+                    "weight": 2,
                     "functions": [
                         {
                             "function": "set_count",
@@ -94,7 +94,7 @@
                 {
                     "type": "item",
                     "name": "minecraft:spider_eye",
-                    "weight": 1,
+                    "weight": 2,
                     "functions": [
                         {
                             "function": "set_count",
@@ -115,7 +115,7 @@
                 {
                     "type": "item",
                     "name": "minecraft:glass_bottle",
-                    "weight": 1,
+                    "weight": 2,
                     "functions": [
                         {
                             "function": "set_count",
@@ -136,6 +136,27 @@
                 {
                     "type": "item",
                     "name": "minecraft:gunpowder",
+                    "weight": 1,
+                    "functions": [
+                        {
+                            "function": "set_count",
+                            "count": {
+                                "min": 0,
+                                "max": 3
+                            }
+                        },
+                        {
+                            "function": "looting_enchant",
+                            "count": {
+                                "min": 0,
+                                "max": 2
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:phantom_membrane",
                     "weight": 1,
                     "functions": [
                         {

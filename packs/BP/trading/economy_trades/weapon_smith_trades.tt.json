@@ -4,20 +4,15 @@
          "total_exp_required": 0,
          "groups": [
             {
-               "num_to_select": 1,
                "trades": [
                   {
                      "wants": [
                         {
                            "item": "minecraft:coal",
-                           "quantity": 15,
-                           "price_multiplier": 0.05,
-                           "functions": [
-                              {
-                                 "function": "set_data",
-                                 "data": 0
-                              }
-                           ]
+                           "quantity": {
+                              "min": 16,
+                              "max": 24
+                           }
                         }
                      ],
                      "gives": [
@@ -26,21 +21,58 @@
                            "quantity": 1
                         }
                      ],
-                     "trader_exp": 2,
-                     "max_uses": 16,
+                     "trader_exp": 1,
+                     "max_uses": 12,
                      "reward_exp": true
-                  }
-               ]
-            },
-            {
-               "num_to_select": 1,
-               "trades": [
+                  },
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:charcoal",
+                           "quantity": {
+                              "min": 16,
+                              "max": 24
+                           }
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 1,
+                     "max_uses": 12,
+                     "reward_exp": true
+                  },
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:charcoal",
+                           "quantity": {
+                              "min": 8,
+                              "max": 16
+                           }
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 1,
+                     "max_uses": 12,
+                     "reward_exp": true
+                  },
                   {
                      "wants": [
                         {
                            "item": "minecraft:emerald",
-                           "quantity": 3,
-                           "price_multiplier": 0.2
+                           "quantity": {
+                              "min": 6,
+                              "max": 8
+                           }
                         }
                      ],
                      "gives": [
@@ -49,41 +81,8 @@
                            "quantity": 1
                         }
                      ],
-                     "trader_exp": 1,
-                     "max_uses": 12,
-                     "reward_exp": true
-                  }
-               ]
-            },
-            {
-               "num_to_select": 1,
-               "trades": [
-                  {
-                     "wants": [
-                        {
-                           "item": "minecraft:emerald",
-                           "quantity": 2,
-                           "price_multiplier": 0.2
-                        }
-                     ],
-                     "gives": [
-                        {
-                           "item": "minecraft:iron_sword",
-                           "quantity": 1,
-                           "functions": [
-                              {
-                                 "function": "enchant_with_levels",
-                                 "treasure": false,
-                                 "levels": {
-                                    "min": 5,
-                                    "max": 19
-                                 }
-                              }
-                           ]
-                        }
-                     ],
-                     "trader_exp": 5,
-                     "max_uses": 3,
+                     "trader_exp": 2,
+                     "max_uses": 6,
                      "reward_exp": true
                   }
                ]
@@ -94,14 +93,15 @@
          "total_exp_required": 10,
          "groups": [
             {
-               "num_to_select": 1,
                "trades": [
                   {
                      "wants": [
                         {
                            "item": "minecraft:iron_ingot",
-                           "quantity": 4,
-                           "price_multiplier": 0.05
+                           "quantity": {
+                              "min": 7,
+                              "max": 14
+                           }
                         }
                      ],
                      "gives": [
@@ -110,31 +110,58 @@
                            "quantity": 1
                         }
                      ],
-                     "trader_exp": 10,
-                     "max_uses": 12,
+                     "trader_exp": 3,
+                     "max_uses": 3,
                      "reward_exp": true
-                  }
-               ]
-            },
-            {
-               "num_to_select": 1,
-               "trades": [
+                  },
                   {
                      "wants": [
                         {
                            "item": "minecraft:emerald",
-                           "quantity": 36,
-                           "price_multiplier": 0.2
+                           "quantity": {
+                              "min": 9,
+                              "max": 10
+                           }
                         }
                      ],
                      "gives": [
                         {
-                           "item": "minecraft:bell",
+                           "item": "minecraft:iron_sword",
+                           "functions": [
+                              {
+                                 "function": "enchant_with_levels",
+                                 "treasure": false,
+                                 "levels": {
+                                    "min": 5,
+                                    "max": 19
+                                 }
+                              }
+                           ],
                            "quantity": 1
                         }
                      ],
-                     "trader_exp": 5,
-                     "max_uses": 12,
+                     "trader_exp": 12,
+                     "max_uses": 6,
+                     "reward_exp": true
+                  },
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": {
+                              "min": 6,
+                              "max": 8
+                           }
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "minecraft:iron_axe",
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 8,
+                     "max_uses": 6,
                      "reward_exp": true
                   }
                ]
@@ -145,42 +172,15 @@
          "total_exp_required": 70,
          "groups": [
             {
-               "num_to_select": 1,
-               "trades": [
-                  {
-                     "wants": [
-                        {
-                           "item": "minecraft:flint",
-                           "quantity": 24,
-                           "price_multiplier": 0.05
-                        }
-                     ],
-                     "gives": [
-                        {
-                           "item": "minecraft:emerald",
-                           "quantity": 1
-                        }
-                     ],
-                     "trader_exp": 20,
-                     "max_uses": 12,
-                     "reward_exp": true
-                  }
-               ]
-            }
-         ]
-      },
-      {
-         "total_exp_required": 150,
-         "groups": [
-            {
-               "num_to_select": 1,
                "trades": [
                   {
                      "wants": [
                         {
                            "item": "minecraft:diamond",
-                           "quantity": 1,
-                           "price_multiplier": 0.05
+                           "quantity": {
+                              "min": 1,
+                              "max": 4
+                           }
                         }
                      ],
                      "gives": [
@@ -189,65 +189,23 @@
                            "quantity": 1
                         }
                      ],
-                     "trader_exp": 30,
+                     "trader_exp": 8,
                      "max_uses": 12,
                      "reward_exp": true
-                  }
-               ]
-            },
-            {
-               "num_to_select": 1,
-               "trades": [
+                  },
                   {
                      "wants": [
                         {
                            "item": "minecraft:emerald",
-                           "quantity": 12,
-                           "price_multiplier": 0.2
-                        }
-                     ],
-                     "gives": [
-                        {
-                           "item": "minecraft:diamond_axe",
-                           "quantity": 1,
-                           "functions": [
-                              {
-                                 "function": "enchant_with_levels",
-                                 "treasure": false,
-                                 "levels": {
-                                    "min": 5,
-                                    "max": 19
-                                 }
-                              }
-                           ]
-                        }
-                     ],
-                     "trader_exp": 15,
-                     "max_uses": 3,
-                     "reward_exp": true
-                  }
-               ]
-            }
-         ]
-      },
-      {
-         "total_exp_required": 250,
-         "groups": [
-            {
-               "num_to_select": 1,
-               "trades": [
-                  {
-                     "wants": [
-                        {
-                           "item": "minecraft:emerald",
-                           "quantity": 8,
-                           "price_multiplier": 0.2
+                           "quantity": {
+                              "min": 12,
+                              "max": 15
+                           }
                         }
                      ],
                      "gives": [
                         {
                            "item": "minecraft:diamond_sword",
-                           "quantity": 1,
                            "functions": [
                               {
                                  "function": "enchant_with_levels",
@@ -257,14 +215,46 @@
                                     "max": 19
                                  }
                               }
-                           ]
+                           ],
+                           "quantity": 1
                         }
                      ],
-                     "trader_exp": 30,
-                     "max_uses": 3,
+                     "trader_exp": 16,
+                     "max_uses": 4,
+                     "reward_exp": true
+                  },
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": {
+                              "min": 9,
+                              "max": 12
+                           }
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "minecraft:diamond_axe",
+                           "functions": [
+                              {
+                                 "function": "enchant_with_levels",
+                                 "treasure": false,
+                                 "levels": {
+                                    "min": 5,
+                                    "max": 19
+                                 }
+                              }
+                           ],
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 14,
+                     "max_uses": 4,
                      "reward_exp": true
                   }
-               ]
+               ],
+               "num_to_select": 0
             },
             {
                "trades": [
@@ -282,8 +272,8 @@
                            "quantity": 1
                         }
                      ],
-                     "trader_exp": 2,
-                     "max_uses": 6,
+                     "trader_exp": 12,
+                     "max_uses": 4,
                      "reward_exp": true
                   },
                   {
@@ -300,16 +290,134 @@
                            "quantity": 1
                         }
                      ],
-                     "trader_exp": 3,
-                     "max_uses": 6,
+                     "trader_exp": 24,
+                     "max_uses": 2,
+                     "reward_exp": true
+                  }
+               ]
+            },
+            {
+               "trades": [
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": 24,
+                           "price_multiplier": 0.05
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "rza:pyro_charger_machine",
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 28,
+                     "max_uses": 1,
                      "reward_exp": true
                   },
                   {
                      "wants": [
                         {
                            "item": "minecraft:emerald",
-                           "quantity": 52,
+                           "quantity": 48,
                            "price_multiplier": 0.05
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "rza:sonic_compressor",
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 32,
+                     "max_uses": 1,
+                     "reward_exp": true
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "total_exp_required": 150,
+         "groups": [
+            {
+               "trades": [
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": {
+                              "min": 16,
+                              "max": 24
+                           }
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "minecraft:netherite_sword",
+                           "functions": [
+                              {
+                                 "function": "enchant_with_levels",
+                                 "treasure": false,
+                                 "levels": {
+                                    "min": 5,
+                                    "max": 19
+                                 }
+                              }
+                           ],
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 24,
+                     "max_uses": 4,
+                     "reward_exp": true
+                  },
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": {
+                              "min": 12,
+                              "max": 20
+                           }
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "minecraft:netherite_axe",
+                           "functions": [
+                              {
+                                 "function": "enchant_with_levels",
+                                 "treasure": false,
+                                 "levels": {
+                                    "min": 5,
+                                    "max": 19
+                                 }
+                              }
+                           ],
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 22,
+                     "max_uses": 4,
+                     "reward_exp": true
+                  }
+               ],
+               "num_to_select": 0
+            },
+            {
+               "trades": [
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": 32,
+                           "price_multiplier": 0.05
+                        },
+                        {
+                           "item": "rza:pyro_charger_machine",
+                           "quantity": 1
                         }
                      ],
                      "gives": [
@@ -318,16 +426,20 @@
                            "quantity": 1
                         }
                      ],
-                     "trader_exp": 4,
-                     "max_uses": 6,
+                     "trader_exp": 32,
+                     "max_uses": 1,
                      "reward_exp": true
                   },
                   {
                      "wants": [
                         {
                            "item": "minecraft:emerald",
-                           "quantity": 64,
-                           "price_multiplier": 0
+                           "quantity": 52,
+                           "price_multiplier": 0.05
+                        },
+                        {
+                           "item": "rza:sonic_compressor",
+                           "quantity": 1
                         }
                      ],
                      "gives": [
@@ -336,8 +448,127 @@
                            "quantity": 1
                         }
                      ],
-                     "trader_exp": 6,
-                     "max_uses": 6,
+                     "trader_exp": 36,
+                     "max_uses": 1,
+                     "reward_exp": true
+                  }
+               ]
+            },
+            {
+               "trades": [
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": 32,
+                           "price_multiplier": 0.05
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "rza:electron_reactor_core",
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 24,
+                     "max_uses": 1,
+                     "reward_exp": true
+                  },
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": 42,
+                           "price_multiplier": 0.05
+                        },
+                        {
+                           "item": "rza:electron_reactor_core",
+                           "quantity": 1
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "rza:active_electron_reactor_core",
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 36,
+                     "max_uses": 1,
+                     "reward_exp": true
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "total_exp_required": 250,
+         "groups": [
+            {
+               "trades": [
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": 64,
+                           "price_multiplier": 0.05
+                        },
+                        {
+                           "item": "rza:electron_magnifier",
+                           "quantity": 1
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "rza:storm_weaver_item",
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 48,
+                     "max_uses": 1,
+                     "reward_exp": true
+                  }
+               ]
+            },
+            {
+               "trades": [
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": 48,
+                           "price_multiplier": 0.05
+                        },
+                        {
+                           "item": "rza:active_electron_reactor_core",
+                           "quantity": 1
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "rza:electron_magnifier",
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 42,
+                     "max_uses": 1,
+                     "reward_exp": true
+                  },
+                  {
+                     "wants": [
+                        {
+                           "item": "minecraft:emerald",
+                           "quantity": 42,
+                           "price_multiplier": 0.05
+                        }
+                     ],
+                     "gives": [
+                        {
+                           "item": "rza:electron_channeler",
+                           "quantity": 1
+                        }
+                     ],
+                     "trader_exp": 38,
+                     "max_uses": 1,
                      "reward_exp": true
                   }
                ]

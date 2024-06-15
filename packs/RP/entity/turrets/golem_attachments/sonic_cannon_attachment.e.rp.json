@@ -1,0 +1,45 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "rza:sonic_cannon_attachment",
+			"materials": {
+				"active": "entity_emissive_alpha",
+				"inactive": "entity"
+			},
+			"textures": {
+				"inactive": "textures/entity/turrets/sonic_cannon/sonic_cannon_inactive",
+				"active": "textures/entity/turrets/sonic_cannon/sonic_cannon_active"
+			},
+			"geometry": {
+				"default": "geometry.sonic_cannon"
+			},
+			"animations": {
+				"look_at_target": "animation.turret.look_at_target",
+				"fire": "animation.sonic_cannon.fire",
+				"general": "controller.animation.sonic_cannon.general",
+				"charge": "controller.animation.sonic_cannon.charge"
+			},
+			"scripts": {
+				"scale": "0.5",
+				"animate": [
+					"look_at_target",
+					"general",
+					"charge"
+				]
+			},
+			"particle_effects": {
+				"charge": "rza:charge",
+				"sonic_charge": "rza:sonic_charge",
+				"exhaust": "rza:exhaust",
+				"exhaust_front": "rza:exhaust_front"
+			},
+			"sound_effects": {
+				"charge": "turret.sonic_cannon.charge"
+			},
+			"render_controllers": [
+				"controller.render.sonic_cannon"
+			]
+		}
+	}
+}

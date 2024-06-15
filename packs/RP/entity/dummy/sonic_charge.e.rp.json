@@ -12,17 +12,6 @@
 			"geometry": {
 				"default": "geometry.turret_base_placer"
 			},
-			"animations": {
-				"sonic_charge": "animation.sonic_cannon.sonic_charge"
-			},
-			"scripts": {
-				"animate": [
-					"sonic_charge"
-				]
-			},
-			"particle_effects": {
-				"sonic_charge": "rza:sonic_charge"
-			},
 			"render_controllers": [
 				"controller.render.model_default"
 			]
