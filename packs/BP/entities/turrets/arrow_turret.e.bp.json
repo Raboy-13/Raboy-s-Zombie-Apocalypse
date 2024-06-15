@@ -196,7 +196,7 @@
 					]
 				}
 			},
-			//Walkers: Prioritize Mutated Zombies
+			//Walkers: Prioritize Mutated Walkers
 			"rza:target_walkers_prioritize_mutants": {
 				"minecraft:behavior.nearest_prioritized_attackable_target": {
 					"priority": 2,
@@ -257,7 +257,7 @@
 					]
 				}
 			},
-			//Miners: Don't Prioritize Mutated Walkers
+			//Miners: Don't Prioritize Mutated Miners
 			"rza:target_miners": {
 				"minecraft:behavior.nearest_attackable_target": {
 					"priority": 2,
@@ -285,7 +285,7 @@
 					]
 				}
 			},
-			//Miners: Prioritize Mutated Zombies
+			//Miners: Prioritize Mutated Miners
 			"rza:target_miners_prioritize_mutants": {
 				"minecraft:behavior.nearest_prioritized_attackable_target": {
 					"priority": 2,
@@ -346,7 +346,7 @@
 					]
 				}
 			},
-			//Ferals: Don't Prioritize Mutated Walkers
+			//Ferals: Don't Prioritize Mutated Ferals
 			"rza:target_ferals": {
 				"minecraft:behavior.nearest_attackable_target": {
 					"priority": 2,
@@ -374,7 +374,7 @@
 					]
 				}
 			},
-			//Ferals: Prioritize Mutated Zombies
+			//Ferals: Prioritize Mutated Ferals
 			"rza:target_ferals_prioritize_mutants": {
 				"minecraft:behavior.nearest_prioritized_attackable_target": {
 					"priority": 2,

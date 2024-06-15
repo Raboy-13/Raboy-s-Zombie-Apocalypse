@@ -1,0 +1,309 @@
+import { ModalFormData } from "@minecraft/server-ui";
+
+//Arrow Turret Configurator
+export function arrowTurretConfigurator(player, turret) {
+    //Get the last configuration on the entity properties and apply it into the selections
+    let zombieSelection = ['All', 'Walkers', 'Miners', 'Ferals'];
+    const selectedZombieType = turret.getProperty('rza:target_zombies');
+
+    // Remove the selectedZombieType from the array
+    zombieSelection = zombieSelection.filter(zombieType => zombieType !== selectedZombieType);
+
+    // Add the selectedZombieType as the first element in the array
+    zombieSelection.unshift(selectedZombieType);
+
+    new ModalFormData()
+        .title("§2Arrow Turret§r")
+        .toggle('Prioritize Mutated Zombies', turret.getProperty('rza:prioritize_mutants'))
+        .dropdown('§cZombies to target', zombieSelection)
+        .show(player)
+        .then(({ formValues: [toggle, dropdown] }) => {
+            const selectedZombieType = zombieSelection[dropdown];
+
+            //All Zombies: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'All') {
+                player.sendMessage('[Arrow Turret] Targeting §cAll Zombies§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_all_zombies');
+            }
+
+            //All Zombies: Prioritize Mutants
+            if (toggle && selectedZombieType === 'All') {
+                player.sendMessage('[Arrow Turret] Targeting §cAll Zombies§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_all_zombies_prioritize_mutants');
+            }
+
+            //Walkers: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Walkers') {
+                player.sendMessage('[Arrow Turret] Targeting §cWalkers§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_walkers');
+            }
+
+            //Walkers: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Walkers') {
+                player.sendMessage('[Arrow Turret] Targeting §cWalkers§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_walkers_prioritize_mutants');
+            }
+
+            //Miners: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Miners') {
+                player.sendMessage('[Arrow Turret] Targeting §cMiners§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_miners');
+            }
+
+            //Miners: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Miners') {
+                player.sendMessage('[Arrow Turret] Targeting §cMiners§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_miners_prioritize_mutants');
+            }
+
+            //Ferals: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Ferals') {
+                player.sendMessage('[Arrow Turret] Targeting §cFerals§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_ferals');
+            }
+
+            //Ferals: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Ferals') {
+                player.sendMessage('[Arrow Turret] Targeting §cFerals§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_ferals_prioritize_mutants');
+            }
+
+
+            turret.setProperty('rza:prioritize_mutants', toggle);
+            turret.setProperty('rza:target_zombies', selectedZombieType);
+        }).catch((e) => {
+            console.error(e, e.stack)
+        });
+    return;
+}
+
+//Pyro Charger Configurator
+export function pyroChargerConfigurator(player, turret) {
+    //Get the last configuration on the entity properties and apply it into the selections
+    let zombieSelection = ['All', 'Walkers', 'Miners', 'Ferals'];
+    const selectedZombieType = turret.getProperty('rza:target_zombies');
+
+    // Remove the selectedZombieType from the array
+    zombieSelection = zombieSelection.filter(zombieType => zombieType !== selectedZombieType);
+
+    // Add the selectedZombieType as the first element in the array
+    zombieSelection.unshift(selectedZombieType);
+
+    new ModalFormData()
+        .title("§6Pyro Charger§r")
+        .toggle('Prioritize Mutated Zombies', turret.getProperty('rza:prioritize_mutants'))
+        .dropdown('§cZombies to target', zombieSelection)
+        .show(player)
+        .then(({ formValues: [toggle, dropdown] }) => {
+            const selectedZombieType = zombieSelection[dropdown];
+
+            //All Zombies: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'All') {
+                player.sendMessage('[Arrow Turret] Targeting §cAll Zombies§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_all_zombies');
+            }
+
+            //All Zombies: Prioritize Mutants
+            if (toggle && selectedZombieType === 'All') {
+                player.sendMessage('[Arrow Turret] Targeting §cAll Zombies§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_all_zombies_prioritize_mutants');
+            }
+
+            //Walkers: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Walkers') {
+                player.sendMessage('[Arrow Turret] Targeting §cWalkers§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_walkers');
+            }
+
+            //Walkers: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Walkers') {
+                player.sendMessage('[Arrow Turret] Targeting §cWalkers§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_walkers_prioritize_mutants');
+            }
+
+            //Miners: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Miners') {
+                player.sendMessage('[Arrow Turret] Targeting §cMiners§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_miners');
+            }
+
+            //Miners: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Miners') {
+                player.sendMessage('[Arrow Turret] Targeting §cMiners§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_miners_prioritize_mutants');
+            }
+
+            //Ferals: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Ferals') {
+                player.sendMessage('[Arrow Turret] Targeting §cFerals§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_ferals');
+            }
+
+            //Ferals: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Ferals') {
+                player.sendMessage('[Arrow Turret] Targeting §cFerals§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_ferals_prioritize_mutants');
+            }
+
+
+            turret.setProperty('rza:prioritize_mutants', toggle);
+            turret.setProperty('rza:target_zombies', selectedZombieType);
+        }).catch((e) => {
+            console.error(e, e.stack)
+        });
+    return;
+}
+
+//Sonic Cannon Configurator
+export function sonicCannonConfigurator(player, turret) {
+    //Get the last configuration on the entity properties and apply it into the selections
+    let zombieSelection = ['All', 'Walkers', 'Miners', 'Ferals'];
+    const selectedZombieType = turret.getProperty('rza:target_zombies');
+
+    // Remove the selectedZombieType from the array
+    zombieSelection = zombieSelection.filter(zombieType => zombieType !== selectedZombieType);
+
+    // Add the selectedZombieType as the first element in the array
+    zombieSelection.unshift(selectedZombieType);
+
+    new ModalFormData()
+        .title("§5Sonic Cannon§r")
+        .toggle('Prioritize Mutated Zombies', turret.getProperty('rza:prioritize_mutants'))
+        .dropdown('§cZombies to target', zombieSelection)
+        .show(player)
+        .then(({ formValues: [toggle, dropdown] }) => {
+            const selectedZombieType = zombieSelection[dropdown];
+
+            //All Zombies: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'All') {
+                player.sendMessage('[Arrow Turret] Targeting §cAll Zombies§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_all_zombies');
+            }
+
+            //All Zombies: Prioritize Mutants
+            if (toggle && selectedZombieType === 'All') {
+                player.sendMessage('[Arrow Turret] Targeting §cAll Zombies§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_all_zombies_prioritize_mutants');
+            }
+
+            //Walkers: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Walkers') {
+                player.sendMessage('[Arrow Turret] Targeting §cWalkers§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_walkers');
+            }
+
+            //Walkers: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Walkers') {
+                player.sendMessage('[Arrow Turret] Targeting §cWalkers§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_walkers_prioritize_mutants');
+            }
+
+            //Miners: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Miners') {
+                player.sendMessage('[Arrow Turret] Targeting §cMiners§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_miners');
+            }
+
+            //Miners: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Miners') {
+                player.sendMessage('[Arrow Turret] Targeting §cMiners§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_miners_prioritize_mutants');
+            }
+
+            //Ferals: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Ferals') {
+                player.sendMessage('[Arrow Turret] Targeting §cFerals§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_ferals');
+            }
+
+            //Ferals: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Ferals') {
+                player.sendMessage('[Arrow Turret] Targeting §cFerals§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_ferals_prioritize_mutants');
+            }
+
+
+            turret.setProperty('rza:prioritize_mutants', toggle);
+            turret.setProperty('rza:target_zombies', selectedZombieType);
+        }).catch((e) => {
+            console.error(e, e.stack)
+        });
+    return;
+}
+
+//Sonic Cannon Configurator
+export function stormWeaverConfigurator(player, turret) {
+    //Get the last configuration on the entity properties and apply it into the selections
+    let zombieSelection = ['All', 'Walkers', 'Miners', 'Ferals'];
+    const selectedZombieType = turret.getProperty('rza:target_zombies');
+
+    // Remove the selectedZombieType from the array
+    zombieSelection = zombieSelection.filter(zombieType => zombieType !== selectedZombieType);
+
+    // Add the selectedZombieType as the first element in the array
+    zombieSelection.unshift(selectedZombieType);
+
+    new ModalFormData()
+        .title("§cStorm Weaver§r")
+        .toggle('Prioritize Mutated Zombies', turret.getProperty('rza:prioritize_mutants'))
+        .dropdown('§cZombies to target', zombieSelection)
+        .show(player)
+        .then(({ formValues: [toggle, dropdown] }) => {
+            const selectedZombieType = zombieSelection[dropdown];
+
+            //All Zombies: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'All') {
+                player.sendMessage('[Arrow Turret] Targeting §cAll Zombies§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_all_zombies');
+            }
+
+            //All Zombies: Prioritize Mutants
+            if (toggle && selectedZombieType === 'All') {
+                player.sendMessage('[Arrow Turret] Targeting §cAll Zombies§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_all_zombies_prioritize_mutants');
+            }
+
+            //Walkers: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Walkers') {
+                player.sendMessage('[Arrow Turret] Targeting §cWalkers§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_walkers');
+            }
+
+            //Walkers: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Walkers') {
+                player.sendMessage('[Arrow Turret] Targeting §cWalkers§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_walkers_prioritize_mutants');
+            }
+
+            //Miners: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Miners') {
+                player.sendMessage('[Arrow Turret] Targeting §cMiners§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_miners');
+            }
+
+            //Miners: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Miners') {
+                player.sendMessage('[Arrow Turret] Targeting §cMiners§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_miners_prioritize_mutants');
+            }
+
+            //Ferals: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Ferals') {
+                player.sendMessage('[Arrow Turret] Targeting §cFerals§r: Not Prioritizing Mutants');
+                turret.triggerEvent('rza:target_ferals');
+            }
+
+            //Ferals: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Ferals') {
+                player.sendMessage('[Arrow Turret] Targeting §cFerals§r: Prioritizing Mutants');
+                turret.triggerEvent('rza:target_ferals_prioritize_mutants');
+            }
+
+
+            turret.setProperty('rza:prioritize_mutants', toggle);
+            turret.setProperty('rza:target_zombies', selectedZombieType);
+        }).catch((e) => {
+            console.error(e, e.stack)
+        });
+    return;
+}

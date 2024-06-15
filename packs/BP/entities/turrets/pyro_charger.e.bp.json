@@ -16,6 +16,22 @@
 					"type": "bool",
 					"client_sync": true,
 					"default": false
+				},
+				"rza:prioritize_mutants": {
+					"client_sync": true,
+					"type": "bool",
+					"default": false
+				},
+				"rza:target_zombies": {
+					"client_sync": true,
+					"type": "enum",
+					"default": "All",
+					"values": [
+						"All",
+						"Walkers",
+						"Miners",
+						"Ferals"
+					]
 				}
 			}
 		},
@@ -55,6 +71,30 @@
 				"minecraft:shooter": {
 					"def": "rza:pyro_charger_fireball"
 				},
+				"minecraft:on_target_acquired": {
+					"filters": {
+						"test": "has_component",
+						"subject": "self",
+						"operator": "!=",
+						"value": "minecraft:timer"
+					},
+					"event": "rza:start_overheating",
+					"target": "self"
+				},
+				"minecraft:interact": {
+					"interactions": [
+						{
+							"interact_text": "action.hint.turret.configure",
+							"on_interact": {
+								"event": "rza:configure",
+								"target": "self"
+							}
+						}
+					]
+				}
+			},
+			//All Zombies: Don't Prioritize Mutated Zombies
+			"rza:target_all_zombies": {
 				"minecraft:behavior.nearest_attackable_target": {
 					"priority": 2,
 					"must_see": true,
@@ -86,16 +126,346 @@
 							"max_dist": 32
 						}
 					]
-				},
-				"minecraft:on_target_acquired": {
-					"filters": {
-						"test": "has_component",
-						"subject": "self",
-						"operator": "!=",
-						"value": "minecraft:timer"
-					},
-					"event": "rza:start_overheating",
-					"target": "self"
+				}
+			},
+			//All Zombies: Prioritize Mutated Zombies
+			"rza:target_all_zombies_prioritize_mutants": {
+				"minecraft:behavior.nearest_attackable_target": {
+					"priority": 2,
+					"must_see": true,
+					"reselect_targets": false,
+					"must_see_forget_duration": 0,
+					"entity_types": [
+						{
+							"priority": 0,
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "bool_property",
+										"subject": "other",
+										"domain": "rza:mutated",
+										"value": true
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"operator": "!=",
+										"value": "zombie_villager"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"operator": "!=",
+										"value": "zombie_illager"
+									}
+								]
+							},
+							"max_dist": 32
+						},
+						{
+							"priority": 1,
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "bool_property",
+										"subject": "other",
+										"domain": "rza:mutated",
+										"value": false
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"operator": "!=",
+										"value": "zombie_villager"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"operator": "!=",
+										"value": "zombie_illager"
+									}
+								]
+							},
+							"max_dist": 32
+						}
+					]
+				}
+			},
+			//Walkers: Don't Prioritize Mutated Walkers
+			"rza:target_walkers": {
+				"minecraft:behavior.nearest_attackable_target": {
+					"priority": 2,
+					"must_see": true,
+					"reselect_targets": false,
+					"must_see_forget_duration": 0,
+					"entity_types": [
+						{
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "walker"
+									}
+								]
+							},
+							"max_dist": 32
+						}
+					]
+				}
+			},
+			//Walkers: Prioritize Mutated Walkers
+			"rza:target_walkers_prioritize_mutants": {
+				"minecraft:behavior.nearest_prioritized_attackable_target": {
+					"priority": 2,
+					"must_see": true,
+					"reselect_targets": true,
+					"must_see_forget_duration": 0,
+					"entity_types": [
+						{
+							"priority": 0,
+							"reevaluate_description": true,
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "walker"
+									},
+									{
+										"test": "bool_property",
+										"subject": "other",
+										"domain": "rza:mutated",
+										"value": true
+									}
+								]
+							},
+							"max_dist": 32
+						},
+						{
+							"priority": 1,
+							"reevaluate_description": true,
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "walker"
+									},
+									{
+										"test": "bool_property",
+										"subject": "other",
+										"domain": "rza:mutated",
+										"value": false
+									}
+								]
+							},
+							"max_dist": 32
+						}
+					]
+				}
+			},
+			//Miners: Don't Prioritize Mutated Miners
+			"rza:target_miners": {
+				"minecraft:behavior.nearest_attackable_target": {
+					"priority": 2,
+					"must_see": true,
+					"reselect_targets": true,
+					"must_see_forget_duration": 0,
+					"entity_types": [
+						{
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "miner"
+									}
+								]
+							},
+							"max_dist": 32
+						}
+					]
+				}
+			},
+			//Miners: Prioritize Mutated Miners
+			"rza:target_miners_prioritize_mutants": {
+				"minecraft:behavior.nearest_prioritized_attackable_target": {
+					"priority": 2,
+					"must_see": true,
+					"reselect_targets": true,
+					"must_see_forget_duration": 0,
+					"entity_types": [
+						{
+							"priority": 0,
+							"reevaluate_description": true,
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "miner"
+									},
+									{
+										"test": "bool_property",
+										"subject": "other",
+										"domain": "rza:mutated",
+										"value": true
+									}
+								]
+							},
+							"max_dist": 32
+						},
+						{
+							"priority": 1,
+							"reevaluate_description": true,
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "miner"
+									},
+									{
+										"test": "bool_property",
+										"subject": "other",
+										"domain": "rza:mutated",
+										"value": false
+									}
+								]
+							},
+							"max_dist": 32
+						}
+					]
+				}
+			},
+			//Ferals: Don't Prioritize Mutated Ferals
+			"rza:target_ferals": {
+				"minecraft:behavior.nearest_attackable_target": {
+					"priority": 2,
+					"must_see": true,
+					"reselect_targets": true,
+					"must_see_forget_duration": 0,
+					"entity_types": [
+						{
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "feral"
+									}
+								]
+							},
+							"max_dist": 32
+						}
+					]
+				}
+			},
+			//Ferals: Prioritize Mutated Ferals
+			"rza:target_ferals_prioritize_mutants": {
+				"minecraft:behavior.nearest_prioritized_attackable_target": {
+					"priority": 2,
+					"must_see": true,
+					"reselect_targets": true,
+					"must_see_forget_duration": 0,
+					"entity_types": [
+						{
+							"priority": 0,
+							"reevaluate_description": true,
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "feral"
+									},
+									{
+										"test": "bool_property",
+										"subject": "other",
+										"domain": "rza:mutated",
+										"value": true
+									}
+								]
+							},
+							"max_dist": 32
+						},
+						{
+							"priority": 1,
+							"reevaluate_description": true,
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "feral"
+									},
+									{
+										"test": "bool_property",
+										"subject": "other",
+										"domain": "rza:mutated",
+										"value": false
+									}
+								]
+							},
+							"max_dist": 32
+						}
+					]
 				}
 			}
 		},
@@ -105,40 +475,6 @@
 					{
 						"queue_command": {
 							"command": "playsound random.anvil_break @a ~ ~ ~"
-						}
-					}
-				]
-			},
-			"rza:activate": {
-				"sequence": [
-					{
-						"set_property": {
-							"rza:active": true
-						}
-					},
-					{
-						"add": {
-							"component_groups": [
-								"active"
-							]
-						}
-					}
-				]
-			},
-			"rza:deactivate": {
-				"sequence": [
-					{
-						"set_property": {
-							"rza:active": false
-						}
-					},
-					{
-						"remove": {
-							"component_groups": [
-								"active",
-								"cooldown",
-								"overheating"
-							]
 						}
 					}
 				]
@@ -188,6 +524,224 @@
 						"add": {
 							"component_groups": [
 								"active"
+							]
+						}
+					}
+				]
+			},
+			"rza:activate": {
+				"sequence": [
+					{
+						"set_property": {
+							"rza:active": true
+						}
+					},
+					{
+						"add": {
+							"component_groups": [
+								"active",
+								"rza:target_all_zombies"
+							]
+						}
+					}
+				]
+			},
+			"rza:deactivate": {
+				"sequence": [
+					{
+						"set_property": {
+							"rza:active": false
+						}
+					},
+					{
+						"remove": {
+							"component_groups": [
+								"active",
+								"rza:target_all_zombies",
+								"rza:target_all_zombies_prioritize_mutants",
+								"rza:target_walkers",
+								"rza:target_walkers_prioritize_mutants",
+								"rza:target_miners",
+								"rza:target_miners_prioritize_mutants",
+								"rza:target_ferals",
+								"rza:target_ferals_prioritize_mutants"
+							]
+						}
+					}
+				]
+			},
+			"rza:configure": {},
+			"rza:target_all_zombies": {
+				"sequence": [
+					{
+						"remove": {
+							"component_groups": [
+								"rza:target_all_zombies_prioritize_mutants",
+								"rza:target_walkers",
+								"rza:target_walkers_prioritize_mutants",
+								"rza:target_miners",
+								"rza:target_miners_prioritize_mutants",
+								"rza:target_ferals",
+								"rza:target_ferals_prioritize_mutants"
+							]
+						},
+						"add": {
+							"component_groups": [
+								"rza:target_all_zombies"
+							]
+						}
+					}
+				]
+			},
+			"rza:target_all_zombies_prioritize_mutants": {
+				"sequence": [
+					{
+						"remove": {
+							"component_groups": [
+								"rza:target_all_zombies",
+								"rza:target_walkers",
+								"rza:target_walkers_prioritize_mutants",
+								"rza:target_miners",
+								"rza:target_miners_prioritize_mutants",
+								"rza:target_ferals",
+								"rza:target_ferals_prioritize_mutants"
+							]
+						},
+						"add": {
+							"component_groups": [
+								"rza:target_all_zombies_prioritize_mutants"
+							]
+						}
+					}
+				]
+			},
+			"rza:target_walkers": {
+				"sequence": [
+					{
+						"remove": {
+							"component_groups": [
+								"rza:target_all_zombies",
+								"rza:target_all_zombies_prioritize_mutants",
+								"rza:target_walkers_prioritize_mutants",
+								"rza:target_miners",
+								"rza:target_miners_prioritize_mutants",
+								"rza:target_ferals",
+								"rza:target_ferals_prioritize_mutants"
+							]
+						},
+						"add": {
+							"component_groups": [
+								"rza:target_walkers"
+							]
+						}
+					}
+				]
+			},
+			"rza:target_walkers_prioritize_mutants": {
+				"sequence": [
+					{
+						"remove": {
+							"component_groups": [
+								"rza:target_all_zombies",
+								"rza:target_all_zombies_prioritize_mutants",
+								"rza:target_walkers",
+								"rza:target_miners",
+								"rza:target_miners_prioritize_mutants",
+								"rza:target_ferals",
+								"rza:target_ferals_prioritize_mutants"
+							]
+						},
+						"add": {
+							"component_groups": [
+								"rza:target_walkers_prioritize_mutants"
+							]
+						}
+					}
+				]
+			},
+			"rza:target_miners": {
+				"sequence": [
+					{
+						"remove": {
+							"component_groups": [
+								"rza:target_all_zombies",
+								"rza:target_all_zombies_prioritize_mutants",
+								"rza:target_walkers",
+								"rza:target_walkers_prioritize_mutants",
+								"rza:target_miners_prioritize_mutants",
+								"rza:target_ferals",
+								"rza:target_ferals_prioritize_mutants"
+							]
+						},
+						"add": {
+							"component_groups": [
+								"rza:target_miners"
+							]
+						}
+					}
+				]
+			},
+			"rza:target_miners_prioritize_mutants": {
+				"sequence": [
+					{
+						"remove": {
+							"component_groups": [
+								"rza:target_all_zombies",
+								"rza:target_all_zombies_prioritize_mutants",
+								"rza:target_walkers",
+								"rza:target_walkers_prioritize_mutants",
+								"rza:target_miners",
+								"rza:target_ferals",
+								"rza:target_ferals_prioritize_mutants"
+							]
+						},
+						"add": {
+							"component_groups": [
+								"rza:target_miners_prioritize_mutants"
+							]
+						}
+					}
+				]
+			},
+			"rza:target_ferals": {
+				"sequence": [
+					{
+						"remove": {
+							"component_groups": [
+								"rza:target_all_zombies",
+								"rza:target_all_zombies_prioritize_mutants",
+								"rza:target_walkers",
+								"rza:target_walkers_prioritize_mutants",
+								"rza:target_miners",
+								"rza:target_miners_prioritize_mutants",
+								"rza:target_ferals_prioritize_mutants"
+							]
+						},
+						"add": {
+							"component_groups": [
+								"rza:target_ferals"
+							]
+						}
+					}
+				]
+			},
+			"rza:target_ferals_prioritize_mutants": {
+				"sequence": [
+					{
+						"remove": {
+							"component_groups": [
+								"rza:target_all_zombies",
+								"rza:target_all_zombies_prioritize_mutants",
+								"rza:target_walkers",
+								"rza:target_walkers_prioritize_mutants",
+								"rza:target_miners",
+								"rza:target_miners_prioritize_mutants",
+								"rza:target_ferals"
+							]
+						},
+						"add": {
+							"component_groups": [
+								"rza:target_ferals_prioritize_mutants"
 							]
 						}
 					}
