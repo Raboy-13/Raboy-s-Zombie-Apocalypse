@@ -828,6 +828,24 @@
 			"minecraft:behavior.random_look_around": {
 				"priority": 9
 			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									}
+								]
+							}
+						},
+						"deals_damage": false
+					}
+				]
+			},
 			"minecraft:behavior.hurt_by_target": {
 				"priority": 1,
 				"alert_same_type": true,

@@ -28,7 +28,8 @@
           "max_size": 2
         },
         "minecraft:density_limit": {
-          "surface": 5
+          "surface": 5,
+          "underground": 5
         },
         "minecraft:biome_filter": {
           "test": "has_biome_tag",

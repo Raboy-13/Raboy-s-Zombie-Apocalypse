@@ -17,68 +17,23 @@
 		"component_groups": {
 			"rza:zombie_idle": {
 				"minecraft:on_target_acquired": {
+					"filters": {
+						"all_of": [
+							{
+								"test": "is_family",
+								"subject": "other",
+								"operator": "!=",
+								"value": "turret"
+							},
+							{
+								"test": "is_visible",
+								"subject": "other",
+								"value": true
+							}
+						]
+					},
 					"event": "minecraft:become_angry",
 					"target": "self"
-				},
-				"minecraft:damage_sensor": {
-					"triggers": [
-						{
-							"cause": "all",
-							"deals_damage": true,
-							"damage_modifier": 0,
-							"on_damage": {
-								"filters": [
-									{
-										"any_of": [
-											{
-												"test": "is_family",
-												"subject": "other",
-												"operator": "!=",
-												"value": "zombie"
-											}
-										]
-									}
-								],
-								"event": "minecraft:become_angry",
-								"target": "self"
-							}
-						},
-						{
-							"cause": "projectile",
-							"deals_damage": true,
-							"damage_modifier": 0,
-							"on_damage": {
-								"filters": [
-									{
-										"any_of": [
-											{
-												"test": "is_family",
-												"subject": "other",
-												"operator": "!=",
-												"value": "zombie"
-											}
-										]
-									}
-								],
-								"event": "minecraft:become_angry",
-								"target": "self"
-							}
-						},
-						{
-							"on_damage": {
-								"filters": {
-									"any_of": [
-										{
-											"test": "is_family",
-											"subject": "other",
-											"value": "zombie"
-										}
-									]
-								}
-							},
-							"deals_damage": false
-						}
-					]
 				}
 			},
 			"rza:zombie_target_acquired": {
@@ -187,221 +142,6 @@
 							"component_groups": [
 								"rza:spitter_regular",
 								"rza:zombie_idle"
-							]
-						}
-					}
-				]
-			},
-			"minecraft:entity_transformed": {
-				"sequence": [
-					{
-						"queue_command": {
-							"command": "execute if score main mutated_zombies matches 1 run event entity @s rza:mutate"
-						}
-					},
-					{
-						"add": {
-							"component_groups": [
-								"rza:spitter_regular",
-								"rza:zombie_idle"
-							]
-						}
-					},
-					{
-						"randomize": [
-							{
-								"weight": 100
-							},
-							{
-								"sequence": [
-									{
-										"queue_command": {
-											"command": [
-												"summon rza:spitter ~1 ~ ~-1"
-											]
-										}
-									}
-								],
-								"weight": 3
-							}
-						],
-						"filters": {
-							"all_of": [
-								{
-									"test": "is_difficulty",
-									"operator": "==",
-									"value": "easy"
-								},
-								{
-									"test": "moon_phase",
-									"operator": "!=",
-									"value": 0
-								}
-							]
-						}
-					},
-					{
-						"randomize": [
-							{
-								"weight": 100
-							},
-							{
-								"sequence": [
-									{
-										"queue_command": {
-											"command": [
-												"summon rza:spitter ~1 ~ ~-1"
-											]
-										}
-									}
-								],
-								"weight": 5
-							}
-						],
-						"filters": {
-							"all_of": [
-								{
-									"test": "is_difficulty",
-									"operator": "==",
-									"value": "normal"
-								},
-								{
-									"test": "moon_phase",
-									"operator": "!=",
-									"value": 0
-								}
-							]
-						}
-					},
-					{
-						"randomize": [
-							{
-								"weight": 100
-							},
-							{
-								"sequence": [
-									{
-										"queue_command": {
-											"command": [
-												"summon rza:spitter ~1 ~ ~-1"
-											]
-										}
-									}
-								],
-								"weight": 10
-							}
-						],
-						"filters": {
-							"all_of": [
-								{
-									"test": "is_difficulty",
-									"operator": "==",
-									"value": "hard"
-								},
-								{
-									"test": "moon_phase",
-									"operator": "!=",
-									"value": 0
-								}
-							]
-						}
-					},
-					{
-						"randomize": [
-							{
-								"weight": 100
-							},
-							{
-								"sequence": [
-									{
-										"queue_command": {
-											"command": [
-												"summon rza:spitter ~1 ~ ~1"
-											]
-										}
-									}
-								],
-								"weight": 10
-							}
-						],
-						"filters": {
-							"all_of": [
-								{
-									"test": "is_difficulty",
-									"operator": "==",
-									"value": "easy"
-								},
-								{
-									"test": "moon_phase",
-									"operator": "==",
-									"value": 0
-								}
-							]
-						}
-					},
-					{
-						"randomize": [
-							{
-								"weight": 100
-							},
-							{
-								"sequence": [
-									{
-										"queue_command": {
-											"command": [
-												"summon rza:spitter ~1 ~ ~1"
-											]
-										}
-									}
-								],
-								"weight": 20
-							}
-						],
-						"filters": {
-							"all_of": [
-								{
-									"test": "is_difficulty",
-									"operator": "==",
-									"value": "normal"
-								},
-								{
-									"test": "moon_phase",
-									"operator": "==",
-									"value": 0
-								}
-							]
-						}
-					},
-					{
-						"randomize": [
-							{
-								"weight": 100
-							},
-							{
-								"sequence": [
-									{
-										"queue_command": {
-											"command": [
-												"summon rza:spitter ~1 ~ ~1"
-											]
-										}
-									}
-								],
-								"weight": 30
-							}
-						],
-						"filters": {
-							"all_of": [
-								{
-									"test": "is_difficulty",
-									"operator": "==",
-									"value": "hard"
-								},
-								{
-									"test": "moon_phase",
-									"operator": "==",
-									"value": 0
-								}
 							]
 						}
 					}
@@ -521,7 +261,7 @@
 								"weight": 100
 							},
 							{
-								"weight": 8,
+								"weight": 15,
 								"filters": {
 									"test": "is_difficulty",
 									"operator": "==",
@@ -550,7 +290,7 @@
 								]
 							},
 							{
-								"weight": 16,
+								"weight": 24,
 								"filters": {
 									"test": "is_difficulty",
 									"operator": "==",
@@ -579,7 +319,7 @@
 								]
 							},
 							{
-								"weight": 30,
+								"weight": 45,
 								"filters": {
 									"test": "is_difficulty",
 									"operator": "==",
@@ -637,7 +377,7 @@
 			},
 			"rza:blood_splatter": {
 				"queue_command": {
-					"command": "playsound mob.zombie.blood_splatter @a ~ ~ ~ 1",
+					"command": "playsound mob.zombie.blood_splatter @a ~~~ 1",
 					"target": "self"
 				}
 			}
@@ -769,7 +509,25 @@
 				"speed_multiplier": 1,
 				"goal_radius": 2
 			},
-			"minecraft:behavior.nearest_attackable_target": {
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									}
+								]
+							}
+						},
+						"deals_damage": false
+					}
+				]
+			},
+			"minecraft:behavior.nearest_prioritized_attackable_target": {
 				"priority": 2,
 				"must_see": true,
 				"reselect_targets": true,
@@ -777,6 +535,7 @@
 				"must_see_forget_duration": 0,
 				"entity_types": [
 					{
+						"priority": 0,
 						"filters": {
 							"all_of": [
 								{
@@ -815,6 +574,28 @@
 											"test": "is_family",
 											"subject": "other",
 											"value": "illager"
+										}
+									]
+								}
+							]
+						},
+						"max_dist": 24
+					},
+					{
+						"priority": 1,
+						"filters": {
+							"all_of": [
+								{
+									"test": "is_visible",
+									"subject": "other",
+									"value": true
+								},
+								{
+									"any_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "turret"
 										}
 									]
 								}

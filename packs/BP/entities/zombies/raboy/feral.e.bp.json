@@ -7,14 +7,14 @@
 			"is_summonable": true,
 			"is_experimental": false,
 			"properties": {
-				"rza:mutated":{
+				"rza:mutated": {
 					"client_sync": true,
 					"type": "bool",
 					"default": false
 				}
 			},
 			"animations": {
-				"leap":"controller.animation.feral.leap"
+				"leap": "controller.animation.feral.leap"
 			},
 			"scripts": {
 				"animate": [
@@ -576,10 +576,26 @@
 				]
 			},
 			"minecraft:damage_sensor": {
-				"triggers": {
-					"cause": "fall",
-					"deals_damage": false
-				}
+				"triggers": [
+					{
+						"cause": "fall",
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "zombie"
+									}
+								]
+							}
+						},
+						"deals_damage": false
+					}
+				]
 			},
 			"minecraft:breathable": {
 				"total_supply": 15,

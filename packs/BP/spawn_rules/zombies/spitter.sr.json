@@ -2,14 +2,14 @@
 	"format_version": "1.8.0",
 	"minecraft:spawn_rules": {
 		"description": {
-			"identifier": "rza:feral",
+			"identifier": "rza:spitter",
 			"population_control": "monster"
 		},
 		"conditions": [
 			{
 				"minecraft:spawns_on_surface": {},
 				"minecraft:brightness_filter": {
-					"min": 9,
+					"min": 0,
 					"max": 15,
 					"adjust_for_weather": false
 				},
@@ -18,7 +18,7 @@
 					"max": "hard"
 				},
 				"minecraft:world_age_filter": {
-					"min": 8400 //Day 8
+					"min": 16800 //Day 15
 				},
 				"minecraft:distance_filter": {
 					"min": 24,
@@ -29,7 +29,7 @@
 				},
 				"minecraft:herd": {
 					"min_size": 1,
-					"max_size": 4
+					"max_size": 3
 				},
 				"minecraft:spawns_on_block_filter": [
 					"dirt",
