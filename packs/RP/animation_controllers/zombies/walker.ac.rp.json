@@ -75,10 +75,22 @@
 				},
 				"death": {
 					"animations": [
-						{"death_rot": "variable.death_anim==1"},
-						{"death_rot": "variable.death_anim==2"},
-						{"death_rot": "variable.death_anim==3"},
-						{"death_rot": "variable.death_anim==4"}
+						{
+                            "death_rot": "variable.death_anim==1",
+                            "death1": "variable.death_anim==1"
+                        },
+                        {
+                            "death_rot": "variable.death_anim==2",
+                            "death2": "variable.death_anim==2"
+                        },
+                        {
+                            "death_rot": "variable.death_anim==3",
+                            "death3": "variable.death_anim==3"
+                        },
+                        {
+                            "death_rot": "variable.death_anim==4",
+                            "death4": "variable.death_anim==4"
+                        }
 					],
 					"on_entry": ["variable.death_anim=math.random_integer(1,4);"],
 					"particle_effects": [

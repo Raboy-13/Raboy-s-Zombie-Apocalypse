@@ -1,0 +1,95 @@
+{
+	"format_version": "1.21.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "rza:spitter_acid_normal",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false,
+			"runtime_identifier": "minecraft:arrow"
+		},
+		"component_groups": {
+			"rza:spread_normal": {
+				"minecraft:transformation": {
+					"into": "rza:spitter_acid_puddle_normal",
+					"delay": 0
+				}
+			}
+		},
+		"events": {
+			"rza:spitter_area_effect": {
+				"add": {
+					"component_groups": [
+						"rza:spread_normal"
+					]
+				}
+			}
+		},
+		"components": {
+			"minecraft:collision_box": {
+				"width": 0,
+				"height": 0
+			},
+			"minecraft:custom_hit_test": {
+				"hitboxes": [
+					{
+						"width": 0.1,
+						"height": 0.1,
+						"pivot": [
+							0,
+							0.05,
+							0
+						]
+					}
+				]
+			},
+			"minecraft:type_family": {
+				"family": [
+					"projectile",
+					"spitter_acid"
+				]
+			},
+			"minecraft:projectile": {
+				"on_hit": {
+					"douse_fire": true,
+					"definition_event": {
+						"event_trigger": {
+							"event": "rza:spitter_area_effect",
+							"target": "self"
+						}
+					}
+				},
+				"shoot_target": true,
+				"destroy_on_hurt": true,
+				"knockback": false,
+				"power": 0.8,
+				"gravity": 0.02,
+				"inertia": 1,
+				"liquid_inertia": 0.5,
+				"anchor": 2,
+				"angle_offset": -35,
+				"offset": [
+					0,
+					0.5,
+					0
+				],
+				"semi_random_diff_damage": false,
+				"uncertainty_base": 5,
+				"uncertainty_multiplier": 4,
+				"reflect_on_hurt": false
+			},
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": true,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:conditional_bandwidth_optimization": {
+				"default_values": {
+					"max_optimized_distance": 80,
+					"max_dropped_ticks": 0,
+					"use_motion_prediction_hints": true
+				}
+			}
+		}
+	}
+}

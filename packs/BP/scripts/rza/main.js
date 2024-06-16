@@ -171,7 +171,7 @@ world.afterEvents.entityHurt.subscribe((data) => {
             system.clearRun(run);
         });
     }
-}, { entityTypes: ['rza:walker', 'rza:walker_variant', 'rza:miner', 'rza:feral'] });
+}, { entityTypes: ['rza:walker', 'rza:walker_variant', 'rza:miner', 'rza:feral', 'rza:spitter'] });
 
 //General entity event listener
 world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {

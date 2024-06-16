@@ -1,0 +1,31 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "rza:spitter_acid_mutated",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/turret_base_placer"
+			},
+			"geometry": {
+				"default": "geometry.turret_base_placer"
+			},
+			"animations": {
+				"trail_normal": "animation.spitter_acid.trail_mutated"
+			},
+			"scripts": {
+				"animate": [
+					"trail_normal"
+				]
+			},
+			"particle_effects": {
+				"acid_trail_mutated": "rza:spitter_acid_trail_mutated"
+			},
+			"render_controllers": [
+				"controller.render.model_default"
+			]
+		}
+	}
+}

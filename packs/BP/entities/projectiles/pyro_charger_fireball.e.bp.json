@@ -30,12 +30,17 @@
 			"minecraft:scale": {
 				"value": 0.00001
 			},
+			"minecraft:type_family": {
+				"family": [
+					"projectile"
+				]
+			},
 			"minecraft:projectile": {
 				"power": 1,
 				"gravity": 0.005,
 				"inertia": 0.95,
 				"liquid_inertia": 0.5,
-				"anchor": 99,
+				"anchor": 2,
 				"offset": [
 					0,
 					0.5,

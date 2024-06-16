@@ -3,10 +3,10 @@
 		"entities": {
 			"rza:walker": {
 				"events": {
-					"ambient": "mob.zombie.rab.ambient",
-					"attack": "mob.zombie.rab.attack",
-					"hurt": "mob.zombie.rab.hurt",
-					"death": "mob.zombie.rab.death",
+					"ambient": "mob.zombie.rza.ambient",
+					"attack": "mob.zombie.rza.attack",
+					"hurt": "mob.zombie.rza.hurt",
+					"death": "mob.zombie.rza.death",
 					"step": {
 						"pitch": 1,
 						"sound": "mob.zombie.step",
@@ -21,10 +21,10 @@
 			},
 			"rza:walker_variant": {
 				"events": {
-					"ambient": "mob.zombie.rab.ambient",
-					"attack": "mob.zombie.rab.attack",
-					"hurt": "mob.zombie.rab.hurt",
-					"death": "mob.zombie.rab.death",
+					"ambient": "mob.zombie.rza.ambient",
+					"attack": "mob.zombie.rza.attack",
+					"hurt": "mob.zombie.rza.hurt",
+					"death": "mob.zombie.rza.death",
 					"step": {
 						"pitch": 1,
 						"sound": "mob.zombie.step",
@@ -39,10 +39,10 @@
 			},
 			"rza:feral": {
 				"events": {
-					"ambient": "mob.zombie.rab.ambient",
-					"attack": "mob.zombie.rab.attack",
-					"hurt": "mob.zombie.rab.hurt",
-					"death": "mob.zombie.rab.death",
+					"ambient": "mob.zombie.rza.ambient",
+					"attack": "mob.zombie.rza.attack",
+					"hurt": "mob.zombie.rza.hurt",
+					"death": "mob.zombie.rza.death",
 					"step": {
 						"pitch": 1,
 						"sound": "mob.zombie.step",
@@ -57,10 +57,28 @@
 			},
 			"rza:miner": {
 				"events": {
-					"ambient": "mob.zombie.rab.ambient",
-					"attack": "mob.zombie.rab.attack",
-					"hurt": "mob.zombie.rab.hurt",
-					"death": "mob.zombie.rab.death",
+					"ambient": "mob.zombie.rza.ambient",
+					"attack": "mob.zombie.rza.attack",
+					"hurt": "mob.zombie.rza.hurt",
+					"death": "mob.zombie.rza.death",
+					"step": {
+						"pitch": 1,
+						"sound": "mob.zombie.step",
+						"volume": 0.75
+					}
+				},
+				"volume": 0.7,
+				"pitch": [
+					1,
+					0.8
+				]
+			},
+			"rza:spitter": {
+				"events": {
+					"ambient": "mob.zombie.rza.ambient",
+					"attack": "mob.zombie.rza.attack",
+					"hurt": "mob.zombie.rza.hurt",
+					"death": "mob.zombie.rza.death",
 					"step": {
 						"pitch": 1,
 						"sound": "mob.zombie.step",

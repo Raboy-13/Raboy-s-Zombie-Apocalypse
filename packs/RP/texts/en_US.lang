@@ -12,6 +12,8 @@ item.spawn_egg.entity.rza:feral.name=Spawn Feral
 entity.rza:feral.name=Feral
 item.spawn_egg.entity.rza:miner.name=Spawn Miner
 entity.rza:miner.name=Miner
+item.spawn_egg.entity.rza:spitter.name=Spawn Spitter
+entity.rza:spitter.name=Spitter
 
 ##Vanilla Zombies
 item.spawn_egg.entity.rza:zombie_evocation_illager.name=Spawn Zombie Evoker
@@ -44,6 +46,10 @@ entity.rza:iron_golem_splash.name=Supercharged Iron Golem
 entity.rza:iron_golem_explosion.name=Supercharged Iron Golem
 entity.rza:turret_base_placer.name=Turret Base Placer
 entity.rza:pyro_charger_fireball.name=Pyro Charger Fireball
+entity.rza:spitter_acid_normal.name=Normal Spitter Acid
+entity.rza:spitter_acid_mutated.name=Mutated Spitter Acid
+entity.rza:spitter_acid_puddle_normal.name=Normal Spitter Acid Puddle
+entity.rza:spitter_acid_puddle_mutated.name=Mutated Spitter Acid Puddle
 
 ##Items
 item.rza:collector_drone_item=Collector Drone

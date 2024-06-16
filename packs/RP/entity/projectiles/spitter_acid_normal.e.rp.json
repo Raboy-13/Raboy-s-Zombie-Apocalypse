@@ -1,0 +1,31 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "rza:spitter_acid_normal",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/turret_base_placer"
+			},
+			"geometry": {
+				"default": "geometry.turret_base_placer"
+			},
+			"animations": {
+				"trail_normal": "animation.spitter_acid.trail_normal"
+			},
+			"scripts": {
+				"animate": [
+					"trail_normal"
+				]
+			},
+			"particle_effects": {
+				"acid_trail_normal": "rza:spitter_acid_trail_normal"
+			},
+			"render_controllers": [
+				"controller.render.model_default"
+			]
+		}
+	}
+}

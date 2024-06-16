@@ -1,0 +1,31 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "rza:spitter_acid_puddle_mutated",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/turret_base_placer"
+			},
+			"geometry": {
+				"default": "geometry.turret_base_placer"
+			},
+			"animations": {
+				"puddle_mutated": "animation.spitter_acid_puddle.mutated"
+			},
+			"scripts": {
+				"animate": [
+					"puddle_mutated"
+				]
+			},
+			"particle_effects": {
+				"acid_puddle_mutated": "rza:spitter_acid_puddle_mutated"
+			},
+			"render_controllers": [
+				"controller.render.model_default"
+			]
+		}
+	}
+}

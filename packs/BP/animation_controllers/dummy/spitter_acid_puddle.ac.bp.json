@@ -1,0 +1,51 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.spitter_acid_puddle_normal.area_effect": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"effect": "true"
+						}
+					]
+				},
+				"effect": {
+					"on_entry": [
+						"/damage @e[type=!item, family=!zombie, family=!projectile, r=3] 2 entity_attack entity @s",
+						"/effect @e[type=!item, family=!zombie, family=!projectile, family=!turret, r=3] poison 3 0"
+					],
+					"transitions": [
+						{
+							"default": "true"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.spitter_acid_puddle_mutated.area_effect": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"effect": "true"
+						}
+					]
+				},
+				"effect": {
+					"on_entry": [
+						"/damage @e[type=!item, family=!zombie, family=!projectile, r=5] 4 entity_attack entity @s",
+						"/effect @e[type=!item, family=!zombie, family=!projectile, family=!turret, r=5] poison 5 1"
+					],
+					"transitions": [
+						{
+							"default": "true"
+						}
+					]
+				}
+			}
+		}
+	}
+}

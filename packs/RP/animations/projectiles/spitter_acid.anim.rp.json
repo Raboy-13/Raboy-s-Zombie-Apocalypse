@@ -1,0 +1,45 @@
+{
+  "format_version": "1.20.41",
+  "animations": {
+    "animation.spitter_acid.trail_normal": {
+      "animation_length": 0.1,
+      "loop": true,
+      "particle_effects": {
+        "0.0": {
+          "effect": "acid_trail_normal",
+          "locator": "particle_general"
+        }
+      }
+    },
+    "animation.spitter_acid.trail_mutated": {
+      "animation_length": 0.1,
+      "loop": true,
+      "particle_effects": {
+        "0.0": {
+          "effect": "acid_trail_mutated",
+          "locator": "particle_general"
+        }
+      }
+    },
+    "animation.spitter_acid_puddle.normal": {
+      "animation_length": 1,
+      "loop": true,
+      "particle_effects": {
+        "0.0": {
+          "effect": "acid_puddle_normal",
+          "locator": "particle_general"
+        }
+      }
+    },
+    "animation.spitter_acid_puddle.mutated": {
+      "animation_length": 1,
+      "loop": true,
+      "particle_effects": {
+        "0.0": {
+          "effect": "acid_puddle_mutated",
+          "locator": "particle_general"
+        }
+      }
+    }
+  }
+}

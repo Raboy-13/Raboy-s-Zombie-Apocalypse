@@ -4,7 +4,7 @@
 		"description": {
 			"identifier": "rza:spitter",
 			"materials": {
-				"default": "entity",
+				"default": "rab_zombie",
 				"face": "zombie_face"
 			},
 			"textures": {
@@ -66,7 +66,9 @@
 			"scripts": {
 				"initialize": [
 					"variable.variants = math.random_integer(0, 30);",
-					"variable.faces = math.random(0, 30);"
+					"variable.faces = math.random(0, 30);",
+					"variable.torso_wounds =  math.random_integer(0, 30);",
+					"variable.limb_wounds = math.random_integer(0, 30);"
 				],
 				"animate": [
 					"death_controller"
@@ -77,7 +79,9 @@
 			},
 			"render_controllers": [
 				"controller.render.spitter.base",
-				"controller.render.zombie.faces"
+				"controller.render.zombie.faces",
+				"controller.render.zombie.torso_wounds",
+				"controller.render.zombie.limb_wounds"
 			],
 			"spawn_egg": {
 				"base_color": "#351101",

@@ -25,7 +25,7 @@
 				"sounds/damage/hit"
 			]
 		},
-		"mob.zombie.rab.ambient": {
+		"mob.zombie.rza.ambient": {
 			"__use_legacy_max_distance": false,
 			"category": "hostile",
 			"sounds": [
@@ -44,7 +44,7 @@
 				"sounds/mob/zombies/walker/ambient10"
 			]
 		},
-		"mob.zombie.rab.attack": {
+		"mob.zombie.rza.attack": {
 			"__use_legacy_max_distance": false,
 			"category": "hostile",
 			"sounds": [
@@ -56,7 +56,7 @@
 				"sounds/mob/zombies/walker/attack3"
 			]
 		},
-		"mob.zombie.rab.hurt": {
+		"mob.zombie.rza.hurt": {
 			"__use_legacy_max_distance": false,
 			"category": "hostile",
 			"sounds": [
@@ -69,7 +69,7 @@
 				"sounds/mob/zombies/walker/hurt4"
 			]
 		},
-		"mob.zombie.rab.death": {
+		"mob.zombie.rza.death": {
 			"__use_legacy_max_distance": false,
 			"category": "hostile",
 			"sounds": [
