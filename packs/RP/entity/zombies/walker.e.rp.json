@@ -42,7 +42,6 @@
 				"attack1": "animation.walker.normal.attack1",
 				"attack2": "animation.walker.normal.attack2",
 				"attack3": "animation.walker.normal.attack3",
-				"damage": "animation.walker.normal.damage",
 				"death1": "animation.walker.normal.death1",
 				"death2": "animation.walker.normal.death2",
 				"death3": "animation.walker.normal.death3",
@@ -50,7 +49,6 @@
 				"death_rot": "animation.general.death_rot",
 				"general": "controller.animation.walker.normal.general",
 				"attack_controller": "controller.animation.walker.normal.attack",
-				"damage_controller": "controller.animation.walker.normal.damage",
 				"death_controller": "controller.animation.walker.normal.death"
 			},
 			"scripts": {

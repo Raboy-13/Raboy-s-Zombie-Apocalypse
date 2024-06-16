@@ -2,13 +2,13 @@
 	"format_version": "1.10.0",
 	"minecraft:client_entity": {
 		"description": {
-			"identifier": "rza:miner",
+			"identifier": "rza:spitter",
 			"materials": {
-				"default": "rab_zombie",
+				"default": "entity",
 				"face": "zombie_face"
 			},
 			"textures": {
-				"default": "textures/entity/miner/miner",
+				"body_base": "textures/entity/walker/body_base",
 				"face1_regular": "textures/entity/zombie_faces/regular/face1",
 				"face2_regular": "textures/entity/zombie_faces/regular/face2",
 				"face3_regular": "textures/entity/zombie_faces/regular/face3",
@@ -30,11 +30,21 @@
 				"limb_wound4": "textures/entity/zombie_wounds/limb_wound4",
 				"limb_wound5": "textures/entity/zombie_wounds/limb_wound5",
 				"limb_wound6": "textures/entity/zombie_wounds/limb_wound6",
-				"limb_wound7": "textures/entity/zombie_wounds/limb_wound7"
+				"limb_wound7": "textures/entity/zombie_wounds/limb_wound7",
+				"variant1": "textures/entity/walker/variants/variant1",
+				"variant2": "textures/entity/walker/variants/variant2",
+				"variant3": "textures/entity/walker/variants/variant3",
+				"variant4": "textures/entity/walker/variants/variant4",
+				"variant5": "textures/entity/walker/variants/variant5",
+				"variant6": "textures/entity/walker/variants/variant6",
+				"variant7": "textures/entity/walker/variants/variant7",
+				"variant8": "textures/entity/walker/variants/variant8",
+				"variant9": "textures/entity/walker/variants/variant9",
+				"variant10": "textures/entity/walker/variants/variant10"
 			},
 			"geometry": {
-				"default": "geometry.walker.miner",
-				"death": "geometry.walker.miner_death"
+				"default": "geometry.spitter.normal",
+				"death": "geometry.spitter.normal.death"
 			},
 			"animations": {
 				"look_at_target": "animation.common.look_at_target",
@@ -55,9 +65,8 @@
 			},
 			"scripts": {
 				"initialize": [
-					"variable.faces = math.random_integer(0, 30);",
-					"variable.torso_wounds =  math.random_integer(0, 30);",
-					"variable.limb_wounds = math.random_integer(0, 30);"
+					"variable.variants = math.random_integer(0, 30);",
+					"variable.faces = math.random(0, 30);"
 				],
 				"animate": [
 					"death_controller"
@@ -67,14 +76,12 @@
 				"blood": "rza:blood"
 			},
 			"render_controllers": [
-				"controller.render.miner.base",
-				"controller.render.zombie.faces",
-				"controller.render.zombie.torso_wounds",
-				"controller.render.zombie.limb_wounds"
+				"controller.render.spitter.base",
+				"controller.render.zombie.faces"
 			],
 			"spawn_egg": {
-				"base_color": "#112114",
-				"overlay_color": "#C16412"
+				"base_color": "#351101",
+				"overlay_color": "#5bb813"
 			}
 		}
 	}

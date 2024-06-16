@@ -67,8 +67,8 @@
 			"render_controllers": [
 				"controller.render.feral.base",
 				"controller.render.zombie.faces",
-				"controller.render.feral.torso_wounds",
-				"controller.render.feral.limb_wounds"
+				"controller.render.zombie.torso_wounds",
+				"controller.render.zombie.limb_wounds"
 			],
 			"spawn_egg": {
 				"base_color": "#503C34",

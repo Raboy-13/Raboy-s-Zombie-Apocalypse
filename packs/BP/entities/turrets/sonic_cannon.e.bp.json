@@ -53,17 +53,6 @@
 				},
 				"minecraft:shooter": {
 					"def": "rza:sonic_charge"
-				},
-				"minecraft:interact": {
-					"interactions": [
-						{
-							"interact_text": "action.hint.turret.configure",
-							"on_interact": {
-								"event": "rza:configure",
-								"target": "self"
-							}
-						}
-					]
 				}
 			},
 			//All Zombies: Don't Prioritize Mutated Zombies
@@ -695,34 +684,50 @@
 				"value": 0
 			},
 			"minecraft:interact": {
-				"interactions": {
-					"on_interact": {
-						"filters": {
-							"all_of": [
-								{
-									"test": "is_family",
-									"subject": "other",
-									"value": "player"
-								},
-								{
-									"test": "has_equipment",
-									"domain": "hand",
-									"subject": "other",
-									"value": "iron_ingot"
-								},
-								{
-									"test": "is_missing_health",
-									"value": true
-								}
-							]
-						}
+				"interactions": [
+					{
+						"on_interact": {
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "has_equipment",
+										"domain": "hand",
+										"subject": "other",
+										"value": "iron_ingot"
+									},
+									{
+										"test": "is_missing_health",
+										"value": true
+									}
+								]
+							}
+						},
+						"use_item": true,
+						"swing": true,
+						"health_amount": 4,
+						"play_sounds": "irongolem.repair",
+						"interact_text": "action.interact.repair"
 					},
-					"use_item": true,
-					"swing": true,
-					"health_amount": 25,
-					"play_sounds": "irongolem.repair",
-					"interact_text": "action.interact.repair"
-				}
+					{
+						"interact_text": "action.hint.turret.configure",
+						"on_interact": {
+							"filters": {
+								"test": "has_equipment",
+								"domain": "hand",
+								"subject": "other",
+								"operator": "!=",
+								"value": "iron_ingot"
+							},
+							"event": "rza:configure",
+							"target": "self"
+						}
+					}
+				]
 			},
 			"minecraft:navigation.walk": {
 				"is_amphibious": true,

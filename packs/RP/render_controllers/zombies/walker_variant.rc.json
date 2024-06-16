@@ -16,7 +16,7 @@
 					]
 				}
 			},
-			"geometry": "q.is_alive?geometry.default:geometry.death",
+			"geometry": "q.is_alive ? geometry.default : geometry.death",
 			"materials": [
 				{
 					"*": "material.default"

@@ -121,7 +121,7 @@
 					},
 					"use_item": true,
 					"swing": true,
-					"health_amount": 25,
+					"health_amount": 4,
 					"play_sounds": "irongolem.repair",
 					"interact_text": "action.interact.repair"
 				}

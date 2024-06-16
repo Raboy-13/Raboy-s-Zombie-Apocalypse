@@ -5,32 +5,20 @@
 			"states": {
 				"default": {
 					"animations": [
-						{
-							"idle1": "variable.idle_anim==1"
-						},
-						{
-							"idle2": "variable.idle_anim==2"
-						}
+						{"idle1": "variable.idle_anim==1"},
+						{"idle2": "variable.idle_anim==2"}
 					],
-					"on_entry": [
-						"variable.idle_anim=math.random_integer(1,2);"
-					],
+					"on_entry": ["variable.idle_anim=math.random_integer(1,2);"],
 					"transitions": [
-						{
-							"walking": "query.ground_speed>0.3"
-						}
+						{"walking": "query.ground_speed>0.3"}
 					],
 					"blend_transition": 0.2,
 					"blend_via_shortest_path": true
 				},
 				"walking": {
-					"animations": [
-						"walk"
-					],
+					"animations": ["walk"],
 					"transitions": [
-						{
-							"default": "query.ground_speed<0.3"
-						}
+						{"default": "query.ground_speed<0.3"}
 					],
 					"blend_transition": 0.3,
 					"blend_via_shortest_path": true
@@ -41,20 +29,14 @@
 			"states": {
 				"default": {
 					"transitions": [
-						{
-							"damaged": "variable.damage_nearby_mobs"
-						}
+						{"damaged": "q.property('rza:damage') == true"}
 					],
 					"blend_transition": 0.2
 				},
 				"damaged": {
-					"animations": [
-						"damage"
-					],
+					"animations": ["damage"],
 					"transitions": [
-						{
-							"default": "!variable.damage_nearby_mobs"
-						}
+						{"default": "q.all_animations_finished"}
 					],
 					"blend_transition": 0.2
 				}
@@ -64,31 +46,19 @@
 			"states": {
 				"default": {
 					"transitions": [
-						{
-							"attacking": "v.attack_time > 0"
-						}
+						{"attacking": "v.attack_time > 0"}
 					],
 					"blend_transition": 0.2
 				},
 				"attacking": {
 					"animations": [
-						{
-							"attack1": "variable.attack_anim==1"
-						},
-						{
-							"attack2": "variable.attack_anim==2"
-						},
-						{
-							"attack3": "variable.attack_anim==3"
-						}
+						{"attack1": "variable.attack_anim==1"},
+						{"attack2": "variable.attack_anim==2"},
+						{"attack3": "variable.attack_anim==3"}
 					],
-					"on_entry": [
-						"variable.attack_anim=math.random_integer(1,3);"
-					],
+					"on_entry": ["variable.attack_anim=math.random_integer(1,3);"],
 					"transitions": [
-						{
-							"default": "v.attack_time <= 0 && query.any_animation_finished"
-						}
+						{"default": "v.attack_time <= 0 && query.any_animation_finished"}
 					],
 					"blend_transition": 0.2
 				}
@@ -97,41 +67,20 @@
 		"controller.animation.walker.normal.death": {
 			"states": {
 				"default": {
-					"animations": [
-						"look_at_target",
-						"general",
-						"attack_controller",
-						"damage_controller"
-					],
+					"animations": ["look_at_target", "general", "attack_controller"],
 					"transitions": [
-						{
-							"death": "!query.is_alive"
-						}
+						{"death": "!query.is_alive"}
 					],
 					"blend_transition": 0.2
 				},
 				"death": {
 					"animations": [
-						{
-							"death_rot": "variable.death_anim==1",
-							"death1": "variable.death_anim==1"
-						},
-						{
-							"death_rot": "variable.death_anim==2",
-							"death2": "variable.death_anim==2"
-						},
-						{
-							"death_rot": "variable.death_anim==3",
-							"death3": "variable.death_anim==3"
-						},
-						{
-							"death_rot": "variable.death_anim==4",
-							"death4": "variable.death_anim==4"
-						}
+						{"death_rot": "variable.death_anim==1"},
+						{"death_rot": "variable.death_anim==2"},
+						{"death_rot": "variable.death_anim==3"},
+						{"death_rot": "variable.death_anim==4"}
 					],
-					"on_entry": [
-						"variable.death_anim=math.random_integer(1,4);"
-					],
+					"on_entry": ["variable.death_anim=math.random_integer(1,4);"],
 					"particle_effects": [
 						{
 							"effect": "blood",

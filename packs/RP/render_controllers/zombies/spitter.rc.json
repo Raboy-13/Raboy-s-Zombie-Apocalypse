@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"render_controllers": {
-		"controller.render.walker.base": {
+		"controller.render.spitter.base": {
 			"arrays": {
 				"textures": {
 					"Array.variants": [

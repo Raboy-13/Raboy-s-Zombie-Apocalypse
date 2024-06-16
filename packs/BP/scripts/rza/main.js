@@ -188,7 +188,6 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
 
     //General configurator
     if (event === 'rza:configure') {
-        world.sendMessage('config');
         //Turret Configurator
         if (entity.matches({ families: ['turret'] })) {
             let turret = entity;

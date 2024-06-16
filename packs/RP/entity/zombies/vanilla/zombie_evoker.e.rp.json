@@ -22,7 +22,6 @@
 				"attack2": "animation.walker.normal.attack2",
 				"attack3": "animation.walker.normal.attack3",
 				"cast": "animation.zombie_evoker.cast",
-				"damage": "animation.walker.normal.damage",
 				"death1": "animation.walker.normal.death1",
 				"death2": "animation.walker.normal.death2",
 				"death3": "animation.walker.normal.death3",
@@ -31,7 +30,6 @@
 				"general": "controller.animation.walker.normal.general",
 				"attack_controller": "controller.animation.walker.normal.attack",
 				"casting_controller": "controller.animation.zombie_evoker.cast",
-				"damage_controller": "controller.animation.walker.normal.damage",
 				"death_controller": "controller.animation.walker.normal.death"
 			},
 			"scripts": {
