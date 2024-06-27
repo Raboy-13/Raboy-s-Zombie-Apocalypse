@@ -645,6 +645,12 @@
 								"rza:target_all_zombies"
 							]
 						}
+					},
+					{
+						"trigger": {
+							"event": "rza:start_recoil_recovery",
+							"target": "self"
+						}
 					}
 				]
 			},

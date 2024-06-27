@@ -1,12 +1,12 @@
 {
-	"format_version": "1.21.0",
+	"format_version": "1.19.0",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "rza:spitter_acid_normal",
 			"is_spawnable": false,
 			"is_summonable": true,
 			"is_experimental": false,
-			"runtime_identifier": "minecraft:arrow"
+			"runtime_identifier": "minecraft:snowball"
 		},
 		"component_groups": {
 			"rza:spread_normal": {
@@ -66,11 +66,11 @@
 				"gravity": 0.02,
 				"inertia": 1,
 				"liquid_inertia": 0.5,
-				"anchor": 2,
+				"anchor": 1,
 				"angle_offset": -35,
 				"offset": [
 					0,
-					0.5,
+					0.1,
 					0
 				],
 				"semi_random_diff_damage": false,

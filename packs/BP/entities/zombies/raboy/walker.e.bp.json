@@ -11,11 +11,6 @@
 					"client_sync": true,
 					"type": "bool",
 					"default": false
-				},
-				"rza:damage": {
-					"client_sync": true,
-					"type": "bool",
-					"default": false
 				}
 			}
 		},

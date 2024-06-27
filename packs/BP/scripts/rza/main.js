@@ -1,7 +1,7 @@
 import { system, world } from "@minecraft/server";
 import "./player/playerSetup";
 import { arrowTurretConfigurator, pyroChargerConfigurator, sonicCannonConfigurator, stormWeaverConfigurator } from "./turrets/targetConfig";
-import { collectorDroneConfigurator, collectorDroneDie, collectorDroneHopperPairing, collectorDroneMechanics, collectorDroneOwnerPairing, collectorDroneOwnerRepair, collectorDroneUnload, ownerCollectorDroneCounter } from "./drones/collectorDrone/mechanics";
+import { collectorDroneConfigurator, collectorDroneDie, collectorDroneHopperPairing, droneMechanics, collectorDroneOwnerPairing, collectorDroneOwnerRepair, collectorDroneUnload, ownerCollectorDroneCounter } from "./drones/collectorDrone/mechanics";
 import { collectorDroneRemote } from "./drones/collectorDrone/remote";
 import { sonicCannonAttachmentHit, sonicCannonHit } from "./turrets/sonicCannon";
 import { stormWeaverhit } from "./turrets/stormWeaver";
@@ -86,7 +86,7 @@ world.afterEvents.entitySpawn.subscribe((data) => {
         const hopper = entity;
         const playerOwner = hopper.dimension.getPlayers({ closest: 1, location: hopper.location })[0];
         let run = system.run(() => {
-            collectorDroneHopperPairing(drone, playerOwner);
+            collectorDroneHopperPairing(hopper, playerOwner);
             system.clearRun(run);
         });
     }
@@ -151,21 +151,21 @@ world.afterEvents.entityHurt.subscribe((data) => {
     const entity = data.hurtEntity;
     const source = data.damageSource.damagingEntity;
 
-    if (source?.matches({ families: ['sonic_cannon'] })) {
+    if (source?.typeId === 'rza:sonic_cannon') {
         let run = system.run(() => {
             sonicCannonHit(entity, source);
             system.clearRun(run);
         });
     }
 
-    if (source?.matches({ families: ['sonic_cannon_attachment'] })) {
+    if (source?.typeId === 'rza:sonic_cannon_attachment') {
         let run = system.run(() => {
             sonicCannonAttachmentHit(entity, source);
             system.clearRun(run);
         });
     }
 
-    if (source?.matches({ families: ['storm_weaver'] })) {
+    if (source?.typeId === 'rza:storm_weaver') {
         let run = system.run(() => {
             stormWeaverhit(entity, source);
             system.clearRun(run);
@@ -278,7 +278,7 @@ system.runTimeout(() => {
 
         //Collector Drone
         let runCollectorDrone = system.run(() => {
-            collectorDroneMechanics();
+            droneMechanics();
             system.clearRun(runCollectorDrone);
         });
     });

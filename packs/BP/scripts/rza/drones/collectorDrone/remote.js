@@ -4,11 +4,11 @@ export function collectorDroneRemote(player) {
     player.dimension.getEntities({ type: 'rza:collector_drone', location: player.location, tags: [`${player.id}_owned`] }).forEach(collectorDrone => {
         if (collectorDrone.getProperty('rza:follow_owner')) {
             collectorDrone.setProperty('rza:follow_owner', false);
-            player.runCommand('title @s actionbar §2All Drones§r: Collect Items / XP');
+            player.runCommand('title @s actionbar §2Collector Drones§r: Collect Items / XP');
         }
         if (!collectorDrone.getProperty('rza:follow_owner')) {
             collectorDrone.setProperty('rza:follow_owner', true);
-            player.runCommand('title @s actionbar §2All Drones§r: Follow Owner');
+            player.runCommand('title @s actionbar §2Collector Drones§r: Follow Owner');
         }
     });
     return;

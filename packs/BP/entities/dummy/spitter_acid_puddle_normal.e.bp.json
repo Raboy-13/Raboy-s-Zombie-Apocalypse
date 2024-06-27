@@ -23,7 +23,12 @@
 		"events": {
 			"minecraft:entity_transformed": {
 				"queue_command": {
-					"command": "particle rza:spitter_acid_explode_normal ~~~"
+					"command": [
+						"particle rza:spitter_acid_explode_normal ~~~",
+						"effect @a[r=5] nausea 7 0 true",
+						"playsound mob.zombie.spitter.acid_splash @a ~~~",
+						"playsound mob.zombie.spitter.acid_puddle @a ~~~"
+					]
 				}
 			},
 			"rza:despawn": {

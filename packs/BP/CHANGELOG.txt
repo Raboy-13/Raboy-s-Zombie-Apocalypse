@@ -311,13 +311,13 @@ NEW ZOMBIE BEHAVIORS: Mutated Zombies - existing and new zombie types now have a
 - when not on a full moon, the miner zombie now has a 3% chance of becoming a mutated miner which is a TNT throwing miner, has more health and moves faster on easy difficulty, 8% on normal, and 12% on hard difficulty. When on a full moon, it has an 8% chance to mutate on easy difficulty, 16% chance on normal, and 30% on hard on spawn
 - when not on a full moon, the feral zombie now has a 10% chance of becoming a mutated feral which has the ability to leap really high, more health, slightly has more damage, and a chance to headbutt its target on easy difficulty, 20% on normal, and 40% on hard difficulty. When on a full moon, it has a 25% chance to mutate on easy difficulty, 40% on normal, and 60% chance on hard difficulty on spawn
 
-- NEW ZOMBIE: The Spitter - a ranged zombie that spits balls of acid that explode on impact and leaves an area of effect that damages and poisons nearby entities for 10 seconds
+- NEW ZOMBIE: The Spitter - a tall, slender, low health and ranged zombie that spits balls of acid that explode on impact and leaves an area of effect that damages and poisons nearby entities for 10 seconds
 - starts spawning on day 15
 - minimum firing range is 8 blocks, if its target is less than that, it will move away first before shooting
 - targets: players, villagers, illagers, golems and turrets - turrets are the least prioritized targets
 - acid projectiles that directly hit the player gives them nausea for 3 seconds
-- normal spitters have 30 hitpoints, movement speed the same as a normal miner, have a maximum firing range of 12 blocks and their acid puddle effect radius is 3 blocks, damage per tick is 2 and inflicts poison I effect to entities that are not zombies
-- mutated spitters have 40 hitpoints, movement speed the same as a mutated walker, have a maximum firing range of 24 blocks and their acid puddle effect radius is 5 blocks, damage per tick is 4 and inflicts poison II effect to entities that are not zombies
+- normal spitters have 10 hitpoints, movement speed the same as a normal miner, have a maximum firing range of 12 blocks and their acid puddle effect radius is 3 blocks, damage per tick is 2 and inflicts poison I effect to entities that are not zombies
+- mutated spitters have 20 hitpoints, movement speed the same as a mutated walker, have a maximum firing range of 24 blocks and their acid puddle effect radius is 5 blocks, damage per tick is 4 and inflicts poison II effect to entities that are not zombies
 
 *Turrets
 NEW TURRET FEATURE: Turrets are now configurable to what zombie type they should prioritize targeting!
@@ -350,7 +350,7 @@ NEW UTILITY ENTITY: The Collector Drone
 - when first spawning the drone, you have to set it to active first before it can start collecting anything by right clicking and setting the active toggle to on
 - in the configuration UI, there are 2 collection modes for the drone: Auto Collect - collects nearby items or XPs until it reaches full capacity, delivers the collected items to the player owner and repeat the same process. Manual Collection - Collects nearby items or XPs until full capacity, delivers the collected items/XPs to the player owner and deactivates, but can be reactivated again
 - there is an optional delivery location for items: Player owner or a player-owned hopper
-- Health points: 15
+- Health points: 300
 - WARNING: The drones are world tickers, so there can only be a maximum of 3 drones for each players to avoid lag
 
 *Loot Drops

@@ -2,12 +2,15 @@
 	"format_version": "1.12",
 	"minecraft:recipe_shaped": {
 		"description": {
-			"identifier": "rza:drone_remote"
+			"identifier": "rza:collector_drone_remote"
 		},
 		"tags": [
 			"crafting_table"
 		],
 		"key": {
+			"a": {
+				"item": "rza:collector_drone_antenna"
+			},
 			"C": {
 				"item": "comparator"
 			},
@@ -19,12 +22,12 @@
 			}
 		},
 		"pattern": [
-			" C ",
-			"bPb",
+			" a ",
+			"bCb",
 			"bPb"
 		],
 		"result": {
-			"item": "rza:drone_remote",
+			"item": "rza:collector_drone_remote",
 			"count": 1
 		}
 	}

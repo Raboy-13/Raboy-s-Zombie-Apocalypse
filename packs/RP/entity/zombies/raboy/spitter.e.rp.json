@@ -9,16 +9,16 @@
 			},
 			"textures": {
 				"body_base": "textures/entity/walker/body_base",
-				"face1_regular": "textures/entity/zombie_faces/regular/face1",
-				"face2_regular": "textures/entity/zombie_faces/regular/face2",
-				"face3_regular": "textures/entity/zombie_faces/regular/face3",
-				"face4_regular": "textures/entity/zombie_faces/regular/face4",
-				"face5_regular": "textures/entity/zombie_faces/regular/face5",
-				"face1_mutated": "textures/entity/zombie_faces/mutated/face1",
-				"face2_mutated": "textures/entity/zombie_faces/mutated/face2",
-				"face3_mutated": "textures/entity/zombie_faces/mutated/face3",
-				"face4_mutated": "textures/entity/zombie_faces/mutated/face4",
-				"face5_mutated": "textures/entity/zombie_faces/mutated/face5",
+				"face1_regular": "textures/entity/spitter/faces/regular/face1",
+				"face2_regular": "textures/entity/spitter/faces/regular/face2",
+				"face3_regular": "textures/entity/spitter/faces/regular/face3",
+				"face4_regular": "textures/entity/spitter/faces/regular/face4",
+				"face5_regular": "textures/entity/spitter/faces/regular/face5",
+				"face1_mutated": "textures/entity/spitter/faces/mutated/face1",
+				"face2_mutated": "textures/entity/spitter/faces/mutated/face2",
+				"face3_mutated": "textures/entity/spitter/faces/mutated/face3",
+				"face4_mutated": "textures/entity/spitter/faces/mutated/face4",
+				"face5_mutated": "textures/entity/spitter/faces/mutated/face5",
 				"torso_wound1": "textures/entity/zombie_wounds/torso_wound1",
 				"torso_wound2": "textures/entity/zombie_wounds/torso_wound2",
 				"torso_wound3": "textures/entity/zombie_wounds/torso_wound3",
@@ -48,6 +48,8 @@
 			},
 			"animations": {
 				"look_at_target": "animation.common.look_at_target",
+				"arms": "animation.walker.normal.arms",
+				"scale": "animation.spitter.normal.scale",
 				"idle1": "animation.walker.normal.idle1",
 				"idle2": "animation.walker.normal.idle2",
 				"walk": "animation.walker.normal.walk",
@@ -71,6 +73,7 @@
 					"variable.limb_wounds = math.random_integer(0, 30);"
 				],
 				"animate": [
+					"scale",
 					"death_controller"
 				]
 			},

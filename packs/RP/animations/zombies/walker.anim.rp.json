@@ -1,6 +1,49 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
+		"animation.walker.normal.damage": {
+			"animation_length": 0.5,
+			"bones": {
+				"spine": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.125": [-50, 0, 0],
+						"0.375": [0, 0, 0]
+					}
+				},
+				"right_arm": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.125": [-82.5, 0, 0],
+						"0.5": [0, 0, 0]
+					}
+				},
+				"left_arm": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.125": [-82.5, 0, 0],
+						"0.5": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.walker.normal.arms": {
+			"loop": true,
+			"bones": {
+				"left_arm": {
+					"relative_to": {
+						"rotation": "entity"
+					},
+					"rotation": ["query.target_x_rotation * 0.8", "query.target_y_rotation * 0.8", 0]
+				},
+				"right_arm": {
+					"relative_to": {
+						"rotation": "entity"
+					},
+					"rotation": ["query.target_x_rotation * 0.8", "query.target_y_rotation * 0.8", 0]
+				}
+			}
+		},
 		"animation.walker.normal.idle1": {
 			"loop": true,
 			"animation_length": 2,
@@ -300,32 +343,6 @@
 						"0.3333": [35, 0, 0],
 						"0.4167": [50, 0, 0],
 						"0.5": [17.5, 0, 0]
-					}
-				}
-			}
-		},
-		"animation.walker.normal.damage": {
-			"animation_length": 0.5,
-			"bones": {
-				"spine": {
-					"rotation": {
-						"0.0": [0, 0, 0],
-						"0.125": [-50, 0, 0],
-						"0.375": [0, 0, 0]
-					}
-				},
-				"right_arm": {
-					"rotation": {
-						"0.0": [0, 0, 0],
-						"0.125": [-82.5, 0, 0],
-						"0.5": [0, 0, 0]
-					}
-				},
-				"left_arm": {
-					"rotation": {
-						"0.0": [0, 0, 0],
-						"0.125": [-82.5, 0, 0],
-						"0.5": [0, 0, 0]
 					}
 				}
 			}

@@ -92,6 +92,20 @@
 				"sounds/mob/zombies/blood_splat/zombie_blood_splat3"
 			]
 		},
+		"mob.zombie.spitter.acid_splash": {
+			"__use_legacy_max_distance": false,
+			"category": "hostile",
+			"sounds": [
+				"sounds/mob/zombies/spitter/acid_splash"
+			]
+		},
+		"mob.zombie.spitter.acid_puddle": {
+			"__use_legacy_max_distance": false,
+			"category": "hostile",
+			"sounds": [
+				"sounds/mob/zombies/spitter/acid_puddle"
+			]
+		},
 		"mob.charged_iron_golem.upgrade": {
 			"__use_legacy_max_distance": false,
 			"category": "hostile",

@@ -2,7 +2,7 @@
 	"format_version": "1.12",
 	"minecraft:recipe_shaped": {
 		"description": {
-			"identifier": "rza:collector_drone_chassis"
+			"identifier": "rza:drone_chassis"
 		},
 		"tags": [
 			"crafting_table"
@@ -18,7 +18,7 @@
 			"iii"
 		],
 		"result": {
-			"item": "rza:collector_drone_chassis",
+			"item": "rza:drone_chassis",
 			"count": 1
 		}
 	}

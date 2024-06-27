@@ -20,6 +20,10 @@
 				"minecraft:world_age_filter": {
 					"min": 1200 //Day 2
 				},
+				"minecraft:distance_filter": {
+					"min": 32,
+					"max": 96
+				},
 				"minecraft:weight": {
 					"default": 100
 				},

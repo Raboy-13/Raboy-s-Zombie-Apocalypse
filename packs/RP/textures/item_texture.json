@@ -29,20 +29,23 @@
 		"rza_turret_base": {
 			"textures": "textures/items/turret_base"
 		},
-		"rza_drone_remote": {
-			"textures": "textures/items/utility/collector_drone/drone_remote"
+		"rza_drone_chassis": {
+			"textures": "textures/items/utility/drone/chassis"
 		},
-		"rza_collector_drone_chassis": {
-			"textures": "textures/items/utility/collector_drone/collector_drone_chassis"
+		"rza_drone_rotor": {
+			"textures": "textures/items/utility/drone/rotor"
 		},
-		"rza_collector_drone_rotor": {
-			"textures": "textures/items/utility/collector_drone/collector_drone_rotor"
-		},
-		"rza_collector_drone_generator": {
-			"textures": "textures/items/utility/collector_drone/collector_drone_generator"
+		"rza_drone_generator": {
+			"textures": "textures/items/utility/drone/generator"
 		},
 		"rza_collector_drone": {
 			"textures": "textures/items/utility/collector_drone/collector_drone"
+		},
+		"rza_collector_drone_remote": {
+			"textures": "textures/items/utility/collector_drone/remote"
+		},
+		"rza_collector_drone_antenna": {
+			"textures": "textures/items/utility/collector_drone/antenna"
 		}
 	}
 }

@@ -53,10 +53,11 @@ entity.rza:spitter_acid_puddle_mutated.name=Mutated Spitter Acid Puddle
 
 ##Items
 item.rza:collector_drone_item=Collector Drone
-item.rza:drone_remote=Drone Remote
-item.rza:collector_drone_chassis=Collector Drone Chassis
-item.rza:collector_drone_rotor=Collector Drone Rotor
-item.rza:collector_drone_generator=Collector Drone Generator
+item.rza:collector_drone_antenna=Collector Drone Antenna
+item.rza:collector_drone_remote=Drone Remote
+item.rza:drone_chassis=Drone Chassis
+item.rza:drone_rotor=Drone Rotor
+item.rza:drone_generator=Drone Generator
 item.rza:turret_base=Turret Base
 item.rza:arrow_turret_item=§aArrow Turret§r
 item.rza:pyro_charger_item=§6Pyro Charger§r

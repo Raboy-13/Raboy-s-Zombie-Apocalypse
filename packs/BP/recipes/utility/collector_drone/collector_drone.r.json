@@ -8,19 +8,22 @@
 			"crafting_table"
 		],
 		"key": {
+			"a": {
+				"item": "rza:drone_antenna"
+			},
 			"r": {
-				"item": "rza:collector_drone_rotor"
+				"item": "rza:drone_rotor"
 			},
 			"c": {
-				"item": "rza:collector_drone_chassis"
+				"item": "rza:drone_chassis"
 			},
 			"g": {
-				"item": "rza:collector_drone_generator"
+				"item": "rza:drone_generator"
 			}
 		},
 		"pattern": [
 			"r r",
-			" c ",
+			"cac",
 			"rgr"
 		],
 		"result": {

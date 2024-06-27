@@ -21,7 +21,7 @@
 					"min": 16800 //Day 15
 				},
 				"minecraft:distance_filter": {
-					"min": 24,
+					"min": 32,
 					"max": 96
 				},
 				"minecraft:weight": {

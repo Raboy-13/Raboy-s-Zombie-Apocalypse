@@ -1,0 +1,31 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:drone_antenna"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"c": {
+				"item": "comparator"
+			},
+			"i": {
+				"item": "iron_ingot"
+			}
+		},
+		"pattern": [
+			"c",
+			"i",
+			"i"
+		],
+		//Multiple Antennas for different drones
+		"result": [
+			{
+				"item": "rza:collector_drone_antenna",
+				"count": 1
+			}
+		]
+	}
+}

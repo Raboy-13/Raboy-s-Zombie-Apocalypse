@@ -16,6 +16,7 @@
 			},
 			"animations": {
 				"look_at_target": "animation.common.look_at_target",
+				"arms": "animation.walker.normal.arms",
 				"idle1": "animation.walker.normal.idle1",
 				"idle2": "animation.walker.normal.idle2",
 				"walk": "animation.walker.normal.walk",

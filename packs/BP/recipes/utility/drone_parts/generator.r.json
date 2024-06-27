@@ -2,7 +2,7 @@
 	"format_version": "1.12",
 	"minecraft:recipe_shaped": {
 		"description": {
-			"identifier": "rza:collector_drone_generator"
+			"identifier": "rza:drone_generator"
 		},
 		"tags": [
 			"crafting_table"
@@ -27,7 +27,7 @@
 			"gPg"
 		],
 		"result": {
-			"item": "rza:collector_drone_generator",
+			"item": "rza:drone_generator",
 			"count": 1
 		}
 	}

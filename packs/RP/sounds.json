@@ -59,6 +59,7 @@
 				"events": {
 					"ambient": "mob.zombie.rza.ambient",
 					"attack": "mob.zombie.rza.attack",
+					"shoot": "mob.zombie.rza.attack",
 					"hurt": "mob.zombie.rza.hurt",
 					"death": "mob.zombie.rza.death",
 					"step": {
@@ -77,6 +78,7 @@
 				"events": {
 					"ambient": "mob.zombie.rza.ambient",
 					"attack": "mob.zombie.rza.attack",
+					"shoot": "mob.zombie.rza.attack",
 					"hurt": "mob.zombie.rza.hurt",
 					"death": "mob.zombie.rza.death",
 					"step": {
