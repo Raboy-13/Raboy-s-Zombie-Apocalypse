@@ -332,14 +332,24 @@ Turret Prioties:
 - Ferals: Only targets ferals
 
 NEW TURRET: The Storm Weaver - fires a bolt of lightning that bounces off zombies; its detection range is short but each bolt of lightning reaches far and wide!
-- firing rate of the storm weaver is 10 seconds
-- detection range of the storm weaver is 18 blocks
+- Rate of fire: 10 seconds
+- Detection range: is 18 blocks
+- Hitpoints: 200
+- Configurable
+
+Other Turret Changes:
 - the sonic cannon now fires its sonic blast similar to the warden
 - zombies now get pushed back by the sonic blast of the sonic cannon
 - reduced sonic cannon firing rate
 - slightly reduced sonic cannon damage
 - improved pyro charger flamethrower physics and particles
 - pyro charger now only burns zombies
+
+NEW UTILITY TURRET: The Item Incinerator - a turret that emits a strong radial pulse which destroys nearby items on the ground. This tool is solely used when there are too much items on the ground but players or drones are having a hard time collecting mainly because of the countless zombies around, making item collection almost impossible to collect.
+- Rate of fire: 10 seconds
+- Firing range: 64 blocks
+- Hitpoints: 100
+- incinerates items within the pulse radius execpt for all netherite items and the following rare items: Totem of Undying, Golden Apple, Golden Carrot, Enchanted Apple, Nether Star and the Beacon
 
 *Utility
 NEW UTILITY ENTITY: The Collector Drone

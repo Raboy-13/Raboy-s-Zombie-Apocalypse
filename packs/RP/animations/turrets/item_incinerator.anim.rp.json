@@ -1,0 +1,81 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.item_incinerator.idle": {
+			"loop": true,
+			"bones": {
+				"main": {
+					"rotation": [0, "q.anim_time * 96", 0],
+					"position": [0, "1+math.sin(q.anim_time * 8 * 16) * 2", 0]
+				},
+				"n_coupler": {
+					"rotation": ["-(math.sin(q.anim_time * 12 * 12) * 12)", 0, 0]
+				},
+				"s_coupler": {
+					"rotation": ["math.sin(q.anim_time * 12 * 12) * 12", 0, 0]
+				},
+				"e_coupler": {
+					"rotation": ["math.sin(q.anim_time * 12 * 12) * 12", 0, 0]
+				},
+				"w_coupler": {
+					"rotation": ["math.sin(q.anim_time * 12 * 12) * 12", 0, 0]
+				}
+			}
+		},
+		"animation.item_incinerator.fire": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 3,
+			"bones": {
+				"main": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0417": [0, 2.68566, 0],
+						"0.0833": [0, 3.46061, 0],
+						"0.125": [0, 3.91888, 0],
+						"0.1667": [0, 4.21198, 0],
+						"0.2083": [0, 4.39888, 0],
+						"0.25": [0, 4.50972, 0],
+						"0.2917": [0, 4.56256, 0],
+						"0.3333": [0, 4.56948, 0],
+						"0.375": [0, 4.53942, 0],
+						"0.4167": [0, 4.48081, 0],
+						"0.4583": [0, 4.41, 0],
+						"1.0": [0, 3.45113, 0],
+						"1.5417": [0, 2.48376, 0],
+						"2.0833": [0, 1.52369, 0],
+						"2.625": [0, 0.58297, 0],
+						"2.9167": [0, 0.1053, 0],
+						"2.9583": [0, 0.04488, 0],
+						"3.0": [0, 0, 0]
+					}
+				},
+				"n_coupler": {
+					"rotation": [-90, 0, 0]
+				},
+				"s_coupler": {
+					"rotation": [90, 0, 0]
+				},
+				"e_coupler": {
+					"rotation": [90, 0, 0]
+				},
+				"w_coupler": {
+					"rotation": [90, 0, 0]
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "fire"
+				}
+			}
+		},
+		"animation.item_incinerator.ambient_sound": {
+			"loop": true,
+			"animation_length": 6,
+			"sound_effects": {
+				"0.0": {
+					"effect": "ambient"
+				}
+			}
+		}
+	}
+}

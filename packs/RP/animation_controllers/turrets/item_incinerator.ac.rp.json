@@ -1,0 +1,39 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.item_incinerator.general": {
+			"states": {
+				"default": {
+					"transitions": [
+						{"idle": "q.property('rza:active') == true && q.property('rza:state') == 'on'"}
+					],
+					"blend_transition": 3,
+					"blend_via_shortest_path": true
+				},
+				"idle": {
+					"animations": ["idle", "ambient_sound"],
+					"transitions": [
+						{"fire": "q.property('rza:fire') == true"},
+						{"default": "q.property('rza:active') == true && q.property('rza:state') == 'off'"}
+					],
+					"blend_transition": 0.3,
+					"blend_via_shortest_path": true
+				},
+				"fire": {
+					"animations": ["fire"],
+					"particle_effects": [
+						{
+							"effect": "pulse",
+							"locator": "pulse"
+						}
+					],
+					"transitions": [
+						{"idle": "q.property('rza:fire') == false"}
+					],
+					"blend_transition": 3,
+					"blend_via_shortest_path": true
+				}
+			}
+		}
+	}
+}

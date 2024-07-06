@@ -8,6 +8,7 @@ import { stormWeaverhit } from "./turrets/stormWeaver";
 import { pyroChargerFireball } from "./turrets/pyroCharger";
 import { activateInactiveElectronReactorCore, activeElectronReactorCore, destroyActiveElectronReactorCore, placeActiveElectronReactorCore } from "./blocks/electronReactorCore";
 import { ferralLeap } from "./zombies/feral";
+import { itemIncineratorMechanics, itemIncinerators } from "./turrets/itemIncinerator";
 
 let worldAgeOffset = 0;
 
@@ -102,6 +103,13 @@ world.afterEvents.entitySpawn.subscribe((data) => {
             });
         }
     }
+
+    //Item Incinerator mechanics mapper
+    if (entity?.typeId === 'rza:item_incinerator') {
+        itemIncinerators["rza:cooldown"].set(entity.id, 600);
+        itemIncinerators["rza:fire_time"].set(entity.id, 0);
+        itemIncinerators["rza:pulse_radius_offset"].set(entity.id, 0);
+    }
 });
 
 //General entity Load listener
@@ -115,6 +123,14 @@ world.afterEvents.entityLoad.subscribe((data) => {
             collectorDroneOwnerRepair(drone);
             system.clearRun(run);
         });
+    }
+
+    //Item Incinerator mechanics mapper
+    if (entity?.typeId === 'rza:item_incinerator') {
+        //Randomize cooldown time
+        itemIncinerators["rza:cooldown"].set(entity.id, Math.floor(Math.random() * (600 - 100 + 1)) + 100);
+        itemIncinerators["rza:fire_time"].set(entity.id, 0);
+        itemIncinerators["rza:pulse_radius_offset"].set(entity.id, 0);
     }
 });
 
@@ -280,6 +296,12 @@ system.runTimeout(() => {
         let runCollectorDrone = system.run(() => {
             droneMechanics();
             system.clearRun(runCollectorDrone);
+        });
+
+        //Item Incinerator
+        let itemIncinerator = system.run(() => {
+            itemIncineratorMechanics();
+            system.clearRun(itemIncinerator);
         });
     });
 }, 120);

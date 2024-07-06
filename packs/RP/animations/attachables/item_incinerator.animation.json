@@ -1,0 +1,24 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.item_incinerator.first_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [98.95261, 43.41541, -66.53415],
+					"position": [-2, 25, 3]
+				}
+			}
+		},
+		"animation.item_incinerator.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [90, 0, 0],
+					"position": [0, 23, -1],
+					"scale": 0.6
+				}
+			}
+		}
+	}
+}

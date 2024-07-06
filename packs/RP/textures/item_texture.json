@@ -26,6 +26,9 @@
 		"rza_storm_weaver": {
 			"textures": "textures/items/turrets/storm_weaver/storm_weaver"
 		},
+		"rza_item_incinerator": {
+			"textures": "textures/items/turrets/item_incinerator/item_incinerator"
+		},
 		"rza_turret_base": {
 			"textures": "textures/items/turret_base"
 		},
