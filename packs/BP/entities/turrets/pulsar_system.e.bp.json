@@ -2,7 +2,7 @@
 	"format_version": "1.20.80",
 	"minecraft:entity": {
 		"description": {
-			"identifier": "rza:item_incinerator",
+			"identifier": "rza:pulsar_system",
 			"is_spawnable": false,
 			"is_summonable": true,
 			"is_experimental": false,
@@ -12,13 +12,18 @@
 					"type": "bool",
 					"default": false
 				},
-				"rza:state": {
+				"rza:active_state": {
+					"client_sync": true,
+					"type": "bool",
+					"default": true
+				},
+				"rza:convert_items_to": {
 					"client_sync": true,
 					"type": "enum",
-					"default": "on",
+					"default": "Charcoal",
 					"values": [
-						"on",
-						"off"
+						"Charcoal",
+						"XP"
 					]
 				},
 				"rza:fire": {
@@ -49,34 +54,6 @@
 					"rza:active": false
 				}
 			},
-			"rza:toggle_on": {
-				"sequence": [
-					{
-						"queue_command": {
-							"command": "title @p actionbar Incinerator: §2On§r"
-						}
-					},
-					{
-						"set_property": {
-							"rza:state": "on"
-						}
-					}
-				]
-			},
-			"rza:toggle_off": {
-				"sequence": [
-					{
-						"queue_command": {
-							"command": "title @p actionbar Incinerator: §cOff§r"
-						}
-					},
-					{
-						"set_property": {
-							"rza:state": "off"
-						}
-					}
-				]
-			},
 			"rza:fire": {
 				"set_property": {
 					"rza:fire": true
@@ -87,9 +64,10 @@
 					"rza:fire": false
 				}
 			},
+			"rza:configure": {},
 			"rza:despawn": {
 				"queue_command": {
-					"command": "function world/turrets/turret_drop/item_incinerator"
+					"command": "function world/turrets/turret_drop/pulsar_system"
 				}
 			}
 		},
@@ -97,12 +75,12 @@
 			"minecraft:type_family": {
 				"family": [
 					"turret",
-					"item_incinerator"
+					"pulsar_system"
 				]
 			},
 			"minecraft:collision_box": {
-				"width": 0.8,
-				"height": 1.3
+				"width": 0.7,
+				"height": 0.8
 			},
 			"minecraft:persistent": {},
 			"minecraft:health": {
@@ -142,64 +120,16 @@
 						"interact_text": "action.interact.repair"
 					},
 					{
-						"interact_text": "action.hint.turret.item_incinerator.toggle_on",
-						"swing": true,
+						"interact_text": "action.hint.turret.configure",
 						"on_interact": {
 							"filters": {
-								"all_of": [
-									{
-										"test": "has_equipment",
-										"domain": "hand",
-										"subject": "other",
-										"operator": "!=",
-										"value": "iron_ingot"
-									},
-									{
-										"test": "bool_property",
-										"subject": "self",
-										"domain": "rza:active",
-										"value": true
-									},
-									{
-										"test": "enum_property",
-										"subject": "self",
-										"domain": "rza:state",
-										"value": "off"
-									}
-								]
+								"test": "has_equipment",
+								"domain": "hand",
+								"subject": "other",
+								"operator": "!=",
+								"value": "iron_ingot"
 							},
-							"event": "rza:toggle_on",
-							"target": "self"
-						}
-					},
-					{
-						"interact_text": "action.hint.turret.item_incinerator.toggle_off",
-						"swing": true,
-						"on_interact": {
-							"filters": {
-								"all_of": [
-									{
-										"test": "has_equipment",
-										"domain": "hand",
-										"subject": "other",
-										"operator": "!=",
-										"value": "iron_ingot"
-									},
-									{
-										"test": "bool_property",
-										"subject": "self",
-										"domain": "rza:active",
-										"value": true
-									},
-									{
-										"test": "enum_property",
-										"subject": "self",
-										"domain": "rza:state",
-										"value": "on"
-									}
-								]
-							},
-							"event": "rza:toggle_off",
+							"event": "rza:configure",
 							"target": "self"
 						}
 					}

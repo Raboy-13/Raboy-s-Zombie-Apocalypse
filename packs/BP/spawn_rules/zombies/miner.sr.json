@@ -2,8 +2,8 @@
   "format_version": "1.17.0",
   "minecraft:spawn_rules": {
     "description": {
-      "identifier": "minecraft:bat",
-      "population_control": "ambient"
+      "identifier": "rza:miner",
+      "population_control": "monster"
     },
     "conditions": [
       {
@@ -34,7 +34,7 @@
         "minecraft:biome_filter": {
           "test": "has_biome_tag",
           "operator": "==",
-          "value": "animal"
+          "value": "monster"
         }
       }
     ]

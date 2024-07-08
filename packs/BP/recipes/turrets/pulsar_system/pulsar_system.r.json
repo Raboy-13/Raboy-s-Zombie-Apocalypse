@@ -2,7 +2,7 @@
 	"format_version": "1.12",
 	"minecraft:recipe_shaped": {
 		"description": {
-			"identifier": "rza:item_incinerator"
+			"identifier": "rza:pulsar_system"
 		},
 		"tags": [
 			"crafting_table"
@@ -12,7 +12,7 @@
 				"item": "minecraft:dispenser"
 			},
 			"B": {
-				"item": "minecraft:blaze_powder"
+				"item": "minecraft:beacon"
 			},
 			"R": {
 				"item": "minecraft:blaze_rod"
@@ -21,10 +21,10 @@
 		"pattern": [
 			"RDR",
 			"DBD",
-			" D "
+			"RDR"
 		],
 		"result": {
-			"item": "rza:item_incinerator_item",
+			"item": "rza:pulsar_system_item",
 			"count": 1
 		}
 	}

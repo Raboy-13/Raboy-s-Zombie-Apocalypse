@@ -2,19 +2,19 @@
   "format_version": "1.13.0",
   "minecraft:attachable": {
     "description": {
-      "identifier": "rza:item_incinerator_item",
+      "identifier": "rza:pulsar_system_item",
       "materials": {
         "default": "entity_emissive_alpha"
       },
       "textures": {
-        "default": "textures/entity/turrets/item_incinerator/item_incinerator"
+        "default": "textures/entity/turrets/pulsar_system/pulsar_system"
       },
       "geometry": {
-        "default": "geometry.item_incinerator_item"
+        "default": "geometry.pulsar_system_item"
       },
       "animations": {
-        "first_person_hold": "animation.item_incinerator.first_person_hold",
-        "third_person_hold": "animation.item_incinerator.third_person_hold",
+        "first_person_hold": "animation.pulsar_system.first_person_hold",
+        "third_person_hold": "animation.pulsar_system.third_person_hold",
         "general": "controller.animation.attachable.general"
       },
       "scripts": {

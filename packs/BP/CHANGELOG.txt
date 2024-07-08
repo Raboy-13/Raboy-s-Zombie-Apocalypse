@@ -337,6 +337,13 @@ NEW TURRET: The Storm Weaver - fires a bolt of lightning that bounces off zombie
 - Hitpoints: 200
 - Configurable
 
+NEW TURRET: The Pulsar System - a turret that emits a strong radial pulse that gradually increases in size which converts items on the ground to either charcoal or XP orbs, the pulse also temporarily slows down zombies for 5 seconds and gives players the following buffs for 10 seconds: haste, regeneration, and strength
+- Rate of fire: 10 seconds
+- Firing range: 48 blocks
+- Hitpoints: 200
+- converts items within the pulse radius except for all netherite items and the following rare items: Totem of Undying, Golden Apple, Golden Carrot, Enchanted Apple, Nether Star and the Beacon
+- Configurable
+
 Other Turret Changes:
 - the sonic cannon now fires its sonic blast similar to the warden
 - zombies now get pushed back by the sonic blast of the sonic cannon
@@ -344,12 +351,6 @@ Other Turret Changes:
 - slightly reduced sonic cannon damage
 - improved pyro charger flamethrower physics and particles
 - pyro charger now only burns zombies
-
-NEW UTILITY TURRET: The Item Incinerator - a turret that emits a strong radial pulse which destroys nearby items on the ground. This tool is solely used when there are too much items on the ground but players or drones are having a hard time collecting mainly because of the countless zombies around, making item collection almost impossible to collect.
-- Rate of fire: 10 seconds
-- Firing range: 64 blocks
-- Hitpoints: 100
-- incinerates items within the pulse radius execpt for all netherite items and the following rare items: Totem of Undying, Golden Apple, Golden Carrot, Enchanted Apple, Nether Star and the Beacon
 
 *Utility
 NEW UTILITY ENTITY: The Collector Drone
@@ -361,10 +362,13 @@ NEW UTILITY ENTITY: The Collector Drone
 - in the configuration UI, there are 2 collection modes for the drone: Auto Collect - collects nearby items or XPs until it reaches full capacity, delivers the collected items to the player owner and repeat the same process. Manual Collection - Collects nearby items or XPs until full capacity, delivers the collected items/XPs to the player owner and deactivates, but can be reactivated again
 - there is an optional delivery location for items: Player owner or a player-owned hopper
 - Health points: 300
-- WARNING: The drones are world tickers, so there can only be a maximum of 3 drones for each players to avoid lag
+- WARNING: The drones are world tickers, so there can only be a maximum of 3 drones for each player to avoid lag
 
 *Loot Drops
 - ferals now have a chance to drop a phantom membrane when killed
+
+*Bug Fixes
+- miner zombies now don't overpopulate caves
 
 *Known Issues
 -wandering trader throwing animation doesn't work

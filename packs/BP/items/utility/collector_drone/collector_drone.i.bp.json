@@ -1,17 +1,17 @@
 {
-	"format_version": "1.20.70",
+	"format_version": "1.20.80",
 	"minecraft:item": {
 		"description": {
-			"identifier": "rza:collector_drone_item"
+			"identifier": "rza:collector_drone_item",
+			"menu_category": {
+				"category": "items"
+			}
 		},
 		"components": {
 			"minecraft:icon": {
 				"textures": {
 					"default": "rza_collector_drone"
 				}
-			},
-			"minecraft:creative_category": {
-				"category": "items"
 			},
 			"minecraft:max_stack_size": {
 				"value": 64

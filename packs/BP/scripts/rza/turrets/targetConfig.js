@@ -355,3 +355,51 @@ export function stormWeaverConfigurator(player, turret) {
         });
     return;
 }
+
+//Pulsar System Configurator
+export function pulsarSystemConfigurator(player, turret) {
+    //Get the last configuration on the entity properties and apply it into the selections
+    let convertTo = ['Charcoal', 'XP'];
+    const selectedConvertType = turret.getProperty('rza:convert_items_to');
+
+    // Remove the selectedConvertType from the array
+    convertTo = convertTo.filter(convertType => convertType !== selectedConvertType);
+
+    // Add the selectedConvertType as the first element in the array
+    convertTo.unshift(selectedConvertType);
+
+    new ModalFormData()
+        .title("§cPulsar System§r")
+        .toggle('Active', turret.getProperty('rza:active_state'))
+        .dropdown('Convert Items to', convertTo)
+        .show(player)
+        .then(({ formValues: [toggle, dropdown] }) => {
+            const selectedConvertType = convertTo[dropdown];
+
+            //Active: Convert Items to Charcoal
+            if (toggle && selectedConvertType === 'Charcoal') {
+                player.sendMessage('[§cPulsar System§r] §2Active§r: Converting items to Charcoal');
+            }
+
+            //Active: Convert Items to XP Orbs
+            if (toggle && selectedConvertType === 'XP') {
+                player.sendMessage('[§cPulsar System§r] §2Active§r: Converting items to XP Orbs');
+            }
+
+            //Inactive: Convert Items to Charcoal
+            if (!toggle && selectedConvertType === 'Charcoal') {
+                player.sendMessage('[§cPulsar System§r] §4Inactive§r: Converting items to Charcoal');
+            }
+
+            //Inactive: Convert Items to XP Orbs
+            if (!toggle && selectedConvertType === 'XP') {
+                player.sendMessage('[§cPulsar System§r] §4Inactive§r: Converting items to XP Orbs');
+            }
+
+            turret.setProperty('rza:active_state', toggle);
+            turret.setProperty('rza:convert_items_to', selectedConvertType);
+        }).catch((e) => {
+            console.error(e, e.stack)
+        });
+    return;
+}

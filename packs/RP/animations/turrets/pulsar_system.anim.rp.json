@@ -1,7 +1,7 @@
 {
-	"format_version": "1.8.0",
+	"format_version": "1.10.0",
 	"animations": {
-		"animation.item_incinerator.idle": {
+		"animation.pulsar_system.idle": {
 			"loop": true,
 			"bones": {
 				"main": {
@@ -22,7 +22,7 @@
 				}
 			}
 		},
-		"animation.item_incinerator.fire": {
+		"animation.pulsar_system.fire": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 3,
 			"bones": {
@@ -68,7 +68,7 @@
 				}
 			}
 		},
-		"animation.item_incinerator.ambient_sound": {
+		"animation.pulsar_system.ambient_sound": {
 			"loop": true,
 			"animation_length": 6,
 			"sound_effects": {

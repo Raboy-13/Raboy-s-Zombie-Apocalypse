@@ -2,7 +2,7 @@
 	"format_version": "1.20.70",
 	"minecraft:item": {
 		"description": {
-			"identifier": "rza:item_incinerator_item",
+			"identifier": "rza:pulsar_system_item",
 			"menu_category": {
 				"category": "items"
 			}
@@ -10,14 +10,14 @@
 		"components": {
 			"minecraft:icon": {
 				"textures": {
-					"default": "rza_item_incinerator"
+					"default": "rza_pulsar_system"
 				}
 			},
 			"minecraft:entity_placer": {
 				"dispense_on": [
 					"dispenser"
 				],
-				"entity": "rza:item_incinerator"
+				"entity": "rza:pulsar_system"
 			},
 			"minecraft:max_stack_size": {
 				"value": 16

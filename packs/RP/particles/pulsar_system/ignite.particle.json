@@ -5,7 +5,7 @@
 			"identifier": "rza:item_ignite",
 			"basic_render_parameters": {
 				"material": "particles_alpha",
-				"texture": "textures/particle/turrets/item_incinerator/ignite"
+				"texture": "textures/particle/turrets/pulsar_system/ignite"
 			}
 		},
 		"components": {

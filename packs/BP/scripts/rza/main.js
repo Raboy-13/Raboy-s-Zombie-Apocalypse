@@ -1,6 +1,6 @@
 import { system, world } from "@minecraft/server";
 import "./player/playerSetup";
-import { arrowTurretConfigurator, pyroChargerConfigurator, sonicCannonConfigurator, stormWeaverConfigurator } from "./turrets/targetConfig";
+import { arrowTurretConfigurator, pulsarSystemConfigurator, pyroChargerConfigurator, sonicCannonConfigurator, stormWeaverConfigurator } from "./turrets/targetConfig";
 import { collectorDroneConfigurator, collectorDroneDie, collectorDroneHopperPairing, droneMechanics, collectorDroneOwnerPairing, collectorDroneOwnerRepair, collectorDroneUnload, ownerCollectorDroneCounter } from "./drones/collectorDrone/mechanics";
 import { collectorDroneRemote } from "./drones/collectorDrone/remote";
 import { sonicCannonAttachmentHit, sonicCannonHit } from "./turrets/sonicCannon";
@@ -8,19 +8,39 @@ import { stormWeaverhit } from "./turrets/stormWeaver";
 import { pyroChargerFireball } from "./turrets/pyroCharger";
 import { activateInactiveElectronReactorCore, activeElectronReactorCore, destroyActiveElectronReactorCore, placeActiveElectronReactorCore } from "./blocks/electronReactorCore";
 import { ferralLeap } from "./zombies/feral";
-import { itemIncineratorMechanics, itemIncinerators } from "./turrets/itemIncinerator";
+import { pulsarSystemMechanics, pulsarSystems } from "./turrets/pulsarSystem";
 
 let worldAgeOffset = 0;
 
+//World Initialization / global scoreboards for the base game mechanics of the add-on
 world.afterEvents.worldInitialize.subscribe(() => {
-    const maxDrones = world.scoreboard.getObjective('max_drones')
+    const mutatedZombies = world.scoreboard.getObjective('mutated_zombies');
+    const maxDrones = world.scoreboard.getObjective('max_drones');
+    const sonicRange = world.scoreboard.getObjective('sonic_range');
+    const lightningChain = world.scoreboard.getObjective('lightning_chain');
+    const lightningBranch = world.scoreboard.getObjective('lightning_branch');
+    const lightningChainLength = world.scoreboard.getObjective('lightning_chain_length');
+    const lightningBranchLength = world.scoreboard.getObjective('lightning_branch_length');
+    const removeChainerTagDelay = world.scoreboard.getObjective('remove_chainer_tag_delay');
+    const commandBlocksEnabled = world.gameRules.commandBlocksEnabled;
+    const commandBlockOutput = world.gameRules.commandBlockOutput;
+    
+    if (mutatedZombies == undefined) world.scoreboard.addObjective('mutated_zombies').addScore('main', 0);
     if (maxDrones === undefined) world.scoreboard.addObjective('max_drones');
+    if (sonicRange == undefined) world.scoreboard.addObjective('sonic_range');
+    if (lightningChain == undefined) world.scoreboard.addObjective('lightning_chain');
+    if (lightningBranch == undefined) world.scoreboard.addObjective('lightning_branch');
+    if (lightningChainLength == undefined) world.scoreboard.addObjective('lightning_chain_length');
+    if (lightningBranchLength == undefined) world.scoreboard.addObjective('lightning_branch_length');
+    if (removeChainerTagDelay == undefined) world.scoreboard.addObjective('remove_chainer_tag_delay');
+    if (!commandBlocksEnabled) world.getDimension('overworld').runCommand('gamerule commandblocksenabled true');
+    if (!commandBlockOutput) world.getDimension('overworld').runCommand('gamerule commandblockoutput false');
 });
 
 world.afterEvents.playerPlaceBlock.subscribe((data) => {
     const block = data.block;
 
-    //Initiate active electron core reactor data on placement
+    //Initiate active electron reactor core data on placement
     if (block.permutation.matches('rza:active_electron_reactor_core')) {
         let run = system.run(() => {
             placeActiveElectronReactorCore(block);
@@ -33,7 +53,7 @@ world.afterEvents.playerBreakBlock.subscribe((data) => {
     const blockPermutation = data.brokenBlockPermutation;
     const block = data.block
 
-    //delete active electron core reactor data on break
+    //delete active electron reactore core data on break
     if (blockPermutation?.matches('rza:active_electron_reactor_core')) {
         let run = system.run(() => {
             destroyActiveElectronReactorCore(block);
@@ -104,11 +124,11 @@ world.afterEvents.entitySpawn.subscribe((data) => {
         }
     }
 
-    //Item Incinerator mechanics mapper
-    if (entity?.typeId === 'rza:item_incinerator') {
-        itemIncinerators["rza:cooldown"].set(entity.id, 600);
-        itemIncinerators["rza:fire_time"].set(entity.id, 0);
-        itemIncinerators["rza:pulse_radius_offset"].set(entity.id, 0);
+    //Pulsar System mechanics mapper
+    if (entity?.typeId === 'rza:pulsar_system') {
+        pulsarSystems["rza:cooldown"].set(entity.id, 600);
+        pulsarSystems["rza:fire_time"].set(entity.id, 0);
+        pulsarSystems["rza:pulse_radius_offset"].set(entity.id, 0);
     }
 });
 
@@ -125,12 +145,12 @@ world.afterEvents.entityLoad.subscribe((data) => {
         });
     }
 
-    //Item Incinerator mechanics mapper
-    if (entity?.typeId === 'rza:item_incinerator') {
+    //Pulsar System mechanics mapper
+    if (entity?.typeId === 'rza:pulsar_system') {
         //Randomize cooldown time
-        itemIncinerators["rza:cooldown"].set(entity.id, Math.floor(Math.random() * (600 - 100 + 1)) + 100);
-        itemIncinerators["rza:fire_time"].set(entity.id, 0);
-        itemIncinerators["rza:pulse_radius_offset"].set(entity.id, 0);
+        pulsarSystems["rza:cooldown"].set(entity.id, Math.floor(Math.random() * (600 - 100 + 1)) + 100);
+        pulsarSystems["rza:fire_time"].set(entity.id, 0);
+        pulsarSystems["rza:pulse_radius_offset"].set(entity.id, 0);
     }
 });
 
@@ -241,6 +261,14 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
                     system.clearRun(confStormWeaver);
                 });
             }
+
+            //Pulsar System Configurator
+            if (turret?.typeId === 'rza:pulsar_system') {
+                let confPulsarSystem = system.run(() => {
+                    pulsarSystemConfigurator(player, turret);
+                    system.clearRun(confPulsarSystem);
+                });
+            }
         }
 
         //Collector Drone Configurator
@@ -270,7 +298,7 @@ system.runTimeout(() => {
                 world.getDimension('overworld').runCommand(`title @a title Day §4${worldAge}§r`);
                 world.getDimension('nether').runCommand(`title @a title Day §4${worldAge}§r`);
                 world.getDimension('the_end').runCommand(`title @a title Day §4${worldAge}§r`);
-                world.sendMessage('§cWarning! zombies will now  be able to mutate!§');
+                world.sendMessage('§cWarning! zombies will now  be able to mutate!§r');
                 world.sendMessage(`Current Day: Day §4${worldAge}§r`);
                 world.scoreboard.getObjective('mutated_zombies').setScore('main', 1);
             }
@@ -298,10 +326,10 @@ system.runTimeout(() => {
             system.clearRun(runCollectorDrone);
         });
 
-        //Item Incinerator
-        let itemIncinerator = system.run(() => {
-            itemIncineratorMechanics();
-            system.clearRun(itemIncinerator);
+        //Pulsar System
+        let pulsarSystem = system.run(() => {
+            pulsarSystemMechanics();
+            system.clearRun(pulsarSystem);
         });
     });
 }, 120);

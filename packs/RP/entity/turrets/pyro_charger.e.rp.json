@@ -5,7 +5,7 @@
 			"identifier": "rza:pyro_charger",
 			"materials": {
 				"default": "entity_emissive_alpha",
-				"tubes": "pyro_tubes"
+				"tubes": "emissive_animated"
 			},
 			"textures": {
 				"default": "textures/entity/turrets/pyro_charger/pyro_charger",

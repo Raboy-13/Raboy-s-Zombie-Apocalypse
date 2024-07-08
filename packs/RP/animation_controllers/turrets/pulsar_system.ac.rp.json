@@ -1,11 +1,11 @@
 {
 	"format_version": "1.19.0",
 	"animation_controllers": {
-		"controller.animation.item_incinerator.general": {
+		"controller.animation.pulsar_system.general": {
 			"states": {
 				"default": {
 					"transitions": [
-						{"idle": "q.property('rza:active') == true && q.property('rza:state') == 'on'"}
+						{"idle": "q.property('rza:active') == true && q.property('rza:active_state') == true"}
 					],
 					"blend_transition": 3,
 					"blend_via_shortest_path": true
@@ -14,7 +14,7 @@
 					"animations": ["idle", "ambient_sound"],
 					"transitions": [
 						{"fire": "q.property('rza:fire') == true"},
-						{"default": "q.property('rza:active') == true && q.property('rza:state') == 'off'"}
+						{"default": "q.property('rza:active') == true && q.property('rza:active_state') == false"}
 					],
 					"blend_transition": 0.3,
 					"blend_via_shortest_path": true

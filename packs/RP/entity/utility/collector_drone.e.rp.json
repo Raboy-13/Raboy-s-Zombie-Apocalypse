@@ -4,10 +4,12 @@
     "description": {
       "identifier": "rza:collector_drone",
       "materials": {
-        "default": "entity_alphatest"
+        "default": "entity_alphatest",
+        "lights": "emissive_animated"
       },
       "textures": {
-        "default": "textures/entity/utility/collector_drone"
+        "default": "textures/entity/utility/collector_drone",
+        "light": "textures/entity/utility/drone_light"
       },
       "geometry": {
         "default": "geometry.collector_drone"
@@ -22,7 +24,8 @@
         ]
       },
       "render_controllers": [
-        "controller.render.default"
+        "controller.render.collector_drone",
+        "controller.render.drone_light"
       ]
     }
   }

@@ -1,0 +1,38 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "rza:pulsar_system",
+			"materials": {
+				"default": "entity_emissive_alpha"
+			},
+			"textures": {
+				"default": "textures/entity/turrets/pulsar_system/pulsar_system"
+			},
+			"geometry": {
+				"default": "geometry.pulsar_system"
+			},
+			"animations": {
+				"idle": "animation.pulsar_system.idle",
+				"fire": "animation.pulsar_system.fire",
+				"ambient_sound": "animation.pulsar_system.ambient_sound",
+				"general": "controller.animation.pulsar_system.general"
+			},
+			"scripts": {
+				"animate": [
+					"general"
+				]
+			},
+			"particle_effects": {
+				"pulse": "rza:pulsar_system_pulse"
+			},
+			"sound_effects": {
+				"fire": "beacon.activate",
+				"ambient": "beacon.ambient"
+			},
+			"render_controllers": [
+				"controller.render.pulsar_system"
+			]
+		}
+	}
+}

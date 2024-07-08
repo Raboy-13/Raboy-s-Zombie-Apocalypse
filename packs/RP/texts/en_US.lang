@@ -2,8 +2,6 @@ action.interact.upgrade=Upgrade
 action.interact.attach_turret=Attach Turret
 action.hint.turret.configure=Configure
 action.hint.collector_drone.configure=Configure
-action.hint.turret.item_incinerator.toggle_on=Toggle On
-action.hint.turret.item_incinerator.toggle_off=Toggle Off
 
 ##Zombies
 item.spawn_egg.entity.rza:walker.name=Spawn Walker
@@ -39,7 +37,7 @@ entity.rza:arrow_turret.name=§2Arrow Turret§r
 entity.rza:pyro_charger.name=§6Pyro Charger§r
 entity.rza:sonic_cannon.name=§5Sonic Cannon§r
 entity.rza:storm_weaver.name=§cStorm Weaver§r
-entity.rza:item_incinerator.name=Item Incinerator
+entity.rza:pulsar_system.name=§cPulsar System§r
 
 ##Turret Attachmanets
 entity.rza:sonic_cannon_attachment.name=§5Sonic Cannon Attachment§r
@@ -70,7 +68,7 @@ item.rza:sonic_compressor=Sonic Compressor
 item.rza:storm_weaver_item=§cStorm Weaver§r
 item.rza:electron_magnifier=Electron Magnifier
 item.rza:electron_channeler=Electron Channeler
-item.rza:item_incinerator_item=Item Incinerator
+item.rza:pulsar_system_item=§cPulsar System§r
 
 ##Blocks
 tile.rza:turret_base.name=Turret Base

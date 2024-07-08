@@ -1320,7 +1320,7 @@
         "USE_EMISSIVE"
       ]
     },
-    "pyro_tubes:entity_emissive_alpha": {
+    "emissive_animated:entity_emissive_alpha": {
       "+defines": [
         "USE_UV_ANIM"
       ]

@@ -1,5 +1,5 @@
 {
-	"format_version": "1.8.0",
+	"format_version": "1.10.0",
 	"render_controllers": {
 		"controller.render.collector_drone": {
 			"geometry": "geometry.default",
@@ -10,6 +10,14 @@
 			],
 			"textures": [
 				"texture.default"
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"lights": false
+				}
 			],
 			"is_hurt_color": {
 				"r": 1,
