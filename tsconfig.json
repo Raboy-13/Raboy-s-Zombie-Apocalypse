@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "Preserve",
+    "target": "ES2023",
+    "moduleResolution": "Node10",
+    "removeComments": true,
+    "strictFunctionTypes": true,
+    "allowSyntheticDefaultImports": true,
+    "preserveConstEnums": false,
+    "noUnusedLocals": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "outDir": "./packs/BP/scripts"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src"
+  ]
+}

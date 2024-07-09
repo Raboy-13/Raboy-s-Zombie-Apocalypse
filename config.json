@@ -9,6 +9,10 @@
 	"regolith": {
 		"dataPath": "./packs/data",
 		"filterDefinitions": {
+			"json_formatter": {
+				"url": "github.com/MajestikButter/Regolith-Filters",
+				"version": "6fa6a6a9298f7d033d0f2e421edfb33292807aae"
+			},
 			"texture_list": {
 				"url": "github.com/Bedrock-OSS/regolith-filters",
 				"version": "1.1.2"
@@ -23,6 +27,13 @@
 				"filters": [
 					{
 						"filter": "texture_list"
+					},
+					{
+						"filter": "json_formatter",
+						"settings": {
+							"obfuscate": true,
+							"comments": true
+						}
 					}
 				]
 			}
