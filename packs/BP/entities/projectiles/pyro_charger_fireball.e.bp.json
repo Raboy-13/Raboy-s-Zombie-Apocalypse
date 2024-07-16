@@ -4,9 +4,9 @@
 		"description": {
 			"identifier": "rza:pyro_charger_fireball",
 			"is_spawnable": false,
-			"is_summonable": false,
+			"is_summonable": true,
 			"is_experimental": false,
-			"runtime_identifier": "snowball"
+			"runtime_identifier": "minecraft:snowball"
 		},
 		"component_groups": {
 			"rza:despawn": {
@@ -24,8 +24,8 @@
 		},
 		"components": {
 			"minecraft:collision_box": {
-				"width": 0.001,
-				"height": 0.001
+				"width": 0,
+				"height": 0
 			},
 			"minecraft:scale": {
 				"value": 0.00001
@@ -67,13 +67,13 @@
 				"has_collision": false
 			},
 			"minecraft:pushable": {
-				"is_pushable": true,
+				"is_pushable": false,
 				"is_pushable_by_piston": true
 			},
 			"minecraft:conditional_bandwidth_optimization": {
 				"default_values": {
-					"max_optimized_distance": 80,
-					"max_dropped_ticks": 7,
+					"max_optimized_distance": 96,
+					"max_dropped_ticks": 1,
 					"use_motion_prediction_hints": true
 				}
 			}

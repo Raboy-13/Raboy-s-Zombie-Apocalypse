@@ -1,0 +1,25 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:emerald_rod"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"E": {
+				"item": "minecraft:emerald"
+			}
+		},
+		"pattern": [
+			"E",
+			"E",
+			"E"
+		],
+		"result": {
+			"item": "rza:emerald_rod",
+			"count": 1
+		}
+	}
+}

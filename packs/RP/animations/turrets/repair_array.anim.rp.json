@@ -1,0 +1,67 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.repair_array.idle": {
+			"loop": true,
+			"bones": {
+				"body": {
+					"rotation": [0, "v.random_rot + q.anim_time * -100", 0]
+				},
+				"source": {
+					"rotation": [0, "v.random_rot + q.anim_time * 600", 0]
+				}
+			}
+		},
+		"animation.repair_array.ambient_sound": {
+			"loop": true,
+			"animation_length": 6,
+			"sound_effects": {
+				"0.0": {
+					"effect": "ambient"
+				}
+			}
+		},
+		"animation.repair_array.red_glow": {
+			"loop": true,
+			"animation_length": 1,
+			"particle_effects": {
+				"0.0": {
+					"effect": "red_source_glow",
+					"locator": "source_glow"
+				}
+			}
+		},
+		"animation.repair_array.green_glow": {
+			"loop": true,
+			"animation_length": 1,
+			"particle_effects": {
+				"0.0": [
+					{
+						"effect": "green_source_glow",
+						"locator": "source_glow"
+					},
+					{
+						"effect": "green_shaft_glow",
+						"locator": "shaft_glow"
+					}
+				]
+			}
+		},
+		"animation.repair_array.blue_glow": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1,
+			"particle_effects": {
+				"0.0": [
+					{
+						"effect": "blue_source_glow",
+						"locator": "source_glow"
+					},
+					{
+						"effect": "blue_shaft_glow",
+						"locator": "shaft_glow"
+					}
+				]
+			}
+		}
+	}
+}

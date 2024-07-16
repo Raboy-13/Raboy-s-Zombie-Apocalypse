@@ -334,6 +334,7 @@ Turret Prioties:
 NEW TURRET: The Storm Weaver - fires a bolt of lightning that bounces off zombies; its detection range is short but each bolt of lightning reaches far and wide!
 - Rate of fire: 10 seconds
 - Detection range: is 18 blocks
+- Firing range: 18 blocks
 - Hitpoints: 200
 - Configurable
 
@@ -343,6 +344,15 @@ NEW TURRET: The Pulsar System - a turret that emits a strong radial pulse that g
 - Hitpoints: 200
 - converts items within the pulse radius except for all netherite items and the following rare items: Totem of Undying, Golden Apple, Golden Carrot, Enchanted Apple, Nether Star and the Beacon
 - Configurable
+
+NEW TURRET: The Repair Array - repairs nearby turrets, damaged player equipment and drones. Can also repair turrets of the same type but not itself.
+- Rate of Fire: 2 seconds
+- Detection Range: 32 blocks
+- Firing Range: 32 blocks
+- Hitpoints: 200
+- repairs up to 5 turrets, drones and players with damaged equipment at the same time
+- repair amount for turrets and drones: 4
+- repair amount for each piece of damage player equipment: 2
 
 Other Turret Changes:
 - the sonic cannon now fires its sonic blast similar to the warden
@@ -361,8 +371,16 @@ NEW UTILITY ENTITY: The Collector Drone
 - when first spawning the drone, you have to set it to active first before it can start collecting anything by right clicking and setting the active toggle to on
 - in the configuration UI, there are 2 collection modes for the drone: Auto Collect - collects nearby items or XPs until it reaches full capacity, delivers the collected items to the player owner and repeat the same process. Manual Collection - Collects nearby items or XPs until full capacity, delivers the collected items/XPs to the player owner and deactivates, but can be reactivated again
 - there is an optional delivery location for items: Player owner or a player-owned hopper
-- Health points: 300
+- Health points: 100
 - WARNING: The drones are world tickers, so there can only be a maximum of 3 drones for each player to avoid lag
+
+*Mechanics
+NEW MECHANIC: Sweep Attack
+- any entity that's holding a sword or an axe now have a sweeping attack by default, similar to the java version
+- The sweep attack has a cooldown of 1 second
+- base damage is 1 if it does not have a sharpness enchantment
+- if it has a sharpness enchantment, the damage is based on the enchantment level
+- entities will always have a sweep attack damage of 1 regardless if whether their weapon has a sharpness enchantment or not
 
 *Loot Drops
 - ferals now have a chance to drop a phantom membrane when killed

@@ -19,6 +19,9 @@
         "general": "controller.animation.collector_drone.general"
       },
       "scripts": {
+        "initialize": [
+          "v.random = math.random_integer(1, 7);"
+        ],
         "animate": [
           "general"
         ]

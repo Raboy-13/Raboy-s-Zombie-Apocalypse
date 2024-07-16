@@ -24,6 +24,8 @@
 					"readOnly": false,
 					"target": "development"
 				},
+				"filters": []
+				/*,
 				"filters": [
 					{
 						"filter": "texture_list"
@@ -35,7 +37,7 @@
 							"comments": true
 						}
 					}
-				]
+				]*/
 			}
 		}
 	}

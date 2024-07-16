@@ -1,0 +1,173 @@
+{
+	"format_version": "1.19.60",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "rza:repair_array",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false,
+			"properties": {
+				"rza:active": {
+					"client_sync": true,
+					"type": "bool",
+					"default": false
+				},
+				"rza:active_state": {
+					"client_sync": true,
+					"type": "bool",
+					"default": true
+				},
+				"rza:fire": {
+					"client_sync": true,
+					"type": "bool",
+					"default": false
+				}
+			}
+		},
+		"component_groups": {},
+		"events": {
+			"minecraft:entity_spawned": {
+				"sequence": [
+					{
+						"queue_command": {
+							"command": "playsound random.anvil_break @a ~ ~ ~"
+						}
+					}
+				]
+			},
+			"rza:activate": {
+				"set_property": {
+					"rza:active": true
+				}
+			},
+			"rza:deactivate": {
+				"set_property": {
+					"rza:active": false
+				}
+			},
+			"rza:despawn": {
+				"queue_command": {
+					"command": "function world/turrets/turret_drop/repair_array"
+				}
+			}
+		},
+		"components": {
+			"minecraft:type_family": {
+				"family": [
+					"turret",
+					"repair_array"
+				]
+			},
+			"minecraft:collision_box": {
+				"width": 0.5,
+				"height": 1.63
+			},
+			"minecraft:persistent": {},
+			"minecraft:health": {
+				"value": 200
+			},
+			"minecraft:movement": {
+				"value": 0
+			},
+			"minecraft:interact": {
+				"interactions": [
+					{
+						"on_interact": {
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "has_equipment",
+										"domain": "hand",
+										"subject": "other",
+										"value": "iron_ingot"
+									},
+									{
+										"test": "is_missing_health",
+										"value": true
+									}
+								]
+							}
+						},
+						"use_item": true,
+						"swing": true,
+						"health_amount": 4,
+						"play_sounds": "irongolem.repair",
+						"interact_text": "action.interact.repair"
+					}
+				]
+			},
+			"minecraft:navigation.walk": {
+				"is_amphibious": true,
+				"avoid_water": true
+			},
+			"minecraft:movement.basic": {
+				"max_turn": 0.05
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"cause": "entity_attack",
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"operator": "==",
+								"value": "player"
+							},
+							"event": "rza:despawn",
+							"target": "self"
+						},
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"value": "turret"
+							}
+						},
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"value": "villager"
+							}
+						},
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"value": "illager"
+							}
+						},
+						"deals_damage": false
+					}
+				]
+			},
+			"minecraft:follow_range": {
+				"value": 64
+			},
+			"minecraft:knockback_resistance": {
+				"value": 1
+			},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": false
+			},
+			"minecraft:physics": {},
+			"minecraft:conditional_bandwidth_optimization": {}
+		}
+	}
+}

@@ -21,8 +21,8 @@
 				]
 			},
 			"particle_effects": {
-				"fire": "rza:fire",
-				"smoke": "rza:smoke"
+				"fire": "rza:pyro_charger_fire",
+				"smoke": "rza:pyro_charger_smoke"
 			},
 			"render_controllers": [
 				"controller.render.model_default"

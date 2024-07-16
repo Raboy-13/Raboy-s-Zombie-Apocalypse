@@ -1,0 +1,33 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "rza:emerald_controller",
+      "materials": {
+        "default": "entity_emissive_alpha"
+      },
+      "textures": {
+        "default": "textures/entity/turrets/repair_array/repair_array_active"
+      },
+      "geometry": {
+        "default": "geometry.emerald_controller"
+      },
+      "animations": {
+        "first_person_hold": "animation.repair_array.first_person_hold",
+        "third_person_hold": "animation.repair_array.third_person_hold",
+        "general": "controller.animation.attachable.general"
+      },
+      "scripts": {
+				"initialize": [
+					"v.random_rot = math.random_integer(0, 100);"
+				],
+        "animate": [
+          "general"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.model_default"
+      ]
+    }
+  }
+}

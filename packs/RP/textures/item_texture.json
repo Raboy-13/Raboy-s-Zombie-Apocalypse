@@ -29,6 +29,18 @@
 		"rza_pulsar_system": {
 			"textures": "textures/items/turrets/pulsar_system/pulsar_system"
 		},
+		"rza_emerald_rod": {
+			"textures": "textures/items/turrets/repair_array/emerald_rod"
+		},
+		"rza_emerald_controller": {
+			"textures": "textures/items/turrets/repair_array/emerald_controller"
+		},
+		"rza_energy_director": {
+			"textures": "textures/items/turrets/repair_array/energy_director"
+		},
+		"rza_repair_array": {
+			"textures": "textures/items/turrets/repair_array/repair_array"
+		},
 		"rza_turret_base": {
 			"textures": "textures/items/turret_base"
 		},

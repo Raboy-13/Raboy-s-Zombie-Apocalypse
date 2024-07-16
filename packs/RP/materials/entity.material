@@ -1,6 +1,29 @@
 {
   "materials": {
     "version": "1.0.0",
+    "emissive_translucent:entity_alphablend": {
+      "+defines": [
+        "USE_EMISSIVE"
+      ],
+      "+states": [
+        "DisableCulling",
+        "DisableAlphaWrite"
+      ]
+    },
+    "rab_zombie:entity_alphatest": {
+      "depthFunc": "LessEqual"
+    },
+    "zombie_face:entity_alphatest": {
+      "depthFunc": "LessEqual",
+      "+defines": [
+        "USE_EMISSIVE"
+      ]
+    },
+    "emissive_animated:entity_emissive_alpha": {
+      "+defines": [
+        "USE_UV_ANIM"
+      ]
+    },
     "entity_static": {
       "vertexShader": "shaders/entity.vertex",
       "vrGeometryShader": "shaders/entity.geometry",
@@ -1310,20 +1333,6 @@
     "ravager:entity_alphatest": {},
     "iron_golem:entity_alphatest": {
       "depthFunc": "LessEqual"
-    },
-    "rab_zombie:entity_alphatest": {
-      "depthFunc": "LessEqual"
-    },
-    "zombie_face:entity_alphatest": {
-      "depthFunc": "LessEqual",
-      "+defines": [
-        "USE_EMISSIVE"
-      ]
-    },
-    "emissive_animated:entity_emissive_alpha": {
-      "+defines": [
-        "USE_UV_ANIM"
-      ]
     },
     "magma_cube:entity_emissive_alpha": {},
     "leash_knot:entity": {},

@@ -1,7 +1,7 @@
-import { EntityComponentTypes, EntityTypeFamilyComponent, system, world } from "@minecraft/server";
+import { Entity, EntityComponentTypes, EntityEquippableComponent, EntityTypeFamilyComponent, EquipmentSlot, system, world } from "@minecraft/server";
 import "./player/playerSetup";
 import { arrowTurretConfigurator, pulsarSystemConfigurator, pyroChargerConfigurator, sonicCannonConfigurator, stormWeaverConfigurator } from "./turrets/targetConfig";
-import { collectorDroneConfigurator, collectorDroneDie, collectorDroneHopperPairing, droneMechanics, collectorDroneOwnerPairing, collectorDroneOwnerRepair, collectorDroneUnload, ownerCollectorDroneCounter } from "./drones/collectorDrone/mechanics";
+import { collectorDroneConfigurator, collectorDroneDie, collectorDroneHopperPairing, collectorDroneOwnerPairing, collectorDroneOwnerRepair, collectorDroneUnload, ownerCollectorDroneCounter, collectorDroneMechanics } from "./drones/collectorDrone/mechanics";
 import { collectorDroneRemote } from "./drones/collectorDrone/remote";
 import { sonicCannonAttachmentHit, sonicCannonHit } from "./turrets/sonicCannon";
 import { stormWeaverhit } from "./turrets/stormWeaver";
@@ -9,6 +9,8 @@ import { pyroChargerFireball } from "./turrets/pyroCharger";
 import { activateInactiveElectronReactorCore, activeElectronReactorCore, destroyActiveElectronReactorCore, placeActiveElectronReactorCore } from "./blocks/electronReactorCore";
 import { ferralLeap } from "./zombies/feral";
 import { pulsarSystemMechanics, pulsarSystems } from "./turrets/pulsarSystem";
+import { repairArrays, repairArrayMechanics } from "./turrets/repairArray";
+import { meleeWeaponCooldown, nonPlayerMeleeWeaponAttack, playerMeleeWeaponAttack } from "./weapons/melee";
 
 let worldAgeOffset = 0;
 
@@ -22,6 +24,7 @@ world.afterEvents.worldInitialize.subscribe(() => {
     const lightningChainLength = world.scoreboard.getObjective('lightning_chain_length');
     const lightningBranchLength = world.scoreboard.getObjective('lightning_branch_length');
     const removeChainerTagDelay = world.scoreboard.getObjective('remove_chainer_tag_delay');
+    const repairDistance = world.scoreboard.getObjective('repair_distance');
     const commandBlocksEnabled = world.gameRules.commandBlocksEnabled;
     const commandBlockOutput = world.gameRules.commandBlockOutput;
 
@@ -33,6 +36,7 @@ world.afterEvents.worldInitialize.subscribe(() => {
     if (lightningChainLength == undefined) world.scoreboard.addObjective('lightning_chain_length');
     if (lightningBranchLength == undefined) world.scoreboard.addObjective('lightning_branch_length');
     if (removeChainerTagDelay == undefined) world.scoreboard.addObjective('remove_chainer_tag_delay');
+    if (repairDistance == undefined) world.scoreboard.addObjective('repair_distance');
     if (!commandBlocksEnabled) world.getDimension('overworld').runCommand('gamerule commandblocksenabled true');
     if (!commandBlockOutput) world.getDimension('overworld').runCommand('gamerule commandblockoutput false');
 });
@@ -81,7 +85,7 @@ world.afterEvents.itemUse.subscribe((data) => {
     const player = data.source;
 
     //Collector Drone Remote listener
-    if (item?.typeId === 'rza:drone_remote') {
+    if (item?.typeId === 'rza:collector_drone_remote') {
         let run = system.run(() => {
             collectorDroneRemote(player);
             system.clearRun(run);
@@ -92,6 +96,7 @@ world.afterEvents.itemUse.subscribe((data) => {
 //General entity spawn event listener
 world.afterEvents.entitySpawn.subscribe((data) => {
     const entity = data.entity;
+    const entityId = entity.typeId;
     //Collector Drone and player owner pairing
     if (entity.typeId === 'rza:collector_drone') {
         const drone = entity;
@@ -130,11 +135,23 @@ world.afterEvents.entitySpawn.subscribe((data) => {
         pulsarSystems["rza:fire_time"].set(entity.id, 0);
         pulsarSystems["rza:pulse_radius_offset"].set(entity.id, 0);
     }
+
+    //Repair Array random cooldown times (max=40 ticks)
+    if (entity?.typeId === 'rza:repair_array') {
+        //Randomize cooldown time
+        repairArrays["rza:cooldown"].set(entity.id, Math.floor(Math.random() * (40 - 0 + 1)) + 0);
+    }
+
+    //Entities wielding axes and swords
+    if (entityId == 'minecraft:pillager' || entityId == 'minecraft:vindicator') {
+        if (!meleeWeaponCooldown.has(entity.id)) meleeWeaponCooldown.set(entity.id, 0);
+    }
 });
 
 //General entity Load listener
 world.afterEvents.entityLoad.subscribe((data) => {
     const entity = data.entity;
+    const entityId = entity.typeId;
 
     //Re-pair drone and owner on world reload
     if (entity?.typeId === 'rza:collector_drone') {
@@ -151,6 +168,17 @@ world.afterEvents.entityLoad.subscribe((data) => {
         pulsarSystems["rza:cooldown"].set(entity.id, Math.floor(Math.random() * (600 - 100 + 1)) + 100);
         pulsarSystems["rza:fire_time"].set(entity.id, 0);
         pulsarSystems["rza:pulse_radius_offset"].set(entity.id, 0);
+    }
+
+    //Repair Array random cooldown times (max=40 ticks)
+    if (entity?.typeId === 'rza:repair_array') {
+        //Randomize cooldown time
+        repairArrays["rza:cooldown"].set(entity.id, Math.floor(Math.random() * (40 - 0 + 1)) + 0);
+    }
+
+    //Entities wielding axes and swords
+    if (entityId == 'minecraft:pillager' || entityId == 'minecraft:vindicator') {
+        if (!meleeWeaponCooldown.has(entity.id)) meleeWeaponCooldown.set(entity.id, 0);
     }
 });
 
@@ -182,12 +210,13 @@ world.afterEvents.entityDie.subscribe((data) => {
     }
 }, { entityTypes: ['rza:collector_drone'] });
 
-//Turret Mechanics
+//General Entity Hurt Listener (Non-melee attacks)
 world.afterEvents.entityHurt.subscribe((data) => {
     const entity = data.hurtEntity;
     const source = data.damageSource.damagingEntity;
     const isZombie = entity.hasComponent(EntityComponentTypes.TypeFamily) && (entity.getComponent(EntityComponentTypes.TypeFamily) as EntityTypeFamilyComponent).hasTypeFamily('zombie');
 
+    //From sonic cannon
     if (source?.typeId === 'rza:sonic_cannon' && isZombie) {
         let run = system.run(() => {
             sonicCannonHit(entity, source);
@@ -195,6 +224,7 @@ world.afterEvents.entityHurt.subscribe((data) => {
         });
     }
 
+    //From sonic cannon attachment
     if (source?.typeId === 'rza:sonic_cannon_attachment' && isZombie) {
         let run = system.run(() => {
             sonicCannonAttachmentHit(entity, source);
@@ -202,6 +232,7 @@ world.afterEvents.entityHurt.subscribe((data) => {
         });
     }
 
+    //From storm weaver
     if (source?.typeId === 'rza:storm_weaver' && isZombie) {
         let run = system.run(() => {
             stormWeaverhit(entity, source);
@@ -209,6 +240,38 @@ world.afterEvents.entityHurt.subscribe((data) => {
         });
     }
 });
+
+//General Entity Hurt Listener (Melee attacks)
+world.afterEvents.entityHitEntity.subscribe((data) => {
+    const entity = data.hitEntity;
+    const source = data.damagingEntity;
+    const sourceId = source.typeId;
+    const isZombie = source.hasComponent(EntityComponentTypes.TypeFamily) && (source.getComponent(EntityComponentTypes.TypeFamily) as EntityTypeFamilyComponent).hasTypeFamily('zombie');
+
+    if (!isZombie) {
+        const cooldown = meleeWeaponCooldown.get(source.id);
+        const isPlayer = sourceId == 'minecraft:player';
+        const isNonPlayer = sourceId == 'minecraft:pillager' || sourceId == 'minecraft:vindicator';
+
+        //Entities wielding axes and swords
+        if (isPlayer && cooldown == 0) {
+            const weapon = (source.getComponent(EntityComponentTypes.Equippable) as EntityEquippableComponent).getEquipment(EquipmentSlot.Mainhand);
+
+            if ((weapon?.typeId.endsWith('axe') || weapon?.typeId.endsWith('sword'))) {
+                let run = system.run(() => {
+                    playerMeleeWeaponAttack(entity, source);
+                    system.clearRun(run);
+                });
+            }
+        }
+        else if (isNonPlayer && cooldown == 0) {
+            let run = system.run(() => {
+                nonPlayerMeleeWeaponAttack(entity, source);
+                system.clearRun(run);
+            });
+        }
+    }
+})
 
 //General entity event listener
 world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
@@ -310,28 +373,57 @@ system.runTimeout(() => {
             }
         }
 
+        //MAIN ENTITY FEATURES
+        //Overworld
+        world.getDimension('overworld').getEntities().forEach(entity => {
+            mainEntityFeatures(entity);
+        });
+        world.getDimension('nether').getEntities().forEach(entity => {
+            mainEntityFeatures(entity);
+        });
+        world.getDimension('the_end').getEntities().forEach(entity => {
+            mainEntityFeatures(entity);
+        });
+
+        //MAIN BLOCK FEATURES
         //Placed active electron reactor core particle effects
         let runElectronReactorCore = system.run(() => {
             activeElectronReactorCore();
             system.clearRun(runElectronReactorCore);
         });
-
-        //Pyro Charger fireball
-        let runPyroFireball = system.run(() => {
-            pyroChargerFireball();
-            system.clearRun(runPyroFireball);
-        });
-
-        //Collector Drone
-        let runCollectorDrone = system.run(() => {
-            droneMechanics();
-            system.clearRun(runCollectorDrone);
-        });
-
-        //Pulsar System
-        let pulsarSystem = system.run(() => {
-            pulsarSystemMechanics();
-            system.clearRun(pulsarSystem);
-        });
     });
 }, 200);
+
+function mainEntityFeatures(entity: Entity) {
+    //Pyro Charger Fireball
+    if (entity.typeId == 'rza:pyro_charger_fireball') {
+        let run = system.run(() => {
+            pyroChargerFireball(entity);
+            system.clearRun(run);
+        });
+    }
+
+    //Collector Drone
+    if (entity.typeId == 'rza:collector_drone') {
+        let run = system.run(() => {
+            collectorDroneMechanics(entity);
+            system.clearRun(run);
+        });
+    }
+
+    //Pulsar System
+    if (entity.typeId == 'rza:pulsar_system') {
+        let run = system.run(() => {
+            pulsarSystemMechanics(entity);
+            system.clearRun(run);
+        });
+    }
+
+    //Repair Array
+    if (entity.typeId == 'rza:repair_array') {
+        let run = system.run(() => {
+            repairArrayMechanics(entity);
+            system.clearRun(run);
+        });
+    }
+}

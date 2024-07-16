@@ -1,4 +1,4 @@
-import { BlockPermutation } from "@minecraft/server";
+import { Block, BlockPermutation } from "@minecraft/server";
 
 //Placed active electron reactor core data
 let electronReactorCoreData = {
@@ -6,17 +6,17 @@ let electronReactorCoreData = {
     "timer": 40
 }
 
-export function placeActiveElectronReactorCore(block) {
+export function placeActiveElectronReactorCore(block: Block) {
     electronReactorCoreData.location.set(`${block.bottomCenter().x} ${block.bottomCenter().y} ${block.bottomCenter().z}`, block);
     return;
 }
 
-export function destroyActiveElectronReactorCore(block) {
+export function destroyActiveElectronReactorCore(block: Block) {
     electronReactorCoreData.location.delete(`${block.bottomCenter().x} ${block.bottomCenter().y} ${block.bottomCenter().z}`);
     return;
 }
 
-export function activateInactiveElectronReactorCore(blockHit) {
+export function activateInactiveElectronReactorCore(blockHit: Block) {
     const blockHitBelow = blockHit.below(1);
 
     if (blockHitBelow.permutation.matches('rza:electron_reactor_core')) {

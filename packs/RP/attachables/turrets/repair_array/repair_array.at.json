@@ -1,0 +1,36 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "rza:repair_array_item",
+      "materials": {
+        "default": "entity_emissive_alpha",
+        "shaft": "emissive_translucent"
+      },
+      "textures": {
+        "default": "textures/entity/turrets/repair_array/repair_array_active"
+      },
+      "geometry": {
+        "default": "geometry.repair_array_item"
+      },
+      "animations": {
+        "idle": "animation.repair_array_item.idle",
+        "first_person_hold": "animation.repair_array.first_person_hold",
+        "third_person_hold": "animation.repair_array.third_person_hold",
+        "general": "controller.animation.attachable.general"
+      },
+      "scripts": {
+				"initialize": [
+					"v.random_rot = math.random_integer(0, 100);"
+				],
+        "animate": [
+          "idle",
+          "general"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.repair_array_item"
+      ]
+    }
+  }
+}

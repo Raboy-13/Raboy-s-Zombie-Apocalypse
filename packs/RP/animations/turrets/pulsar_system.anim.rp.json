@@ -5,7 +5,7 @@
 			"loop": true,
 			"bones": {
 				"main": {
-					"rotation": [0, "q.anim_time * 96", 0],
+					"rotation": [0, "v.random_rot + q.anim_time * 96", 0],
 					"position": [0, "1+math.sin(q.anim_time * 8 * 16) * 2", 0]
 				},
 				"n_coupler": {
@@ -60,11 +60,6 @@
 				},
 				"w_coupler": {
 					"rotation": [90, 0, 0]
-				}
-			},
-			"sound_effects": {
-				"0.0": {
-					"effect": "fire"
 				}
 			}
 		},

@@ -1,0 +1,31 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.repair_array.general": {
+			"states": {
+				"default": {
+					"animations": ["red_glow"],
+					"transitions": [
+						{"active": "q.property('rza:active') == true"}
+					],
+					"blend_transition": 1
+				},
+				"active": {
+					"animations": ["ambient_sound", "idle", "green_glow"],
+					"transitions": [
+						{"default": "q.property('rza:active') == false"},
+						{"firing": "q.property('rza:fire') == true"}
+					],
+					"blend_transition": 1
+				},
+				"firing": {
+					"animations": ["blue_glow"],
+					"transitions": [
+						{"active": "q.all_animations_finished"}
+					],
+					"blend_transition": 1
+				}
+			}
+		}
+	}
+}

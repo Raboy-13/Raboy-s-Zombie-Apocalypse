@@ -19,15 +19,14 @@
 				"general": "controller.animation.pulsar_system.general"
 			},
 			"scripts": {
+				"initialize": [
+					"v.random_rot = math.random_integer(0, 100);"
+				],
 				"animate": [
 					"general"
 				]
 			},
-			"particle_effects": {
-				"pulse": "rza:pulsar_system_pulse"
-			},
 			"sound_effects": {
-				"fire": "beacon.activate",
 				"ambient": "beacon.ambient"
 			},
 			"render_controllers": [

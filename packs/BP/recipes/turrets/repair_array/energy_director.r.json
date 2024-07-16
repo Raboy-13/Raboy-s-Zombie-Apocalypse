@@ -1,0 +1,28 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:energy_director"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"N": {
+				"item": "minecraft:nether_star"
+			},
+			"G": {
+				"item": "minecraft:lime_stained_glass"
+			}
+		},
+		"pattern": [
+			"GGG",
+			"GNG",
+			"GGG"
+		],
+		"result": {
+			"item": "rza:energy_director",
+			"count": 1
+		}
+	}
+}

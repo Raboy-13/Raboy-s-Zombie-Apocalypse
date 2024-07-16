@@ -2,7 +2,7 @@
   "format_version": "1.20.80",
   "minecraft:attachable": {
     "description": {
-      "identifier": "rza:drone_remote",
+      "identifier": "rza:collector_drone_remote",
       "materials": {
         "default": "entity_emissive_alpha"
       },

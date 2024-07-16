@@ -1,6 +1,41 @@
 {
 	"format_version": "1.10.0",
 	"animations": {
+		"animation.pyro_charger_machine.first_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [
+						-227.82061,
+						-48.01397,
+						133.67328
+					],
+					"position": [
+						9,
+						16,
+						5
+					]
+				}
+			}
+		},
+		"animation.pyro_charger_machine.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [
+						0,
+						-180,
+						0
+					],
+					"position": [
+						0,
+						19,
+						-7
+					],
+					"scale": 0.6
+				}
+			}
+		},
 		"animation.pyro_charger.first_person_hold": {
 			"loop": true,
 			"bones": {

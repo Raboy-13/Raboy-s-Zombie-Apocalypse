@@ -1,5 +1,5 @@
 {
-	"format_version": "1.19.0",
+	"format_version": "1.10.0",
 	"animation_controllers": {
 		"controller.animation.pulsar_system.general": {
 			"states": {
@@ -21,12 +21,6 @@
 				},
 				"fire": {
 					"animations": ["fire"],
-					"particle_effects": [
-						{
-							"effect": "pulse",
-							"locator": "pulse"
-						}
-					],
 					"transitions": [
 						{"idle": "q.property('rza:fire') == false"}
 					],

@@ -1,0 +1,50 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "rza:repair_array",
+			"materials": {
+				"default": "entity_emissive_alpha",
+				"shaft": "emissive_translucent"
+			},
+			"textures": {
+				"inactive": "textures/entity/turrets/repair_array/repair_array_inactive",
+				"active": "textures/entity/turrets/repair_array/repair_array_active",
+				"active_firing": "textures/entity/turrets/repair_array/repair_array_active_firing"
+			},
+			"geometry": {
+				"default": "geometry.repair_array"
+			},
+			"animations": {
+				"idle": "animation.repair_array.idle",
+				"ambient_sound": "animation.repair_array.ambient_sound",
+				"red_glow": "animation.repair_array.red_glow",
+				"green_glow": "animation.repair_array.green_glow",
+				"blue_glow": "animation.repair_array.blue_glow",
+				"general": "controller.animation.repair_array.general"
+			},
+			"scripts": {
+				"initialize": [
+					"v.random_rot = math.random_integer(0, 100);"
+				],
+				"animate": [
+					"general"
+				]
+			},
+			"particle_effects": {
+				"red_source_glow": "rza:repair_array_red_source_glow",
+				"green_source_glow": "rza:repair_array_green_source_glow",
+				"green_shaft_glow": "rza:repair_array_green_shaft_glow",
+				"blue_source_glow": "rza:repair_array_blue_source_glow",
+				"blue_shaft_glow": "rza:repair_array_blue_shaft_glow"
+			},
+			"sound_effects": {
+				"fire": "beacon.activate",
+				"ambient": "beacon.ambient"
+			},
+			"render_controllers": [
+				"controller.render.repair_array"
+			]
+		}
+	}
+}

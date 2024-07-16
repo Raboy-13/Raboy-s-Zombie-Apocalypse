@@ -1,0 +1,27 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:repair_array"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"D": {
+				"item": "rza:energy_director"
+			},
+			"C": {
+				"item": "rza:emerald_controller"
+			}
+		},
+		"pattern": [
+			"D",
+			"C"
+		],
+		"result": {
+			"item": "rza:repair_array_item",
+			"count": 1
+		}
+	}
+}

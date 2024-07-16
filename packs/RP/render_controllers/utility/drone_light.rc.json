@@ -22,7 +22,7 @@
 			"uv_anim": {
 				"offset": [
 					0,
-					"q.property('rza:active') == true ? math.mod(math.floor(query.life_time*5),7)/7 : 16"
+					"q.property('rza:active') == true ? math.mod(v.random + math.floor(query.life_time*5),7)/7 : 16"
 				],
 				"scale": [
 					1,
@@ -33,7 +33,7 @@
 				"r": 1,
 				"g": 1,
 				"b": 1,
-				"a": "q.is_alive?0.3:0.1"
+				"a": "q.is_alive ? 0.3 : 0.1"
 			}
 		}
 	}

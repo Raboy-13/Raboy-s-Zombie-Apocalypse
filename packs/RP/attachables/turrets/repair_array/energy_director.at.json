@@ -1,0 +1,33 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "rza:energy_director",
+      "materials": {
+        "default": "entity_emissive_alpha"
+      },
+      "textures": {
+        "default": "textures/entity/turrets/repair_array/repair_array_active"
+      },
+      "geometry": {
+        "default": "geometry.energy_director"
+      },
+      "animations": {
+        "first_person_hold": "animation.energy_director.first_person_hold",
+        "third_person_hold": "animation.energy_director.third_person_hold",
+        "general": "controller.animation.attachable.general"
+      },
+      "scripts": {
+				"initialize": [
+					"v.random_rot = math.random_integer(0, 100);"
+				],
+        "animate": [
+          "general"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.model_default"
+      ]
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.energy_director.first_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [145.77485, 5.79241, -18.96326],
+					"position": [-4, 21, 1]
+				}
+			}
+		},
+		"animation.energy_director.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [87.5, 0, 0],
+					"position": [0, 18, -4],
+					"scale": 0.6
+				}
+			}
+		},
+		"animation.repair_array.first_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [145.52303, -8.6913, -9.11173],
+					"position": [-4, 28, 3]
+				}
+			}
+		},
+		"animation.repair_array.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [87.5, 0, 0],
+					"position": [0, 23, 1],
+					"scale": 0.6
+				}
+			}
+		},
+		"animation.repair_array_item.idle": {
+			"loop": true,
+			"bones": {
+				"source": {
+					"rotation": [0, "v.random_rot + q.anim_time * 600", 0]
+				},
+				"parts": {
+					"rotation": [0, "v.random_rot + q.anim_time * -100", 0]
+				}
+			}
+		}
+	}
+}

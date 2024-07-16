@@ -178,34 +178,7 @@ export function collectorDroneDie(drone: Entity, playerOwner: Player) {
     return;
 }
 
-export function droneMechanics() {
-    //Overworld
-    world.getDimension('overworld').getEntities({ type: 'rza:collector_drone' }).forEach(collectorDrone => {
-        let run = system.run(() => {
-            collectorDroneMechanics(collectorDrone);
-            system.clearRun(run);
-        }) 
-    });
-
-    //Nether
-    world.getDimension('nether').getEntities({ type: 'rza:collector_drone' }).forEach(collectorDrone => {
-        let run = system.run(() => {
-            collectorDroneMechanics(collectorDrone);
-            system.clearRun(run);
-        }) 
-    });
-
-    //The End
-    world.getDimension('the_end').getEntities({ type: 'rza:collector_drone' }).forEach(collectorDrone => {
-        let run = system.run(() => {
-            collectorDroneMechanics(collectorDrone);
-            system.clearRun(run);
-        }) 
-    });
-    return;
-}
-
-function collectorDroneMechanics(collectorDrone: Entity) {
+export function collectorDroneMechanics(collectorDrone: Entity) {
         const droneLocation = collectorDrone.location;
         collectorDrone.addEffect('slow_falling', 2, { showParticles: false, amplifier: 255 });
 

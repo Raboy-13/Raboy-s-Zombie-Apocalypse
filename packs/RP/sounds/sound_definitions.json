@@ -25,6 +25,16 @@
 				"sounds/damage/hit"
 			]
 		},
+		"weapon.melee.sweep": {
+			"__use_legacy_max_distance": false,
+			"category": "player",
+			"sounds": [
+				{
+					"load_on_low_memory": true,
+					"name": "sounds/weapons/sweep"
+				}
+			]
+		},
 		"mob.zombie.rza.ambient": {
 			"__use_legacy_max_distance": false,
 			"category": "hostile",
@@ -190,6 +200,43 @@
 				{
 					"name": "sounds/turrets/storm_weaver/storm_weaver_thunder3",
 					"volume": 5
+				}
+			]
+		},
+		"pulsar_system.fire": {
+			"category": "block",
+			"max_distance": null,
+			"min_distance": null,
+			"sounds": [
+				{
+					"name": "sounds/block/beacon/activate",
+					"volume": 20
+				}
+			]
+		},
+		"turret.repair_array.beam": {
+			"category": "weather",
+			"sounds": [
+				{
+					"name": "sounds/turrets/repair_array/beam",
+					"volume": 4
+				}
+			]
+		},
+		"turret.repair_array.repair": {
+			"category": "weather",
+			"sounds": [
+				{
+					"name": "sounds/turrets/repair_array/repair1",
+					"volume": 0
+				},
+				{
+					"name": "sounds/turrets/repair_array/repair2",
+					"volume": 1
+				},
+				{
+					"name": "sounds/turrets/repair_array/repair3",
+					"volume": 1
 				}
 			]
 		}
