@@ -1,5 +1,6 @@
 // Import necessary components and types from the Minecraft server module
-import { Entity, EntityComponentTypes, EntityEquippableComponent, EntityHealthComponent, EntityInventoryComponent, EntityTypeFamilyComponent, EquipmentSlot, ItemComponentTypes, ItemDurabilityComponent, Player, system, Vector3, world } from "@minecraft/server";
+import { Entity, EntityComponentTypes, EntityEquippableComponent, EntityHealthComponent, EntityInventoryComponent, EntityTypeFamilyComponent, EquipmentSlot, ItemComponentTypes, ItemDurabilityComponent, Player, system, world } from "@minecraft/server";
+import { calculateDistance, raycast } from "./raycast";
 
 // Global object to store cooldown information for repair arrays
 export let repairArrays = {
@@ -90,6 +91,8 @@ export function repairArrayMechanics(repairArray: Entity) {
 
         // Repair the selected entities
         maxRepairables.forEach(repairable => {
+            const dimension = repairable.dimension;
+
             // Tag the entity to mark it as being repaired
             repairable.addTag(`${repairArray.id}_target`);
             if (repairable.typeId === 'minecraft:player') {
@@ -143,7 +146,7 @@ export function repairArrayMechanics(repairArray: Entity) {
 
                 // Set the calculated distance for use in the repair beam raycast
                 world.scoreboard.getObjective('repair_distance').setScore(repairArray, distance);
-                repairArray.runCommand(`execute positioned ${repairArrayLocation.x} ${repairArrayLocation.y + 1.5} ${repairArrayLocation.z} facing ${playerLocation.x} ${playerLocation.y + 0.3} ${playerLocation.z} run function world/turrets/repair_array/repair_beam`);
+                raycast(dimension, {x: repairArrayLocation.x, y: repairArrayLocation.y + 1.5, z: repairArrayLocation.z}, {x: playerLocation.x, y: playerLocation.y + 0.3, z: playerLocation.z}, distance, 'rza:repair_array_beam');
 
                 // Spawn a particle effect and play repair sound to visualize the repair process
                 player.dimension.spawnParticle('rza:repair_array_repair', playerLocation);
@@ -153,6 +156,7 @@ export function repairArrayMechanics(repairArray: Entity) {
             else {
                 const healthComponent = repairable.getComponent(EntityComponentTypes.Health) as EntityHealthComponent;
                 const health = healthComponent.currentValue;
+                const maxHealth = healthComponent.defaultValue
                 const repairableLocation = repairable.location;
 
                 // Calculate the distance between the repair array and the repairable entity
@@ -160,10 +164,10 @@ export function repairArrayMechanics(repairArray: Entity) {
 
                 // Set the calculated distance for use in the repair beam raycast
                 world.scoreboard.getObjective('repair_distance').setScore(repairArray, distance);
-                repairArray.runCommand(`execute positioned ${repairArrayLocation.x} ${repairArrayLocation.y + 1.5} ${repairArrayLocation.z} facing ${repairableLocation.x} ${repairableLocation.y + 0.3} ${repairableLocation.z} run function world/turrets/repair_array/repair_beam`);
+                raycast(dimension, {x: repairArrayLocation.x, y: repairArrayLocation.y + 1.5, z: repairArrayLocation.z}, {x: repairableLocation.x, y: repairableLocation.y + 0.3, z: repairableLocation.z}, distance, 'rza:repair_array_beam');
 
                 // Increase the health of the repairable entity by 4
-                healthComponent.setCurrentValue(health + 4);
+                healthComponent.setCurrentValue(Math.max(health + 4, maxHealth));
 
                 // Spawn a particle effect and play repair sound to visualize the repair process
                 repairable.dimension.spawnParticle('rza:repair_array_repair', repairableLocation);
@@ -177,16 +181,5 @@ export function repairArrayMechanics(repairArray: Entity) {
         // Decrement the cooldown time if it is greater than 0
         repairArrays["rza:cooldown"].set(repairArray.id, repairArrays["rza:cooldown"].get(repairArray.id) - 1);
     }
-
     return;
-}
-
-// Helper function to calculate the distance between the repair array and repairable locations
-function calculateDistance(loc1: Vector3, loc2: Vector3): number {
-    const dx = loc1.x - loc2.x;
-    const dy = loc1.y - loc2.y;
-    const dz = loc1.z - loc2.z;
-
-    //Mutiply the distance because the raycast step is 0.5
-    return Math.sqrt(dx * dx + dy * dy + dz * dz) * 2;
 }

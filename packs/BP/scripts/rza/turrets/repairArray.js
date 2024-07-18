@@ -1,4 +1,5 @@
 import { EntityComponentTypes, EquipmentSlot, ItemComponentTypes, system, world } from "@minecraft/server";
+import { calculateDistance, raycast } from "./raycast";
 export let repairArrays = {
     "rza:cooldown": new Map()
 };
@@ -68,6 +69,7 @@ export function repairArrayMechanics(repairArray) {
             }, 10);
         }
         maxRepairables.forEach(repairable => {
+            const dimension = repairable.dimension;
             repairable.addTag(`${repairArray.id}_target`);
             if (repairable.typeId === 'minecraft:player') {
                 const player = repairable;
@@ -105,18 +107,19 @@ export function repairArrayMechanics(repairArray) {
                 }
                 const distance = calculateDistance(repairArrayLocation, playerLocation);
                 world.scoreboard.getObjective('repair_distance').setScore(repairArray, distance);
-                repairArray.runCommand(`execute positioned ${repairArrayLocation.x} ${repairArrayLocation.y + 1.5} ${repairArrayLocation.z} facing ${playerLocation.x} ${playerLocation.y + 0.3} ${playerLocation.z} run function world/turrets/repair_array/repair_beam`);
+                raycast(dimension, { x: repairArrayLocation.x, y: repairArrayLocation.y + 1.5, z: repairArrayLocation.z }, { x: playerLocation.x, y: playerLocation.y + 0.3, z: playerLocation.z }, distance, 'rza:repair_array_beam');
                 player.dimension.spawnParticle('rza:repair_array_repair', playerLocation);
                 player.dimension.playSound('turret.repair_array.repair', playerLocation);
             }
             else {
                 const healthComponent = repairable.getComponent(EntityComponentTypes.Health);
                 const health = healthComponent.currentValue;
+                const maxHealth = healthComponent.defaultValue;
                 const repairableLocation = repairable.location;
                 const distance = calculateDistance(repairArrayLocation, repairableLocation);
                 world.scoreboard.getObjective('repair_distance').setScore(repairArray, distance);
-                repairArray.runCommand(`execute positioned ${repairArrayLocation.x} ${repairArrayLocation.y + 1.5} ${repairArrayLocation.z} facing ${repairableLocation.x} ${repairableLocation.y + 0.3} ${repairableLocation.z} run function world/turrets/repair_array/repair_beam`);
-                healthComponent.setCurrentValue(health + 4);
+                raycast(dimension, { x: repairArrayLocation.x, y: repairArrayLocation.y + 1.5, z: repairArrayLocation.z }, { x: repairableLocation.x, y: repairableLocation.y + 0.3, z: repairableLocation.z }, distance, 'rza:repair_array_beam');
+                healthComponent.setCurrentValue(Math.max(health + 4, maxHealth));
                 repairable.dimension.spawnParticle('rza:repair_array_repair', repairableLocation);
                 repairable.dimension.playSound('turret.repair_array.repair', repairableLocation);
             }
@@ -127,10 +130,4 @@ export function repairArrayMechanics(repairArray) {
         repairArrays["rza:cooldown"].set(repairArray.id, repairArrays["rza:cooldown"].get(repairArray.id) - 1);
     }
     return;
-}
-function calculateDistance(loc1, loc2) {
-    const dx = loc1.x - loc2.x;
-    const dy = loc1.y - loc2.y;
-    const dz = loc1.z - loc2.z;
-    return Math.sqrt(dx * dx + dy * dy + dz * dz) * 2;
 }

@@ -99,36 +99,21 @@ export function collectorDroneConfigurator(entity) {
         console.error(e, e.stack);
     });
 }
-export function collectorDroneUnload(entityId) {
-    world.getDimension('overworld').getEntities({ type: 'minecraft:item' }).forEach(item => {
-        item.removeTag(`${entityId}_target`);
-        item.removeTag(`${entityId}_grabbed`);
-        item.removeTag(`invalid`);
-    });
-    world.getDimension('nether').getEntities({ type: 'minecraft:item' }).forEach(item => {
-        item.removeTag(`${entityId}_target`);
-        item.removeTag(`${entityId}_grabbed`);
-        item.removeTag(`invalid`);
-    });
-    world.getDimension('the_end').getEntities({ type: 'minecraft:item' }).forEach(item => {
-        item.removeTag(`${entityId}_target`);
-        item.removeTag(`${entityId}_grabbed`);
-        item.removeTag(`invalid`);
-    });
-    world.getDimension('overworld').getEntities({ type: 'minecraft:xp_orb' }).forEach(xp => {
-        xp.removeTag(`${entityId}_target`);
-        xp.removeTag(`${entityId}_grabbed`);
-        xp.removeTag(`invalid`);
-    });
-    world.getDimension('nether').getEntities({ type: 'minecraft:xp_orb' }).forEach(xp => {
-        xp.removeTag(`${entityId}_target`);
-        xp.removeTag(`${entityId}_grabbed`);
-        xp.removeTag(`invalid`);
-    });
-    world.getDimension('the_end').getEntities({ type: 'minecraft:xp_orb' }).forEach(xp => {
-        xp.removeTag(`${entityId}_target`);
-        xp.removeTag(`${entityId}_grabbed`);
-        xp.removeTag(`invalid`);
+export function collectorDroneUnload(droneId) {
+    world.getPlayers({ tags: [`${droneId}_owner`] }).forEach(owner => {
+        const ownerLocation = owner.location;
+        owner.dimension.getEntities({ type: 'minecraft:item', location: ownerLocation }).forEach(item => {
+            item.removeTag(`${droneId}_target`);
+            item.removeTag(`${droneId}_grabbed`);
+            item.removeTag(`invalid`);
+            owner.removeTag(`${droneId}_owner`);
+        });
+        owner.dimension.getEntities({ type: 'minecraft:xp_orb', location: ownerLocation }).forEach(xp => {
+            xp.removeTag(`${droneId}_target`);
+            xp.removeTag(`${droneId}_grabbed`);
+            xp.removeTag(`invalid`);
+            owner.removeTag(`${droneId}_owner`);
+        });
     });
     return;
 }
