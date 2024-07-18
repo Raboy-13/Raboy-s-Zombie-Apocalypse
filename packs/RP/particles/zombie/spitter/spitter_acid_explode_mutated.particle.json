@@ -4,8 +4,8 @@
 		"description": {
 			"identifier": "rza:spitter_acid_explode_mutated",
 			"basic_render_parameters": {
-				"material": "particles_blend",
-				"texture": "textures/particle/particles"
+				"material": "particles_add",
+				"texture": "textures/particle/zombies/acid"
 			}
 		},
 		"components": {
@@ -37,9 +37,9 @@
 				"size": ["v.particle_age<3?0.05+v.particle_age*0.08:0.3", "v.particle_age<3?0.05+v.particle_age*0.08:0.3"],
 				"facing_camera_mode": "direction_y",
 				"uv": {
-					"texture_width": 128,
-					"texture_height": 128,
-					"uv": [40, 24],
+					"texture_width": 16,
+					"texture_height": 16,
+					"uv": [0, 0],
 					"uv_size": [16, 16]
 				}
 			},
