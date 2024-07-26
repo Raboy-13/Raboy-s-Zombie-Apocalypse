@@ -22,7 +22,7 @@
 			"uv_anim": {
 				"offset": [
 					0,
-					"q.property('rza:active') == true ? math.mod(v.random + math.floor(query.life_time*5),7)/7 : 16"
+					"q.property('rza:active') == true ? v.blink : 16"
 				],
 				"scale": [
 					1,

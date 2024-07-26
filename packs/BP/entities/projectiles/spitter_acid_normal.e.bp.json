@@ -65,7 +65,7 @@
 				"power": 0.8,
 				"gravity": 0.02,
 				"inertia": 1,
-				"liquid_inertia": 0.5,
+				"liquid_inertia": 1,
 				"anchor": 1,
 				"angle_offset": -35,
 				"offset": [

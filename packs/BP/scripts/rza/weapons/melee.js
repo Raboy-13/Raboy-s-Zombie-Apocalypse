@@ -1,31 +1,36 @@
 import { EntityComponentTypes, EntityDamageCause, EquipmentSlot, ItemComponentTypes, system } from "@minecraft/server";
-export let meleeWeaponCooldown = new Map();
-export function playerMeleeWeaponAttack(entityHit, wielder) {
-    meleeWeaponCooldown.set(wielder.id, 20);
+export const meleeWeaponCooldown = new Map();
+export function playerMeleeWeaponAttack(entityHit, wielder, weapon) {
+    const weaponId = weapon?.typeId;
     const hitLocation = entityHit.location;
-    entityHit.dimension.spawnParticle('rza:melee_sweep', { x: hitLocation.x, y: hitLocation.y + 0.5, z: hitLocation.z });
-    entityHit.dimension.playSound('weapon.melee.sweep', { x: hitLocation.x, y: hitLocation.y + 0.5, z: hitLocation.z }, { volume: 2 });
-    const weapon = wielder.getComponent(EntityComponentTypes.Equippable);
-    const hasSharpnessEnchantment = weapon?.getEquipment(EquipmentSlot.Mainhand)?.getComponent(ItemComponentTypes.Enchantable)?.hasEnchantment('sharpness');
-    const sharpnessLevel = weapon?.getEquipment(EquipmentSlot.Mainhand)?.getComponent(ItemComponentTypes.Enchantable)?.getEnchantment('sharpness')?.level;
-    const nearbyEntities = entityHit.dimension.getEntities({ location: hitLocation, minDistance: 1, maxDistance: 3, excludeFamilies: ['player', 'turret', 'inanimate', 'utility', 'illager', 'villager', 'irongolem', 'wandering_trader'] });
-    nearbyEntities.forEach(hit => {
-        if (hasSharpnessEnchantment) {
-            hit.applyDamage((0 + sharpnessLevel), { damagingEntity: wielder, cause: EntityDamageCause.entityAttack });
+    meleeWeaponCooldown.set(wielder.id, 20);
+    if (weaponId?.endsWith('axe') || weaponId?.endsWith('sword')) {
+        entityHit.dimension.spawnParticle('rza:melee_sweep', { x: hitLocation.x, y: hitLocation.y + 0.5, z: hitLocation.z });
+        entityHit.dimension.playSound('weapon.melee.sweep', { x: hitLocation.x, y: hitLocation.y + 0.5, z: hitLocation.z }, { volume: 2 });
+        const equippableComponent = wielder.getComponent(EntityComponentTypes.Equippable);
+        const mainhandEquipment = equippableComponent?.getEquipment(EquipmentSlot.Mainhand);
+        const enchantableComponent = mainhandEquipment?.getComponent(ItemComponentTypes.Enchantable);
+        const hasSharpnessEnchantment = enchantableComponent?.hasEnchantment('sharpness');
+        const sharpnessLevel = enchantableComponent?.getEnchantment('sharpness')?.level;
+        const nearbyEntities = entityHit.dimension.getEntities({ location: hitLocation, minDistance: 1, maxDistance: 3, excludeFamilies: ['player', 'turret', 'inanimate', 'utility', 'illager', 'villager', 'irongolem', 'wandering_trader'] });
+        for (const hit of nearbyEntities) {
+            const damage = hasSharpnessEnchantment ? 0 + sharpnessLevel : 1;
+            hit.applyDamage(damage, { damagingEntity: wielder, cause: EntityDamageCause.entityAttack });
         }
-        else
-            hit.applyDamage(1, { damagingEntity: wielder, cause: EntityDamageCause.entityAttack });
-    });
-    let cooldown = system.runInterval(() => {
-        if ((meleeWeaponCooldown.get(wielder.id) == 20))
+    }
+    const cooldown = system.runInterval(() => {
+        const cooldownTime = meleeWeaponCooldown.get(wielder.id);
+        if (cooldownTime === 20) {
             wielder.runCommand('title @s actionbar Weapon Cooldown: 1s');
-        else if ((meleeWeaponCooldown.get(wielder.id) == 1))
+        }
+        else if (cooldownTime === 1) {
             wielder.runCommand('title @s actionbar Weapon Cooldown: 0s');
-        meleeWeaponCooldown.set(wielder.id, meleeWeaponCooldown.get(wielder.id) - 1);
-        if (meleeWeaponCooldown.get(wielder.id) == 0)
+        }
+        meleeWeaponCooldown.set(wielder.id, Math.max(cooldownTime - 1, 0));
+        if (cooldownTime === 0) {
             system.clearRun(cooldown);
+        }
     });
-    return;
 }
 export function nonPlayerMeleeWeaponAttack(entityHit, wielder) {
     meleeWeaponCooldown.set(wielder.id, 20);
@@ -33,13 +38,14 @@ export function nonPlayerMeleeWeaponAttack(entityHit, wielder) {
     entityHit.dimension.spawnParticle('rza:melee_sweep', { x: hitLocation.x, y: hitLocation.y + 0.5, z: hitLocation.z });
     entityHit.dimension.playSound('weapon.melee.sweep', { x: hitLocation.x, y: hitLocation.y + 0.5, z: hitLocation.z }, { volume: 2 });
     const nearbyEntities = entityHit.dimension.getEntities({ location: hitLocation, minDistance: 1, maxDistance: 2.5, excludeFamilies: ['player', 'turret', 'inanimate', 'utility', 'illager', 'villager', 'irongolem', 'wandering_trader'] });
-    nearbyEntities.forEach(hit => {
+    for (const hit of nearbyEntities) {
         hit.applyDamage(2, { damagingEntity: wielder, cause: EntityDamageCause.entityAttack });
-    });
-    let cooldown = system.runInterval(() => {
-        meleeWeaponCooldown.set(wielder.id, meleeWeaponCooldown.get(wielder.id) - 1);
-        if (meleeWeaponCooldown.get(wielder.id) == 0)
+    }
+    const cooldown = system.runInterval(() => {
+        const cooldownTime = meleeWeaponCooldown.get(wielder.id);
+        meleeWeaponCooldown.set(wielder.id, Math.max(cooldownTime - 1, 0));
+        if (cooldownTime === 0) {
             system.clearRun(cooldown);
+        }
     });
-    return;
 }

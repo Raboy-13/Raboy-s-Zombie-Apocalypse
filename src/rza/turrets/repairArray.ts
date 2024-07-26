@@ -1,18 +1,18 @@
-// Import necessary components and types from the Minecraft server module
 import { Entity, EntityComponentTypes, EntityEquippableComponent, EntityHealthComponent, EntityInventoryComponent, EntityTypeFamilyComponent, EquipmentSlot, ItemComponentTypes, ItemDurabilityComponent, Player, system, world } from "@minecraft/server";
-import { calculateDistance, raycast } from "./raycast";
+import { calculateDistance, fixedPosRaycast } from "./raycast";
+
+// Import necessary components and types from the Minecraft server module
 
 // Global object to store cooldown information for repair arrays
-export let repairArrays = {
-    "rza:cooldown": new Map()
-}
+export const repairArrayCooldown = new Map();
 
 // Main function to handle repair mechanics for a given repair array entity
 export function repairArrayMechanics(repairArray: Entity) {
     // Check if the repair array is active and its cooldown is 0
-    if (repairArrays["rza:cooldown"].get(repairArray.id) === 0 && repairArray.getProperty('rza:active') === true) {
+    const cooldown = repairArrayCooldown.get(repairArray.id) || 0;
+    if (cooldown === 0 && repairArray.getProperty('rza:active') === true) {
         // Set the cooldown to 40 ticks (or other time unit)
-        repairArrays["rza:cooldown"].set(repairArray.id, 40);
+        repairArrayCooldown.set(repairArray.id, 40);
         const repairArrayLocation = repairArray.location;
 
         // Get entities within a radius of 1 to 32 units, excluding other repair arrays
@@ -23,67 +23,69 @@ export function repairArrayMechanics(repairArray: Entity) {
         });
 
         // Filter entities that need repair and are of the correct type
-        const repairableEntities = repairables.filter(repairable => {
-            if (!repairable.hasComponent(EntityComponentTypes.Health)) return false;
+        const repairableEntities = new Set<Entity>();
+        const equipmentSlots = [
+            EquipmentSlot.Head,
+            EquipmentSlot.Chest,
+            EquipmentSlot.Legs,
+            EquipmentSlot.Feet,
+            EquipmentSlot.Mainhand,
+            EquipmentSlot.Offhand
+        ];
+
+        repairables.forEach(repairable => {
+            if (!repairable.hasComponent(EntityComponentTypes.Health)) return;
             const healthComponent = repairable.getComponent(EntityComponentTypes.Health) as EntityHealthComponent;
             const currentHealth = healthComponent.currentValue;
             const maxHealth = healthComponent.defaultValue;
 
             if (repairable.typeId === 'minecraft:player') {
                 const player = repairable as Player;
-
-                // Define the equipment slots to check
-                const equipmentSlots = [
-                    EquipmentSlot.Head,
-                    EquipmentSlot.Chest,
-                    EquipmentSlot.Legs,
-                    EquipmentSlot.Feet,
-                    EquipmentSlot.Mainhand,
-                    EquipmentSlot.Offhand
-                ];
-
                 const inventory = (player.getComponent(EntityComponentTypes.Inventory) as EntityInventoryComponent).container;
                 let isAnyEquipmentRepairableInInventory = false;
+
                 for (let i = 0; i < inventory.size; i++) {
                     const item = inventory.getItem(i);
                     const damaged = item?.getComponent(ItemComponentTypes.Durability) as ItemDurabilityComponent;
-                    if (damaged?.damage > 0) isAnyEquipmentRepairableInInventory = true;
+                    if (damaged?.damage > 0) {
+                        isAnyEquipmentRepairableInInventory = true;
+                        break;
+                    }
                 }
 
-                // Helper function to get the durability component of equipment
-                const isEquipmentRepairable = (slot: EquipmentSlot): boolean => {
+                const isAnyEquipmentRepairable = equipmentSlots.some(slot => {
                     const equipment = (player?.getComponent(EntityComponentTypes.Equippable) as EntityEquippableComponent)?.getEquipment(slot);
                     const durabilityComponent = equipment?.getComponent(ItemComponentTypes.Durability) as ItemDurabilityComponent;
                     return durabilityComponent?.damage > 0;
-                };
+                });
 
-                const isAnyEquipmentRepairable = equipmentSlots.some(isEquipmentRepairable);
-                if (isAnyEquipmentRepairable || isAnyEquipmentRepairableInInventory) return true;
+                if (isAnyEquipmentRepairable || isAnyEquipmentRepairableInInventory) {
+                    repairableEntities.add(repairable);
+                }
+            } else {
+                if (currentHealth < maxHealth &&
+                    !repairable.hasTag(`${repairArray.id}_target`) &&
+                    ((repairable.getComponent(EntityComponentTypes.TypeFamily) as EntityTypeFamilyComponent).hasTypeFamily('turret') ||
+                        (repairable.getComponent(EntityComponentTypes.TypeFamily) as EntityTypeFamilyComponent).hasTypeFamily('utility'))) {
+                    repairableEntities.add(repairable);
+                }
             }
-
-            return currentHealth < maxHealth &&
-                !repairable.hasTag(`${repairArray.id}_target`) &&
-                ((repairable.getComponent(EntityComponentTypes.TypeFamily) as EntityTypeFamilyComponent).hasTypeFamily('turret') ||
-                    (repairable.getComponent(EntityComponentTypes.TypeFamily) as EntityTypeFamilyComponent).hasTypeFamily('utility'));
         });
 
-        // Sort the repairable entities by type (players first) and then by their current health in ascending order
-        repairableEntities.sort((a, b) => {
+        // Use a priority queue to select the top 3 entities with the lowest health
+        const maxRepairables = Array.from(repairableEntities).sort((a, b) => {
             if (a.typeId === 'minecraft:player' && b.typeId !== 'minecraft:player') return -1;
             if (a.typeId !== 'minecraft:player' && b.typeId === 'minecraft:player') return 1;
             const healthA = (a.getComponent(EntityComponentTypes.Health) as EntityHealthComponent).currentValue;
             const healthB = (b.getComponent(EntityComponentTypes.Health) as EntityHealthComponent).currentValue;
             return healthA - healthB;
-        });
-
-        // Select the top 3 entities with the lowest health
-        const maxRepairables = repairableEntities.slice(0, 5);
+        }).slice(0, 5);
 
         //This is only for the firing animation and sound to play
         if (maxRepairables.length > 0) {
             repairArray.setProperty('rza:fire', true);
             repairArray.dimension.playSound('turret.repair_array.beam', repairArrayLocation);
-            let delayRemoveFire = system.runTimeout(() => {
+            const delayRemoveFire = system.runTimeout(() => {
                 repairArray.setProperty('rza:fire', false);
                 system.clearRun(delayRemoveFire);
             }, 10);
@@ -92,46 +94,25 @@ export function repairArrayMechanics(repairArray: Entity) {
         // Repair the selected entities
         maxRepairables.forEach(repairable => {
             const dimension = repairable.dimension;
+            const repairableLocation = repairable.location;
 
             // Tag the entity to mark it as being repaired
             repairable.addTag(`${repairArray.id}_target`);
+
             if (repairable.typeId === 'minecraft:player') {
                 const player = repairable as Player;
                 const playerLocation = player.location;
+                const inventory = (player.getComponent(EntityComponentTypes.Inventory) as EntityInventoryComponent).container;
 
-                //FOR DAMAGED ITEMS IN EQUIPMENT SLOTS
-                // Get the player's equipment slots and durability components
-                const equipmentSlots = [
-                    EquipmentSlot.Head,
-                    EquipmentSlot.Chest,
-                    EquipmentSlot.Legs,
-                    EquipmentSlot.Feet,
-                    EquipmentSlot.Mainhand,
-                    EquipmentSlot.Offhand,
-                ];
-
-                // Function to get equipment and durability component
-                const getDurabilityComponent = (slot: EquipmentSlot) => {
+                equipmentSlots.forEach(slot => {
                     const equipment = (player?.getComponent(EntityComponentTypes.Equippable) as EntityEquippableComponent)?.getEquipment(slot);
-                    return {
-                        equipment,
-                        durabilityComponent: equipment?.getComponent(ItemComponentTypes.Durability) as ItemDurabilityComponent
-                    };
-                };
-
-                // Array to hold equipment and durability components
-                const durabilityComponents = equipmentSlots.map(getDurabilityComponent);
-
-                // Repair each piece of equipment if it's damageable and has damage
-                durabilityComponents.forEach((component, index) => {
-                    if (component.durabilityComponent && component.durabilityComponent.damage > 0) {
-                        component.durabilityComponent.damage = Math.max(component.durabilityComponent.damage - 2, 0);
-                        (player?.getComponent(EntityComponentTypes.Equippable) as EntityEquippableComponent).setEquipment(equipmentSlots[index], component.equipment);
+                    const durabilityComponent = equipment?.getComponent(ItemComponentTypes.Durability) as ItemDurabilityComponent;
+                    if (durabilityComponent && durabilityComponent.damage > 0) {
+                        durabilityComponent.damage = Math.max(durabilityComponent.damage - 2, 0);
+                        (player?.getComponent(EntityComponentTypes.Equippable) as EntityEquippableComponent).setEquipment(slot, equipment);
                     }
                 });
 
-                //FOR DAMAGED ITEMS IN THE INVENTORY IN GENERAL
-                const inventory = (player.getComponent(EntityComponentTypes.Inventory) as EntityInventoryComponent).container;
                 for (let i = 0; i < inventory.size; i++) {
                     const item = inventory.getItem(i);
                     const damaged = item?.getComponent(ItemComponentTypes.Durability) as ItemDurabilityComponent;
@@ -141,35 +122,23 @@ export function repairArrayMechanics(repairArray: Entity) {
                     }
                 }
 
-                // Calculate the distance between the repair array and the player
                 const distance = calculateDistance(repairArrayLocation, playerLocation);
-
-                // Set the calculated distance for use in the repair beam raycast
                 world.scoreboard.getObjective('repair_distance').setScore(repairArray, distance);
-                raycast(dimension, {x: repairArrayLocation.x, y: repairArrayLocation.y + 1.5, z: repairArrayLocation.z}, {x: playerLocation.x, y: playerLocation.y + 0.3, z: playerLocation.z}, distance, 'rza:repair_array_beam');
+                fixedPosRaycast(repairArray, dimension, { x: repairArrayLocation.x, y: repairArrayLocation.y + 1.5, z: repairArrayLocation.z }, { x: playerLocation.x, y: playerLocation.y + 0.3, z: playerLocation.z }, distance, 'rza:repair_array_beam');
 
-                // Spawn a particle effect and play repair sound to visualize the repair process
                 player.dimension.spawnParticle('rza:repair_array_repair', playerLocation);
                 player.dimension.playSound('turret.repair_array.repair', playerLocation);
-            }
-
-            else {
+            } else {
                 const healthComponent = repairable.getComponent(EntityComponentTypes.Health) as EntityHealthComponent;
                 const health = healthComponent.currentValue;
-                const maxHealth = healthComponent.defaultValue
-                const repairableLocation = repairable.location;
+                const maxHealth = healthComponent.defaultValue;
 
-                // Calculate the distance between the repair array and the repairable entity
                 const distance = calculateDistance(repairArrayLocation, repairableLocation);
-
-                // Set the calculated distance for use in the repair beam raycast
                 world.scoreboard.getObjective('repair_distance').setScore(repairArray, distance);
-                raycast(dimension, {x: repairArrayLocation.x, y: repairArrayLocation.y + 1.5, z: repairArrayLocation.z}, {x: repairableLocation.x, y: repairableLocation.y + 0.3, z: repairableLocation.z}, distance, 'rza:repair_array_beam');
+                fixedPosRaycast(repairArray, dimension, { x: repairArrayLocation.x, y: repairArrayLocation.y + 1.5, z: repairArrayLocation.z }, { x: repairableLocation.x, y: repairableLocation.y + 0.3, z: repairableLocation.z }, distance, 'rza:repair_array_beam');
 
-                // Increase the health of the repairable entity by 4
                 healthComponent.setCurrentValue(Math.max(health + 4, maxHealth));
 
-                // Spawn a particle effect and play repair sound to visualize the repair process
                 repairable.dimension.spawnParticle('rza:repair_array_repair', repairableLocation);
                 repairable.dimension.playSound('turret.repair_array.repair', repairableLocation);
             }
@@ -177,9 +146,8 @@ export function repairArrayMechanics(repairArray: Entity) {
             // Remove the repair tag from the entity
             repairable.removeTag(`${repairArray.id}_target`);
         });
-    } else if (repairArrays["rza:cooldown"].get(repairArray.id) > 0) {
+    } else if (cooldown > 0) {
         // Decrement the cooldown time if it is greater than 0
-        repairArrays["rza:cooldown"].set(repairArray.id, repairArrays["rza:cooldown"].get(repairArray.id) - 1);
+        repairArrayCooldown.set(repairArray.id, cooldown - 1);
     }
-    return;
 }

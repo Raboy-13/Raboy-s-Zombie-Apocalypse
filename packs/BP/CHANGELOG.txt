@@ -331,10 +331,10 @@ Turret Prioties:
 - Miners: Only targets miners
 - Ferals: Only targets ferals
 
-NEW TURRET: The Storm Weaver - fires a bolt of lightning that bounces off zombies; its detection range is short but each bolt of lightning reaches far and wide!
+NEW TURRET: The Storm Weaver - fires a bolt of lightning that bounces off zombies!
 - Rate of fire: 10 seconds
-- Detection range: is 18 blocks
-- Firing range: 18 blocks
+- Detection range: is 24 blocks
+- Firing range: 24 blocks
 - Hitpoints: 200
 - Configurable
 

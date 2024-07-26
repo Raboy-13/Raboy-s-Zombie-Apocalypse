@@ -24,7 +24,7 @@
 				"per_render_expression": "variable.stuck_time=variable.particle_random_1*4+1;"
 			},
 			"minecraft:particle_lifetime_expression": {
-				"max_lifetime": "math.random(5, 10)"
+				"max_lifetime": "math.random(3, 5)"
 			},
 			"minecraft:particle_initial_spin": {
 				"rotation": "math.random(0,45)"

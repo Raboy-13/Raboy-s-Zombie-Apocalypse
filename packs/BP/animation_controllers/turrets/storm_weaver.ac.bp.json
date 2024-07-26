@@ -1,5 +1,5 @@
 {
-	"format_version": "1.19.0",
+	"format_version": "1.10.0",
 	"animation_controllers": {
 		"controller.animation.storm_weaver.general": {
 			"states": {
@@ -12,8 +12,8 @@
 				},
 				"firing": {
 					"on_entry": [
-						"/#execute as @s[type=rza:storm_weaver_attachment] run world/turrets/storm_weaver/attachment/lightning_attack",
-						"/execute as @s[type=rza:storm_weaver] run function world/turrets/storm_weaver/turret/lightning_attack"
+						"/event entity @s rza:lightning_strike",
+						"/event entity @s rza:start_recoil_recovery"
 					],
 					"transitions": [
 						{

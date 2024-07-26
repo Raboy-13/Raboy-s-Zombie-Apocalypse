@@ -16,7 +16,7 @@
 				"active_time": 5
 			},
 			"minecraft:emitter_shape_point": {
-				"direction": ["math.random_integer(-16,16)", 32, "math.random_integer(-16,16)"]
+				"direction": ["math.random_integer(-8, 8)", 32, "math.random_integer(-8, 8)"]
 			},
 			"minecraft:particle_initialization": {
 				"per_update_expression": "variable.stuck_time=variable.particle_random_1*4+1;",

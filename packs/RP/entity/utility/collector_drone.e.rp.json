@@ -16,15 +16,24 @@
       },
       "animations": {
         "active": "animation.collector_drone.active",
+        "glow": "controller.animation.collector_drone.glow",
         "general": "controller.animation.collector_drone.general"
       },
       "scripts": {
         "initialize": [
           "v.random = math.random_integer(1, 7);"
         ],
+        "pre_animation": [
+          "v.blink = q.property('rza:active') == true ? math.mod(v.random + math.floor(query.life_time*5),7)/7;"
+        ],
         "animate": [
+          "glow",
           "general"
         ]
+      },
+      "particle_effects": {
+        "small_glow": "rza:red_glow_small",
+        "big_glow": "rza:red_glow_large"
       },
       "render_controllers": [
         "controller.render.collector_drone",

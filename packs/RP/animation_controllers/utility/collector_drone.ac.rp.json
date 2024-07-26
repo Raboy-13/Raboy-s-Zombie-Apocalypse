@@ -1,5 +1,5 @@
 {
-	"format_version": "1.19.0",
+	"format_version": "1.10.0",
 	"animation_controllers": {
 		"controller.animation.collector_drone.general": {
 			"states": {
@@ -17,6 +17,50 @@
 					],
 					"blend_transition": 0.4,
 					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.collector_drone.glow": {
+			"states": {
+				"default": {
+					"transitions": [
+						{"small_glow": "v.blink <= 0"},
+						{"big_glow": "v.blink >= 0"}
+					]
+				},
+				"small_glow": {
+					"particle_effects": [
+						{
+							"effect": "small_glow",
+							"locator": "fl_light"
+						},
+						{
+							"effect": "small_glow",
+							"locator": "fr_light"
+						},
+						{
+							"effect": "small_glow",
+							"locator": "rr_light"
+						},
+						{
+							"effect": "small_glow",
+							"locator": "rl_light"
+						}
+					],
+					"transitions": [
+						{"default": "v.blink != 0"}
+					]
+				},
+				"big_glow": {
+					"particle_effects": [
+						{
+							"effect": "big_glow",
+							"locator": "b_light"
+						}
+					],
+					"transitions": [
+						{"default": "v.blink <= 0"}
+					]
 				}
 			}
 		}

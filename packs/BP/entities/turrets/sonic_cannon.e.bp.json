@@ -40,13 +40,23 @@
 			}
 		},
 		"component_groups": {
-			"active": {
+			"rza:recoil_recovery": {
+				"minecraft:timer": {
+					"time": 4,
+					"looping": false,
+					"time_down_event": {
+						"event": "rza:recover",
+						"target": "self"
+					}
+				}
+			},
+			"rza:active": {
 				"minecraft:behavior.random_look_around": {
 					"priority": 4
 				},
 				"minecraft:behavior.ranged_attack": {
 					"priority": 0,
-					"attack_interval": 5,
+					"attack_interval": 1,
 					"attack_radius": 48,
 					"swing": true,
 					"x_max_rotation": 15,
@@ -541,9 +551,15 @@
 					{
 						"add": {
 							"component_groups": [
-								"active",
+								"rza:active",
 								"rza:target_all_zombies"
 							]
+						}
+					},
+					{
+						"trigger": {
+							"event": "rza:start_recoil_recovery",
+							"target": "self"
 						}
 					}
 				]
@@ -558,7 +574,7 @@
 					{
 						"remove": {
 							"component_groups": [
-								"active",
+								"rza:active",
 								"rza:target_all_zombies",
 								"rza:target_all_zombies_prioritize_mutants",
 								"rza:target_walkers",
@@ -574,6 +590,31 @@
 					}
 				]
 			},
+			"rza:start_recoil_recovery": {
+				"remove": {
+					"component_groups": [
+						"rza:active"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"rza:recoil_recovery"
+					]
+				}
+			},
+			"rza:recover": {
+				"remove": {
+					"component_groups": [
+						"rza:recoil_recovery"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"rza:active"
+					]
+				}
+			},
+			"rza:sonic_charge": {},
 			"rza:configure": {},
 			"rza:target_all_zombies": {
 				"sequence": [

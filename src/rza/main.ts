@@ -3,14 +3,15 @@ import "./player/playerSetup";
 import { arrowTurretConfigurator, pulsarSystemConfigurator, pyroChargerConfigurator, sonicCannonConfigurator, stormWeaverConfigurator } from "./turrets/targetConfig";
 import { collectorDroneConfigurator, collectorDroneDie, collectorDroneHopperPairing, collectorDroneOwnerPairing, collectorDroneOwnerRepair, collectorDroneUnload, ownerCollectorDroneCounter, collectorDroneMechanics } from "./drones/collectorDrone/mechanics";
 import { collectorDroneRemote } from "./drones/collectorDrone/remote";
-import { sonicCannonAttachmentHit, sonicCannonHit } from "./turrets/sonicCannon";
-import { stormWeaverhit } from "./turrets/stormWeaver";
+import { sonicCannonHit } from "./turrets/sonicCannon";
+import { stormWeaverLightning, stormWeavers } from "./turrets/stormWeaver";
 import { pyroChargerFireball } from "./turrets/pyroCharger";
 import { activateInactiveElectronReactorCore, activeElectronReactorCore, destroyActiveElectronReactorCore, placeActiveElectronReactorCore } from "./blocks/electronReactorCore";
 import { ferralLeap } from "./zombies/feral";
 import { pulsarSystemMechanics, pulsarSystems } from "./turrets/pulsarSystem";
-import { repairArrays, repairArrayMechanics } from "./turrets/repairArray";
+import { repairArrayMechanics, repairArrayCooldown } from "./turrets/repairArray";
 import { meleeWeaponCooldown, nonPlayerMeleeWeaponAttack, playerMeleeWeaponAttack } from "./weapons/melee";
+import { fixedLenRaycast } from "./turrets/raycast";
 
 let worldAgeOffset = 0;
 
@@ -18,25 +19,11 @@ let worldAgeOffset = 0;
 world.afterEvents.worldInitialize.subscribe(() => {
     const mutatedZombies = world.scoreboard.getObjective('mutated_zombies');
     const maxDrones = world.scoreboard.getObjective('max_drones');
-    const sonicRange = world.scoreboard.getObjective('sonic_range');
-    const lightningChain = world.scoreboard.getObjective('lightning_chain');
-    const lightningBranch = world.scoreboard.getObjective('lightning_branch');
-    const lightningChainLength = world.scoreboard.getObjective('lightning_chain_length');
-    const lightningBranchLength = world.scoreboard.getObjective('lightning_branch_length');
-    const removeChainerTagDelay = world.scoreboard.getObjective('remove_chainer_tag_delay');
-    const repairDistance = world.scoreboard.getObjective('repair_distance');
     const commandBlocksEnabled = world.gameRules.commandBlocksEnabled;
     const commandBlockOutput = world.gameRules.commandBlockOutput;
 
     if (mutatedZombies == undefined) world.scoreboard.addObjective('mutated_zombies').addScore('main', 0);
     if (maxDrones === undefined) world.scoreboard.addObjective('max_drones');
-    if (sonicRange == undefined) world.scoreboard.addObjective('sonic_range');
-    if (lightningChain == undefined) world.scoreboard.addObjective('lightning_chain');
-    if (lightningBranch == undefined) world.scoreboard.addObjective('lightning_branch');
-    if (lightningChainLength == undefined) world.scoreboard.addObjective('lightning_chain_length');
-    if (lightningBranchLength == undefined) world.scoreboard.addObjective('lightning_branch_length');
-    if (removeChainerTagDelay == undefined) world.scoreboard.addObjective('remove_chainer_tag_delay');
-    if (repairDistance == undefined) world.scoreboard.addObjective('repair_distance');
     if (!commandBlocksEnabled) world.getDimension('overworld').runCommand('gamerule commandblocksenabled true');
     if (!commandBlockOutput) world.getDimension('overworld').runCommand('gamerule commandblockoutput false');
 });
@@ -96,9 +83,10 @@ world.afterEvents.itemUse.subscribe((data) => {
 //General entity spawn event listener
 world.afterEvents.entitySpawn.subscribe((data) => {
     const entity = data.entity;
-    const entityId = entity.typeId;
+    const entityType = entity.typeId;
+    const entityId = entity.id;
     //Collector Drone and player owner pairing
-    if (entity.typeId === 'rza:collector_drone') {
+    if (entityType === 'rza:collector_drone') {
         const drone = entity;
         const playerOwner = drone.dimension.getPlayers({ closest: 1, location: drone.location })[0];
         let run = system.run(() => {
@@ -108,7 +96,7 @@ world.afterEvents.entitySpawn.subscribe((data) => {
     }
 
     //Player and hopper pairing for drone delivery
-    if (entity.typeId === 'minecraft:hopper_minecart') {
+    if (entityType === 'minecraft:hopper_minecart') {
         const hopper = entity;
         const playerOwner = hopper.dimension.getPlayers({ closest: 1, location: hopper.location })[0];
         let run = system.run(() => {
@@ -118,7 +106,7 @@ world.afterEvents.entitySpawn.subscribe((data) => {
     }
 
     //Electron core activator for storm weaver turret
-    if (entity?.typeId === 'minecraft:lightning_bolt') {
+    if (entityType === 'minecraft:lightning_bolt') {
         const blockHit = entity.dimension.getBlock(entity.location);
 
         if (blockHit.permutation?.matches('minecraft:lightning_rod')) {
@@ -129,29 +117,36 @@ world.afterEvents.entitySpawn.subscribe((data) => {
         }
     }
 
+    //Storm Weaver lightning strike
+    if (entityType === 'rza:storm_weaver') {
+        //Randomize cooldown time
+        stormWeavers["rza:chain_length"].set(entityId, 10);
+    }
+
     //Pulsar System mechanics mapper
-    if (entity?.typeId === 'rza:pulsar_system') {
-        pulsarSystems["rza:cooldown"].set(entity.id, 600);
-        pulsarSystems["rza:fire_time"].set(entity.id, 0);
-        pulsarSystems["rza:pulse_radius_offset"].set(entity.id, 0);
+    if (entityType === 'rza:pulsar_system') {
+        pulsarSystems["rza:cooldown"].set(entityId, 600);
+        pulsarSystems["rza:fire_time"].set(entityId, 0);
+        pulsarSystems["rza:pulse_radius_offset"].set(entityId, 0);
     }
 
     //Repair Array random cooldown times (max=40 ticks)
-    if (entity?.typeId === 'rza:repair_array') {
+    if (entityType === 'rza:repair_array') {
         //Randomize cooldown time
-        repairArrays["rza:cooldown"].set(entity.id, Math.floor(Math.random() * (40 - 0 + 1)) + 0);
+        repairArrayCooldown.set(entityId, Math.floor(Math.random() * (40 - 0 + 1)) + 0);
     }
 
     //Entities wielding axes and swords
-    if (entityId == 'minecraft:pillager' || entityId == 'minecraft:vindicator') {
-        if (!meleeWeaponCooldown.has(entity.id)) meleeWeaponCooldown.set(entity.id, 0);
+    if (entityType == 'minecraft:pillager' || entityType == 'minecraft:vindicator') {
+        if (!meleeWeaponCooldown.has(entityId)) meleeWeaponCooldown.set(entityId, 0);
     }
 });
 
 //General entity Load listener
 world.afterEvents.entityLoad.subscribe((data) => {
     const entity = data.entity;
-    const entityId = entity.typeId;
+    const entityType = entity.typeId;
+    const entityId = entity.id;
 
     //Re-pair drone and owner on world reload
     if (entity?.typeId === 'rza:collector_drone') {
@@ -162,23 +157,29 @@ world.afterEvents.entityLoad.subscribe((data) => {
         }, 60);
     }
 
-    //Pulsar System mechanics mapper
-    if (entity?.typeId === 'rza:pulsar_system') {
+    //Storm Weaver lightning strike
+    if (entityType === 'rza:storm_weaver') {
         //Randomize cooldown time
-        pulsarSystems["rza:cooldown"].set(entity.id, Math.floor(Math.random() * (600 - 100 + 1)) + 100);
-        pulsarSystems["rza:fire_time"].set(entity.id, 0);
-        pulsarSystems["rza:pulse_radius_offset"].set(entity.id, 0);
+        stormWeavers["rza:chain_length"].set(entityId, 10);
+    }
+
+    //Pulsar System mechanics mapper
+    if (entityType === 'rza:pulsar_system') {
+        //Randomize cooldown time
+        pulsarSystems["rza:cooldown"].set(entityId, Math.floor(Math.random() * (600 - 100 + 1)) + 100);
+        pulsarSystems["rza:fire_time"].set(entityId, 0);
+        pulsarSystems["rza:pulse_radius_offset"].set(entityId, 0);
     }
 
     //Repair Array random cooldown times (max=40 ticks)
-    if (entity?.typeId === 'rza:repair_array') {
+    if (entityType === 'rza:repair_array') {
         //Randomize cooldown time
-        repairArrays["rza:cooldown"].set(entity.id, Math.floor(Math.random() * (40 - 0 + 1)) + 0);
+        repairArrayCooldown.set(entityId, Math.floor(Math.random() * (40 - 0 + 1)) + 0);
     }
 
     //Entities wielding axes and swords
-    if (entityId == 'minecraft:pillager' || entityId == 'minecraft:vindicator') {
-        if (!meleeWeaponCooldown.has(entity.id)) meleeWeaponCooldown.set(entity.id, 0);
+    if (entityType == 'minecraft:pillager' || entityType == 'minecraft:vindicator') {
+        if (!meleeWeaponCooldown.has(entityId)) meleeWeaponCooldown.set(entityId, 0);
     }
 });
 
@@ -193,6 +194,20 @@ world.afterEvents.entityRemove.subscribe((data) => {
             system.clearRun(run);
         });
     }
+    //Storm Weaver lightning strike
+    if (stormWeavers["rza:chain_length"].has(entityId)) stormWeavers["rza:chain_length"].set(entityId, 10);
+
+    //Pulsar System
+    if (pulsarSystems["rza:cooldown"].has(entityId)) pulsarSystems["rza:cooldown"].delete(entityId);
+    if (pulsarSystems["rza:fire_time"].has(entityId)) pulsarSystems["rza:fire_time"].delete(entityId);
+    if (pulsarSystems["rza:pulse_radius_offset"].has(entityId)) pulsarSystems["rza:pulse_radius_offset"].delete(entityId);
+
+
+    //Repair Array
+    if (repairArrayCooldown.has(entityId)) repairArrayCooldown.delete(entityId);
+
+    //Entities wielding axes and swords
+    if (entityId == 'minecraft:pillager' || entityId == 'minecraft:vindicator') meleeWeaponCooldown.delete(entityId);
 });
 
 //General Entity Die Event Listener
@@ -208,36 +223,29 @@ world.afterEvents.entityDie.subscribe((data) => {
             system.clearRun(run);
         });
     }
-}, { entityTypes: ['rza:collector_drone'] });
+});
 
 //General Entity Hurt Listener (Non-melee attacks)
 world.afterEvents.entityHurt.subscribe((data) => {
     const entity = data.hurtEntity;
     const source = data.damageSource.damagingEntity;
+    const sourceId = source?.typeId;
     const isZombie = entity.hasComponent(EntityComponentTypes.TypeFamily) && (entity.getComponent(EntityComponentTypes.TypeFamily) as EntityTypeFamilyComponent).hasTypeFamily('zombie');
 
     //From sonic cannon
-    if (source?.typeId === 'rza:sonic_cannon' && isZombie) {
+    if (sourceId === 'rza:sonic_cannon' && isZombie) {
         let run = system.run(() => {
             sonicCannonHit(entity, source);
             system.clearRun(run);
         });
     }
 
-    //From sonic cannon attachment
-    if (source?.typeId === 'rza:sonic_cannon_attachment' && isZombie) {
-        let run = system.run(() => {
-            sonicCannonAttachmentHit(entity, source);
-            system.clearRun(run);
-        });
-    }
-
     //From storm weaver
-    if (source?.typeId === 'rza:storm_weaver' && isZombie) {
-        let run = system.run(() => {
-            stormWeaverhit(entity, source);
+    if (sourceId === 'rza:storm_weaver' && isZombie) {
+        let run = system.runTimeout(() => {
+            stormWeaverLightning(entity, source);
             system.clearRun(run);
-        });
+        }, 3);
     }
 });
 
@@ -257,12 +265,10 @@ world.afterEvents.entityHitEntity.subscribe((data) => {
         if (isPlayer && cooldown == 0) {
             const weapon = (source.getComponent(EntityComponentTypes.Equippable) as EntityEquippableComponent).getEquipment(EquipmentSlot.Mainhand);
 
-            if ((weapon?.typeId.endsWith('axe') || weapon?.typeId.endsWith('sword'))) {
-                let run = system.run(() => {
-                    playerMeleeWeaponAttack(entity, source);
-                    system.clearRun(run);
-                });
-            }
+            let run = system.run(() => {
+                playerMeleeWeaponAttack(entity, source, weapon);
+                system.clearRun(run);
+            });
         }
         else if (isNonPlayer && cooldown == 0) {
             let run = system.run(() => {
@@ -282,6 +288,32 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
     if (event === 'rza:leap') {
         let run = system.run(() => {
             ferralLeap(entity);
+            system.clearRun(run);
+        });
+    }
+
+    //Sonic Cannon Sonic Charge
+    if (event === 'rza:sonic_charge') {
+        let run = system.run(() => {
+            const dimension = entity.dimension;
+            const location = entity.location;
+            const direction = entity.getViewDirection();
+            const startOffset = 1.5;
+            fixedLenRaycast(entity, dimension, { x: location.x + direction.x * startOffset, y: location.y + 0.55 + direction.y * startOffset, z: location.z + direction.z * startOffset }, direction, 48, 'rza:sonic_charge');
+            system.clearRun(run);
+        });
+    }
+
+    //Storm Weaver Lightning Strike
+    if (event === 'rza:lightning_strike') {
+        let run = system.run(() => {
+            const id = entity.id;
+            const dimension = entity.dimension;
+            const location = entity.location;
+            const direction = entity.getViewDirection();
+            const startOffset = 1.5;
+            stormWeavers["rza:chain_length"].set(id, 16);
+            fixedLenRaycast(entity, dimension, { x: location.x + direction.x * startOffset, y: location.y + 0.55 + direction.y * startOffset, z: location.z + direction.z * startOffset }, direction, 32, 'rza:lightning');
             system.clearRun(run);
         });
     }
@@ -344,7 +376,7 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
             });
         }
     }
-}, { eventTypes: ['rza:configure', 'rza:leap'] });
+}, { eventTypes: ['rza:configure', 'rza:leap', 'rza:sonic_charge', 'rza:lightning_strike'] });
 
 //Main Tick
 system.runTimeout(() => {

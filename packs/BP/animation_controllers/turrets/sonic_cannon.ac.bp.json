@@ -1,5 +1,5 @@
 {
-	"format_version": "1.19.0",
+	"format_version": "1.10.0",
 	"animation_controllers": {
 		"controller.animation.sonic_cannon.general": {
 			"states": {
@@ -12,8 +12,8 @@
 				},
 				"firing": {
 					"on_entry": [
-						"/execute as @s[type=rza:sonic_cannon_attachment] run function world/turrets/sonic_cannon/attachment/sonicboom",
-						"/execute as @s[type=rza:sonic_cannon] run function world/turrets/sonic_cannon/turret/sonicboom"
+						"/event entity @s rza:sonic_charge",
+						"/event entity @s rza:start_recoil_recovery"
 					],
 					"transitions": [
 						{

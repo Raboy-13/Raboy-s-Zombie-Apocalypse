@@ -19,7 +19,7 @@ export function ownerCollectorDroneCounter(player: Player) {
         });
     }
     else if (world.scoreboard.getObjective('max_drones').getScore(player.id) == 3) {
-        player.sendMessage('[RZA] There can only be a maximum of §23§r drones for each player.');
+        player.sendMessage('[SYSTEM] There can only be a maximum of §23§r drones for each player.');
         player.dimension.getEntities({ type: 'rza:collector_drone', closest: 1, location: player.location })[0].kill()
         player.dimension.spawnItem(new ItemStack('rza:collector_drone_item', 1), player.location);
     }

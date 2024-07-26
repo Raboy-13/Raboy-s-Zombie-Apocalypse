@@ -102,7 +102,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						}
 					]
 				}
@@ -150,7 +150,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						},
 						{
 							"priority": 1,
@@ -187,7 +187,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						}
 					]
 				}
@@ -221,7 +221,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						}
 					]
 				}
@@ -263,7 +263,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						},
 						{
 							"priority": 1,
@@ -294,7 +294,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						}
 					]
 				}
@@ -328,7 +328,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						}
 					]
 				}
@@ -370,7 +370,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						},
 						{
 							"priority": 1,
@@ -401,7 +401,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						}
 					]
 				}
@@ -435,7 +435,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						}
 					]
 				}
@@ -477,7 +477,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						},
 						{
 							"priority": 1,
@@ -508,7 +508,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						}
 					]
 				}
@@ -542,7 +542,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						}
 					]
 				}
@@ -584,7 +584,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						},
 						{
 							"priority": 1,
@@ -615,7 +615,7 @@
 									}
 								]
 							},
-							"max_dist": 18
+							"max_dist": 24
 						}
 					]
 				}
@@ -680,6 +680,7 @@
 					}
 				]
 			},
+			"rza:lightning_strike": {},
 			"rza:configure": {},
 			"rza:target_all_zombies": {
 				"sequence": [
