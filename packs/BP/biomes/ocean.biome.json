@@ -1,5 +1,5 @@
 {
-	"format_version": "1.13.0",
+	"format_version": "1.20.60",
 	"minecraft:biome": {
 		"description": {
 			"identifier": "ocean"
@@ -40,21 +40,24 @@
 					],
 					[
 						"warm",
-						0
+						1
 					],
 					[
 						"cold",
-						0
+						1
 					]
 				]
 			},
-			"animal": {},
-			"monster": {},
-			"overworld": {},
-			"overworld_generation": {},
-			"plains": {},
-			"forest": {},
-			"bee_habitat": {}
+			"minecraft:tags": {
+				"tags": [
+					"animal",
+					"monster",
+					"overworld",
+					"overworld_generation",
+					"plains",
+					"bee_habitat"
+				]
+			}
 		}
 	}
 }

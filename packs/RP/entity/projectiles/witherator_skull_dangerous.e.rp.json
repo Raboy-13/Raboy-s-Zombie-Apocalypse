@@ -1,0 +1,39 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "rza:witherator_skull_dangerous",
+      "materials": {
+        "default": "wither_skull"
+      },
+      "textures": {
+        "default": "textures/entity/wither_boss/wither_invulnerable"
+      },
+      "geometry": {
+        "default": "geometry.witherator_skull"
+      },
+      "animations": {
+        "trail": "animation.witherator_skull.trail",
+        "move": "animation.wither_skull.move",
+        "rotate": "animation.projectile.rotate"
+      },
+      "scripts": {
+        "pre_animation": [
+          "v.x_rot = q.property('ptd:rotation_x');",
+          "v.y_rot = q.property('ptd:rotation_y');"
+        ],
+        "animate": [
+          "rotate",
+          "move",
+          "trail"
+        ]
+      },
+      "particle_effects": {
+        "trail": "rza:witherator_trail"
+      },
+      "render_controllers": [
+        "controller.render.wither_skull"
+      ]
+    }
+  }
+}

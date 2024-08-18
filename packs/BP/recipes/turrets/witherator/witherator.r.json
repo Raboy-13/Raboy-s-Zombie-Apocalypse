@@ -1,0 +1,28 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:witherator"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"W": {
+				"item": "rza:wither_core"
+			},
+			"S": {
+				"item": "skull:1"
+			}
+		},
+		"pattern": [
+			"SSS",
+			"SWS",
+			"SSS"
+		],
+		"result": {
+			"item": "rza:witherator_item",
+			"count": 1
+		}
+	}
+}

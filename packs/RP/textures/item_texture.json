@@ -41,6 +41,12 @@
 		"rza_repair_array": {
 			"textures": "textures/items/turrets/repair_array/repair_array"
 		},
+		"rza_wither_core": {
+			"textures": "textures/items/turrets/witherator/wither_core"
+		},
+		"rza_witherator": {
+			"textures": "textures/items/turrets/witherator/witherator"
+		},
 		"rza_turret_base": {
 			"textures": "textures/items/turret_base"
 		},

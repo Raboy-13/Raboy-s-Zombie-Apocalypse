@@ -1,0 +1,35 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "rza:witherator",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/turrets/witherator/witherator"
+			},
+			"geometry": {
+				"default": "geometry.witherator"
+			},
+			"animations": {
+				"scale": "animation.witherator.scale",
+				"fire": "animation.witherator.fire",
+				"general": "controller.animation.witherator.general"
+			},
+			"scripts": {
+				"animate": [
+					"scale",
+					"general"
+				]
+			},
+			"particle_effects": {
+				"shoot_exhaust": "rza:witherator_exhaust",
+				"post_exhaust": "rza:witherator_post_exhaust"
+			},
+			"render_controllers": [
+				"controller.render.witherator"
+			]
+		}
+	}
+}

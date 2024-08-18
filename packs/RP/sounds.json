@@ -286,6 +286,17 @@
 				],
 				"volume": 1
 			},
+			"rza:witherator": {
+				"events": {
+					"hurt": "mob.irongolem.crack",
+					"death": "mob.irongolem.crack"
+				},
+				"pitch": [
+					0.8,
+					1
+				],
+				"volume": 1
+			},
 			"rza:collector_drone": {
 				"events": {
 					"hurt": "use.chain",

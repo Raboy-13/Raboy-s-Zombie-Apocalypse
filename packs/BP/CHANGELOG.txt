@@ -345,6 +345,13 @@ NEW TURRET: The Pulsar System - a turret that emits a strong radial pulse that g
 - converts items within the pulse radius except for all netherite items and the following rare items: Totem of Undying, Golden Apple, Golden Carrot, Enchanted Apple, Nether Star and the Beacon
 - Configurable
 
+NEW TURRET: The Witherator - Fires 8 homing wither skulls that target nearby zombies.
+- Rate of Fire: 5 seconds
+- Detection Range: 48 blocks
+- Firing Range: 96 blocks
+- Hitpoints: 200
+- Configurable
+
 NEW TURRET: The Repair Array - repairs nearby turrets, damaged player equipment and drones. Can also repair turrets of the same type but not itself.
 - Rate of Fire: 2 seconds
 - Detection Range: 32 blocks
@@ -359,7 +366,7 @@ Other Turret Changes:
 - zombies now get pushed back by the sonic blast of the sonic cannon
 - reduced sonic cannon firing rate
 - slightly reduced sonic cannon damage
-- improved pyro charger flamethrower physics and particles
+- improved pyro charger particle physics
 - pyro charger now only burns zombies
 
 *Utility

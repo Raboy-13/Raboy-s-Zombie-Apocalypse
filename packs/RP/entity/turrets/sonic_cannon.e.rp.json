@@ -30,7 +30,7 @@
 			"particle_effects": {
 				"charge": "rza:charge",
 				"sonic_charge": "rza:sonic_charge",
-				"exhaust": "rza:exhaust",
+				"exhaust": "rza:sonic_cannon_exhaust",
 				"exhaust_front": "rza:exhaust_front"
 			},
 			"sound_effects": {

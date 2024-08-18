@@ -1,5 +1,5 @@
 {
-	"format_version": "1.13.0",
+	"format_version": "1.20.60",
 	"minecraft:biome": {
 		"description": {
 			"identifier": "plains"
@@ -49,15 +49,16 @@
 					]
 				]
 			},
-			"animal": {},
-			"monster": {},
-			"overworld": {},
-			"overworld_generation": {},
-			"plains": {},
-			"forest": {},
-			"forest_generation": {},
-			"bee_habitat": {},
-			"pillager_settlement": {}
+			"minecraft:tags": {
+				"tags": [
+					"animal",
+					"monster",
+					"overworld",
+					"overworld_generation",
+					"plains",
+					"bee_habitat"
+				]
+			}
 		}
 	}
 }

@@ -1,0 +1,27 @@
+{
+	"format_version": "1.20.70",
+	"minecraft:item": {
+		"description": {
+			"identifier": "rza:witherator_item",
+			"menu_category": {
+				"category": "items"
+			}
+		},
+		"components": {
+			"minecraft:icon": {
+				"textures": {
+					"default": "rza_witherator"
+				}
+			},
+			"minecraft:entity_placer": {
+				"dispense_on": [
+					"dispenser"
+				],
+				"entity": "rza:witherator"
+			},
+			"minecraft:max_stack_size": {
+				"value": 16
+			}
+		}
+	}
+}

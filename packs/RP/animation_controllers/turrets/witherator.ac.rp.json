@@ -1,0 +1,20 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.witherator.general": {
+			"states": {
+				"default": {
+					"transitions": [
+						{"firing": "q.property('rza:fire') == true"}
+					]
+				},
+				"firing": {
+					"animations": ["fire"],
+					"transitions": [
+						{"default": "q.all_animations_finished"}
+					]
+				}
+			}
+		}
+	}
+}

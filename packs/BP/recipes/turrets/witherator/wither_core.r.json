@@ -1,0 +1,31 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "rza:wither_core"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"C": {
+				"item": "comparator"
+			},
+			"R": {
+				"item": "repeater"
+			},
+			"O": {
+				"item": "observer"
+			}
+		},
+		"pattern": [
+			"CRC",
+			"ROR",
+			"CRC"
+		],
+		"result": {
+			"item": "rza:wither_core",
+			"count": 1
+		}
+	}
+}

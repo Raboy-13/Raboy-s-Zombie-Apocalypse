@@ -1,6 +1,6 @@
 import { EntityComponentTypes, EquipmentSlot, system, world } from "@minecraft/server";
 import "./player/playerSetup";
-import { arrowTurretConfigurator, pulsarSystemConfigurator, pyroChargerConfigurator, sonicCannonConfigurator, stormWeaverConfigurator } from "./turrets/targetConfig";
+import { pulsarSystemConfigurator, turretConfigurator } from "./turrets/targetConfig";
 import { collectorDroneConfigurator, collectorDroneDie, collectorDroneHopperPairing, collectorDroneOwnerPairing, collectorDroneOwnerRepair, collectorDroneUnload, ownerCollectorDroneCounter, collectorDroneMechanics } from "./drones/collectorDrone/mechanics";
 import { collectorDroneRemote } from "./drones/collectorDrone/remote";
 import { sonicCannonHit } from "./turrets/sonicCannon";
@@ -12,6 +12,8 @@ import { pulsarSystemMechanics, pulsarSystems } from "./turrets/pulsarSystem";
 import { repairArrayMechanics, repairArrayCooldown } from "./turrets/repairArray";
 import { meleeWeaponCooldown, nonPlayerMeleeWeaponAttack, playerMeleeWeaponAttack } from "./weapons/melee";
 import { fixedLenRaycast } from "./turrets/raycast";
+import { witheratorMechanics, witheratorSkullHit } from "./turrets/witherator";
+import { setEntityToCardinalDirection } from "./other/entityCardinalFacing";
 let worldAgeOffset = 0;
 world.afterEvents.worldInitialize.subscribe(() => {
     const mutatedZombies = world.scoreboard.getObjective('mutated_zombies');
@@ -110,6 +112,8 @@ world.afterEvents.entitySpawn.subscribe((data) => {
         if (!meleeWeaponCooldown.has(entityId))
             meleeWeaponCooldown.set(entityId, 0);
     }
+    if (entityType === 'rza:witherator')
+        setEntityToCardinalDirection(entity);
 });
 world.afterEvents.entityLoad.subscribe((data) => {
     const entity = data.entity;
@@ -162,14 +166,17 @@ world.afterEvents.entityRemove.subscribe((data) => {
 });
 world.afterEvents.entityDie.subscribe((data) => {
     const entity = data.deadEntity;
-    if (entity?.matches({ type: 'rza:collector_drone' })) {
-        const drone = entity;
-        const playerOwner = drone.dimension.getPlayers({ closest: 1, location: drone.location, tags: [`${drone.id}_owner`] })[0];
-        let run = system.run(() => {
-            collectorDroneDie(drone, playerOwner);
-            system.clearRun(run);
-        });
+    try {
+        if (entity?.matches({ type: 'rza:collector_drone' })) {
+            const drone = entity;
+            const playerOwner = drone.dimension.getPlayers({ closest: 1, location: drone.location, tags: [`${drone.id}_owner`] })[0];
+            let run = system.run(() => {
+                collectorDroneDie(drone, playerOwner);
+                system.clearRun(run);
+            });
+        }
     }
+    catch (error) { }
 });
 world.afterEvents.entityHurt.subscribe((data) => {
     const entity = data.hurtEntity;
@@ -244,37 +251,58 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
             system.clearRun(run);
         });
     }
+    if (event === 'rza:explode') {
+        let run = system.run(() => {
+            const id = entity.id;
+            stormWeavers["rza:chain_length"].set(id, 16);
+            witheratorSkullHit(entity, id);
+            system.clearRun(run);
+        });
+    }
     if (event === 'rza:configure') {
         const isTurret = entity.hasComponent(EntityComponentTypes.TypeFamily) && entity.getComponent(EntityComponentTypes.TypeFamily).hasTypeFamily('turret');
         if (isTurret) {
-            let turret = entity;
+            const turret = entity;
+            const turretType = turret.typeId;
+            let turretName;
             const configurator = turret.dimension.getPlayers({ closest: 1, location: turret.location });
             let player = configurator[0];
-            if (turret?.typeId === 'rza:arrow_turret') {
+            if (turretType === 'rza:arrow_turret') {
                 let confArrowTurret = system.run(() => {
-                    arrowTurretConfigurator(player, turret);
+                    turretName = '§2Arrow Turret§r';
+                    turretConfigurator(player, turret, turretName);
                     system.clearRun(confArrowTurret);
                 });
             }
-            if (turret?.typeId === 'rza:pyro_charger') {
+            if (turretType === 'rza:pyro_charger') {
                 let confPyroCharger = system.run(() => {
-                    pyroChargerConfigurator(player, turret);
+                    turretName = '§6Pyro Charger§r';
+                    turretConfigurator(player, turret, turretName);
                     system.clearRun(confPyroCharger);
                 });
             }
-            if (turret?.typeId === 'rza:sonic_cannon') {
+            if (turretType === 'rza:sonic_cannon') {
                 let confSonicCannon = system.run(() => {
-                    sonicCannonConfigurator(player, turret);
+                    turretName = '§5Sonic Cannon§r';
+                    turretConfigurator(player, turret, turretName);
                     system.clearRun(confSonicCannon);
                 });
             }
-            if (turret?.typeId === 'rza:storm_weaver') {
+            if (turretType === 'rza:storm_weaver') {
                 let confStormWeaver = system.run(() => {
-                    stormWeaverConfigurator(player, turret);
+                    turretName = '§cStorm Weaver§r';
+                    turretConfigurator(player, turret, turretName);
                     system.clearRun(confStormWeaver);
                 });
             }
-            if (turret?.typeId === 'rza:pulsar_system') {
+            if (turretType === 'rza:witherator') {
+                let confWitherator = system.run(() => {
+                    turretName = '§6Witherator§r';
+                    turretConfigurator(player, turret, turretName);
+                    system.clearRun(confWitherator);
+                });
+            }
+            if (turretType === 'rza:pulsar_system') {
                 let confPulsarSystem = system.run(() => {
                     pulsarSystemConfigurator(player, turret);
                     system.clearRun(confPulsarSystem);
@@ -288,7 +316,7 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
             });
         }
     }
-}, { eventTypes: ['rza:configure', 'rza:leap', 'rza:sonic_charge', 'rza:lightning_strike'] });
+}, { eventTypes: ['rza:configure', 'rza:leap', 'rza:sonic_charge', 'rza:lightning_strike', 'rza:explode'] });
 system.runTimeout(() => {
     system.runInterval(() => {
         let worldAge = world.getDay();
@@ -347,6 +375,12 @@ function mainEntityFeatures(entity) {
     if (entity.typeId == 'rza:repair_array') {
         let run = system.run(() => {
             repairArrayMechanics(entity);
+            system.clearRun(run);
+        });
+    }
+    if (entity.typeId == 'rza:witherator') {
+        let run = system.run(() => {
+            witheratorMechanics(entity);
             system.clearRun(run);
         });
     }

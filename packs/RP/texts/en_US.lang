@@ -39,6 +39,7 @@ entity.rza:sonic_cannon.name=§5Sonic Cannon§r
 entity.rza:storm_weaver.name=§cStorm Weaver§r
 entity.rza:pulsar_system.name=§cPulsar System§r
 entity.rza:repair_array.name=§6Repair Array§r
+entity.rza:witherator.name=§6Witherator§r
 
 ##Turret Attachmanets
 entity.rza:sonic_cannon_attachment.name=§5Sonic Cannon Attachment§r
@@ -52,6 +53,8 @@ entity.rza:spitter_acid_normal.name=Normal Spitter Acid
 entity.rza:spitter_acid_mutated.name=Mutated Spitter Acid
 entity.rza:spitter_acid_puddle_normal.name=Normal Spitter Acid Puddle
 entity.rza:spitter_acid_puddle_mutated.name=Mutated Spitter Acid Puddle
+entity.rza:entity.witherator_skull.name=Witherator Skull
+entity.rza:entity.witherator_skull_dangerous.name=Dangerous Witherator Skull
 
 ##Items
 item.rza:collector_drone_item=Collector Drone
@@ -74,6 +77,8 @@ item.rza:emerald_rod=Emerald Rod
 item.rza:emerald_controller=Emerald Controller
 item.rza:energy_director=Energy Director
 item.rza:repair_array_item=§6Repair Array§r
+item.rza:wither_core=Wither Core
+item.rza:witherator_item=§6Witherator§r
 
 ##Blocks
 tile.rza:turret_base.name=Turret Base

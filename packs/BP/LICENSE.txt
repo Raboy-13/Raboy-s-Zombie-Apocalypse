@@ -1,6 +1,6 @@
 Copyright [2024] [Raboy13]
 
-This resource pack was created by non other than Raboy13 and all rights are reserved. The following terms of use apply to the addon:
+This add-on was created by non other than Raboy13 and all rights are reserved. The following terms of use apply to the addon:
 
 1. You may not modify the files and upload them publicly. Modifications are only permitted for personal use. You are responsible for any leaks that may occur.
 2. You may not re-upload the addon on external pages without my authorization. This includes addon or mod pages, marketplaces, MINECRAFT CHINA, and other related sites. Publishing the direct download link is considered re-uploading the addon.

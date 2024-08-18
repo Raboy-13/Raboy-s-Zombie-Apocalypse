@@ -11,7 +11,10 @@ export function ferralLeap(entity) {
         const target = entity.entity;
         const excludedEntity = target.hasComponent(EntityComponentTypes.TypeFamily) && target.getComponent(EntityComponentTypes.TypeFamily).getTypeFamilies().some(family => family == 'zombie' || family == 'turret' || family == 'inanimate');
         if (!excludedEntity) {
-            target.applyKnockback(direction.x, direction.z, 4, 1);
+            try {
+                target.applyKnockback(direction.x, direction.z, 4, 1);
+            }
+            catch (error) { }
         }
     }
     feral.applyImpulse({

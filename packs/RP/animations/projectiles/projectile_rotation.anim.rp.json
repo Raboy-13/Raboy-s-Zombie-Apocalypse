@@ -1,0 +1,13 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.projectile.rotate": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": ["v.x_rot", "v.y_rot", 0]
+				}
+			}
+		}
+	}
+}
