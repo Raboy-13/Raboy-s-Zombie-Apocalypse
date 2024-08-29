@@ -4,7 +4,7 @@
 		"description": {
 			"identifier": "rza:left_shoulder_blood",
 			"basic_render_parameters": {
-				"material": "particles_alpha",
+				"material": "particles_blend",
 				"texture": "textures/particle/zombies/blood"
 			}
 		},

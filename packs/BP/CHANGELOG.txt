@@ -301,7 +301,7 @@
 - supercharged Iron Golems can now have turret attachments on their shoulders that fire independently
 
 *Zombies
-NEW ZOMBIE BEHAVIORS: Mutated Zombies - existing and new zombie types now have a chance to have a unique mutation on the 30th day. Mutated zombies also drop more XP than regular ones and have a distinguishable red glowing eyes!
+NEW ZOMBIE BEHAVIORS: Mutated Zombies - existing and new zombie types now have a chance to have a unique mutation on the 60th day. Mutated zombies also drop more XP than regular ones and have a distinguishable red glowing eyes!
 - ferals now don't break blocks
 - reduced feral detection range from 128 blocks to 96 blocks
 - improved feral behavior: ferals now doesn't switch between turrets and other attackables (players, villagers and illagers) as targets every tick
@@ -318,6 +318,31 @@ NEW ZOMBIE BEHAVIORS: Mutated Zombies - existing and new zombie types now have a
 - acid projectiles that directly hit the player gives them nausea for 3 seconds
 - normal spitters have 10 hitpoints, movement speed the same as a normal miner, have a maximum firing range of 12 blocks and their acid puddle effect radius is 3 blocks, damage per tick is 2 and inflicts poison I effect to entities that are not zombies
 - mutated spitters have 20 hitpoints, movement speed the same as a mutated walker, have a maximum firing range of 24 blocks and their acid puddle effect radius is 5 blocks, damage per tick is 4 and inflicts poison II effect to entities that are not zombies
+
+- NEW ZOMBIE: The Alpha - a giant zombie that applies buff to nearby zombies, but not its own kind. Actively avoids players until it reaches half of its health
+- starts spawning on Day 70
+- Attack Type: Melee
+- Mutation:
+-  Normal: 
+-  HP: 100
+-  Speed: 0.25
+-  Damage: 8
+-  Zombie Buff Application Radius: 8 blocks
+-  Zombie Buffs: 
+-   Resistance 1 - Duration: 1 minute
+-   Regeneration 1 - Duration: 1 minute
+-   Strength 1 - Duration: 1 minute
+- Mutated: 
+-  HP: 160
+-  Speed: 0.25 multiplied by 1.7 when it has a target (70% faster)
+-  Damage: 12
+-  Zombie Buff Application Radius: 8 blocks
+-  Zombie Buffs: 
+-   Resistance 2 - Duration: 2 minutes
+-   Regeneration 2 - Duration: 2 minutes
+-   Strength 1 - Duration: 2 minutes
+-   Mutates zombies within its radius except its own kind
+- Drops: Drops a golden apple and a chance to drop a notch
 
 *Turrets
 NEW TURRET FEATURE: Turrets are now configurable to what zombie type they should prioritize targeting!
@@ -350,6 +375,15 @@ NEW TURRET: The Witherator - Fires 8 homing wither skulls that target nearby zom
 - Detection Range: 48 blocks
 - Firing Range: 96 blocks
 - Hitpoints: 200
+- Chance to fire a Dangerous Skull: 28%
+- Normal Skull Explosion Radius: 2
+- Normal Skull Damage: 6
+- Normal Skull Wither Effect Duration: 3 seconds
+- Normal Skull Wither Effect Amplifier: 1
+- Dangerous Skull Explosion Radius: 4
+- Dangerous Skull Damage: 9
+- Dangerous Skull Wither Effect Duration: 4 seconds
+- Dangerous Skull Wither Effect Amplifier: 2
 - Configurable
 
 NEW TURRET: The Repair Array - repairs nearby turrets, damaged player equipment and drones. Can also repair turrets of the same type but not itself.
@@ -391,6 +425,9 @@ NEW MECHANIC: Sweep Attack
 
 *Loot Drops
 - ferals now have a chance to drop a phantom membrane when killed
+
+*Visuals
+- added 5 new zombie idle and walk animations that are played randomly
 
 *Bug Fixes
 - miner zombies now don't overpopulate caves

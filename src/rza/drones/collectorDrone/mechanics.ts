@@ -128,7 +128,7 @@ export function collectorDroneConfigurator(entity: Entity) {
 
 //Remove drone-tagged items/xp orbs upon drone destruction/unload
 export function collectorDroneUnload(droneId: string) {
-    world.getPlayers({tags: [`${droneId}_owner`]}).forEach(owner => {
+    world.getPlayers({ tags: [`${droneId}_owner`] }).forEach(owner => {
         const ownerLocation = owner.location;
 
         //Items
@@ -163,11 +163,11 @@ export function collectorDroneDie(drone: Entity, playerOwner: Player) {
 }
 
 export function collectorDroneMechanics(collectorDrone: Entity) {
-        const droneLocation = collectorDrone.location;
-        collectorDrone.addEffect('slow_falling', 2, { showParticles: false, amplifier: 255 });
+    const droneLocation = collectorDrone.location;
+    collectorDrone.addEffect('slow_falling', 2, { showParticles: false, amplifier: 255 });
 
-        if (collectorDrone.getProperty('rza:active')) {
-
+    if (collectorDrone.getProperty('rza:active')) {
+        try {
             //Mode: Collect Items / XP
             if (!collectorDrone.getProperty('rza:follow_owner')) {
 
@@ -875,6 +875,8 @@ export function collectorDroneMechanics(collectorDrone: Entity) {
                     droneCollectionDelay.set(collectorDrone.id, 10);
                 }
             }
-        }
+        } catch (e) { }
+
+    }
     return;
 }

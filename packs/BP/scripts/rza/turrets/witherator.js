@@ -4,7 +4,7 @@ const COOLDOWN_RESET = 100;
 const MAX_ZOMBIE_DISTANCE = 48;
 const MAX_SKULL_DISTANCE = 96;
 const MAX_SKULL_TARGETS = 24;
-const DANGER_CHANCE_THRESHOLD = 20;
+const DANGER_CHANCE_THRESHOLD = 28;
 const skullTargetMap = new Map();
 export function witheratorMechanics(witherator) {
     const isActive = witherator.getProperty('rza:active');
@@ -284,6 +284,7 @@ function trackTargetAll(witherator, skull, family, prioritizeMutants) {
     target = targetableZombie || oppositeTypeZombie || finalTargetableZombieType || finalOppositeTargetableZombieType || nearestTaggedZombie;
     if (target) {
         shootSkull(skull, target, targetableZombie ? 0.9 : 1.2);
+        return;
     }
     else {
         let target = skullTargetMap.get(id);
@@ -331,10 +332,11 @@ function calculateDirection(from, to, speedFactor) {
     };
 }
 function applyShockwaveEffect(zombie, location, hStrength, vStrength) {
+    const zombieLocation = zombie.location;
     const direction = {
-        x: zombie.location.x - location.x,
-        y: zombie.location.y - location.y,
-        z: zombie.location.z - location.z
+        x: zombieLocation.x - location.x,
+        y: zombieLocation.y - location.y,
+        z: zombieLocation.z - location.z
     };
     const magnitude = Math.sqrt(direction.x ** 2 + direction.y ** 2 + direction.z ** 2);
     if (magnitude > 0) {
@@ -351,7 +353,7 @@ export function witheratorSkullHit(skull, id) {
             const zombies = skull.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: radius });
             if (zombies.length > 0) {
                 zombies.forEach(zombie => {
-                    zombie.applyDamage(2, { cause: EntityDamageCause.entityExplosion, damagingProjectile: skull });
+                    zombie.applyDamage(6, { cause: EntityDamageCause.entityExplosion, damagingProjectile: skull });
                     zombie.addEffect('wither', 60, { amplifier: 1, showParticles: true });
                     skull.dimension.playSound('random.explode', location, { volume: 2 });
                     skull.dimension.spawnParticle('minecraft:large_explosion', location);
@@ -365,8 +367,8 @@ export function witheratorSkullHit(skull, id) {
             const zombies = skull.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: radius });
             if (zombies.length > 0) {
                 zombies.forEach(zombie => {
-                    zombie.applyDamage(2, { cause: EntityDamageCause.entityExplosion, damagingProjectile: skull });
-                    zombie.addEffect('wither', 60, { amplifier: 2, showParticles: true });
+                    zombie.applyDamage(9, { cause: EntityDamageCause.entityExplosion, damagingProjectile: skull });
+                    zombie.addEffect('wither', 80, { amplifier: 2, showParticles: true });
                     skull.dimension.playSound('random.explode', location, { volume: 2 });
                     skull.dimension.spawnParticle('minecraft:huge_explosion_emitter', location);
                     applyShockwaveEffect(zombie, location, 2, 0.7);

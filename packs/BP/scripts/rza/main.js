@@ -6,7 +6,7 @@ import { collectorDroneRemote } from "./drones/collectorDrone/remote";
 import { sonicCannonHit } from "./turrets/sonicCannon";
 import { stormWeaverLightning, stormWeavers } from "./turrets/stormWeaver";
 import { pyroChargerFireball } from "./turrets/pyroCharger";
-import { activateInactiveElectronReactorCore, activeElectronReactorCore, destroyActiveElectronReactorCore, placeActiveElectronReactorCore } from "./blocks/electronReactorCore";
+import { activateInactiveElectronReactorCore } from "./blocks/electronReactorCore";
 import { ferralLeap } from "./zombies/feral";
 import { pulsarSystemMechanics, pulsarSystems } from "./turrets/pulsarSystem";
 import { repairArrayMechanics, repairArrayCooldown } from "./turrets/repairArray";
@@ -14,6 +14,8 @@ import { meleeWeaponCooldown, nonPlayerMeleeWeaponAttack, playerMeleeWeaponAttac
 import { fixedLenRaycast } from "./turrets/raycast";
 import { witheratorMechanics, witheratorSkullHit } from "./turrets/witherator";
 import { setEntityToCardinalDirection } from "./other/entityCardinalFacing";
+import { alphaZombieMechanics } from "./zombies/alpha";
+import { blockFeatures } from "./blocks/blocks";
 let worldAgeOffset = 0;
 world.afterEvents.worldInitialize.subscribe(() => {
     const mutatedZombies = world.scoreboard.getObjective('mutated_zombies');
@@ -29,25 +31,15 @@ world.afterEvents.worldInitialize.subscribe(() => {
     if (!commandBlockOutput)
         world.getDimension('overworld').runCommand('gamerule commandblockoutput false');
 });
-world.afterEvents.playerPlaceBlock.subscribe((data) => {
-    const block = data.block;
-    if (block.permutation.matches('rza:active_electron_reactor_core')) {
-        let run = system.run(() => {
-            placeActiveElectronReactorCore(block);
-            system.clearRun(run);
-        });
-    }
-}, { blockTypes: ['rza:active_electron_reactor_core'] });
-world.afterEvents.playerBreakBlock.subscribe((data) => {
-    const blockPermutation = data.brokenBlockPermutation;
-    const block = data.block;
-    if (blockPermutation?.matches('rza:active_electron_reactor_core')) {
-        let run = system.run(() => {
-            destroyActiveElectronReactorCore(block);
-            system.clearRun(run);
-        });
-    }
-}, { blockTypes: ['rza:active_electron_reactor_core'] });
+world.beforeEvents.worldInitialize.subscribe(data => {
+    data.blockComponentRegistry.registerCustomComponent('rza:emit_particles', {
+        onTick: (data) => {
+            const block = data.block;
+            const blockTypeId = block.type.id;
+            blockFeatures(block, blockTypeId);
+        }
+    });
+});
 world.afterEvents.itemUseOn.subscribe((data) => {
     const item = data.itemStack.typeId;
     const player = data.source;
@@ -152,7 +144,7 @@ world.afterEvents.entityRemove.subscribe((data) => {
         });
     }
     if (stormWeavers["rza:chain_length"].has(entityId))
-        stormWeavers["rza:chain_length"].set(entityId, 10);
+        stormWeavers["rza:chain_length"].delete(entityId);
     if (pulsarSystems["rza:cooldown"].has(entityId))
         pulsarSystems["rza:cooldown"].delete(entityId);
     if (pulsarSystems["rza:fire_time"].has(entityId))
@@ -259,6 +251,12 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
             system.clearRun(run);
         });
     }
+    if (event === 'rza:alpha_zombie_buff') {
+        let run = system.run(() => {
+            alphaZombieMechanics(entity);
+            system.clearRun(run);
+        });
+    }
     if (event === 'rza:configure') {
         const isTurret = entity.hasComponent(EntityComponentTypes.TypeFamily) && entity.getComponent(EntityComponentTypes.TypeFamily).hasTypeFamily('turret');
         if (isTurret) {
@@ -316,7 +314,7 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
             });
         }
     }
-}, { eventTypes: ['rza:configure', 'rza:leap', 'rza:sonic_charge', 'rza:lightning_strike', 'rza:explode'] });
+}, { eventTypes: ['rza:configure', 'rza:leap', 'rza:sonic_charge', 'rza:lightning_strike', 'rza:explode', 'rza:alpha_zombie_buff'] });
 system.runTimeout(() => {
     system.runInterval(() => {
         let worldAge = world.getDay();
@@ -326,7 +324,7 @@ system.runTimeout(() => {
             world.getDimension('the_end').runCommand(`title @a title Day §2${worldAge}§r`);
             world.sendMessage(`Current Day: Day §2${worldAge}§r`);
             worldAgeOffset = worldAge;
-            if (worldAge == 30) {
+            if (worldAge == 60) {
                 world.getDimension('overworld').runCommand(`title @a title Day §4${worldAge}§r`);
                 world.getDimension('nether').runCommand(`title @a title Day §4${worldAge}§r`);
                 world.getDimension('the_end').runCommand(`title @a title Day §4${worldAge}§r`);
@@ -334,51 +332,46 @@ system.runTimeout(() => {
                 world.sendMessage(`Current Day: Day §4${worldAge}§r`);
                 world.scoreboard.getObjective('mutated_zombies').setScore('main', 1);
             }
-            if (worldAge >= 30) {
+            if (worldAge >= 60) {
                 world.scoreboard.getObjective('mutated_zombies').setScore('main', 1);
             }
         }
-        world.getDimension('overworld').getEntities().forEach(entity => {
-            mainEntityFeatures(entity);
-        });
-        world.getDimension('nether').getEntities().forEach(entity => {
-            mainEntityFeatures(entity);
-        });
-        world.getDimension('the_end').getEntities().forEach(entity => {
-            mainEntityFeatures(entity);
-        });
-        let runElectronReactorCore = system.run(() => {
-            activeElectronReactorCore();
-            system.clearRun(runElectronReactorCore);
+        const dimensions = ['overworld', 'nether', 'the_end'].map(name => world.getDimension(name));
+        dimensions.forEach(dimension => {
+            const entities = dimension.getEntities();
+            entities.forEach(entity => {
+                mainEntityFeatures(entity);
+            });
         });
     });
 }, 200);
 function mainEntityFeatures(entity) {
-    if (entity.typeId == 'rza:pyro_charger_fireball') {
+    const typeId = entity.typeId;
+    if (typeId == 'rza:pyro_charger_fireball') {
         let run = system.run(() => {
             pyroChargerFireball(entity);
             system.clearRun(run);
         });
     }
-    if (entity.typeId == 'rza:collector_drone') {
+    if (typeId == 'rza:collector_drone') {
         let run = system.run(() => {
             collectorDroneMechanics(entity);
             system.clearRun(run);
         });
     }
-    if (entity.typeId == 'rza:pulsar_system') {
+    if (typeId == 'rza:pulsar_system') {
         let run = system.run(() => {
             pulsarSystemMechanics(entity);
             system.clearRun(run);
         });
     }
-    if (entity.typeId == 'rza:repair_array') {
+    if (typeId == 'rza:repair_array') {
         let run = system.run(() => {
             repairArrayMechanics(entity);
             system.clearRun(run);
         });
     }
-    if (entity.typeId == 'rza:witherator') {
+    if (typeId == 'rza:witherator') {
         let run = system.run(() => {
             witheratorMechanics(entity);
             system.clearRun(run);

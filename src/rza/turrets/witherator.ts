@@ -5,7 +5,7 @@ const COOLDOWN_RESET = 100;
 const MAX_ZOMBIE_DISTANCE = 48;
 const MAX_SKULL_DISTANCE = 96;
 const MAX_SKULL_TARGETS = 24;
-const DANGER_CHANCE_THRESHOLD = 20;
+const DANGER_CHANCE_THRESHOLD = 28;
 const skullTargetMap = new Map<string, Entity>();
 
 export function witheratorMechanics(witherator: Entity) {
@@ -203,7 +203,7 @@ function fireSkulls(witherator: Entity, location: Vector3, locX: number, locY: n
     const skullType = dangerChance <= DANGER_CHANCE_THRESHOLD ? 'rza:witherator_skull_dangerous' : 'rza:witherator_skull';
 
     // Define the positions where the skulls will be spawned
-    const skullPositions = [
+    const skullPositions: Vector3[] = [
         { x: locX, y: locY + 1.75, z: locZ + 0.37 },
         { x: locX, y: locY + 1.75, z: locZ + 0.75 },
         { x: locX + 0.37, y: locY + 1.75, z: locZ },
@@ -223,11 +223,11 @@ function fireSkulls(witherator: Entity, location: Vector3, locX: number, locY: n
         skull.addTag(`owner_${witherator.id}`);
         skull.addTag(`${tag}`);
 
-        // Shoot the skull upwards with no uncertainty
+        // Shoot the skull upwards
         (skull.getComponent(EntityComponentTypes.Projectile) as EntityProjectileComponent).shoot({ x: 0, y: randomSpeedUpward, z: 0 }, { uncertainty: 0 });
     });
 
-    // Set a delay to reset the witherator's fire property to false after 1 tick
+    // Set a delay to reset the witherator's fire property to false after 1 tick (For client firing animation)
     let shootDelay = system.runTimeout(() => {
         witherator.setProperty('rza:fire', false);
         system.clearRun(shootDelay);
@@ -304,7 +304,7 @@ function trackTargetAll(witherator: Entity, skull: Entity, family: string, prior
             return prioritizeMutants ? (!isMutated && !hasTargetTag && isFamilyMatch) : (isMutated && !hasTargetTag && isFamilyMatch);
         });
     };
-
+    
     let oppositeTypeZombie = !targetableZombie ? findOppositeTypeZombie(possibleTargets) : null;
 
     if (!oppositeTypeZombie) {
@@ -348,6 +348,7 @@ function trackTargetAll(witherator: Entity, skull: Entity, family: string, prior
     }
 
     // Find the nearest tagged zombie if no targetable zombie is found
+    // (Target zombies that are already targeted by other skulls)
     const findNearestTaggedZombie = (targets: Entity[]) => {
         return targets.reduce((nearest, zombie) => {
             const tags = zombie.getTags();
@@ -365,7 +366,8 @@ function trackTargetAll(witherator: Entity, skull: Entity, family: string, prior
         nearestTaggedZombie = findNearestTaggedZombie(possibleTargetsOther);
     }
 
-    // Tag the targetable zombie if found
+    // Tag the targetable zombie if found and set it as its target for the next tick runs
+    // until it hits its target (Lock target while it's still valid)
     const finalTargetableZombie = targetableZombie || oppositeTypeZombie || finalTargetableZombieType || finalOppositeTargetableZombieType;
     if (finalTargetableZombie) {
         finalTargetableZombie.addTag(`witherator_skull_${id}`);
@@ -376,6 +378,7 @@ function trackTargetAll(witherator: Entity, skull: Entity, family: string, prior
     target = targetableZombie || oppositeTypeZombie || finalTargetableZombieType || finalOppositeTargetableZombieType || nearestTaggedZombie;
     if (target) {
         shootSkull(skull, target, targetableZombie ? 0.9 : 1.2);
+        return;
     } else {
         // Check if the skull already has a target
         let target = skullTargetMap.get(id);
@@ -415,7 +418,7 @@ function getDistance(loc1: Vector3, loc2: Vector3): number {
 }
 
 // Used to calculate the direction of the skull projectile with a configurable speed factor
-function calculateDirection(from: Vector3, to: Vector3, speedFactor: number) {
+function calculateDirection(from: Vector3, to: Vector3, speedFactor: number): Vector3 {
     const direction = {
         x: to.x - from.x,
         y: to.y - from.y,
@@ -432,10 +435,11 @@ function calculateDirection(from: Vector3, to: Vector3, speedFactor: number) {
 
 // Explosion knockback effect for zombies hit by a skull
 function applyShockwaveEffect(zombie: Entity, location: Vector3, hStrength: number, vStrength: number) {
+    const zombieLocation = zombie.location;
     const direction = {
-        x: zombie.location.x - location.x,
-        y: zombie.location.y - location.y,
-        z: zombie.location.z - location.z
+        x: zombieLocation.x - location.x,
+        y: zombieLocation.y - location.y,
+        z: zombieLocation.z - location.z
     };
 
     const magnitude = Math.sqrt(direction.x ** 2 + direction.y ** 2 + direction.z ** 2);
@@ -464,7 +468,7 @@ export function witheratorSkullHit(skull: Entity, id: string) {
             const zombies = skull.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: radius });
             if (zombies.length > 0) {
                 zombies.forEach(zombie => {
-                    zombie.applyDamage(2, { cause: EntityDamageCause.entityExplosion, damagingProjectile: skull });
+                    zombie.applyDamage(6, { cause: EntityDamageCause.entityExplosion, damagingProjectile: skull });
                     zombie.addEffect('wither', 60, { amplifier: 1, showParticles: true });
                     skull.dimension.playSound('random.explode', location, { volume: 2 });
                     skull.dimension.spawnParticle('minecraft:large_explosion', location);
@@ -482,8 +486,8 @@ export function witheratorSkullHit(skull: Entity, id: string) {
             const zombies = skull.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: radius });
             if (zombies.length > 0) {
                 zombies.forEach(zombie => {
-                    zombie.applyDamage(2, { cause: EntityDamageCause.entityExplosion, damagingProjectile: skull });
-                    zombie.addEffect('wither', 60, { amplifier: 2, showParticles: true });
+                    zombie.applyDamage(9, { cause: EntityDamageCause.entityExplosion, damagingProjectile: skull });
+                    zombie.addEffect('wither', 80, { amplifier: 2, showParticles: true });
                     skull.dimension.playSound('random.explode', location, { volume: 2 });
                     skull.dimension.spawnParticle('minecraft:huge_explosion_emitter', location);
                     applyShockwaveEffect(zombie, location, 2, 0.7);

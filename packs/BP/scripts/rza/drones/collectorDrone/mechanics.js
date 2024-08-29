@@ -132,58 +132,153 @@ export function collectorDroneMechanics(collectorDrone) {
     const droneLocation = collectorDrone.location;
     collectorDrone.addEffect('slow_falling', 2, { showParticles: false, amplifier: 255 });
     if (collectorDrone.getProperty('rza:active')) {
-        if (!collectorDrone.getProperty('rza:follow_owner')) {
-            if (collectorDrone.getProperty('rza:collections') === 'Items') {
-                const itemTarget = collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, closest: 1, maxDistance: 64, excludeTags: [`${collectorDrone.id}_target`, 'targeted', 'invalid'] });
-                const itemFound = collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, closest: 1, maxDistance: 64, tags: [`${collectorDrone.id}_target`], excludeTags: [`${collectorDrone.id}_grabbed`, 'invalid'] });
-                const grabbableItemFound = collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, closest: 1, maxDistance: 3, tags: [`${collectorDrone.id}_target`], excludeTags: [`${collectorDrone.id}_grabbed`, 'grabbed', 'invalid'] });
-                const invalidItemFound = collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, closest: 1, maxDistance: 64, tags: ['invalid'] });
-                if (itemTarget.length > 0) {
-                    itemTarget.forEach(item => {
-                        if (item?.isValid) {
-                            const itemLocation = item.location;
-                            let blockColumn = [];
-                            for (let dy = 1; dy < 48; dy++) {
-                                const blockAbove = item.dimension.getBlock({
-                                    x: itemLocation.x,
-                                    y: itemLocation.y + dy,
-                                    z: itemLocation.z
-                                });
-                                if (blockAbove?.isValid)
-                                    blockColumn[dy] = blockAbove.permutation?.matches('minecraft:air');
-                            }
-                            if (!blockColumn.every(value => value === true))
-                                item.addTag('invalid');
-                            if (collectorDrone.getProperty('rza:target_capacity') < 16) {
-                                const targeted = item.getTags().some(tag => tag.endsWith('_target'));
-                                if (!targeted) {
-                                    item.addTag(`${collectorDrone.id}_target`);
-                                    item.addTag(`targeted`);
-                                    collectorDrone.triggerEvent('rza:add_target_capacity');
+        try {
+            if (!collectorDrone.getProperty('rza:follow_owner')) {
+                if (collectorDrone.getProperty('rza:collections') === 'Items') {
+                    const itemTarget = collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, closest: 1, maxDistance: 64, excludeTags: [`${collectorDrone.id}_target`, 'targeted', 'invalid'] });
+                    const itemFound = collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, closest: 1, maxDistance: 64, tags: [`${collectorDrone.id}_target`], excludeTags: [`${collectorDrone.id}_grabbed`, 'invalid'] });
+                    const grabbableItemFound = collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, closest: 1, maxDistance: 3, tags: [`${collectorDrone.id}_target`], excludeTags: [`${collectorDrone.id}_grabbed`, 'grabbed', 'invalid'] });
+                    const invalidItemFound = collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, closest: 1, maxDistance: 64, tags: ['invalid'] });
+                    if (itemTarget.length > 0) {
+                        itemTarget.forEach(item => {
+                            if (item?.isValid) {
+                                const itemLocation = item.location;
+                                let blockColumn = [];
+                                for (let dy = 1; dy < 48; dy++) {
+                                    const blockAbove = item.dimension.getBlock({
+                                        x: itemLocation.x,
+                                        y: itemLocation.y + dy,
+                                        z: itemLocation.z
+                                    });
+                                    if (blockAbove?.isValid)
+                                        blockColumn[dy] = blockAbove.permutation?.matches('minecraft:air');
                                 }
-                            }
-                        }
-                    });
-                }
-                if (itemFound.length > 0 && (collectorDrone.getProperty('rza:capacity') < 16)) {
-                    if (droneCollectionDelay.get(collectorDrone.id) > 0)
-                        droneCollectionDelay.set(collectorDrone.id, droneCollectionDelay.get(collectorDrone.id) - 1);
-                    itemFound.forEach(item => {
-                        if (item?.isValid) {
-                            const itemLocation = item.location;
-                            if (!item.hasTag('invalid')) {
-                                if (grabbableItemFound.length > 0) {
-                                    const grabbed = grabbableItemFound[0].getTags().some(tag => tag.endsWith('_grabbed'));
-                                    if (!grabbed) {
-                                        grabbableItemFound[0].addTag(`${collectorDrone.id}_grabbed`);
-                                        grabbableItemFound[0].addTag(`grabbed`);
-                                        collectorDrone.triggerEvent('rza:add_capacity');
+                                if (!blockColumn.every(value => value === true))
+                                    item.addTag('invalid');
+                                if (collectorDrone.getProperty('rza:target_capacity') < 16) {
+                                    const targeted = item.getTags().some(tag => tag.endsWith('_target'));
+                                    if (!targeted) {
+                                        item.addTag(`${collectorDrone.id}_target`);
+                                        item.addTag(`targeted`);
+                                        collectorDrone.triggerEvent('rza:add_target_capacity');
                                     }
                                 }
-                                const yRotToItem = ((Math.atan2(itemLocation.z - droneLocation.z, itemLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
+                            }
+                        });
+                    }
+                    if (itemFound.length > 0 && (collectorDrone.getProperty('rza:capacity') < 16)) {
+                        if (droneCollectionDelay.get(collectorDrone.id) > 0)
+                            droneCollectionDelay.set(collectorDrone.id, droneCollectionDelay.get(collectorDrone.id) - 1);
+                        itemFound.forEach(item => {
+                            if (item?.isValid) {
+                                const itemLocation = item.location;
+                                if (!item.hasTag('invalid')) {
+                                    if (grabbableItemFound.length > 0) {
+                                        const grabbed = grabbableItemFound[0].getTags().some(tag => tag.endsWith('_grabbed'));
+                                        if (!grabbed) {
+                                            grabbableItemFound[0].addTag(`${collectorDrone.id}_grabbed`);
+                                            grabbableItemFound[0].addTag(`grabbed`);
+                                            collectorDrone.triggerEvent('rza:add_capacity');
+                                        }
+                                    }
+                                    const yRotToItem = ((Math.atan2(itemLocation.z - droneLocation.z, itemLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
+                                    collectorDrone.setRotation({
+                                        x: collectorDrone.getRotation().x,
+                                        y: yRotToItem
+                                    });
+                                    const direction = collectorDrone.getViewDirection();
+                                    const blockInFront = collectorDrone.dimension.getBlock({
+                                        x: droneLocation.x + (direction.x * 1),
+                                        y: droneLocation.y - 1,
+                                        z: droneLocation.z + (direction.z * 1)
+                                    }).permutation?.matches('minecraft:air');
+                                    if (blockInFront) {
+                                        collectorDrone.runCommand(`execute facing ${itemLocation.x} ${itemLocation.y + 1} ${itemLocation.z} if entity @e[type=item, tag=!${collectorDrone.id}_grabbed] run tp @s ^^^0.5`);
+                                    }
+                                    else {
+                                        collectorDrone.runCommand(`tp @s ~~0.5~`);
+                                    }
+                                    if (droneCollectionDelay.get(collectorDrone.id) == 0) {
+                                        collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
+                                        collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
+                                    }
+                                }
+                            }
+                        });
+                        if (!collectorDrone.getProperty('rza:deliver_incomplete'))
+                            collectorDrone.setProperty('rza:deliver_incomplete', true);
+                    }
+                    else if (collectorDrone.getProperty('rza:capacity') == 16 && collectorDrone.getProperty('rza:delivery_location') == 'Player') {
+                        collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, minDistance: 4, maxDistance: 64, tags: [`${collectorDrone.id}_target`] }).forEach(item => {
+                            if (item.hasTag(`${collectorDrone.id}_target`) || item.hasTag(`${collectorDrone.id}_grabbed`)) {
+                                item.removeTag(`${collectorDrone.id}_target`);
+                                item.removeTag(`${collectorDrone.id}_grabbed`);
+                                item.removeTag(`targeted`);
+                                item.removeTag(`grabbed`);
+                            }
+                        });
+                        if (droneData.has(collectorDrone.id)) {
+                            const playerOwner = droneData.get(collectorDrone.id);
+                            const ownerLocation = playerOwner.location;
+                            const ownerInRangeForDrop = collectorDrone.dimension.getPlayers({ location: collectorDrone.location, closest: 1, maxDistance: 4, tags: [`${collectorDrone.id}_owner`] })[0];
+                            const yRotToOwner = ((Math.atan2(ownerLocation.z - droneLocation.z, ownerLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
+                            collectorDrone.setRotation({
+                                x: collectorDrone.getRotation().x,
+                                y: yRotToOwner
+                            });
+                            const direction = collectorDrone.getViewDirection();
+                            const blockInFront = collectorDrone.dimension.getBlock({
+                                x: droneLocation.x + (direction.x * 1),
+                                y: droneLocation.y - 1,
+                                z: droneLocation.z + (direction.z * 1)
+                            }).permutation?.matches('minecraft:air');
+                            if (blockInFront) {
+                                collectorDrone.runCommand(`execute facing ${ownerLocation.x} ${ownerLocation.y + 3} ${ownerLocation.z} if entity @p[tag=${collectorDrone.id}_owner, rm=2] run tp @s ^^^0.5`);
+                            }
+                            else {
+                                collectorDrone.runCommand(`tp @s ~~0.5~`);
+                            }
+                            if (ownerInRangeForDrop == undefined) {
+                                collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
+                                collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
+                            }
+                            if (ownerInRangeForDrop && collectorDrone.getProperty('rza:auto_collect')) {
+                                collectorDrone.setProperty('rza:capacity', 0);
+                                collectorDrone.setProperty('rza:target_capacity', 0);
+                                collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                droneCollectionDelay.set(collectorDrone.id, 10);
+                            }
+                            if (ownerInRangeForDrop && !collectorDrone.getProperty('rza:auto_collect')) {
+                                collectorDrone.setProperty('rza:active', false);
+                                collectorDrone.setProperty('rza:capacity', 0);
+                                collectorDrone.setProperty('rza:target_capacity', 0);
+                                collectorDrone.triggerEvent('rza:drone_land');
+                                collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                droneCollectionDelay.set(collectorDrone.id, 10);
+                            }
+                        }
+                    }
+                    else if (collectorDrone.getProperty('rza:capacity') == 16 && collectorDrone.getProperty('rza:delivery_location') == 'Hopper') {
+                        collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, minDistance: 4, maxDistance: 64, tags: [`${collectorDrone.id}_target`] }).forEach(item => {
+                            if (item.hasTag(`${collectorDrone.id}_target`) || item.hasTag(`${collectorDrone.id}_grabbed`)) {
+                                item.removeTag(`${collectorDrone.id}_target`);
+                                item.removeTag(`${collectorDrone.id}_grabbed`);
+                                item.removeTag(`targeted`);
+                                item.removeTag(`grabbed`);
+                            }
+                        });
+                        if (droneData.has(collectorDrone.id)) {
+                            const playerOwner = droneData.get(collectorDrone.id);
+                            const hopper = collectorDrone.dimension.getEntities({ type: 'minecraft:hopper_minecart', location: collectorDrone.location, closest: 1, maxDistance: 100, tags: [`${playerOwner.id}_owned`] })[0];
+                            const ownerHopperInRangeForDrop = collectorDrone.dimension.getEntities({ type: 'minecraft:hopper_minecart', location: collectorDrone.location, closest: 1, maxDistance: 4, tags: [`${playerOwner.id}_owned`] })[0];
+                            if (hopper?.isValid) {
+                                const hopperLocation = hopper.location;
+                                const yRotToHopper = ((Math.atan2(hopperLocation.z - droneLocation.z, hopperLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
                                 collectorDrone.setRotation({
                                     x: collectorDrone.getRotation().x,
-                                    y: yRotToItem
+                                    y: yRotToHopper
                                 });
                                 const direction = collectorDrone.getViewDirection();
                                 const blockInFront = collectorDrone.dimension.getBlock({
@@ -192,31 +287,35 @@ export function collectorDroneMechanics(collectorDrone) {
                                     z: droneLocation.z + (direction.z * 1)
                                 }).permutation?.matches('minecraft:air');
                                 if (blockInFront) {
-                                    collectorDrone.runCommand(`execute facing ${itemLocation.x} ${itemLocation.y + 1} ${itemLocation.z} if entity @e[type=item, tag=!${collectorDrone.id}_grabbed] run tp @s ^^^0.5`);
+                                    collectorDrone.runCommand(`execute facing ${hopperLocation.x} ${hopperLocation.y + 3} ${hopperLocation.z} if entity @e[tag=${playerOwner.id}_owned, c=1] run tp @s ^^^0.5`);
                                 }
                                 else {
                                     collectorDrone.runCommand(`tp @s ~~0.5~`);
                                 }
-                                if (droneCollectionDelay.get(collectorDrone.id) == 0) {
+                                if (ownerHopperInRangeForDrop == undefined) {
                                     collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
                                     collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
                                 }
+                                if (ownerHopperInRangeForDrop && collectorDrone.getProperty('rza:auto_collect')) {
+                                    collectorDrone.setProperty('rza:capacity', 0);
+                                    collectorDrone.setProperty('rza:target_capacity', 0);
+                                    collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
+                                    collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
+                                    droneCollectionDelay.set(collectorDrone.id, 20);
+                                }
+                                if (ownerHopperInRangeForDrop && !collectorDrone.getProperty('rza:auto_collect')) {
+                                    collectorDrone.setProperty('rza:active', false);
+                                    collectorDrone.setProperty('rza:capacity', 0);
+                                    collectorDrone.setProperty('rza:target_capacity', 0);
+                                    collectorDrone.triggerEvent('rza:drone_land');
+                                    collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
+                                    collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
+                                    droneCollectionDelay.set(collectorDrone.id, 20);
+                                }
                             }
                         }
-                    });
-                    if (!collectorDrone.getProperty('rza:deliver_incomplete'))
-                        collectorDrone.setProperty('rza:deliver_incomplete', true);
-                }
-                else if (collectorDrone.getProperty('rza:capacity') == 16 && collectorDrone.getProperty('rza:delivery_location') == 'Player') {
-                    collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, minDistance: 4, maxDistance: 64, tags: [`${collectorDrone.id}_target`] }).forEach(item => {
-                        if (item.hasTag(`${collectorDrone.id}_target`) || item.hasTag(`${collectorDrone.id}_grabbed`)) {
-                            item.removeTag(`${collectorDrone.id}_target`);
-                            item.removeTag(`${collectorDrone.id}_grabbed`);
-                            item.removeTag(`targeted`);
-                            item.removeTag(`grabbed`);
-                        }
-                    });
-                    if (droneData.has(collectorDrone.id)) {
+                    }
+                    else if (itemFound.length == 0 && collectorDrone.getProperty('rza:delivery_location') == 'Player') {
                         const playerOwner = droneData.get(collectorDrone.id);
                         const ownerLocation = playerOwner.location;
                         const ownerInRangeForDrop = collectorDrone.dimension.getPlayers({ location: collectorDrone.location, closest: 1, maxDistance: 4, tags: [`${collectorDrone.id}_owner`] })[0];
@@ -232,7 +331,17 @@ export function collectorDroneMechanics(collectorDrone) {
                             z: droneLocation.z + (direction.z * 1)
                         }).permutation?.matches('minecraft:air');
                         if (blockInFront) {
-                            collectorDrone.runCommand(`execute facing ${ownerLocation.x} ${ownerLocation.y + 3} ${ownerLocation.z} if entity @p[tag=${collectorDrone.id}_owner, rm=2] run tp @s ^^^0.5`);
+                            if (collectorDrone.getProperty('rza:deliver_incomplete')) {
+                                collectorDrone.runCommand(`execute facing ${ownerLocation.x} ${ownerLocation.y + 3} ${ownerLocation.z} if entity @p[tag=${collectorDrone.id}_owner, rm=2] run tp @s ^^^0.5`);
+                            }
+                            if (ownerInRangeForDrop) {
+                                collectorDrone.setProperty('rza:deliver_incomplete', false);
+                                collectorDrone.setProperty('rza:capacity', 0);
+                                collectorDrone.setProperty('rza:target_capacity', 0);
+                                collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                droneCollectionDelay.set(collectorDrone.id, 10);
+                            }
                         }
                         else {
                             collectorDrone.runCommand(`tp @s ~~0.5~`);
@@ -241,36 +350,10 @@ export function collectorDroneMechanics(collectorDrone) {
                             collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
                             collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
                         }
-                        if (ownerInRangeForDrop && collectorDrone.getProperty('rza:auto_collect')) {
-                            collectorDrone.setProperty('rza:capacity', 0);
-                            collectorDrone.setProperty('rza:target_capacity', 0);
-                            collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            droneCollectionDelay.set(collectorDrone.id, 10);
-                        }
-                        if (ownerInRangeForDrop && !collectorDrone.getProperty('rza:auto_collect')) {
-                            collectorDrone.setProperty('rza:active', false);
-                            collectorDrone.setProperty('rza:capacity', 0);
-                            collectorDrone.setProperty('rza:target_capacity', 0);
-                            collectorDrone.triggerEvent('rza:drone_land');
-                            collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            droneCollectionDelay.set(collectorDrone.id, 10);
-                        }
                     }
-                }
-                else if (collectorDrone.getProperty('rza:capacity') == 16 && collectorDrone.getProperty('rza:delivery_location') == 'Hopper') {
-                    collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, minDistance: 4, maxDistance: 64, tags: [`${collectorDrone.id}_target`] }).forEach(item => {
-                        if (item.hasTag(`${collectorDrone.id}_target`) || item.hasTag(`${collectorDrone.id}_grabbed`)) {
-                            item.removeTag(`${collectorDrone.id}_target`);
-                            item.removeTag(`${collectorDrone.id}_grabbed`);
-                            item.removeTag(`targeted`);
-                            item.removeTag(`grabbed`);
-                        }
-                    });
-                    if (droneData.has(collectorDrone.id)) {
+                    else if (itemFound.length == 0 && collectorDrone.getProperty('rza:delivery_location') == 'Hopper') {
                         const playerOwner = droneData.get(collectorDrone.id);
-                        const hopper = collectorDrone.dimension.getEntities({ type: 'minecraft:hopper_minecart', location: collectorDrone.location, closest: 1, maxDistance: 100, tags: [`${playerOwner.id}_owned`] })[0];
+                        const hopper = collectorDrone.dimension.getEntities({ type: 'minecraft:hopper_minecart', location: collectorDrone.location, closest: 1, maxDistance: 100, tags: [`${playerOwner?.id}_owned`] })[0];
                         const ownerHopperInRangeForDrop = collectorDrone.dimension.getEntities({ type: 'minecraft:hopper_minecart', location: collectorDrone.location, closest: 1, maxDistance: 4, tags: [`${playerOwner.id}_owned`] })[0];
                         if (hopper?.isValid) {
                             const hopperLocation = hopper.location;
@@ -286,7 +369,17 @@ export function collectorDroneMechanics(collectorDrone) {
                                 z: droneLocation.z + (direction.z * 1)
                             }).permutation?.matches('minecraft:air');
                             if (blockInFront) {
-                                collectorDrone.runCommand(`execute facing ${hopperLocation.x} ${hopperLocation.y + 3} ${hopperLocation.z} if entity @e[tag=${playerOwner.id}_owned, c=1] run tp @s ^^^0.5`);
+                                if (collectorDrone.getProperty('rza:deliver_incomplete')) {
+                                    collectorDrone.runCommand(`execute facing ${hopperLocation.x} ${hopperLocation.y + 3} ${hopperLocation.z} if entity @e[tag=${playerOwner.id}_owned, c=1] run tp @s ^^^0.5`);
+                                }
+                                if (ownerHopperInRangeForDrop) {
+                                    collectorDrone.setProperty('rza:deliver_incomplete', false);
+                                    collectorDrone.setProperty('rza:capacity', 0);
+                                    collectorDrone.setProperty('rza:target_capacity', 0);
+                                    collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
+                                    collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
+                                    droneCollectionDelay.set(collectorDrone.id, 20);
+                                }
                             }
                             else {
                                 collectorDrone.runCommand(`tp @s ~~0.5~`);
@@ -295,206 +388,155 @@ export function collectorDroneMechanics(collectorDrone) {
                                 collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
                                 collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
                             }
-                            if (ownerHopperInRangeForDrop && collectorDrone.getProperty('rza:auto_collect')) {
+                        }
+                    }
+                    if (invalidItemFound.length > 0) {
+                        invalidItemFound.forEach(invalidItem => {
+                            if (invalidItem?.isValid) {
+                                const itemLocation = invalidItem.location;
+                                let blockColumn = [];
+                                for (let dy = 1; dy < 48; dy++) {
+                                    const blockAbove = invalidItem.dimension.getBlock({
+                                        x: itemLocation.x,
+                                        y: itemLocation.y + dy,
+                                        z: itemLocation.z
+                                    });
+                                    if (blockAbove?.isValid)
+                                        blockColumn[dy] = blockAbove.permutation?.matches('minecraft:air');
+                                }
+                                if (blockColumn.every(value => value === true))
+                                    invalidItem.removeTag('invalid');
+                            }
+                        });
+                    }
+                    if (collectorDrone.getProperty('rza:target_capacity') == 16 && collectorDrone.getProperty('rza:capacity') < 16)
+                        collectorDrone.setProperty('rza:target_capacity', 15);
+                }
+                if (collectorDrone.getProperty('rza:collections') === 'XP') {
+                    const xpTarget = collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, closest: 1, maxDistance: 64, excludeTags: [`${collectorDrone.id}_target`, 'targeted', 'invalid'] });
+                    const xpFound = collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, closest: 1, maxDistance: 64, tags: [`${collectorDrone.id}_target`], excludeTags: [`${collectorDrone.id}_grabbed`, 'invalid'] });
+                    const grabbableXpOrbFound = collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, closest: 1, maxDistance: 3, tags: [`${collectorDrone.id}_target`], excludeTags: [`${collectorDrone.id}_grabbed`, 'grabbed', 'invalid'] });
+                    const invalidXpFound = collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, closest: 1, maxDistance: 64, tags: ['invalid'] });
+                    if (xpTarget.length > 0) {
+                        xpTarget.forEach(xp => {
+                            if (xp?.isValid) {
+                                const xpLocation = xp.location;
+                                let blockColumn = [];
+                                for (let dy = 1; dy < 48; dy++) {
+                                    const blockAbove = xp.dimension.getBlock({
+                                        x: xpLocation.x,
+                                        y: xpLocation.y + dy,
+                                        z: xpLocation.z
+                                    });
+                                    if (blockAbove?.isValid)
+                                        blockColumn[dy] = blockAbove.permutation?.matches('minecraft:air');
+                                }
+                                if (!blockColumn.every(value => value === true))
+                                    xp.addTag('invalid');
+                                if (collectorDrone.getProperty('rza:target_capacity') < 16) {
+                                    const targeted = xp.getTags().some(tag => tag.endsWith('_target'));
+                                    if (!targeted) {
+                                        xp.addTag(`${collectorDrone.id}_target`);
+                                        xp.addTag(`targeted`);
+                                        collectorDrone.triggerEvent('rza:add_target_capacity');
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    if (xpFound.length > 0 && (collectorDrone.getProperty('rza:capacity') < 16)) {
+                        if (droneCollectionDelay.get(collectorDrone.id) > 0)
+                            droneCollectionDelay.set(collectorDrone.id, droneCollectionDelay.get(collectorDrone.id) - 1);
+                        xpFound.forEach(xp => {
+                            if (xp?.isValid) {
+                                const xpLocation = xp.location;
+                                if (!xp.hasTag('invalid')) {
+                                    if (grabbableXpOrbFound.length > 0) {
+                                        const grabbed = grabbableXpOrbFound[0].getTags().some(tag => tag.endsWith('_grabbed'));
+                                        if (!grabbed) {
+                                            grabbableXpOrbFound[0].addTag(`${collectorDrone.id}_grabbed`);
+                                            grabbableXpOrbFound[0].addTag(`grabbed`);
+                                            collectorDrone.triggerEvent('rza:add_capacity');
+                                        }
+                                    }
+                                    const yRotToXp = ((Math.atan2(xpLocation.z - droneLocation.z, xpLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
+                                    collectorDrone.setRotation({
+                                        x: collectorDrone.getRotation().x,
+                                        y: yRotToXp
+                                    });
+                                    const direction = collectorDrone.getViewDirection();
+                                    const blockInFront = collectorDrone.dimension.getBlock({
+                                        x: droneLocation.x + (direction.x * 1),
+                                        y: droneLocation.y - 1,
+                                        z: droneLocation.z + (direction.z * 1)
+                                    }).permutation?.matches('minecraft:air');
+                                    if (blockInFront) {
+                                        collectorDrone.runCommand(`execute facing ${xpLocation.x} ${xpLocation.y + 1} ${xpLocation.z} if entity @e[type=xp_orb, tag=!${collectorDrone.id}_grabbed] run tp @s ^^^0.5`);
+                                    }
+                                    else {
+                                        collectorDrone.runCommand(`tp @s ~~0.5~`);
+                                    }
+                                    if (droneCollectionDelay.get(collectorDrone.id) == 0) {
+                                        collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`);
+                                        collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`);
+                                    }
+                                }
+                            }
+                        });
+                        if (!collectorDrone.getProperty('rza:deliver_incomplete'))
+                            collectorDrone.setProperty('rza:deliver_incomplete', true);
+                    }
+                    else if (collectorDrone.getProperty('rza:capacity') == 16) {
+                        collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, minDistance: 4, maxDistance: 64, tags: [`${collectorDrone.id}_target`] }).forEach(xp => {
+                            if (xp.hasTag(`${collectorDrone.id}_target`)) {
+                                xp.removeTag(`${collectorDrone.id}_target`);
+                                xp.removeTag(`${collectorDrone.id}_grabbed`);
+                                xp.removeTag(`targeted`);
+                                xp.removeTag(`grabbed`);
+                            }
+                        });
+                        if (droneData.has(collectorDrone.id)) {
+                            const playerOwner = droneData.get(collectorDrone.id);
+                            const ownerLocation = playerOwner.location;
+                            const ownerInRangeForDrop = collectorDrone.dimension.getPlayers({ location: collectorDrone.location, closest: 1, maxDistance: 4, tags: [`${collectorDrone.id}_owner`] });
+                            const yRotToOwner = ((Math.atan2(ownerLocation.z - droneLocation.z, ownerLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
+                            collectorDrone.setRotation({
+                                x: collectorDrone.getRotation().x,
+                                y: yRotToOwner
+                            });
+                            const direction = collectorDrone.getViewDirection();
+                            const blockInFront = collectorDrone.dimension.getBlock({
+                                x: droneLocation.x + (direction.x * 1),
+                                y: droneLocation.y - 1,
+                                z: droneLocation.z + (direction.z * 1)
+                            }).permutation?.matches('minecraft:air');
+                            if (blockInFront) {
+                                collectorDrone.runCommand(`execute facing ${ownerLocation.x} ${ownerLocation.y + 3} ${ownerLocation.z} if entity @p[tag=${collectorDrone.id}_owner, rm=2] run tp @s ^^^0.5`);
+                            }
+                            else {
+                                collectorDrone.runCommand(`tp @s ~~0.5~`);
+                            }
+                            collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`);
+                            collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`);
+                            if (ownerInRangeForDrop.length > 0 && collectorDrone.getProperty('rza:auto_collect')) {
                                 collectorDrone.setProperty('rza:capacity', 0);
                                 collectorDrone.setProperty('rza:target_capacity', 0);
-                                collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
-                                collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
-                                droneCollectionDelay.set(collectorDrone.id, 20);
+                                collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                droneCollectionDelay.set(collectorDrone.id, 10);
                             }
-                            if (ownerHopperInRangeForDrop && !collectorDrone.getProperty('rza:auto_collect')) {
+                            if (ownerInRangeForDrop.length > 0 && !collectorDrone.getProperty('rza:auto_collect')) {
                                 collectorDrone.setProperty('rza:active', false);
                                 collectorDrone.setProperty('rza:capacity', 0);
                                 collectorDrone.setProperty('rza:target_capacity', 0);
                                 collectorDrone.triggerEvent('rza:drone_land');
-                                collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
-                                collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
-                                droneCollectionDelay.set(collectorDrone.id, 20);
+                                collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                droneCollectionDelay.set(collectorDrone.id, 10);
                             }
-                        }
-                    }
-                }
-                else if (itemFound.length == 0 && collectorDrone.getProperty('rza:delivery_location') == 'Player') {
-                    const playerOwner = droneData.get(collectorDrone.id);
-                    const ownerLocation = playerOwner.location;
-                    const ownerInRangeForDrop = collectorDrone.dimension.getPlayers({ location: collectorDrone.location, closest: 1, maxDistance: 4, tags: [`${collectorDrone.id}_owner`] })[0];
-                    const yRotToOwner = ((Math.atan2(ownerLocation.z - droneLocation.z, ownerLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
-                    collectorDrone.setRotation({
-                        x: collectorDrone.getRotation().x,
-                        y: yRotToOwner
-                    });
-                    const direction = collectorDrone.getViewDirection();
-                    const blockInFront = collectorDrone.dimension.getBlock({
-                        x: droneLocation.x + (direction.x * 1),
-                        y: droneLocation.y - 1,
-                        z: droneLocation.z + (direction.z * 1)
-                    }).permutation?.matches('minecraft:air');
-                    if (blockInFront) {
-                        if (collectorDrone.getProperty('rza:deliver_incomplete')) {
-                            collectorDrone.runCommand(`execute facing ${ownerLocation.x} ${ownerLocation.y + 3} ${ownerLocation.z} if entity @p[tag=${collectorDrone.id}_owner, rm=2] run tp @s ^^^0.5`);
-                        }
-                        if (ownerInRangeForDrop) {
-                            collectorDrone.setProperty('rza:deliver_incomplete', false);
-                            collectorDrone.setProperty('rza:capacity', 0);
-                            collectorDrone.setProperty('rza:target_capacity', 0);
-                            collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            droneCollectionDelay.set(collectorDrone.id, 10);
                         }
                     }
                     else {
-                        collectorDrone.runCommand(`tp @s ~~0.5~`);
-                    }
-                    if (ownerInRangeForDrop == undefined) {
-                        collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
-                        collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
-                    }
-                }
-                else if (itemFound.length == 0 && collectorDrone.getProperty('rza:delivery_location') == 'Hopper') {
-                    const playerOwner = droneData.get(collectorDrone.id);
-                    const hopper = collectorDrone.dimension.getEntities({ type: 'minecraft:hopper_minecart', location: collectorDrone.location, closest: 1, maxDistance: 100, tags: [`${playerOwner?.id}_owned`] })[0];
-                    const ownerHopperInRangeForDrop = collectorDrone.dimension.getEntities({ type: 'minecraft:hopper_minecart', location: collectorDrone.location, closest: 1, maxDistance: 4, tags: [`${playerOwner.id}_owned`] })[0];
-                    if (hopper?.isValid) {
-                        const hopperLocation = hopper.location;
-                        const yRotToHopper = ((Math.atan2(hopperLocation.z - droneLocation.z, hopperLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
-                        collectorDrone.setRotation({
-                            x: collectorDrone.getRotation().x,
-                            y: yRotToHopper
-                        });
-                        const direction = collectorDrone.getViewDirection();
-                        const blockInFront = collectorDrone.dimension.getBlock({
-                            x: droneLocation.x + (direction.x * 1),
-                            y: droneLocation.y - 1,
-                            z: droneLocation.z + (direction.z * 1)
-                        }).permutation?.matches('minecraft:air');
-                        if (blockInFront) {
-                            if (collectorDrone.getProperty('rza:deliver_incomplete')) {
-                                collectorDrone.runCommand(`execute facing ${hopperLocation.x} ${hopperLocation.y + 3} ${hopperLocation.z} if entity @e[tag=${playerOwner.id}_owned, c=1] run tp @s ^^^0.5`);
-                            }
-                            if (ownerHopperInRangeForDrop) {
-                                collectorDrone.setProperty('rza:deliver_incomplete', false);
-                                collectorDrone.setProperty('rza:capacity', 0);
-                                collectorDrone.setProperty('rza:target_capacity', 0);
-                                collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
-                                collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${hopperLocation.x} ${hopperLocation.y + 2} ${hopperLocation.z}`);
-                                droneCollectionDelay.set(collectorDrone.id, 20);
-                            }
-                        }
-                        else {
-                            collectorDrone.runCommand(`tp @s ~~0.5~`);
-                        }
-                        if (ownerHopperInRangeForDrop == undefined) {
-                            collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
-                            collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.5} ${droneLocation.z} run tp @s ^^^0.7`);
-                        }
-                    }
-                }
-                if (invalidItemFound.length > 0) {
-                    invalidItemFound.forEach(invalidItem => {
-                        if (invalidItem?.isValid) {
-                            const itemLocation = invalidItem.location;
-                            let blockColumn = [];
-                            for (let dy = 1; dy < 48; dy++) {
-                                const blockAbove = invalidItem.dimension.getBlock({
-                                    x: itemLocation.x,
-                                    y: itemLocation.y + dy,
-                                    z: itemLocation.z
-                                });
-                                if (blockAbove?.isValid)
-                                    blockColumn[dy] = blockAbove.permutation?.matches('minecraft:air');
-                            }
-                            if (blockColumn.every(value => value === true))
-                                invalidItem.removeTag('invalid');
-                        }
-                    });
-                }
-                if (collectorDrone.getProperty('rza:target_capacity') == 16 && collectorDrone.getProperty('rza:capacity') < 16)
-                    collectorDrone.setProperty('rza:target_capacity', 15);
-            }
-            if (collectorDrone.getProperty('rza:collections') === 'XP') {
-                const xpTarget = collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, closest: 1, maxDistance: 64, excludeTags: [`${collectorDrone.id}_target`, 'targeted', 'invalid'] });
-                const xpFound = collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, closest: 1, maxDistance: 64, tags: [`${collectorDrone.id}_target`], excludeTags: [`${collectorDrone.id}_grabbed`, 'invalid'] });
-                const grabbableXpOrbFound = collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, closest: 1, maxDistance: 3, tags: [`${collectorDrone.id}_target`], excludeTags: [`${collectorDrone.id}_grabbed`, 'grabbed', 'invalid'] });
-                const invalidXpFound = collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, closest: 1, maxDistance: 64, tags: ['invalid'] });
-                if (xpTarget.length > 0) {
-                    xpTarget.forEach(xp => {
-                        if (xp?.isValid) {
-                            const xpLocation = xp.location;
-                            let blockColumn = [];
-                            for (let dy = 1; dy < 48; dy++) {
-                                const blockAbove = xp.dimension.getBlock({
-                                    x: xpLocation.x,
-                                    y: xpLocation.y + dy,
-                                    z: xpLocation.z
-                                });
-                                if (blockAbove?.isValid)
-                                    blockColumn[dy] = blockAbove.permutation?.matches('minecraft:air');
-                            }
-                            if (!blockColumn.every(value => value === true))
-                                xp.addTag('invalid');
-                            if (collectorDrone.getProperty('rza:target_capacity') < 16) {
-                                const targeted = xp.getTags().some(tag => tag.endsWith('_target'));
-                                if (!targeted) {
-                                    xp.addTag(`${collectorDrone.id}_target`);
-                                    xp.addTag(`targeted`);
-                                    collectorDrone.triggerEvent('rza:add_target_capacity');
-                                }
-                            }
-                        }
-                    });
-                }
-                if (xpFound.length > 0 && (collectorDrone.getProperty('rza:capacity') < 16)) {
-                    if (droneCollectionDelay.get(collectorDrone.id) > 0)
-                        droneCollectionDelay.set(collectorDrone.id, droneCollectionDelay.get(collectorDrone.id) - 1);
-                    xpFound.forEach(xp => {
-                        if (xp?.isValid) {
-                            const xpLocation = xp.location;
-                            if (!xp.hasTag('invalid')) {
-                                if (grabbableXpOrbFound.length > 0) {
-                                    const grabbed = grabbableXpOrbFound[0].getTags().some(tag => tag.endsWith('_grabbed'));
-                                    if (!grabbed) {
-                                        grabbableXpOrbFound[0].addTag(`${collectorDrone.id}_grabbed`);
-                                        grabbableXpOrbFound[0].addTag(`grabbed`);
-                                        collectorDrone.triggerEvent('rza:add_capacity');
-                                    }
-                                }
-                                const yRotToXp = ((Math.atan2(xpLocation.z - droneLocation.z, xpLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
-                                collectorDrone.setRotation({
-                                    x: collectorDrone.getRotation().x,
-                                    y: yRotToXp
-                                });
-                                const direction = collectorDrone.getViewDirection();
-                                const blockInFront = collectorDrone.dimension.getBlock({
-                                    x: droneLocation.x + (direction.x * 1),
-                                    y: droneLocation.y - 1,
-                                    z: droneLocation.z + (direction.z * 1)
-                                }).permutation?.matches('minecraft:air');
-                                if (blockInFront) {
-                                    collectorDrone.runCommand(`execute facing ${xpLocation.x} ${xpLocation.y + 1} ${xpLocation.z} if entity @e[type=xp_orb, tag=!${collectorDrone.id}_grabbed] run tp @s ^^^0.5`);
-                                }
-                                else {
-                                    collectorDrone.runCommand(`tp @s ~~0.5~`);
-                                }
-                                if (droneCollectionDelay.get(collectorDrone.id) == 0) {
-                                    collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`);
-                                    collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`);
-                                }
-                            }
-                        }
-                    });
-                    if (!collectorDrone.getProperty('rza:deliver_incomplete'))
-                        collectorDrone.setProperty('rza:deliver_incomplete', true);
-                }
-                else if (collectorDrone.getProperty('rza:capacity') == 16) {
-                    collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, minDistance: 4, maxDistance: 64, tags: [`${collectorDrone.id}_target`] }).forEach(xp => {
-                        if (xp.hasTag(`${collectorDrone.id}_target`)) {
-                            xp.removeTag(`${collectorDrone.id}_target`);
-                            xp.removeTag(`${collectorDrone.id}_grabbed`);
-                            xp.removeTag(`targeted`);
-                            xp.removeTag(`grabbed`);
-                        }
-                    });
-                    if (droneData.has(collectorDrone.id)) {
                         const playerOwner = droneData.get(collectorDrone.id);
                         const ownerLocation = playerOwner.location;
                         const ownerInRangeForDrop = collectorDrone.dimension.getPlayers({ location: collectorDrone.location, closest: 1, maxDistance: 4, tags: [`${collectorDrone.id}_owner`] });
@@ -510,135 +552,96 @@ export function collectorDroneMechanics(collectorDrone) {
                             z: droneLocation.z + (direction.z * 1)
                         }).permutation?.matches('minecraft:air');
                         if (blockInFront) {
-                            collectorDrone.runCommand(`execute facing ${ownerLocation.x} ${ownerLocation.y + 3} ${ownerLocation.z} if entity @p[tag=${collectorDrone.id}_owner, rm=2] run tp @s ^^^0.5`);
+                            if (collectorDrone.getProperty('rza:deliver_incomplete')) {
+                                collectorDrone.runCommand(`execute facing ${ownerLocation.x} ${ownerLocation.y + 3} ${ownerLocation.z} if entity @p[tag=${collectorDrone.id}_owner, rm=2] run tp @s ^^^0.5`);
+                            }
+                            if (ownerInRangeForDrop.length > 0) {
+                                collectorDrone.setProperty('rza:deliver_incomplete', false);
+                                collectorDrone.setProperty('rza:capacity', 0);
+                                collectorDrone.setProperty('rza:target_capacity', 0);
+                                collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                                droneCollectionDelay.set(collectorDrone.id, 10);
+                            }
                         }
                         else {
                             collectorDrone.runCommand(`tp @s ~~0.5~`);
                         }
                         collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`);
                         collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`);
-                        if (ownerInRangeForDrop.length > 0 && collectorDrone.getProperty('rza:auto_collect')) {
-                            collectorDrone.setProperty('rza:capacity', 0);
-                            collectorDrone.setProperty('rza:target_capacity', 0);
-                            collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            droneCollectionDelay.set(collectorDrone.id, 10);
-                        }
-                        if (ownerInRangeForDrop.length > 0 && !collectorDrone.getProperty('rza:auto_collect')) {
-                            collectorDrone.setProperty('rza:active', false);
-                            collectorDrone.setProperty('rza:capacity', 0);
-                            collectorDrone.setProperty('rza:target_capacity', 0);
-                            collectorDrone.triggerEvent('rza:drone_land');
-                            collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            droneCollectionDelay.set(collectorDrone.id, 10);
-                        }
                     }
-                }
-                else {
-                    const playerOwner = droneData.get(collectorDrone.id);
-                    const ownerLocation = playerOwner.location;
-                    const ownerInRangeForDrop = collectorDrone.dimension.getPlayers({ location: collectorDrone.location, closest: 1, maxDistance: 4, tags: [`${collectorDrone.id}_owner`] });
-                    const yRotToOwner = ((Math.atan2(ownerLocation.z - droneLocation.z, ownerLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
-                    collectorDrone.setRotation({
-                        x: collectorDrone.getRotation().x,
-                        y: yRotToOwner
-                    });
-                    const direction = collectorDrone.getViewDirection();
-                    const blockInFront = collectorDrone.dimension.getBlock({
-                        x: droneLocation.x + (direction.x * 1),
-                        y: droneLocation.y - 1,
-                        z: droneLocation.z + (direction.z * 1)
-                    }).permutation?.matches('minecraft:air');
-                    if (blockInFront) {
-                        if (collectorDrone.getProperty('rza:deliver_incomplete')) {
-                            collectorDrone.runCommand(`execute facing ${ownerLocation.x} ${ownerLocation.y + 3} ${ownerLocation.z} if entity @p[tag=${collectorDrone.id}_owner, rm=2] run tp @s ^^^0.5`);
-                        }
-                        if (ownerInRangeForDrop.length > 0) {
-                            collectorDrone.setProperty('rza:deliver_incomplete', false);
-                            collectorDrone.setProperty('rza:capacity', 0);
-                            collectorDrone.setProperty('rza:target_capacity', 0);
-                            collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                            droneCollectionDelay.set(collectorDrone.id, 10);
-                        }
-                    }
-                    else {
-                        collectorDrone.runCommand(`tp @s ~~0.5~`);
-                    }
-                    collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`);
-                    collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`);
-                }
-                if (invalidXpFound.length > 0) {
-                    invalidXpFound.forEach(invalidXp => {
-                        if (invalidXp?.isValid) {
-                            const xpLocation = invalidXp.location;
-                            let blockColumn = [];
-                            for (let dy = 1; dy < 48; dy++) {
-                                const blockAbove = invalidXp.dimension.getBlock({
-                                    x: xpLocation.x,
-                                    y: xpLocation.y + dy,
-                                    z: xpLocation.z
-                                });
-                                if (blockAbove?.isValid)
-                                    blockColumn[dy] = blockAbove.permutation?.matches('minecraft:air');
+                    if (invalidXpFound.length > 0) {
+                        invalidXpFound.forEach(invalidXp => {
+                            if (invalidXp?.isValid) {
+                                const xpLocation = invalidXp.location;
+                                let blockColumn = [];
+                                for (let dy = 1; dy < 48; dy++) {
+                                    const blockAbove = invalidXp.dimension.getBlock({
+                                        x: xpLocation.x,
+                                        y: xpLocation.y + dy,
+                                        z: xpLocation.z
+                                    });
+                                    if (blockAbove?.isValid)
+                                        blockColumn[dy] = blockAbove.permutation?.matches('minecraft:air');
+                                }
+                                if (blockColumn.every(value => value === true))
+                                    invalidXp.removeTag('invalid');
                             }
-                            if (blockColumn.every(value => value === true))
-                                invalidXp.removeTag('invalid');
-                        }
-                    });
+                        });
+                    }
+                    if (collectorDrone.getProperty('rza:target_capacity') == 16 && collectorDrone.getProperty('rza:capacity') < 16)
+                        collectorDrone.setProperty('rza:target_capacity', 15);
                 }
-                if (collectorDrone.getProperty('rza:target_capacity') == 16 && collectorDrone.getProperty('rza:capacity') < 16)
-                    collectorDrone.setProperty('rza:target_capacity', 15);
-            }
-        }
-        else {
-            const ownerInRangeForDrop = collectorDrone.dimension.getPlayers({ location: collectorDrone.location, closest: 1, maxDistance: 4, tags: [`${collectorDrone.id}_owner`] });
-            const playerOwner = droneData.get(collectorDrone.id);
-            const ownerLocation = playerOwner.location;
-            collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, minDistance: 4, maxDistance: 64, tags: [`${collectorDrone.id}_target`] }).forEach(item => {
-                if (item.hasTag(`${collectorDrone.id}_target`)) {
-                    item.removeTag(`${collectorDrone.id}_target`);
-                    item.removeTag(`${collectorDrone.id}_grabbed`);
-                    item.removeTag(`targeted`);
-                    item.removeTag(`grabbed`);
-                }
-            });
-            collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, minDistance: 4, maxDistance: 64, tags: [`${collectorDrone.id}_target`] }).forEach(xp => {
-                if (xp.hasTag(`${collectorDrone.id}_target`)) {
-                    xp.removeTag(`${collectorDrone.id}_target`);
-                    xp.removeTag(`${collectorDrone.id}_grabbed`);
-                    xp.removeTag(`targeted`);
-                    xp.removeTag(`grabbed`);
-                }
-            });
-            const yRotToOwner = ((Math.atan2(ownerLocation.z - droneLocation.z, ownerLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
-            collectorDrone.setRotation({
-                x: collectorDrone.getRotation().x,
-                y: yRotToOwner
-            });
-            const direction = collectorDrone.getViewDirection();
-            const blockInFront = collectorDrone.dimension.getBlock({
-                x: droneLocation.x + (direction.x * 1),
-                y: droneLocation.y - 1,
-                z: droneLocation.z + (direction.z * 1)
-            }).permutation?.matches('minecraft:air');
-            if (blockInFront) {
-                collectorDrone.runCommand(`execute facing ${ownerLocation.x} ${ownerLocation.y + 3} ${ownerLocation.z} if entity @p[tag=${collectorDrone.id}_owner, rm=2] run tp @s ^^^0.5`);
             }
             else {
-                collectorDrone.runCommand(`tp @s ~~0.5~`);
-            }
-            collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 1} ${droneLocation.z} run tp @s ^^^0.7`);
-            collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 1} ${droneLocation.z} run tp @s ^^^0.7`);
-            if (ownerInRangeForDrop.length > 0) {
-                collectorDrone.setProperty('rza:capacity', 0);
-                collectorDrone.setProperty('rza:target_capacity', 0);
-                collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
-                droneCollectionDelay.set(collectorDrone.id, 10);
+                const ownerInRangeForDrop = collectorDrone.dimension.getPlayers({ location: collectorDrone.location, closest: 1, maxDistance: 4, tags: [`${collectorDrone.id}_owner`] });
+                const playerOwner = droneData.get(collectorDrone.id);
+                const ownerLocation = playerOwner.location;
+                collectorDrone.dimension.getEntities({ type: 'minecraft:item', location: collectorDrone.location, minDistance: 4, maxDistance: 64, tags: [`${collectorDrone.id}_target`] }).forEach(item => {
+                    if (item.hasTag(`${collectorDrone.id}_target`)) {
+                        item.removeTag(`${collectorDrone.id}_target`);
+                        item.removeTag(`${collectorDrone.id}_grabbed`);
+                        item.removeTag(`targeted`);
+                        item.removeTag(`grabbed`);
+                    }
+                });
+                collectorDrone.dimension.getEntities({ type: 'minecraft:xp_orb', location: collectorDrone.location, minDistance: 4, maxDistance: 64, tags: [`${collectorDrone.id}_target`] }).forEach(xp => {
+                    if (xp.hasTag(`${collectorDrone.id}_target`)) {
+                        xp.removeTag(`${collectorDrone.id}_target`);
+                        xp.removeTag(`${collectorDrone.id}_grabbed`);
+                        xp.removeTag(`targeted`);
+                        xp.removeTag(`grabbed`);
+                    }
+                });
+                const yRotToOwner = ((Math.atan2(ownerLocation.z - droneLocation.z, ownerLocation.x - droneLocation.x)) * (180 / Math.PI)) - 90;
+                collectorDrone.setRotation({
+                    x: collectorDrone.getRotation().x,
+                    y: yRotToOwner
+                });
+                const direction = collectorDrone.getViewDirection();
+                const blockInFront = collectorDrone.dimension.getBlock({
+                    x: droneLocation.x + (direction.x * 1),
+                    y: droneLocation.y - 1,
+                    z: droneLocation.z + (direction.z * 1)
+                }).permutation?.matches('minecraft:air');
+                if (blockInFront) {
+                    collectorDrone.runCommand(`execute facing ${ownerLocation.x} ${ownerLocation.y + 3} ${ownerLocation.z} if entity @p[tag=${collectorDrone.id}_owner, rm=2] run tp @s ^^^0.5`);
+                }
+                else {
+                    collectorDrone.runCommand(`tp @s ~~0.5~`);
+                }
+                collectorDrone.runCommand(`execute at @s as @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 1} ${droneLocation.z} run tp @s ^^^0.7`);
+                collectorDrone.runCommand(`execute at @s as @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 1} ${droneLocation.z} run tp @s ^^^0.7`);
+                if (ownerInRangeForDrop.length > 0) {
+                    collectorDrone.setProperty('rza:capacity', 0);
+                    collectorDrone.setProperty('rza:target_capacity', 0);
+                    collectorDrone.runCommand(`tp @e[type=item, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                    collectorDrone.runCommand(`tp @e[type=xp_orb, tag=${collectorDrone.id}_grabbed, r=3] ${ownerLocation.x} ${ownerLocation.y + 1} ${ownerLocation.z}`);
+                    droneCollectionDelay.set(collectorDrone.id, 10);
+                }
             }
         }
+        catch (e) { }
     }
     return;
 }

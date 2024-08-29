@@ -1,0 +1,93 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "rza:alpha",
+			"materials": {
+				"default": "entity",
+				"face": "zombie_face"
+			},
+			"textures": {
+				"body_base": "textures/entity/walker/body_base",
+				"face1_regular": "textures/entity/zombie_faces/regular/face1",
+				"face2_regular": "textures/entity/zombie_faces/regular/face2",
+				"face3_regular": "textures/entity/zombie_faces/regular/face3",
+				"face4_regular": "textures/entity/zombie_faces/regular/face4",
+				"face5_regular": "textures/entity/zombie_faces/regular/face5",
+				"face1_mutated": "textures/entity/zombie_faces/mutated/face1",
+				"face2_mutated": "textures/entity/zombie_faces/mutated/face2",
+				"face3_mutated": "textures/entity/zombie_faces/mutated/face3",
+				"face4_mutated": "textures/entity/zombie_faces/mutated/face4",
+				"face5_mutated": "textures/entity/zombie_faces/mutated/face5",
+				"variant1": "textures/entity/walker/variants/variant1",
+				"variant2": "textures/entity/walker/variants/variant2",
+				"variant3": "textures/entity/walker/variants/variant3",
+				"variant4": "textures/entity/walker/variants/variant4",
+				"variant5": "textures/entity/walker/variants/variant5",
+				"variant6": "textures/entity/walker/variants/variant6",
+				"variant7": "textures/entity/walker/variants/variant7",
+				"variant8": "textures/entity/walker/variants/variant8",
+				"variant9": "textures/entity/walker/variants/variant9",
+				"variant10": "textures/entity/walker/variants/variant10"
+			},
+			"geometry": {
+				"default": "geometry.walker.normal",
+				"death": "geometry.walker.normal.death"
+			},
+			"animations": {
+				"particles_regular": "animation.alpha.normal.particles_regular",
+				"particles_mutated": "animation.alpha.normal.particles_mutated",
+				"look_at_target": "animation.common.look_at_target",
+				"idle1": "animation.alpha.normal.idle1",
+				"idle2": "animation.alpha.normal.idle2",
+				"idle3": "animation.alpha.normal.idle3",
+				"idle4": "animation.alpha.normal.idle4",
+				"idle5": "animation.alpha.normal.idle5",
+				"walk1": "animation.alpha.normal.walk1",
+				"walk2": "animation.alpha.normal.walk2",
+				"walk3": "animation.alpha.normal.walk3",
+				"walk4": "animation.alpha.normal.walk4",
+				"walk5": "animation.alpha.normal.walk5",
+				"attack1": "animation.alpha.normal.attack1",
+				"attack2": "animation.alpha.normal.attack2",
+				"attack3": "animation.alpha.normal.attack3",
+				"death1": "animation.alpha.normal.death1",
+				"death2": "animation.alpha.normal.death2",
+				"death3": "animation.alpha.normal.death3",
+				"death4": "animation.alpha.normal.death4",
+				"death_rot": "animation.general.death_rot",
+				"general": "controller.animation.walker.normal.general",
+				"attack_controller": "controller.animation.walker.normal.attack",
+				"death_controller": "controller.animation.walker.normal.death"
+			},
+			"scripts": {
+				"initialize": [
+					"variable.variants = math.random_integer(0, 30);",
+					"variable.faces = math.random(0, 30);"
+				],
+				"animate": [
+					{
+						"particles_regular": "q.property('rza:mutated') == false"
+					},
+					{
+						"particles_mutated": "q.property('rza:mutated') == true"
+					},
+					"death_controller"
+				]
+			},
+			"particle_effects": {
+				"blood": "rza:blood",
+				"particles_regular": "rza:alpha_zombie_particles_regular",
+				"particles_mutated": "rza:alpha_zombie_particles_mutated"
+			},
+			"render_controllers": [
+				"controller.render.walker.base",
+				"controller.render.zombie.faces"
+			],
+			"spawn_egg": {
+				"base_color": "#351101",
+				"overlay_color": "#B81313"
+			}
+		}
+	}
+}

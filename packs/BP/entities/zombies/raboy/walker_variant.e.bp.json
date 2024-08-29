@@ -15,15 +15,6 @@
 			}
 		},
 		"component_groups": {
-			"rza:transform_to_variant": {
-				"minecraft:transformation": {
-					"into": "rza:walker_regular_variant",
-					"preserve_equipment": false,
-					"delay": {
-						"value": 0
-					}
-				}
-			},
 			"rza:walker_regular": {
 				"minecraft:health": {
 					"value": 15

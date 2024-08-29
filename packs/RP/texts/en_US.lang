@@ -14,6 +14,8 @@ item.spawn_egg.entity.rza:miner.name=Spawn Miner
 entity.rza:miner.name=Miner
 item.spawn_egg.entity.rza:spitter.name=Spawn Spitter
 entity.rza:spitter.name=Spitter
+item.spawn_egg.entity.rza:alpha.name=Spawn Alpha
+entity.rza:alpha.name=Alpha Zombie
 
 ##Vanilla Zombies
 item.spawn_egg.entity.rza:zombie_evocation_illager.name=Spawn Zombie Evoker

@@ -93,6 +93,25 @@
 					0.8
 				]
 			},
+			"rza:alpha": {
+				"events": {
+					"ambient": "mob.zombie.rza.ambient",
+					"attack": "mob.zombie.rza.attack",
+					"shoot": "mob.zombie.rza.attack",
+					"hurt": "mob.zombie.rza.hurt",
+					"death": "mob.zombie.rza.death",
+					"step": {
+						"pitch": 1,
+						"sound": "mob.zombie.step",
+						"volume": 0.75
+					}
+				},
+				"volume": 2,
+				"pitch": [
+					0.8,
+					0.5
+				]
+			},
 			"rza:zombie_evocation_illager": {
 				"events": {
 					"ambient": "mob.zombie_villager.say",

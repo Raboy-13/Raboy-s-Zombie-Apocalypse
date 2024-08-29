@@ -82,7 +82,9 @@ export function turretConfigurator(player: Player, turret: Entity, turretName: s
                 player.sendMessage(`[${turretName}] Targeting §cSpitters§r: Prioritizing Mutants`);
                 turret.triggerEvent('rza:target_spitters_prioritize_mutants');
             }
-        }).catch(() => { }
+        }).catch(() => {
+            player.sendMessage(`[SYSTEM] §cConfiguration Canceled§r: Resetting to previous configuration.`);
+        }
         );
     return;
 }
@@ -129,7 +131,9 @@ export function pulsarSystemConfigurator(player: Player, turret: Entity) {
 
             turret.setProperty('rza:active_state', toggle);
             turret.setProperty('rza:convert_items_to', selectedConvertType);
-        }).catch(() => { }
+        }).catch(() => {
+            player.sendMessage(`[SYSTEM] §cConfiguration Canceled§r: Resetting to previous configuration.`);
+        }
         );
     return;
 }
