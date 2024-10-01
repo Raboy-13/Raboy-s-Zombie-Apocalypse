@@ -7,7 +7,7 @@ export function faceDirection(projectile, projectileLocation, targetLocation) {
     const pitch = ((Math.atan2(deltaY, horizontalDistance)) * (-180 / Math.PI));
     const newRotation = { x: pitch, y: yaw };
     projectile.setRotation(newRotation);
-    projectile.setProperty('ptd:rotation_x', pitch);
-    projectile.setProperty('ptd:rotation_y', yaw);
+    projectile.setProperty('rza:rotation_x', pitch);
+    projectile.setProperty('rza:rotation_y', yaw);
     return;
 }

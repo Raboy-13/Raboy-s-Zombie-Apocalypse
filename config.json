@@ -1,5 +1,5 @@
 {
-	"$schema": "https://raw.githubusercontent.com/Bedrock-OSS/regolith-schemas/main/config/v1.2.json",
+	"$schema": "https://raw.githubusercontent.com/Bedrock-OSS/regolith-schemas/main/config/v1.4.json",
 	"author": "Raboy13",
 	"name": "Raboy's Zombie Apocalypse",
 	"packs": {
@@ -9,35 +9,31 @@
 	"regolith": {
 		"dataPath": "./packs/data",
 		"filterDefinitions": {
-			"json_formatter": {
-				"url": "github.com/MajestikButter/Regolith-Filters",
-				"version": "6fa6a6a9298f7d033d0f2e421edfb33292807aae"
-			},
-			"texture_list": {
-				"url": "github.com/Bedrock-OSS/regolith-filters",
-				"version": "1.1.2"
+			"addon_builder": {
+				"url": "github.com/Raboy-13/Regolith-Filters",
+				"version": "63d5737a23fe4e4056daae3647e9fea81b8b7b6f"
 			}
 		},
+		"formatVersion": "1.4.0",
 		"profiles": {
 			"default": {
 				"export": {
 					"readOnly": false,
-					"target": "development"
+					"target": "development",
+					"build": "standard"
 				},
 				"filters": []
-				/*,
+			},
+			"build": {
+				"export": {
+					"readOnly": false,
+					"target": "local"
+				},
 				"filters": [
 					{
-						"filter": "texture_list"
-					},
-					{
-						"filter": "json_formatter",
-						"settings": {
-							"obfuscate": true,
-							"comments": true
-						}
+						"filter": "addon_builder"
 					}
-				]*/
+				]
 			}
 		}
 	}

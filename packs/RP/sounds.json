@@ -170,11 +170,6 @@
 					"hurt": "mob.irongolem.hit",
 					"irongolem.crack": "mob.irongolem.crack",
 					"irongolem.repair": "mob.irongolem.repair",
-					"irongolem.max_upgrade": {
-						"pitch": 1,
-						"sound": "mob.charged_iron_golem.upgrade",
-						"volume": 2.0
-					},
 					"step": {
 						"pitch": 1,
 						"sound": "mob.irongolem.walk",

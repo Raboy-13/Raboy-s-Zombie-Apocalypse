@@ -12,13 +12,13 @@
 		"min_engine_version": [
 			1,
 			21,
-			20
+			30
 		],
 		"uuid": "f8d9bfdc-f3b2-411e-9004-0e9c764b89d7",
 		"version": [
 			1,
 			2,
-			21
+			22
 		]
 	},
 	"modules": [
@@ -28,7 +28,7 @@
 			"version": [
 				1,
 				2,
-				21
+				22
 			]
 		},
 		{
@@ -39,7 +39,7 @@
 			"version": [
 				1,
 				2,
-				21
+				22
 			]
 		}
 	],
@@ -50,7 +50,7 @@
 			"version": [
 				1,
 				2,
-				21
+				22
 			]
 		},
 		//Structure Pack
@@ -64,11 +64,11 @@
 		},
 		{
 			"module_name": "@minecraft/server",
-			"version": "1.13.0"
+			"version": "1.14.0"
 		},
 		{
 			"module_name": "@minecraft/server-ui",
-			"version": "1.2.0"
+			"version": "1.3.0"
 		}
 	]
 }

@@ -18,6 +18,7 @@ import { alphaZombieMechanics } from "./zombies/alpha";
 import { blockFeatures } from "./blocks/blocks";
 
 let worldAgeOffset = 0;
+const dimensions = ['overworld', 'nether', 'the_end'].map(name => world.getDimension(name));
 
 //World Initialization / global scoreboards for the base game mechanics of the add-on
 world.afterEvents.worldInitialize.subscribe(() => {
@@ -435,7 +436,6 @@ system.runTimeout(() => {
         }
 
         //MAIN ENTITY FEATURES
-        const dimensions = ['overworld', 'nether', 'the_end'].map(name => world.getDimension(name));
         dimensions.forEach(dimension => {
             const entities = dimension.getEntities();
             entities.forEach(entity => {

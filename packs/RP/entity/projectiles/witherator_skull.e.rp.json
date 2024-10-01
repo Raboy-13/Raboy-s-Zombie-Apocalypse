@@ -19,8 +19,8 @@
       },
       "scripts": {
         "pre_animation": [
-          "v.x_rot = q.property('ptd:rotation_x');",
-          "v.y_rot = q.property('ptd:rotation_y');"
+          "v.x_rot = q.property('rza:rotation_x');",
+          "v.y_rot = q.property('rza:rotation_y');"
         ],
         "animate": [
           "rotate",
