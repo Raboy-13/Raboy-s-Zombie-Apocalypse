@@ -1,5 +1,5 @@
 export function alphaZombieMechanics(alpha) {
-    const mutated = alpha.getProperty('rza:mutated');
+    const mutated = alpha?.getProperty('rza:mutated');
     const location = alpha.location;
     const nearbyZombies = alpha.dimension.getEntities({
         location: location,

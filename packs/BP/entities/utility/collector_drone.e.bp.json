@@ -86,10 +86,6 @@
 				},
 				"minecraft:behavior.float": {
 					"priority": 5
-				},
-				"minecraft:tick_world": {
-					"never_despawn": true,
-					"radius": 2
 				}
 			}
 		},
@@ -173,7 +169,7 @@
 			},
 			"minecraft:jump.static": {},
 			"minecraft:health": {
-				"value": 2
+				"value": 100
 			},
 			"minecraft:hurt_on_condition": {
 				"damage_conditions": [

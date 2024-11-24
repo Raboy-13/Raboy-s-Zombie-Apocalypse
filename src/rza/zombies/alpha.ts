@@ -6,7 +6,7 @@ import { Entity, Vector3 } from "@minecraft/server";
  * @param mutated - Whether the alpha zombie is mutated.
  */
 export function alphaZombieMechanics(alpha: Entity) {
-    const mutated = alpha.getProperty('rza:mutated') as boolean;
+    const mutated = alpha?.getProperty('rza:mutated') as boolean;
     const location = alpha.location;
     const nearbyZombies = alpha.dimension.getEntities({
         location: location,
