@@ -18,10 +18,16 @@ export function turretConfigurator(player: Player, turret: Entity, turretName: s
         .toggle('Prioritize Mutated Zombies', turret.getProperty('rza:prioritize_mutants') as boolean)
         .dropdown('§cZombies to target', zombieSelection)
         .show(player)
-        .then(({ formValues: [toggle, dropdown] }) => {
-            const selectedZombieType = zombieSelection[dropdown as string];
-            turret.setProperty('rza:prioritize_mutants', toggle);
-            turret.setProperty('rza:target_zombies', selectedZombieType);
+        .then((result) => {
+            if (!result || !result.formValues) return;
+            const [toggle, dropdown] = result.formValues;
+            const selectedZombieType = zombieSelection[dropdown as number];
+            if (toggle !== undefined) {
+                turret.setProperty('rza:prioritize_mutants', toggle);
+            }
+            if (selectedZombieType !== undefined) {
+                turret.setProperty('rza:target_zombies', selectedZombieType);
+            }
 
             //All Zombies: Don't Prioritize Mutants
             if (!toggle && selectedZombieType === 'All') {
@@ -106,8 +112,10 @@ export function pulsarSystemConfigurator(player: Player, turret: Entity) {
         .toggle('Active', turret.getProperty('rza:active_state') as boolean)
         .dropdown('Convert Items to', convertTo)
         .show(player)
-        .then(({ formValues: [toggle, dropdown] }) => {
-            const selectedConvertType = convertTo[dropdown as string];
+        .then((result) => {
+            if (!result || !result.formValues) return;
+            const [toggle, dropdown] = result.formValues;
+            const selectedConvertType = convertTo[dropdown as number];
 
             //Active: Convert Items to Charcoal
             if (toggle && selectedConvertType === 'Charcoal') {
@@ -129,8 +137,12 @@ export function pulsarSystemConfigurator(player: Player, turret: Entity) {
                 player.sendMessage('[§cPulsar System§r] §4Inactive§r: Converting items to XP Orbs');
             }
 
-            turret.setProperty('rza:active_state', toggle);
-            turret.setProperty('rza:convert_items_to', selectedConvertType);
+            if (toggle !== undefined) {
+                turret.setProperty('rza:active_state', toggle);
+            }
+            if (selectedConvertType !== undefined) {
+                turret.setProperty('rza:convert_items_to', selectedConvertType);
+            }
         }).catch(() => {
             player.sendMessage(`[SYSTEM] §cConfiguration Canceled§r: Resetting to previous configuration.`);
         }

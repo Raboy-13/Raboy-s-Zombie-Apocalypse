@@ -60,9 +60,15 @@ export function fixedLenRaycast(entity: Entity, dimension: Dimension, from: Vect
             }
 
             //Storm Weaver
-            if (entityType == 'rza:storm_weaver' && stormWeavers["rza:chain_length"].get(entityId) > 0) {
+            if (entityType === 'rza:storm_weaver' && (stormWeavers?.["rza:chain_length"]?.get(entityId) ?? 0) > 0) {
                 const stormWeaver = entity;
-                const chainer = stormWeaver.dimension.getEntities({ location: particleLoc, families: ['zombie'], excludeTags: ['chainer'], maxDistance: 2, closest: 1 })[0];
+                const chainer = stormWeaver.dimension.getEntities({ 
+                    location: particleLoc, 
+                    families: ['zombie'], 
+                    excludeTags: ['chainer'], 
+                    maxDistance: 2, 
+                    closest: 1 
+                })[0];
                 
                 if (chainer) {
                     i = length;

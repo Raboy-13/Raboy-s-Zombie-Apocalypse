@@ -48,7 +48,7 @@ export function pulsarSystemMechanics(pulsarSystem: Entity) {
             if (typeId === 'minecraft:item') {
                 const itemName = (entity.getComponent('minecraft:item') as EntityItemComponent).itemStack.nameTag;
 
-                if (!validItems.has(itemName)) {
+                if (itemName && !validItems.has(itemName)) {
                     if (convertItemsTo === 'Charcoal') {
                         entity.dimension.spawnParticle('rza:item_ignite', entity.location);
                         entity.dimension.playSound('mob.blaze.shoot', entity.location, { volume: 2 });

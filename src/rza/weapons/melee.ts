@@ -28,7 +28,7 @@ export function playerMeleeWeaponAttack(entityHit: Entity, wielder: Entity, weap
 
         // Apply damage to each nearby entity
         for (const hit of nearbyEntities) {
-            const damage = hasSharpnessEnchantment ? 0 + sharpnessLevel : 1;
+            const damage = hasSharpnessEnchantment ? 0 + (sharpnessLevel ?? 0) : 1;
             hit.applyDamage(damage, { damagingEntity: wielder, cause: EntityDamageCause.entityAttack });
         }
     }

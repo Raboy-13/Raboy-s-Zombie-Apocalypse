@@ -350,7 +350,11 @@ function trackTargetAll(witherator: Entity, skull: Entity, family: string, prior
     // Find the nearest tagged zombie if no targetable zombie is found
     // (Target zombies that are already targeted by other skulls)
     const findNearestTaggedZombie = (targets: Entity[]) => {
-        return targets.reduce((nearest, zombie) => {
+        interface NearestZombie {
+            zombie: Entity | null;
+            distance: number;
+        }
+        return targets.reduce<NearestZombie>((nearest, zombie) => {
             const tags = zombie.getTags();
             if (tags.some(tag => tag.startsWith('witherator_skull_'))) {
                 const distance = getDistance(zombie.location, location);
@@ -375,7 +379,8 @@ function trackTargetAll(witherator: Entity, skull: Entity, family: string, prior
     }
 
     // Select the target: prioritized type, then targetable, then nearest tagged zombie, then any possible target
-    target = targetableZombie || oppositeTypeZombie || finalTargetableZombieType || finalOppositeTargetableZombieType || nearestTaggedZombie;
+    const selectedTarget = targetableZombie ?? oppositeTypeZombie ?? finalTargetableZombieType ?? finalOppositeTargetableZombieType ?? nearestTaggedZombie;
+    target = selectedTarget === null ? undefined : selectedTarget;
     if (target) {
         shootSkull(skull, target, targetableZombie ? 0.9 : 1.2);
         return;

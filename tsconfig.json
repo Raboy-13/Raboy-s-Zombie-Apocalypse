@@ -6,7 +6,6 @@
     "removeComments": true,
     "strictFunctionTypes": true,
     "allowSyntheticDefaultImports": true,
-    "preserveConstEnums": false,
     "noUnusedLocals": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedParameters": true,
@@ -14,14 +13,27 @@
     "noImplicitReturns": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "baseUrl": "./src",
-    "rootDir": "./src",
-    "outDir": "./packs/BP/scripts"
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "@/*": ["*"]
+    },
+    "baseUrl": "src",
+    "rootDir": "src",
+    "outDir": "[packs/BP/scripts]"
   },
-  "exclude": [
-    "node_modules"
-  ],
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "**/*.test.ts"
   ]
 }

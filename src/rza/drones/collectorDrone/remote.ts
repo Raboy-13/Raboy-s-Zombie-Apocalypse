@@ -18,5 +18,10 @@ export function collectorDroneRemote(player: Player) {
         }
     });
 
+    const nearbyCollectibles = player.dimension.getEntities({ tags: ['targeted'], location: playerLocation, maxDistance: 128 });
+    nearbyCollectibles.forEach(collectible => {
+        collectible.removeTag('targeted');
+    });
+
     return;
 }

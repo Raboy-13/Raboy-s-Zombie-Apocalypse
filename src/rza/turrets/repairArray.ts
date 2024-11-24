@@ -41,7 +41,7 @@ export function repairArrayMechanics(repairArray: Entity) {
 
             if (repairable.typeId === 'minecraft:player') {
                 const player = repairable as Player;
-                const inventory = (player.getComponent(EntityComponentTypes.Inventory) as EntityInventoryComponent).container;
+                const inventory = (player.getComponent(EntityComponentTypes.Inventory) as EntityInventoryComponent).container!;
                 let isAnyEquipmentRepairableInInventory = false;
 
                 for (let i = 0; i < inventory.size; i++) {
@@ -98,14 +98,16 @@ export function repairArrayMechanics(repairArray: Entity) {
 
             // Tag the entity to mark it as being repaired
             repairable.addTag(`${repairArray.id}_target`);
-
+            
+            const repairDistanceObjective = world.scoreboard.getObjective('repair_distance') ?? world.scoreboard.addObjective('repair_distance', 'Repair Distance');
+            
             if (repairable.typeId === 'minecraft:player') {
                 const player = repairable as Player;
                 const playerLocation = player.location;
-                const inventory = (player.getComponent(EntityComponentTypes.Inventory) as EntityInventoryComponent).container;
+                const inventory = (player.getComponent(EntityComponentTypes.Inventory) as EntityInventoryComponent).container!;
 
                 equipmentSlots.forEach(slot => {
-                    const equipment = (player?.getComponent(EntityComponentTypes.Equippable) as EntityEquippableComponent)?.getEquipment(slot);
+                    const equipment = (player?.getComponent(EntityComponentTypes.Equippable) as EntityEquippableComponent)?.getEquipment(slot)!;
                     const durabilityComponent = equipment?.getComponent(ItemComponentTypes.Durability) as ItemDurabilityComponent;
                     if (durabilityComponent && durabilityComponent.damage > 0) {
                         durabilityComponent.damage = Math.max(durabilityComponent.damage - 2, 0);
@@ -123,7 +125,7 @@ export function repairArrayMechanics(repairArray: Entity) {
                 }
 
                 const distance = calculateDistance(repairArrayLocation, playerLocation);
-                world.scoreboard.getObjective('repair_distance').setScore(repairArray, distance);
+                repairDistanceObjective.setScore(repairArray, distance);
                 fixedPosRaycast(repairArray, dimension, { x: repairArrayLocation.x, y: repairArrayLocation.y + 1.5, z: repairArrayLocation.z }, { x: playerLocation.x, y: playerLocation.y + 0.3, z: playerLocation.z }, distance, 'rza:repair_array_beam');
 
                 player.dimension.spawnParticle('rza:repair_array_repair', playerLocation);
@@ -134,7 +136,7 @@ export function repairArrayMechanics(repairArray: Entity) {
                 const maxHealth = healthComponent.defaultValue;
 
                 const distance = calculateDistance(repairArrayLocation, repairableLocation);
-                world.scoreboard.getObjective('repair_distance').setScore(repairArray, distance);
+                repairDistanceObjective.setScore(repairArray, distance);
                 fixedPosRaycast(repairArray, dimension, { x: repairArrayLocation.x, y: repairArrayLocation.y + 1.5, z: repairArrayLocation.z }, { x: repairableLocation.x, y: repairableLocation.y + 0.3, z: repairableLocation.z }, distance, 'rza:repair_array_beam');
 
                 healthComponent.setCurrentValue(Math.max(health + 4, maxHealth));

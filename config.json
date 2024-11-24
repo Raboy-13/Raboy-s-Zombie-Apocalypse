@@ -11,19 +11,11 @@
 		"filterDefinitions": {
 			"addon_builder": {
 				"url": "github.com/Raboy-13/Regolith-Filters",
-				"version": "7bc3bd763825ab3f204bf086844c3731c33f9e4b"
+				"version": "7c1da15c60b8fa0188aae3e1ba53244175329ab3"
 			}
 		},
 		"formatVersion": "1.4.0",
 		"profiles": {
-			"default": {
-				"export": {
-					"readOnly": false,
-					"target": "development",
-					"build": "standard"
-				},
-				"filters": []
-			},
 			"build": {
 				"export": {
 					"readOnly": false,
@@ -34,6 +26,14 @@
 						"filter": "addon_builder"
 					}
 				]
+			},
+			"default": {
+				"export": {
+					"build": "standard",
+					"readOnly": false,
+					"target": "development"
+				},
+				"filters": []
 			}
 		}
 	}

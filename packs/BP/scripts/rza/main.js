@@ -17,6 +17,7 @@ import { setEntityToCardinalDirection } from "./other/entityCardinalFacing";
 import { alphaZombieMechanics } from "./zombies/alpha";
 import { blockFeatures } from "./blocks/blocks";
 let worldAgeOffset = 0;
+const dimensions = ['overworld', 'nether', 'the_end'].map(name => world.getDimension(name));
 world.afterEvents.worldInitialize.subscribe(() => {
     const mutatedZombies = world.scoreboard.getObjective('mutated_zombies');
     const maxDrones = world.scoreboard.getObjective('max_drones');
@@ -336,7 +337,6 @@ system.runTimeout(() => {
                 world.scoreboard.getObjective('mutated_zombies').setScore('main', 1);
             }
         }
-        const dimensions = ['overworld', 'nether', 'the_end'].map(name => world.getDimension(name));
         dimensions.forEach(dimension => {
             const entities = dimension.getEntities();
             entities.forEach(entity => {

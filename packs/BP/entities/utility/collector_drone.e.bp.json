@@ -173,7 +173,7 @@
 			},
 			"minecraft:jump.static": {},
 			"minecraft:health": {
-				"value": 100
+				"value": 2
 			},
 			"minecraft:hurt_on_condition": {
 				"damage_conditions": [
