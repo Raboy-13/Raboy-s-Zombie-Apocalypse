@@ -1,16 +1,23 @@
 import { EntityComponentTypes, EquipmentSlot, ItemComponentTypes, system, world } from "@minecraft/server";
 import { calculateDistance, fixedPosRaycast } from "./raycast";
+// Import necessary components and types from the Minecraft server module
+// Global object to store cooldown information for repair arrays
 export const repairArrayCooldown = new Map();
+// Main function to handle repair mechanics for a given repair array entity
 export function repairArrayMechanics(repairArray) {
+    // Check if the repair array is active and its cooldown is 0
     const cooldown = repairArrayCooldown.get(repairArray.id) || 0;
     if (cooldown === 0 && repairArray.getProperty('rza:active') === true) {
+        // Set the cooldown to 40 ticks (or other time unit)
         repairArrayCooldown.set(repairArray.id, 40);
         const repairArrayLocation = repairArray.location;
+        // Get entities within a radius of 1 to 32 units, excluding other repair arrays
         const repairables = repairArray.dimension.getEntities({
             location: repairArrayLocation,
             minDistance: 1,
             maxDistance: 32
         });
+        // Filter entities that need repair and are of the correct type
         const repairableEntities = new Set();
         const equipmentSlots = [
             EquipmentSlot.Head,
@@ -56,6 +63,7 @@ export function repairArrayMechanics(repairArray) {
                 }
             }
         });
+        // Use a priority queue to select the top 3 entities with the lowest health
         const maxRepairables = Array.from(repairableEntities).sort((a, b) => {
             if (a.typeId === 'minecraft:player' && b.typeId !== 'minecraft:player')
                 return -1;
@@ -65,6 +73,7 @@ export function repairArrayMechanics(repairArray) {
             const healthB = b.getComponent(EntityComponentTypes.Health).currentValue;
             return healthA - healthB;
         }).slice(0, 5);
+        //This is only for the firing animation and sound to play
         if (maxRepairables.length > 0) {
             repairArray.setProperty('rza:fire', true);
             repairArray.dimension.playSound('turret.repair_array.beam', repairArrayLocation);
@@ -73,9 +82,11 @@ export function repairArrayMechanics(repairArray) {
                 system.clearRun(delayRemoveFire);
             }, 10);
         }
+        // Repair the selected entities
         maxRepairables.forEach(repairable => {
             const dimension = repairable.dimension;
             const repairableLocation = repairable.location;
+            // Tag the entity to mark it as being repaired
             repairable.addTag(`${repairArray.id}_target`);
             const repairDistanceObjective = world.scoreboard.getObjective('repair_distance') ?? world.scoreboard.addObjective('repair_distance', 'Repair Distance');
             if (repairable.typeId === 'minecraft:player') {
@@ -115,10 +126,12 @@ export function repairArrayMechanics(repairArray) {
                 repairable.dimension.spawnParticle('rza:repair_array_repair', repairableLocation);
                 repairable.dimension.playSound('turret.repair_array.repair', repairableLocation);
             }
+            // Remove the repair tag from the entity
             repairable.removeTag(`${repairArray.id}_target`);
         });
     }
     else if (cooldown > 0) {
+        // Decrement the cooldown time if it is greater than 0
         repairArrayCooldown.set(repairArray.id, cooldown - 1);
     }
 }

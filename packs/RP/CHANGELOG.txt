@@ -21,7 +21,7 @@
 
 # New Vanilla Mob Mechanics
 > Iron Golem
--can be given tnt that will enable it explode upon death
+-can be given tnt that will enable it to explode upon death
 -immune to explosions
 
 ============================================================================
@@ -131,7 +131,306 @@
 -wandering trader now drinks potions depending on the circumstance
 -wandering trader now runs faster when avoiding zombies
 
+[RABOY'S ZOMBIE APOCALYPSE v1.2.1]
+*Bug Fixes
+-all tree types now grow with leaves
+-fixed supercharged iron golem splash attack sometimes being above its head
+-fixed supercharged iron golem sometimes unable to move for no reason
+-fixed zombie villager still burning in daylight
 
-# Known Bugs
--some saplings don't grow with leaves
--zombie villagers still burn during the day
+*Game Mechanics
+-rebalanced zombie spawning
+(
+-there will now be no zombies that will spawn on the first day, although some will spawn on the first night. After day one, zombie spawn rate will return back to normal
+-miners will now start spawning around day 6
+-ferals will now start spawning around day 8
+-walker zombie spawn rate during full moon now depends on the difficulty(lower difficulty, lower zombie spawn rate but still a higher spawn rate when it's not full moon in the same difficulty, same logic applies on higher difficulties)
+-disabled phantoms and phantoms into ferals
+-walker zombie now has a 3% chance of becoming a runner zombie on easy difficulty when not on a full moon, and 5% chance on a full moon
+-walker zombie now has a 15% chance of becoming a runner zombie on normal difficulty when not on a full moon, and 25% chance on a full moon
+-walker zombie now has a 25% chance of becoming a runner zombie on hard difficulty when not on a full moon, and 50% chance on a full moon
+)
+-iron golem splash damage now occurs in front of the supercharged iron golem rather than the middle
+-illagers now spawn naturally within a village when an iron golem spawns
+-illagers now stay in a village when there is at least a villager in it to activate the village
+-zombies now actually move and stay into an active village (at least one villager is linked to a bed); otherwise, they will just wander around
+-vindicator now has a 30% chance of spawming with a diamond axe
+-illager captain vindicator now has a  70% chance of spawning  with a diamond axe
+-pillager now has a 30% chance of spawning with a diamond sword as a secondary melee weapon
+-illager captain pillager now has a 70% chance of spawning with a diamond sword as a secondary melee weapon
+-curing a zombie pillager holding a crossbow now has a 70% chance of having diamond sword as secondary weapon
+
+*Turrets
+-added arrow turret
+(
+-shoots fast arrows up to 48 blocks away and can be repaired using iron ingot or string
+-only targets walkers, miners, and ferals
+-has 200 health points
+-only works when placed on a turret base
+)
+-added pyro charger
+(
+-burns every target within a 32-block radius
+-only targets walkers, miners, and ferals that are outside a villager and at least 8 blocks away from the turret, doesn't target zombies that are already on fire
+-has 200 health points
+-immune to fire damage
+-starts to overheat within 20 seconds after acquiring a target
+-has a 15-second cooldown when overheated
+-only works when placed on a turret base
+)
+-added sonic cannon
+(
+-fires a sonic charge every 2.5 seconds up to 48 blocks away
+-sonic charge does 8 damage within a 6-block radius every tick
+-can one-hit any target with a direct hit
+-only targets walkers, miners, and ferals
+-has 200 health points
+-only works when placed on a turret base
+)
+
+*Blocks
+-added turret base block
+
+*Items
+-added turret base item
+-added arrow turret item
+-added pyro charger item
+-added sonic cannon item
+
+*Recipes
+-added turret base recipe
+-added arrow turret recipe
+-added pyro charger pre-requisite recipe
+-added pyro charger final recipe
+-added sonic cannon pre-requisite recipe
+-added sonic cannon final recipe
+
+*Zombies
+-added the runner zombie which runs almost as fast as a feral
+-ferals now attack turrets
+-ferals can now spot a turret from 64 blocks away
+-all zombies except for ferals are passive to turrets
+-zombies now only spawn on dirt and stone blocks
+-ferals and miner zombies now drop more xp than walker zombies
+-zombie illagers can now be cured using the same mechanics as curing a zombie villager
+-zombie villagers and illagers can now be cured  within 30 seconds after curing process
+-zombie evoker now summons zombies instead of evocation fangs
+-ferals now break blocks above them when trying to reach a target
+-zombie villagers and illagers now be passive when they have the weakness effect, except for the player
+
+*Mobs
+-all neutral and friendly mobs (except for animals) now don't take damage from turrets
+-all new iron golems now have the same explosion power when killed
+-changed level charged iron golem health to 200
+-changed leve2 charged iron golem health to 400
+-changed leve3 charged iron golem health to 800
+-improved supercharged iron golem smash attack
+-villagers now drink potions depending on various conditions
+-adult villagers now fight zombies by throwing different potions at them
+-villagers now heal the ravager and iron golem and its variant when it reaches a low health threshold by throwing a splash potion of regeneration at them
+-villagers will now avoid attacking zombie villagers and illagers with the weakness status effect but will still attack them if they were already targeted without the weakness effect first
+-villagers will now throw potions of weakness at zombie villagers and illagers that don't have the weakness status effect
+-illagers can now mingle with one another and villagers around the village bell during the day
+-illagers now temporarily withdraw from battle when they lost enough health and replenish by drinking a health potion
+-evoker now heals the ravager and iron golem and its variant when it reaches a low health threshold, and it will also heal them to max health when it doesn't have a target
+-pillagers now switch to melee mode with an iron sword when cornered or outnumbered
+-tower guard pillagers now have significantly longer range (48 blocks) than settler pillagers
+-ravager now roars during battle when its health reaches a low health threshold
+-ravager now doesn't break blocks around it
+-wolf now attacks zombies when tamed
+-added village defender dweller type on illagers
+-illagers will now avoid attacking zombie villagers and illagers with the weakness status effect but will still attack them if they were already targeted without the weakness effect first
+-iron golem and its variants will now avoid attacking zombie villagers and illagers with the weakness status effect but will still attack them if they were already targeted without the weakness effect first
+
+*Zombie Loot
+-reduced feral loot drop chance 
+-reduced walker loot drop chance
+
+*Structures
+-Added illager settlement - a large, protected village that is 105 by 102 blocks in size, it is surrounded by a wall with 8 towers and a bunch of arrow turrets.
+-illager settlement now spawns naturally but rarely
+
+*Structure Loot
+-slightly reduced the loot count on each chest inside abandoned houses
+-all sapling types can now be found in chests inside abndoned houses
+-cherry saplings can now be found in chests inside abandoned houses
+-bamboo saplings can now be found in chests inside abandoned houses
+-mangrove propagules can now be found in chests inside abandoned houses
+-sugarcane can now be found in chests inside abandoned houses
+-quartz can now be found in chests inside abandoned houses
+-slime ball can now be found in chests inside abandoned houses
+-Arrow Turret and turret base can now be found in chests inside abandoned houses but are very rare
+-increased loot spawn rate inside illager settlements
+-increased rare loot found inside illager settlements
+
+*Trading
+-turrets and the turret base are now available for trading from the weaponsmith villager and only available on max level
+-price for turrets and turret base can be discounted when a cured zombie villager becomes a weaponsmith or is already a zombie weaponsmith
+
+*Visuals
+-leaves and grass block top part are now green in color except for grass and tall grass
+-improved zombie blood particle effect
+-added 2 new general zombie death animations
+-added a new feral death aniamtion
+-added a new villager throwing animation
+-added a new wandering trader throwing animation
+-improved villager animations
+-improved wandering trader animations
+-improved evoker animations
+-improved pillager animations
+-improved vindicator animations
+-improved ravager animations
+-improved supercharged iron golem particles
+
+*Sounds
+-added blood splatter sound effects
+
+[RABOY'S ZOMBIE APOCALYPSE V1.2.21]
+
+*Compatibility
+- added support for the latest version of Minecraft (Currently 1.20.80)
+
+*Mechanics
+- reduced the spawn rate of the Illager settlement
+- slightly increased the spawn rate of Abandoned houses
+
+
+[RABOY'S ZOMBIE APOCALYPSE V1.2.3]
+
+*Mobs
+- supercharged Iron Golems can now have turret attachments on their shoulders that fire independently
+
+*Zombies
+NEW ZOMBIE BEHAVIORS: Mutated Zombies - existing and new zombie types now have a chance to have a unique mutation on the 60th day. Mutated zombies also drop more XP than regular ones and have a distinguishable red glowing eyes!
+- ferals now don't break blocks
+- reduced feral detection range from 128 blocks to 96 blocks
+- improved feral behavior: ferals now doesn't switch between turrets and other attackables (players, villagers and illagers) as targets every tick
+- other zombies now doesn't alert the feral when they acquire a target
+- after 30 minecraft days, miner zombies will now have a chance to become a TNT throwing miner and will throw TNT at targets
+- when not on a full moon, the walker zombie now has a 10% chance of becoming a mutated walker which has more health, moves faster, and slightly has more damage on easy difficulty, 20% on normal, and 40% on hard difficulty. When on a full moon, it has a 25% chance to mutate on easy difficulty, 40% on normal, and 60% chance on hard difficulty on spawn
+- when not on a full moon, the miner zombie now has a 3% chance of becoming a mutated miner which is a TNT throwing miner, has more health and moves faster on easy difficulty, 8% on normal, and 12% on hard difficulty. When on a full moon, it has an 8% chance to mutate on easy difficulty, 16% chance on normal, and 30% on hard on spawn
+- when not on a full moon, the feral zombie now has a 10% chance of becoming a mutated feral which has the ability to leap really high, more health, slightly has more damage, and a chance to headbutt its target on easy difficulty, 20% on normal, and 40% on hard difficulty. When on a full moon, it has a 25% chance to mutate on easy difficulty, 40% on normal, and 60% chance on hard difficulty on spawn
+
+- NEW ZOMBIE: The Spitter - a tall, slender, low health and ranged zombie that spits balls of acid that explode on impact and leaves an area of effect that damages and poisons nearby entities for 10 seconds
+- starts spawning on day 15
+- minimum firing range is 8 blocks, if its target is less than that, it will move away first before shooting
+- targets: players, villagers, illagers, golems and turrets - turrets are the least prioritized targets
+- acid projectiles that directly hit the player gives them nausea for 3 seconds
+- normal spitters have 10 hitpoints, movement speed the same as a normal miner, have a maximum firing range of 12 blocks and their acid puddle effect radius is 3 blocks, damage per tick is 2 and inflicts poison I effect to entities that are not zombies
+- mutated spitters have 20 hitpoints, movement speed the same as a mutated walker, have a maximum firing range of 24 blocks and their acid puddle effect radius is 5 blocks, damage per tick is 4 and inflicts poison II effect to entities that are not zombies
+
+- NEW ZOMBIE: The Alpha - a giant zombie that applies buff to nearby zombies, but not its own kind. Actively avoids players until it reaches half of its health
+- starts spawning on Day 70
+- Attack Type: Melee
+- Mutation:
+-  Normal: 
+-  HP: 100
+-  Speed: 0.25
+-  Damage: 8
+-  Zombie Buff Application Radius: 8 blocks
+-  Zombie Buffs: 
+-   Resistance 1 - Duration: 1 minute
+-   Regeneration 1 - Duration: 1 minute
+-   Strength 1 - Duration: 1 minute
+- Mutated: 
+-  HP: 160
+-  Speed: 0.25 multiplied by 1.7 when it has a target (70% faster)
+-  Damage: 12
+-  Zombie Buff Application Radius: 8 blocks
+-  Zombie Buffs: 
+-   Resistance 2 - Duration: 2 minutes
+-   Regeneration 2 - Duration: 2 minutes
+-   Strength 1 - Duration: 2 minutes
+-   Mutates zombies within its radius except its own kind
+- Drops: Drops a golden apple and a chance to drop a notch
+
+*Turrets
+NEW TURRET FEATURE: Turrets are now configurable to what zombie type they should prioritize targeting!
+- Right click on the turret that you want to configure and select the zombie types and mutant priority to your liking
+
+Turret Prioties:
+- Don't Prioritize Mutants: Will target a zombie that is nearest to the turret within its detection range
+- Prioritize Mutants: Will target the nearest mutated zombie within its detection range - will still target unmutated zombies if there are not any mutated ones inside its detection range
+- All Zombies: Targets any zombie that is nearest to the turret within the turret's detection range
+- Walkers: Only targets walkers
+- Miners: Only targets miners
+- Ferals: Only targets ferals
+
+NEW TURRET: The Storm Weaver - fires a bolt of lightning that bounces off zombies!
+- Rate of fire: 10 seconds
+- Detection range: is 24 blocks
+- Firing range: 24 blocks
+- Hitpoints: 200
+- Configurable
+
+NEW TURRET: The Pulsar System - a turret that emits a strong radial pulse that gradually increases in size which converts items on the ground to either charcoal or XP orbs, the pulse also temporarily slows down zombies for 5 seconds and gives players the following buffs for 10 seconds: haste, regeneration, and strength
+- Rate of fire: 10 seconds
+- Firing range: 48 blocks
+- Hitpoints: 200
+- converts items within the pulse radius except for all netherite items and the following rare items: Totem of Undying, Golden Apple, Golden Carrot, Enchanted Apple, Nether Star and the Beacon
+- Configurable
+
+NEW TURRET: The Witherator - Fires 8 homing wither skulls that target nearby zombies.
+- Rate of Fire: 5 seconds
+- Detection Range: 48 blocks
+- Firing Range: 96 blocks
+- Hitpoints: 200
+- Chance to fire a Dangerous Skull: 28%
+- Normal Skull Explosion Radius: 2
+- Normal Skull Damage: 6
+- Normal Skull Wither Effect Duration: 3 seconds
+- Normal Skull Wither Effect Amplifier: 1
+- Dangerous Skull Explosion Radius: 4
+- Dangerous Skull Damage: 9
+- Dangerous Skull Wither Effect Duration: 4 seconds
+- Dangerous Skull Wither Effect Amplifier: 2
+- Configurable
+
+NEW TURRET: The Repair Array - repairs nearby turrets, damaged player equipment and drones. Can also repair turrets of the same type but not itself.
+- Rate of Fire: 2 seconds
+- Detection Range: 32 blocks
+- Firing Range: 32 blocks
+- Hitpoints: 200
+- repairs up to 5 turrets, drones and players with damaged equipment at the same time
+- repair amount for turrets and drones: 4
+- repair amount for each piece of damage player equipment: 2
+
+Other Turret Changes:
+- the sonic cannon now fires its sonic blast similar to the warden
+- zombies now get pushed back by the sonic blast of the sonic cannon
+- reduced sonic cannon firing rate
+- slightly reduced sonic cannon damage
+- improved pyro charger particle physics
+- pyro charger now only burns zombies
+
+*Utility
+NEW UTILITY ENTITY: The Collector Drone
+- an incredibly useful tool for the player when they want to collect items and XP in the area but there are too many zombies
+- the drone can collect whether items or XPs within a radius of 64 blocks
+- fully configurable by the player by right clicking it
+- it also has a remote control that the player can use to whether set between two modes: Collection Mode and Follow Owner
+- when first spawning the drone, you have to set it to active first before it can start collecting anything by right clicking and setting the active toggle to on
+- in the configuration UI, there are 2 collection modes for the drone: Auto Collect - collects nearby items or XPs until it reaches full capacity, delivers the collected items to the player owner and repeat the same process. Manual Collection - Collects nearby items or XPs until full capacity, delivers the collected items/XPs to the player owner and deactivates, but can be reactivated again
+- there is an optional delivery location for items: Player owner or a player-owned hopper
+- Health points: 100
+- WARNING: The drones are world tickers, so there can only be a maximum of 3 drones for each player to avoid lag
+
+*Mechanics
+NEW MECHANIC: Sweep Attack
+- any entity that's holding a sword or an axe now have a sweeping attack by default, similar to the java version
+- The sweep attack has a cooldown of 1 second
+- base damage is 1 if it does not have a sharpness enchantment
+- if it has a sharpness enchantment, the damage is based on the enchantment level
+- entities will always have a sweep attack damage of 1 regardless if whether their weapon has a sharpness enchantment or not
+
+*Loot Drops
+- ferals now have a chance to drop a phantom membrane when killed
+
+*Visuals
+- added 5 new zombie idle and walk animations that are played randomly
+
+*Bug Fixes
+- miner zombies now don't overpopulate caves
+
+*Known Issues
+-wandering trader throwing animation doesn't work

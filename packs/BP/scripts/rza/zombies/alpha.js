@@ -1,3 +1,8 @@
+/**
+ * Applies alpha zombie mechanics to nearby zombies.
+ * @param alpha - The alpha zombie entity.
+ * @param mutated - Whether the alpha zombie is mutated.
+ */
 export function alphaZombieMechanics(alpha) {
     const mutated = alpha?.getProperty('rza:mutated');
     const location = alpha.location;
@@ -29,6 +34,11 @@ export function alphaZombieMechanics(alpha) {
     });
     return;
 }
+/**
+ * Adds effects to a zombie entity.
+ * @param zombie - The zombie entity to add effects to.
+ * @param duration - The duration of the effects in ticks.
+ */
 function addZombieEffects(zombie, duration, location) {
     const hasResistance = zombie.getEffect('resistance');
     const hasRegeneration = zombie.getEffect('regeneration');

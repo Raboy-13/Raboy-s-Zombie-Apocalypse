@@ -15,7 +15,7 @@
  * ```json
  * {
  *   "module_name": "@minecraft/server",
- *   "version": "1.14.0"
+ *   "version": "1.15.0"
  * }
  * ```
  *
@@ -82,6 +82,31 @@ export enum BlockPistonState {
      *
      */
     Retracting = 'Retracting',
+}
+
+/**
+ * Description of the resulting intersection test on two
+ * BlockVolume objects
+ */
+export enum BlockVolumeIntersection {
+    /**
+     * @remarks
+     * Volume B has no intersection points with Volume A
+     *
+     */
+    Disjoint = 0,
+    /**
+     * @remarks
+     * Volume B resides completely inside Volume A
+     *
+     */
+    Contains = 1,
+    /**
+     * @remarks
+     * Volume B partially intersects Volume A
+     *
+     */
+    Intersects = 2,
 }
 
 export enum CustomComponentNameErrorReason {
@@ -334,6 +359,13 @@ export enum EntityComponentTypes {
      *
      */
     Ageable = 'minecraft:ageable',
+    /**
+     * @remarks
+     * Defines what blocks this entity can breathe in and gives
+     * them the ability to suffocate.
+     *
+     */
+    Breathable = 'minecraft:breathable',
     /**
      * @remarks
      * When added, this component signifies that the entity can
@@ -2180,6 +2212,20 @@ export class Block {
     getItemStack(amount?: number, withData?: boolean): ItemStack | undefined;
     /**
      * @remarks
+     * Returns the net redstone power of this block.
+     *
+     * @returns
+     * Returns undefined if redstone power is not applicable to
+     * this block.
+     * @throws This function can throw errors.
+     *
+     * {@link LocationInUnloadedChunkError}
+     *
+     * {@link LocationOutOfWorldBoundariesError}
+     */
+    getRedstonePower(): number | undefined;
+    /**
+     * @remarks
      * Returns a set of tags for a block.
      *
      * @returns
@@ -2602,6 +2648,8 @@ export class BlockExplodeAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: BlockExplodeAfterEvent) => void): (arg: BlockExplodeAfterEvent) => void;
     /**
@@ -2610,6 +2658,8 @@ export class BlockExplodeAfterEventSignal {
      * occurs, as it impacts individual blocks.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: BlockExplodeAfterEvent) => void): void;
@@ -2648,6 +2698,39 @@ export class BlockInventoryComponent extends BlockComponent {
      */
     readonly container?: Container;
     static readonly componentId = 'minecraft:inventory';
+}
+
+/**
+ * A BlockLocationIterator returns the next block location of
+ * the block volume across which it is iterating.
+ * The BlockLocationIterator is used to abstract the shape of
+ * the block volume it was fetched from (so it can represent
+ * all the block locations that make up rectangles, cubes,
+ * spheres, lines and complex shapes).
+ * Each iteration pass returns the next valid block location in
+ * the parent shape.
+ * Unless otherwise specified by the parent shape - the
+ * BlockLocationIterator will iterate over a 3D space in the
+ * order of increasing X, followed by increasing Z followed by
+ * increasing Y.
+ * (Effectively stepping across the XZ plane, and when all the
+ * locations in that plane are exhausted, increasing the Y
+ * coordinate to the next XZ slice)
+ */
+export class BlockLocationIterator implements Iterable<Vector3> {
+    private constructor();
+    /**
+     * @remarks
+     * This function can't be called in read-only mode.
+     *
+     */
+    [Symbol.iterator](): Iterator<Vector3>;
+    /**
+     * @remarks
+     * This function can't be called in read-only mode.
+     *
+     */
+    next(): IteratorResult<Vector3>;
 }
 
 /**
@@ -3242,10 +3325,112 @@ export class BlockTypes {
 }
 
 /**
+ * A BlockVolume is a simple interface to an object which
+ * represents a 3D rectangle of a given size (in blocks) at a
+ * world block location.
+ * Note that these are not analogous to "min" and "max" values,
+ * in that the vector components are not guaranteed to be in
+ * any order.
+ * In addition, these vector positions are not interchangeable
+ * with BlockLocation.
+ * If you want to get this volume represented as range of of
+ * BlockLocations, you can use the getBoundingBox utility
+ * function.
+ * This volume class will maintain the ordering of the corner
+ * indexes as initially set. imagine that each corner is
+ * assigned in Editor - as you move the corner around
+ * (potentially inverting the min/max relationship of the
+ * bounds) - what
+ * you had originally selected as the top/left corner would
+ * traditionally become the bottom/right.
+ * When manually editing these kinds of volumes, you need to
+ * maintain the identity of the corner as you edit - the
+ * BlockVolume utility functions do this.
+ *
+ * Important to note that this measures block sizes (to/from) -
+ * a normal AABB (0,0,0) to (0,0,0) would traditionally be of
+ * size (0,0,0)
+ * However, because we're measuring blocks - the size or span
+ * of a BlockVolume would actually be (1,1,1)
+ *
+ */
+// @ts-ignore Class inheritance allowed for native defined classes
+export class BlockVolume extends BlockVolumeBase {
+    /**
+     * @remarks
+     * A world block location that represents a corner in a 3D
+     * rectangle
+     *
+     * This property can't be edited in read-only mode.
+     *
+     */
+    'from': Vector3;
+    /**
+     * @remarks
+     * A world block location that represents the opposite corner
+     * in a 3D rectangle
+     *
+     * This property can't be edited in read-only mode.
+     *
+     */
+    to: Vector3;
+    constructor(from: Vector3, to: Vector3);
+    /**
+     * @remarks
+     * Check to see if the given location is directly adjacent to
+     * the outer surface of a BlockVolume.
+     *
+     *
+     * This function can't be called in read-only mode.
+     *
+     * @param pos
+     * The world block location to test
+     * @returns
+     * If the location is either inside or more than 0 blocks away,
+     * the function will return false.
+     * If the location is directly contacting the outer surface of
+     * the BlockVolume, the function will return true.
+     */
+    doesLocationTouchFaces(pos: Vector3): boolean;
+    /**
+     * @remarks
+     * Check to see if a two block volumes are directly adjacent
+     * and two faces touch.
+     *
+     * This function can't be called in read-only mode.
+     *
+     * @param other
+     * The volume to test
+     * @returns
+     * If the outer faces of both block volumes touch and are
+     * directly adjacent at any point, return true.
+     */
+    doesVolumeTouchFaces(other: BlockVolume): boolean;
+    /**
+     * @remarks
+     * Return an enumeration which represents the intersection
+     * between two BlockVolume objects
+     *
+     * This function can't be called in read-only mode.
+     *
+     */
+    intersects(other: BlockVolume): BlockVolumeIntersection;
+}
+
+/**
  * Base type for BlockVolumes.
  */
 export class BlockVolumeBase {
     private constructor();
+    /**
+     * @remarks
+     * Fetch a {@link BlockLocationIterator} that represents all of
+     * the block world locations within the specified volume
+     *
+     * This function can't be called in read-only mode.
+     *
+     */
+    getBlockLocationIterator(): BlockLocationIterator;
     /**
      * @remarks
      * Return the capacity (volume) of the BlockVolume (W*D*H)
@@ -4107,6 +4292,8 @@ export class DataDrivenEntityTriggerAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: DataDrivenEntityTriggerAfterEvent) => void,
@@ -4118,6 +4305,8 @@ export class DataDrivenEntityTriggerAfterEventSignal {
      * entity event is triggered.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: DataDrivenEntityTriggerAfterEvent) => void): void;
@@ -4723,6 +4912,8 @@ export class EffectAddAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: EffectAddAfterEvent) => void,
@@ -4734,6 +4925,8 @@ export class EffectAddAfterEventSignal {
      * to an entity.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: EffectAddAfterEvent) => void): void;
@@ -4784,6 +4977,8 @@ export class EffectAddBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: EffectAddBeforeEvent) => void): (arg: EffectAddBeforeEvent) => void;
     /**
@@ -4792,6 +4987,8 @@ export class EffectAddBeforeEventSignal {
      * to an entity.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: EffectAddBeforeEvent) => void): void;
@@ -5996,6 +6193,88 @@ export class EntityBaseMovementComponent extends EntityComponent {
 }
 
 /**
+ * Defines what blocks this entity can breathe in and gives
+ * them the ability to suffocate.
+ */
+// @ts-ignore Class inheritance allowed for native defined classes
+export class EntityBreathableComponent extends EntityComponent {
+    private constructor();
+    /**
+     * @remarks
+     * If true, this entity can breathe in air.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly breathesAir: boolean;
+    /**
+     * @remarks
+     * If true, this entity can breathe in lava.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly breathesLava: boolean;
+    /**
+     * @remarks
+     * If true, this entity can breathe in solid blocks.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly breathesSolids: boolean;
+    /**
+     * @remarks
+     * If true, this entity can breathe in water.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly breathesWater: boolean;
+    /**
+     * @remarks
+     * If true, this entity will have visible bubbles while in
+     * water.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly generatesBubbles: boolean;
+    /**
+     * @remarks
+     * Time in seconds to recover breath to maximum.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly inhaleTime: number;
+    /**
+     * @remarks
+     * Time in seconds between suffocation damage.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly suffocateTime: number;
+    /**
+     * @remarks
+     * Time in seconds the entity can hold its breath.
+     *
+     * @throws This property can throw when used.
+     */
+    readonly totalSupply: number;
+    static readonly componentId = 'minecraft:breathable';
+    /**
+     * @remarks
+     * List of blocks this entity can breathe in, in addition to
+     * the separate properties for classes of blocks.
+     *
+     * @throws This function can throw errors.
+     */
+    getBreatheBlocks(): BlockPermutation[];
+    /**
+     * @remarks
+     * List of blocks this entity can't breathe in.
+     *
+     * @throws This function can throw errors.
+     */
+    getNonBreatheBlocks(): BlockPermutation[];
+}
+
+/**
  * When added, this component signifies that the entity can
  * climb up ladders.
  */
@@ -6134,6 +6413,8 @@ export class EntityDieAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      * @param callback
      * Function to call when an entity dies.
      * @param options
@@ -6153,6 +6434,8 @@ export class EntityDieAfterEventSignal {
      * dies.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: EntityDieAfterEvent) => void): void;
@@ -6380,6 +6663,8 @@ export class EntityHealthChangedAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: EntityHealthChangedAfterEvent) => void,
@@ -6391,6 +6676,8 @@ export class EntityHealthChangedAfterEventSignal {
      * entity changes.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: EntityHealthChangedAfterEvent) => void): void;
@@ -6471,6 +6758,8 @@ export class EntityHitBlockAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: EntityHitBlockAfterEvent) => void,
@@ -6482,6 +6771,8 @@ export class EntityHitBlockAfterEventSignal {
      * block.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: EntityHitBlockAfterEvent) => void): void;
@@ -6520,6 +6811,8 @@ export class EntityHitEntityAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: EntityHitEntityAfterEvent) => void,
@@ -6531,6 +6824,8 @@ export class EntityHitEntityAfterEventSignal {
      * melee attack on another entity.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: EntityHitEntityAfterEvent) => void): void;
@@ -6574,6 +6869,8 @@ export class EntityHurtAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: EntityHurtAfterEvent) => void,
@@ -6584,6 +6881,8 @@ export class EntityHurtAfterEventSignal {
      * Removes a callback from being called when an entity is hurt.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: EntityHurtAfterEvent) => void): void;
@@ -6948,6 +7247,8 @@ export class EntityLoadAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      * @param callback
      * Function that handles the load event.
      */
@@ -6958,6 +7259,8 @@ export class EntityLoadAfterEventSignal {
      * subscription event.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      * @param callback
      * Original function that was passed into the subscribe event,
@@ -7583,6 +7886,8 @@ export class EntityRemoveAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      * @param callback
      * Function to call.
      * @param options
@@ -7601,6 +7906,8 @@ export class EntityRemoveAfterEventSignal {
      * entity is removed.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: EntityRemoveAfterEvent) => void): void;
@@ -7635,6 +7942,8 @@ export class EntityRemoveBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      * @param callback
      * Function to call.
      * @returns
@@ -7648,6 +7957,8 @@ export class EntityRemoveBeforeEventSignal {
      * entity is being removed.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: EntityRemoveBeforeEvent) => void): void;
@@ -7886,6 +8197,8 @@ export class EntitySpawnAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      * @param callback
      * Function that handles the spawn event.
      */
@@ -7896,6 +8209,8 @@ export class EntitySpawnAfterEventSignal {
      * subscription event.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      * @param callback
      * Original function that was passed into the subscribe event,
@@ -8182,6 +8497,8 @@ export class ExplosionAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ExplosionAfterEvent) => void): (arg: ExplosionAfterEvent) => void;
     /**
@@ -8190,6 +8507,8 @@ export class ExplosionAfterEventSignal {
      * occurs.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ExplosionAfterEvent) => void): void;
@@ -8233,6 +8552,8 @@ export class ExplosionBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ExplosionBeforeEvent) => void): (arg: ExplosionBeforeEvent) => void;
     /**
@@ -8241,6 +8562,8 @@ export class ExplosionBeforeEventSignal {
      * explosion would occur.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ExplosionBeforeEvent) => void): void;
@@ -8348,6 +8671,8 @@ export class GameRuleChangeAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: GameRuleChangeAfterEvent) => void): (arg: GameRuleChangeAfterEvent) => void;
     /**
@@ -8356,6 +8681,8 @@ export class GameRuleChangeAfterEventSignal {
      * property is changed.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: GameRuleChangeAfterEvent) => void): void;
@@ -8750,6 +9077,8 @@ export class ItemCompleteUseAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ItemCompleteUseAfterEvent) => void): (arg: ItemCompleteUseAfterEvent) => void;
     /**
@@ -8758,6 +9087,8 @@ export class ItemCompleteUseAfterEventSignal {
      * completes charging.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ItemCompleteUseAfterEvent) => void): void;
@@ -9376,6 +9707,8 @@ export class ItemReleaseUseAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ItemReleaseUseAfterEvent) => void): (arg: ItemReleaseUseAfterEvent) => void;
     /**
@@ -9384,6 +9717,8 @@ export class ItemReleaseUseAfterEventSignal {
      * is released from charging.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ItemReleaseUseAfterEvent) => void): void;
@@ -9870,6 +10205,8 @@ export class ItemStartUseAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ItemStartUseAfterEvent) => void): (arg: ItemStartUseAfterEvent) => void;
     /**
@@ -9878,6 +10215,8 @@ export class ItemStartUseAfterEventSignal {
      * starts charging.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ItemStartUseAfterEvent) => void): void;
@@ -9934,6 +10273,8 @@ export class ItemStartUseOnAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ItemStartUseOnAfterEvent) => void): (arg: ItemStartUseOnAfterEvent) => void;
     /**
@@ -9942,6 +10283,8 @@ export class ItemStartUseOnAfterEventSignal {
      * a block.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ItemStartUseOnAfterEvent) => void): void;
@@ -9991,6 +10334,8 @@ export class ItemStopUseAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ItemStopUseAfterEvent) => void): (arg: ItemStopUseAfterEvent) => void;
     /**
@@ -9999,6 +10344,8 @@ export class ItemStopUseAfterEventSignal {
      * stops charging.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ItemStopUseAfterEvent) => void): void;
@@ -10048,6 +10395,8 @@ export class ItemStopUseOnAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ItemStopUseOnAfterEvent) => void): (arg: ItemStopUseOnAfterEvent) => void;
     /**
@@ -10056,6 +10405,8 @@ export class ItemStopUseOnAfterEventSignal {
      * a block.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ItemStopUseOnAfterEvent) => void): void;
@@ -10127,6 +10478,8 @@ export class ItemUseAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ItemUseAfterEvent) => void): (arg: ItemUseAfterEvent) => void;
     /**
@@ -10134,6 +10487,8 @@ export class ItemUseAfterEventSignal {
      * Removes a callback from being called when an item is used.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ItemUseAfterEvent) => void): void;
@@ -10164,6 +10519,8 @@ export class ItemUseBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ItemUseBeforeEvent) => void): (arg: ItemUseBeforeEvent) => void;
     /**
@@ -10171,6 +10528,8 @@ export class ItemUseBeforeEventSignal {
      * Removes a callback from being called before an item is used.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ItemUseBeforeEvent) => void): void;
@@ -10229,6 +10588,8 @@ export class ItemUseOnAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ItemUseOnAfterEvent) => void): (arg: ItemUseOnAfterEvent) => void;
     /**
@@ -10237,6 +10598,8 @@ export class ItemUseOnAfterEventSignal {
      * a block.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ItemUseOnAfterEvent) => void): void;
@@ -10270,6 +10633,8 @@ export class ItemUseOnBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ItemUseOnBeforeEvent) => void): (arg: ItemUseOnBeforeEvent) => void;
     /**
@@ -10278,6 +10643,8 @@ export class ItemUseOnBeforeEventSignal {
      * on a block.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ItemUseOnBeforeEvent) => void): void;
@@ -10564,6 +10931,8 @@ export class PistonActivateAfterEventSignal {
      * @remarks
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: PistonActivateAfterEvent) => void): (arg: PistonActivateAfterEvent) => void;
     /**
@@ -10572,6 +10941,8 @@ export class PistonActivateAfterEventSignal {
      * or retracts.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PistonActivateAfterEvent) => void): void;
@@ -10923,6 +11294,8 @@ export class PlayerBreakBlockAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: PlayerBreakBlockAfterEvent) => void,
@@ -10934,6 +11307,8 @@ export class PlayerBreakBlockAfterEventSignal {
      * block.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerBreakBlockAfterEvent) => void): void;
@@ -10980,6 +11355,8 @@ export class PlayerBreakBlockBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: PlayerBreakBlockBeforeEvent) => void,
@@ -10991,6 +11368,8 @@ export class PlayerBreakBlockBeforeEventSignal {
      * a block.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerBreakBlockBeforeEvent) => void): void;
@@ -11075,6 +11454,8 @@ export class PlayerDimensionChangeAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: PlayerDimensionChangeAfterEvent) => void): (arg: PlayerDimensionChangeAfterEvent) => void;
     /**
@@ -11083,6 +11464,8 @@ export class PlayerDimensionChangeAfterEventSignal {
      * change after event.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerDimensionChangeAfterEvent) => void): void;
@@ -11100,11 +11483,15 @@ export class PlayerEmoteAfterEventSignal {
      * @remarks
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: PlayerEmoteAfterEvent) => void): (arg: PlayerEmoteAfterEvent) => void;
     /**
      * @remarks
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerEmoteAfterEvent) => void): void;
@@ -11149,6 +11536,8 @@ export class PlayerGameModeChangeAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: PlayerGameModeChangeAfterEvent) => void): (arg: PlayerGameModeChangeAfterEvent) => void;
     /**
@@ -11157,6 +11546,8 @@ export class PlayerGameModeChangeAfterEventSignal {
      * mode is changed.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerGameModeChangeAfterEvent) => void): void;
@@ -11207,6 +11598,8 @@ export class PlayerGameModeChangeBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: PlayerGameModeChangeBeforeEvent) => void): (arg: PlayerGameModeChangeBeforeEvent) => void;
     /**
@@ -11215,6 +11608,8 @@ export class PlayerGameModeChangeBeforeEventSignal {
      * mode is changed.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerGameModeChangeBeforeEvent) => void): void;
@@ -11259,6 +11654,8 @@ export class PlayerInputPermissionCategoryChangeAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: PlayerInputPermissionCategoryChangeAfterEvent) => void,
@@ -11269,6 +11666,8 @@ export class PlayerInputPermissionCategoryChangeAfterEventSignal {
      * permissions change.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerInputPermissionCategoryChangeAfterEvent) => void): void;
@@ -11304,6 +11703,13 @@ export class PlayerInteractWithBlockAfterEvent {
     private constructor();
     /**
      * @remarks
+     * The ItemStack before the interaction succeeded, or undefined
+     * if hand is empty.
+     *
+     */
+    readonly beforeItemStack?: ItemStack;
+    /**
+     * @remarks
      * The block that will be interacted with.
      *
      */
@@ -11321,6 +11727,14 @@ export class PlayerInteractWithBlockAfterEvent {
      *
      */
     readonly faceLocation: Vector3;
+    /**
+     * @remarks
+     * This value will be true if the event was triggered on
+     * players initial interaction button press and false on events
+     * triggered from holding the interaction button.
+     *
+     */
+    readonly isFirstEvent: boolean;
     /**
      * @remarks
      * The ItemStack after the interaction succeeded, or undefined
@@ -11349,6 +11763,8 @@ export class PlayerInteractWithBlockAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: PlayerInteractWithBlockAfterEvent) => void,
@@ -11359,6 +11775,8 @@ export class PlayerInteractWithBlockAfterEventSignal {
      * interacts with a block.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerInteractWithBlockAfterEvent) => void): void;
@@ -11397,6 +11815,14 @@ export class PlayerInteractWithBlockBeforeEvent {
     readonly faceLocation: Vector3;
     /**
      * @remarks
+     * This value will be true if the event was triggered on
+     * players initial interaction button press and false on events
+     * triggered from holding the interaction button.
+     *
+     */
+    readonly isFirstEvent: boolean;
+    /**
+     * @remarks
      * The item stack that is being used in the interaction, or
      * undefined if empty hand.
      *
@@ -11423,6 +11849,8 @@ export class PlayerInteractWithBlockBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: PlayerInteractWithBlockBeforeEvent) => void,
@@ -11434,6 +11862,8 @@ export class PlayerInteractWithBlockBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     unsubscribe(callback: (arg: PlayerInteractWithBlockBeforeEvent) => void): void;
 }
@@ -11444,6 +11874,13 @@ export class PlayerInteractWithBlockBeforeEventSignal {
  */
 export class PlayerInteractWithEntityAfterEvent {
     private constructor();
+    /**
+     * @remarks
+     * The ItemStack before the interaction succeeded, or undefined
+     * if hand is empty.
+     *
+     */
+    readonly beforeItemStack?: ItemStack;
     /**
      * @remarks
      * The ItemStack after the interaction succeeded, or undefined
@@ -11478,6 +11915,8 @@ export class PlayerInteractWithEntityAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: PlayerInteractWithEntityAfterEvent) => void,
@@ -11488,6 +11927,8 @@ export class PlayerInteractWithEntityAfterEventSignal {
      * interacts with an entity.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerInteractWithEntityAfterEvent) => void): void;
@@ -11539,6 +11980,8 @@ export class PlayerInteractWithEntityBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: PlayerInteractWithEntityBeforeEvent) => void,
@@ -11549,6 +11992,8 @@ export class PlayerInteractWithEntityBeforeEventSignal {
      * interacts with an entity.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerInteractWithEntityBeforeEvent) => void): void;
@@ -11642,6 +12087,8 @@ export class PlayerLeaveBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: PlayerLeaveBeforeEvent) => void): (arg: PlayerLeaveBeforeEvent) => void;
     /**
@@ -11650,6 +12097,8 @@ export class PlayerLeaveBeforeEventSignal {
      * the world.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerLeaveBeforeEvent) => void): void;
@@ -11683,6 +12132,8 @@ export class PlayerPlaceBlockAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: PlayerPlaceBlockAfterEvent) => void,
@@ -11694,6 +12145,8 @@ export class PlayerPlaceBlockAfterEventSignal {
      * by a player.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PlayerPlaceBlockAfterEvent) => void): void;
@@ -11769,6 +12222,8 @@ export class PressurePlatePopAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: PressurePlatePopAfterEvent) => void): (arg: PressurePlatePopAfterEvent) => void;
     /**
@@ -11777,6 +12232,8 @@ export class PressurePlatePopAfterEventSignal {
      * is popped.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PressurePlatePopAfterEvent) => void): void;
@@ -11824,6 +12281,8 @@ export class PressurePlatePushAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: PressurePlatePushAfterEvent) => void): (arg: PressurePlatePushAfterEvent) => void;
     /**
@@ -11832,6 +12291,8 @@ export class PressurePlatePushAfterEventSignal {
      * is pushed.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: PressurePlatePushAfterEvent) => void): void;
@@ -11897,6 +12358,8 @@ export class ProjectileHitBlockAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ProjectileHitBlockAfterEvent) => void): (arg: ProjectileHitBlockAfterEvent) => void;
     /**
@@ -11905,6 +12368,8 @@ export class ProjectileHitBlockAfterEventSignal {
      * a block.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ProjectileHitBlockAfterEvent) => void): void;
@@ -11970,6 +12435,8 @@ export class ProjectileHitEntityAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: ProjectileHitEntityAfterEvent) => void): (arg: ProjectileHitEntityAfterEvent) => void;
     /**
@@ -11978,6 +12445,8 @@ export class ProjectileHitEntityAfterEventSignal {
      * an entity.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ProjectileHitEntityAfterEvent) => void): void;
@@ -12459,6 +12928,8 @@ export class ScriptEventCommandMessageAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(
         callback: (arg: ScriptEventCommandMessageAfterEvent) => void,
@@ -12469,6 +12940,8 @@ export class ScriptEventCommandMessageAfterEventSignal {
      * Unsubscribes a particular handler for a ScriptEvent event.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: ScriptEventCommandMessageAfterEvent) => void): void;
@@ -12815,6 +13288,8 @@ export class System {
      * Cancels the execution of a job queued via {@link
      * System.runJob}.
      *
+     * This function can be called in early-execution mode.
+     *
      * @param jobId
      * The job ID returned from {@link System.runJob}.
      */
@@ -12823,6 +13298,8 @@ export class System {
      * @remarks
      * Cancels the execution of a function run that was previously
      * scheduled via {@link System.run}.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     clearRun(runId: number): void;
@@ -12836,6 +13313,8 @@ export class System {
      * system.run callout), this will run the function in the next
      * tick. Note, however, that depending on load on the system,
      * running in the same or next tick is not guaranteed.
+     *
+     * This function can be called in early-execution mode.
      *
      * @param callback
      * Function callback to run at the next game tick.
@@ -12867,6 +13346,8 @@ export class System {
      * @remarks
      * Runs a set of code on an interval.
      *
+     * This function can be called in early-execution mode.
+     *
      * @param callback
      * Functional code that will run when this interval occurs.
      * @param tickInterval
@@ -12892,6 +13373,8 @@ export class System {
      * Queues a generator to run until completion.  The generator
      * will be given a time slice each tick, and will be run until
      * it yields or completes.
+     *
+     * This function can be called in early-execution mode.
      *
      * @param generator
      * The instance of the generator to run.
@@ -12934,6 +13417,8 @@ export class System {
      * @remarks
      * Runs a set of code at a future time specified by tickDelay.
      *
+     * This function can be called in early-execution mode.
+     *
      * @param callback
      * Functional code that will run when this timeout occurs.
      * @param tickDelay
@@ -12945,6 +13430,9 @@ export class System {
      */
     runTimeout(callback: () => void, tickDelay?: number): number;
     /**
+     * @remarks
+     * This function can be called in early-execution mode.
+     *
      * @throws This function can throw errors.
      *
      * {@link minecraftcommon.EngineError}
@@ -13014,6 +13502,8 @@ export class TargetBlockHitAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: TargetBlockHitAfterEvent) => void): (arg: TargetBlockHitAfterEvent) => void;
     /**
@@ -13022,6 +13512,8 @@ export class TargetBlockHitAfterEventSignal {
      * hit.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: TargetBlockHitAfterEvent) => void): void;
@@ -13140,6 +13632,8 @@ export class TripWireTripAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: TripWireTripAfterEvent) => void): (arg: TripWireTripAfterEvent) => void;
     /**
@@ -13148,6 +13642,8 @@ export class TripWireTripAfterEventSignal {
      * tripped.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: TripWireTripAfterEvent) => void): void;
@@ -13190,6 +13686,8 @@ export class WeatherChangeAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: WeatherChangeAfterEvent) => void): (arg: WeatherChangeAfterEvent) => void;
     /**
@@ -13197,6 +13695,8 @@ export class WeatherChangeAfterEventSignal {
      * Removes a callback from being called when weather changes.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: WeatherChangeAfterEvent) => void): void;
@@ -13247,6 +13747,8 @@ export class WeatherChangeBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: WeatherChangeBeforeEvent) => void): (arg: WeatherChangeBeforeEvent) => void;
     /**
@@ -13254,6 +13756,8 @@ export class WeatherChangeBeforeEventSignal {
      * Removes a callback from being called before weather changes.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: WeatherChangeBeforeEvent) => void): void;
@@ -13287,6 +13791,7 @@ export class World {
      *
      */
     readonly gameRules: GameRules;
+    readonly isHardcore: boolean;
     /**
      * @remarks
      * Returns the general global scoreboard that applies to the
@@ -13962,6 +14467,18 @@ export class WorldAfterEvents {
     readonly playerInputPermissionCategoryChange: PlayerInputPermissionCategoryChangeAfterEventSignal;
     /**
      * @remarks
+     * An event for when a player interacts with a block.
+     *
+     */
+    readonly playerInteractWithBlock: PlayerInteractWithBlockAfterEventSignal;
+    /**
+     * @remarks
+     * This event fires when a player interacts with an entity.
+     *
+     */
+    readonly playerInteractWithEntity: PlayerInteractWithEntityAfterEventSignal;
+    /**
+     * @remarks
      * This event fires when a player joins a world.  See also
      * playerSpawn for another related event you can trap for when
      * a player is spawned the first time within a world.
@@ -14094,6 +14611,18 @@ export class WorldBeforeEvents {
     readonly playerGameModeChange: PlayerGameModeChangeBeforeEventSignal;
     /**
      * @remarks
+     * Fires before a player interacts with a block.
+     *
+     */
+    readonly playerInteractWithBlock: PlayerInteractWithBlockBeforeEventSignal;
+    /**
+     * @remarks
+     * Fires before a player interacts with an entity.
+     *
+     */
+    readonly playerInteractWithEntity: PlayerInteractWithEntityBeforeEventSignal;
+    /**
+     * @remarks
      * Fires when a player leaves the game.
      *
      */
@@ -14132,6 +14661,8 @@ export class WorldInitializeAfterEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: WorldInitializeAfterEvent) => void): (arg: WorldInitializeAfterEvent) => void;
     /**
@@ -14140,6 +14671,8 @@ export class WorldInitializeAfterEventSignal {
      * environment is initialized for a World.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: WorldInitializeAfterEvent) => void): void;
@@ -14179,6 +14712,8 @@ export class WorldInitializeBeforeEventSignal {
      *
      * This function can't be called in read-only mode.
      *
+     * This function can be called in early-execution mode.
+     *
      */
     subscribe(callback: (arg: WorldInitializeBeforeEvent) => void): (arg: WorldInitializeBeforeEvent) => void;
     /**
@@ -14187,6 +14722,8 @@ export class WorldInitializeBeforeEventSignal {
      * environment is initialized for a World.
      *
      * This function can't be called in read-only mode.
+     *
+     * This function can be called in early-execution mode.
      *
      */
     unsubscribe(callback: (arg: WorldInitializeBeforeEvent) => void): void;
@@ -15990,6 +16527,11 @@ export class EnchantmentTypeUnknownIdError extends Error {
  */
 // @ts-ignore Class inheritance allowed for native defined classes
 export class InvalidContainerSlotError extends Error {
+    private constructor();
+}
+
+// @ts-ignore Class inheritance allowed for native defined classes
+export class InvalidIteratorError extends Error {
     private constructor();
 }
 

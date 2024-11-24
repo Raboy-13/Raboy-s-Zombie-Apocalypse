@@ -1,4 +1,5 @@
 export function faceDirection(projectile, projectileLocation, targetLocation) {
+    // Rotate the projectile to face the target direction
     const deltaX = targetLocation.x - projectileLocation.x;
     const deltaY = targetLocation.y - projectileLocation.y;
     const deltaZ = targetLocation.z - projectileLocation.z;

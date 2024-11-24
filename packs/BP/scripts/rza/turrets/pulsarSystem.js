@@ -12,9 +12,11 @@ export function pulsarSystemMechanics(pulsarSystem) {
     const cooldown = pulsarSystems["rza:cooldown"].get(pulsarSystemId);
     const fireTime = pulsarSystems["rza:fire_time"].get(pulsarSystemId);
     const pulseRadiusOffset = pulsarSystems["rza:pulse_radius_offset"].get(pulsarSystemId);
+    // Decrement cooldown every tick
     if (cooldown > 0 && activeState) {
         pulsarSystems["rza:cooldown"].set(pulsarSystemId, cooldown - 1);
     }
+    // Firing Mechanics
     if (fireTime > 0) {
         pulsarSystems["rza:fire_time"].set(pulsarSystemId, fireTime - 1);
         const newRadiusOffset = pulseRadiusOffset + 0.25;
@@ -31,8 +33,10 @@ export function pulsarSystemMechanics(pulsarSystem) {
             'minecraft:totem_of_undying', 'minecraft:golden_apple', 'minecraft:golden_carrot', 'minecraft:enchanted_golden_apple',
             'minecraft:nether_star', 'minecraft:beacon'
         ]);
+        //Effects for every item, player, and zombie within the pulse
         entities.forEach(entity => {
             const typeId = entity.typeId;
+            // Items
             if (typeId === 'minecraft:item') {
                 const itemName = entity.getComponent('minecraft:item').itemStack.type.id;
                 if (itemName && !validItems.has(itemName)) {
@@ -49,9 +53,11 @@ export function pulsarSystemMechanics(pulsarSystem) {
                     entity.remove();
                 }
             }
+            // Zombies
             if (entity.hasComponent(EntityComponentTypes.TypeFamily) && entity.getComponent(EntityComponentTypes.TypeFamily).hasTypeFamily('zombie')) {
                 entity.addEffect('slowness', 100, { amplifier: 2 });
             }
+            // Players
             if (typeId === 'minecraft:player') {
                 entity.addEffect('haste', 300, { amplifier: 2 });
                 entity.addEffect('regeneration', 300, { amplifier: 2 });
@@ -59,6 +65,7 @@ export function pulsarSystemMechanics(pulsarSystem) {
             }
         });
     }
+    // Execute firing sequence once cooldown reaches 0
     if (active && activeState && cooldown === 0) {
         const location = pulsarSystem.location;
         pulsarSystem.dimension.spawnParticle('rza:pulsar_system_pulse', { x: location.x, y: location.y + 0.6, z: location.z });
