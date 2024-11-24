@@ -9,10 +9,17 @@ export function turretConfigurator(player, turret, turretName) {
         .toggle('Prioritize Mutated Zombies', turret.getProperty('rza:prioritize_mutants'))
         .dropdown('§cZombies to target', zombieSelection)
         .show(player)
-        .then(({ formValues: [toggle, dropdown] }) => {
+        .then((result) => {
+        if (!result || !result.formValues)
+            return;
+        const [toggle, dropdown] = result.formValues;
         const selectedZombieType = zombieSelection[dropdown];
-        turret.setProperty('rza:prioritize_mutants', toggle);
-        turret.setProperty('rza:target_zombies', selectedZombieType);
+        if (toggle !== undefined) {
+            turret.setProperty('rza:prioritize_mutants', toggle);
+        }
+        if (selectedZombieType !== undefined) {
+            turret.setProperty('rza:target_zombies', selectedZombieType);
+        }
         if (!toggle && selectedZombieType === 'All') {
             player.sendMessage(`[${turretName}] Targeting §cAll Zombies§r: Not Prioritizing Mutants`);
             turret.triggerEvent('rza:target_all_zombies');
@@ -68,7 +75,10 @@ export function pulsarSystemConfigurator(player, turret) {
         .toggle('Active', turret.getProperty('rza:active_state'))
         .dropdown('Convert Items to', convertTo)
         .show(player)
-        .then(({ formValues: [toggle, dropdown] }) => {
+        .then((result) => {
+        if (!result || !result.formValues)
+            return;
+        const [toggle, dropdown] = result.formValues;
         const selectedConvertType = convertTo[dropdown];
         if (toggle && selectedConvertType === 'Charcoal') {
             player.sendMessage('[§cPulsar System§r] §2Active§r: Converting items to Charcoal');
@@ -82,8 +92,12 @@ export function pulsarSystemConfigurator(player, turret) {
         if (!toggle && selectedConvertType === 'XP') {
             player.sendMessage('[§cPulsar System§r] §4Inactive§r: Converting items to XP Orbs');
         }
-        turret.setProperty('rza:active_state', toggle);
-        turret.setProperty('rza:convert_items_to', selectedConvertType);
+        if (toggle !== undefined) {
+            turret.setProperty('rza:active_state', toggle);
+        }
+        if (selectedConvertType !== undefined) {
+            turret.setProperty('rza:convert_items_to', selectedConvertType);
+        }
     }).catch(() => {
         player.sendMessage(`[SYSTEM] §cConfiguration Canceled§r: Resetting to previous configuration.`);
     });

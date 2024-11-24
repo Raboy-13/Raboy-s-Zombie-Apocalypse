@@ -281,7 +281,8 @@ function trackTargetAll(witherator, skull, family, prioritizeMutants) {
         finalTargetableZombie.addTag(`witherator_skull_${id}`);
         skullTargetMap.set(id, finalTargetableZombie);
     }
-    target = targetableZombie || oppositeTypeZombie || finalTargetableZombieType || finalOppositeTargetableZombieType || nearestTaggedZombie;
+    const selectedTarget = targetableZombie ?? oppositeTypeZombie ?? finalTargetableZombieType ?? finalOppositeTargetableZombieType ?? nearestTaggedZombie;
+    target = selectedTarget === null ? undefined : selectedTarget;
     if (target) {
         shootSkull(skull, target, targetableZombie ? 0.9 : 1.2);
         return;

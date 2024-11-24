@@ -12,21 +12,25 @@ const TURN_SMOOTHING = 0.45;
 const MAX_TURN_RATE = 25;
 const lastRotations = new Map();
 export function ownerCollectorDroneCounter(player) {
-    if (!world.scoreboard.getObjective('max_drones').hasParticipant(player.id)) {
+    const maxDrones = world.scoreboard.getObjective('max_drones') ?? world.scoreboard.addObjective('max_drones', 'Max Drones');
+    if (!maxDrones.hasParticipant(player.id)) {
         let run = system.run(() => {
-            world.scoreboard.getObjective('max_drones').setScore(player.id, 1);
+            maxDrones.setScore(player.id, 1);
             system.clearRun(run);
         });
     }
-    else if (world.scoreboard.getObjective('max_drones').getScore(player.id) < 3) {
+    else if ((maxDrones.getScore(player.id) ?? 0) < 3) {
         let run = system.run(() => {
-            world.scoreboard.getObjective('max_drones').setScore(player.id, world.scoreboard.getObjective('max_drones').getScore(player.id) + 1);
+            const currentScore = maxDrones.getScore(player.id) ?? 0;
+            maxDrones.setScore(player.id, currentScore + 1);
             system.clearRun(run);
         });
     }
-    else if (world.scoreboard.getObjective('max_drones').getScore(player.id) == 3) {
+    else if (maxDrones.getScore(player.id) == 3) {
         player.sendMessage('[SYSTEM] There can only be a maximum of §23§r drones for each player.');
-        player.dimension.getEntities({ type: 'rza:collector_drone', closest: 1, location: player.location })[0].kill();
+        const droneToKill = player.dimension.getEntities({ type: 'rza:collector_drone', closest: 1, location: player.location })[0];
+        if (droneToKill)
+            droneToKill.kill();
         player.dimension.spawnItem(new ItemStack('rza:collector_drone_item', 1), player.location);
     }
 }
@@ -65,6 +69,8 @@ export function collectorDroneConfigurator(entity) {
     let collectorDrone = entity;
     const configurator = collectorDrone.dimension.getPlayers({ closest: 1, location: collectorDrone.location });
     let player = configurator[0];
+    if (!player)
+        return;
     let collections = ['Items', 'XP'];
     let deliveryLocations = ['Player', 'Hopper'];
     let selectedCollection = collectorDrone.getProperty('rza:collections');
@@ -80,7 +86,11 @@ export function collectorDroneConfigurator(entity) {
         .dropdown('What to Collect:', collections)
         .dropdown('Where to Deliver (For items only):', deliveryLocations)
         .show(player)
-        .then(({ formValues: [activeToggle, autoCollectToggle, collectionDropdown, locationDropdown] }) => {
+        .then((result) => {
+        if (!result || !result.formValues)
+            return;
+        const formValues = result.formValues;
+        const [activeToggle, autoCollectToggle, collectionDropdown, locationDropdown] = formValues;
         const collect = collections[collectionDropdown];
         const location = deliveryLocations[locationDropdown];
         if (collect === 'Items') {
@@ -127,9 +137,13 @@ export function collectorDroneUnload(droneId) {
             owner.removeTag(`${droneId}_owner`);
         });
     });
-    const targetedItems = droneTargets.get(droneId) || new Set();
-    for (const itemId of targetedItems) {
-        itemTargets.delete(itemId);
+    if (droneTargets.has(droneId)) {
+        const targetItems = droneTargets.get(droneId);
+        if (targetItems instanceof Set) {
+            for (const itemId of targetItems) {
+                itemTargets.delete(itemId);
+            }
+        }
     }
     droneTargets.delete(droneId);
     pathfindCooldowns.delete(droneId);
@@ -138,12 +152,17 @@ export function collectorDroneUnload(droneId) {
     return;
 }
 export function collectorDroneDie(drone, playerOwner) {
+    const maxDrones = world.scoreboard.getObjective('max_drones') ?? world.scoreboard.addObjective('max_drones', 'Max Drones');
     if (droneData.has(drone.id)) {
         if (playerOwner?.hasTag(`${drone.id}_owner`))
             playerOwner.removeTag(`${drone.id}_owner`);
         let droneCount = playerOwner?.dimension.getEntities({ type: 'rza:collector_drone', location: playerOwner.location });
-        if (droneCount.length < 3 && world.scoreboard.getObjective('max_drones').getScore(playerOwner.id) > 0) {
-            system.run(() => world.scoreboard.getObjective('max_drones').setScore(playerOwner.id, world.scoreboard.getObjective('max_drones').getScore(playerOwner.id) - 1));
+        if (droneCount.length < 3 && playerOwner && (maxDrones.getScore(playerOwner.id) ?? 0) > 0) {
+            system.run(() => {
+                const currentScore = maxDrones.getScore(playerOwner.id) ?? 0;
+                if (currentScore > 0)
+                    maxDrones.setScore(playerOwner.id, currentScore - 1);
+            });
         }
     }
     return;
@@ -179,8 +198,9 @@ export function collectorDroneMechanics(collectorDrone) {
                     x: droneLocation.x + (collectorDrone.getViewDirection().x * 1),
                     y: droneLocation.y - 1,
                     z: droneLocation.z + (collectorDrone.getViewDirection().z * 1)
-                }).permutation?.matches('minecraft:air');
-                collectorDrone.runCommand(blockInFront ?
+                });
+                const isAirBlock = blockInFront?.permutation?.matches('minecraft:air') ?? false;
+                collectorDrone.runCommand(isAirBlock ?
                     `execute facing ${ownerLocation.x} ${ownerLocation.y + 3} ${ownerLocation.z} if entity @p[tag=${droneId}_owner, rm=2] run tp @s ^^^0.5` :
                     `tp @s ~~0.5~`);
                 ['xp_orb', 'item'].forEach(type => collectorDrone.runCommand(`execute at @s as @e[type=${type}, tag=${droneId}_grabbed, r=3] at @s facing ${droneLocation.x} ${droneLocation.y + 1} ${droneLocation.z} run tp @s ^^^0.7`));
@@ -323,7 +343,7 @@ function collectionActive(collectorDrone, droneLocation, targetCollection) {
                     world.sendMessage(`§bPathfinding result: ${success ? "§aSuccess" : "§cFailed"}`);
                     if (!success) {
                         pathFailureCounter.set(droneId, (pathFailureCounter.get(droneId) || 0) + 1);
-                        if (pathFailureCounter.get(droneId) >= 10) {
+                        if ((pathFailureCounter.get(droneId) ?? 0) >= 10) {
                             pathFailureCounter.set(droneId, 0);
                             const teleportPos = {
                                 x: targetLoc.x,

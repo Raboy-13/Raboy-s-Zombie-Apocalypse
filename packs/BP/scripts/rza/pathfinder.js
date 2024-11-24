@@ -64,7 +64,7 @@ class PathFinder {
             iterations++;
             if (iterations > 300 && iterations % 50 === 0)
                 await system.waitTicks(1);
-            const current = this.openSet.reduce((min, node) => node.f < min.f ? node : min, this.openSet[0]);
+            const current = this.openSet.reduce((min, node) => (node.f < min?.f || !min) ? node : min);
             this.dimension.spawnParticle('rza:ignite_red', current.pos);
             if (this.heuristic(current.pos, this.goal) < 1) {
                 world.sendMessage(`§aPath found in ${iterations} iterations`);
@@ -217,7 +217,7 @@ class PathFinder {
     async isValidPosition(pos) {
         const posKey = this.posToString(pos);
         if (this.blockCache.has(posKey)) {
-            return this.blockCache.get(posKey);
+            return this.blockCache.get(posKey) ?? false;
         }
         try {
             const checkPos = {
@@ -249,40 +249,52 @@ class PathFinder {
     posToString(pos) {
         return `${Math.floor(pos.x)},${Math.floor(pos.y)},${Math.floor(pos.z)}`;
     }
-    reconstructPath(node) {
+    async reconstructPath(node) {
         const rawPath = [];
         let current = node;
         while (current) {
             rawPath.unshift(current.pos);
+            if (!current.parent)
+                break;
             current = current.parent;
         }
         if (rawPath.length <= 2)
             return rawPath;
         const smoothPath = [];
-        smoothPath.push(rawPath[0]);
+        if (rawPath[0]) {
+            smoothPath.push(rawPath[0]);
+        }
         for (let i = 1; i < rawPath.length - 1; i++) {
             const prev = rawPath[i - 1];
             const current = rawPath[i];
             const next = rawPath[i + 1];
+            if (!prev || !current || !next)
+                continue;
             const isCorner = this.isCornerPoint(prev, current, next);
             if (isCorner) {
                 const cornerPoints = this.generateSmoothCorner(prev, current, next);
                 for (const point of cornerPoints) {
-                    if (this.isValidPosition(point)) {
+                    if (await this.isValidPosition(point)) {
                         smoothPath.push(point);
                     }
                 }
             }
             else {
-                const straightPoints = this.interpolateStraightPath(smoothPath[smoothPath.length - 1], current);
+                const lastPoint = smoothPath[smoothPath.length - 1];
+                if (!lastPoint)
+                    continue;
+                const straightPoints = this.interpolateStraightPath(lastPoint, current);
                 for (const point of straightPoints) {
-                    if (this.isValidPosition(point)) {
+                    if (await this.isValidPosition(point)) {
                         smoothPath.push(point);
                     }
                 }
             }
         }
-        smoothPath.push(rawPath[rawPath.length - 1]);
+        const lastPoint = rawPath[rawPath.length - 1];
+        if (lastPoint) {
+            smoothPath.push(lastPoint);
+        }
         return smoothPath;
     }
     isCornerPoint(prev, current, next) {
@@ -337,14 +349,19 @@ class PathFinder {
         return points;
     }
     enforcePointSpacing(points) {
+        if (points.length === 0 || !points[0])
+            return [];
         const spacedPoints = [points[0]];
         for (let i = 1; i < points.length; i++) {
             const lastPoint = spacedPoints[spacedPoints.length - 1];
-            const distance = Math.sqrt(Math.pow(points[i].x - lastPoint.x, 2) +
-                Math.pow(points[i].y - lastPoint.y, 2) +
-                Math.pow(points[i].z - lastPoint.z, 2));
+            const currentPoint = points[i];
+            if (!currentPoint || !lastPoint)
+                continue;
+            const distance = Math.sqrt(Math.pow(currentPoint.x - lastPoint.x, 2) +
+                Math.pow(currentPoint.y - lastPoint.y, 2) +
+                Math.pow(currentPoint.z - lastPoint.z, 2));
             if (distance >= this.POINT_SPACING) {
-                spacedPoints.push(points[i]);
+                spacedPoints.push(currentPoint);
             }
         }
         return spacedPoints;
@@ -409,7 +426,12 @@ export async function pathfind(pathingEntity, start, target) {
                     return;
                 }
                 try {
-                    pathingEntity.teleport(path[currentIndex]);
+                    const currentPoint = path[currentIndex];
+                    if (!currentPoint) {
+                        system.clearRun(intervalId);
+                        return;
+                    }
+                    pathingEntity.teleport(currentPoint);
                     currentIndex++;
                 }
                 catch (error) {

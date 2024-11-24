@@ -25,7 +25,7 @@
     },
     "baseUrl": "src",
     "rootDir": "src",
-    "outDir": "[packs/BP/scripts]"
+    "outDir": "packs/BP/scripts"
   },
   "include": [
     "src"
