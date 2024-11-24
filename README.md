@@ -8,7 +8,9 @@
 
 Experience a complete transformation of Minecraft Bedrock in this expansive post-apocalyptic Add-On. Engage with evolved zombies, command autonomous drones, and establish formidable defenses in a wasteland that challenges your survival instincts. This Bedrock Add-On combines strategic base building, advanced automation, and intense combat mechanics to deliver an immersive apocalyptic experience.
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Minecraft](https://img.shields.io/badge/Minecraft-Bedrock-green.svg) ![Version](https://img.shields.io/badge/version-1.2.3-orange.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Minecraft Version](https://img.shields.io/badge/Minecraft-1.21.40+-green)
+![Version](https://img.shields.io/badge/version-1.2.3-orange.svg)
 
 ---
 
