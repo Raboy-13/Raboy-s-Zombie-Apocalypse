@@ -5,7 +5,7 @@ export const meleeWeaponCooldown = new Map();
 
 // Function for player melee weapon attack
 export function playerMeleeWeaponAttack(entityHit: Entity, wielder: Entity, weapon: ItemStack) {
-    const weaponId = weapon?.typeId;
+    const weaponId = weapon?.type.id;
     const hitLocation = entityHit.location;
     meleeWeaponCooldown.set(wielder.id, 20);
 

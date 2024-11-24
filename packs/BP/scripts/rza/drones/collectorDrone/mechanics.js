@@ -267,7 +267,6 @@ function collectionActive(collectorDrone, droneLocation, targetCollection) {
             lastRotations.set(droneId, smoothedRotation);
             if (pathfindCooldowns.get(droneId) === 0 && !pathfindingInProgress.get(droneId)) {
                 pathfindingInProgress.set(droneId, true);
-                world.sendMessage(`§eTarget found - Type: ${targetItem.typeId}`);
                 pathfind(collectorDrone, droneLocation, targetLoc).then((success) => {
                     pathfindingInProgress.set(droneId, false);
                     if (!success) {
@@ -298,7 +297,7 @@ function collectionActive(collectorDrone, droneLocation, targetCollection) {
             }
         }
         if (droneCollectionDelay.get(droneId) === 0) {
-            collectorDrone.runCommand(`execute as @e[type=${targetCollection}, tag=${droneId}_grabbed] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`);
+            collectorDrone.runCommand(`execute as @e[type=${targetCollection}, tag=${droneId}_grabbed] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^1.7`);
         }
         if (capacity > 0 && !targetItem) {
             collectorDrone.setProperty('rza:deliver_incomplete', true);
@@ -340,7 +339,6 @@ function collectionActive(collectorDrone, droneLocation, targetCollection) {
                 pathfindingInProgress.set(droneId, true);
                 pathfind(collectorDrone, droneLocation, targetLoc).then((success) => {
                     pathfindingInProgress.set(droneId, false);
-                    world.sendMessage(`§bPathfinding result: ${success ? "§aSuccess" : "§cFailed"}`);
                     if (!success) {
                         pathFailureCounter.set(droneId, (pathFailureCounter.get(droneId) || 0) + 1);
                         if ((pathFailureCounter.get(droneId) ?? 0) >= 10) {
@@ -351,7 +349,6 @@ function collectionActive(collectorDrone, droneLocation, targetCollection) {
                                 z: targetLoc.z
                             };
                             collectorDrone.teleport(teleportPos);
-                            world.sendMessage("§eDrone teleported near delivery target after multiple pathfinding failures");
                         }
                     }
                     else {
@@ -365,7 +362,7 @@ function collectionActive(collectorDrone, droneLocation, targetCollection) {
                     }
                 });
             }
-            collectorDrone.runCommand(`execute as @e[type=${targetCollection}, tag=${droneId}_grabbed, r=5] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^1.3`);
+            collectorDrone.runCommand(`execute as @e[type=${targetCollection}, tag=${droneId}_grabbed, r=5] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^1.7`);
         }
         else {
             collectorDrone.runCommand(`tp @e[type=${targetCollection}, tag=${droneId}_grabbed] ${targetLoc.x} ${targetLoc.y + (deliverToHopper && targetCollection === 'minecraft:item' ? 2 : 1)} ${targetLoc.z}`);
@@ -396,11 +393,6 @@ function collectionActive(collectorDrone, droneLocation, targetCollection) {
 }
 function findBestTarget(drone, droneId, droneLocation, searchRange, targetCollection) {
     const currentCapacity = drone.getProperty('rza:capacity');
-    const targetCapacity = drone.getProperty('rza:target_capacity');
-    const playerOwner = droneData.get(droneId);
-    if (playerOwner?.isValid()) {
-        playerOwner.onScreenDisplay.setActionBar(`§eDrone Capacity: ${currentCapacity}/16 (Targeted: ${targetCapacity}/16)`);
-    }
     const nearbyItems = drone.dimension.getEntities({
         type: targetCollection,
         location: droneLocation,

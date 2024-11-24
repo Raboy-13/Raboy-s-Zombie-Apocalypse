@@ -335,57 +335,59 @@ function collectionActive(collectorDrone: Entity, droneLocation: Vector3, target
         if (targetItem) {
             const targetLoc = targetItem.location;
             const currentRotation = collectorDrone.getRotation().y;
-        
+
             // Calculate target rotation
             const targetRotation = Math.atan2(
-            targetLoc.z - droneLocation.z,
-            targetLoc.x - droneLocation.x
+                targetLoc.z - droneLocation.z,
+                targetLoc.x - droneLocation.x
             ) * (180 / Math.PI) - 90;
-        
+
             // Get or initialize last rotation
             const lastRotation = lastRotations.get(droneId) ?? currentRotation;
-        
+
             // Calculate shortest turn direction
             let rotationDiff = targetRotation - lastRotation;
             if (rotationDiff > 180) rotationDiff -= 360;
             if (rotationDiff < -180) rotationDiff += 360;
-        
+
             // Apply smoothing and limit turn rate
             const smoothedRotation = lastRotation + Math.min(
-            Math.max(rotationDiff * TURN_SMOOTHING, -MAX_TURN_RATE),
-            MAX_TURN_RATE
+                Math.max(rotationDiff * TURN_SMOOTHING, -MAX_TURN_RATE),
+                MAX_TURN_RATE
             );
-        
+
             // Update rotation
             collectorDrone.setRotation({
-            x: collectorDrone.getRotation().x,
-            y: smoothedRotation
+                x: collectorDrone.getRotation().x,
+                y: smoothedRotation
             });
-        
+
             // Store rotation for next tick
             lastRotations.set(droneId, smoothedRotation);
 
             // Only attempt pathfinding if not on cooldown and not already pathfinding
             if (pathfindCooldowns.get(droneId) === 0 && !pathfindingInProgress.get(droneId)) {
-            pathfindingInProgress.set(droneId, true);
-            
-            world.sendMessage(`§eTarget found - Type: ${targetItem.typeId}`);
-            pathfind(collectorDrone, droneLocation, targetLoc).then((success) => {
-                pathfindingInProgress.set(droneId, false);
-                
-                if (!success) {
-                // Increment failure counter
-                pathFailureCounter.set(droneId, (pathFailureCounter.get(droneId) || 0) + 1);
-                
-                // Set a shorter cooldown on failure
-                pathfindCooldowns.set(droneId, 10);
-                } else {
-                // Reset failure counter on success
-                pathFailureCounter.set(droneId, 0);
-                // Set normal cooldown on success
-                pathfindCooldowns.set(droneId, 20);
-                }
-            });
+                pathfindingInProgress.set(droneId, true);
+
+                // world.sendMessage(`§eTarget found - Type: ${targetItem.typeId}`);
+                pathfind(collectorDrone, droneLocation, targetLoc).then((success) => {
+                    pathfindingInProgress.set(droneId, false);
+
+                    // world.sendMessage(`§bPathfinding result: ${success ? "§aSuccess" : "§cFailed"}`);
+
+                    if (!success) {
+                        // Increment failure counter
+                        pathFailureCounter.set(droneId, (pathFailureCounter.get(droneId) || 0) + 1);
+
+                        // Set a shorter cooldown on failure
+                        pathfindCooldowns.set(droneId, 10);
+                    } else {
+                        // Reset failure counter on success
+                        pathFailureCounter.set(droneId, 0);
+                        // Set normal cooldown on success
+                        pathfindCooldowns.set(droneId, 20);
+                    }
+                });
             }
         }
 
@@ -415,7 +417,7 @@ function collectionActive(collectorDrone: Entity, droneLocation: Vector3, target
         // Keep grabbed items following drone
         if (droneCollectionDelay.get(droneId) === 0) {
             collectorDrone.runCommand(
-                `execute as @e[type=${targetCollection}, tag=${droneId}_grabbed] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^0.7`
+                `execute as @e[type=${targetCollection}, tag=${droneId}_grabbed] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^1.7`
             );
         }
 
@@ -435,7 +437,7 @@ function collectionActive(collectorDrone: Entity, droneLocation: Vector3, target
         // Go back to collecting items/xp if there is a valid collectible found
         if (validItem && capacity < 16) { collectorDrone.setProperty('rza:deliver_incomplete', false); return; }
 
-        const target = deliverToHopper ? 
+        const target = deliverToHopper ?
             collectorDrone.dimension.getEntities({
                 type: 'minecraft:hopper_minecart',
                 tags: [`${playerOwner.id}_owned`],
@@ -468,17 +470,17 @@ function collectionActive(collectorDrone: Entity, droneLocation: Vector3, target
                 pathfind(collectorDrone, droneLocation, targetLoc).then((success) => {
                     pathfindingInProgress.set(droneId, false);
 
-                    world.sendMessage(`§bPathfinding result: ${success ? "§aSuccess" : "§cFailed"}`);
-                    
+                    // world.sendMessage(`§bPathfinding result: ${success ? "§aSuccess" : "§cFailed"}`);
+
                     if (!success) {
                         // Increment failure counter for delivery attempts
                         pathFailureCounter.set(droneId, (pathFailureCounter.get(droneId) || 0) + 1);
-                        
+
                         // Check if failures exceed threshold
                         if ((pathFailureCounter.get(droneId) ?? 0) >= 10) {
                             // Reset counter
                             pathFailureCounter.set(droneId, 0);
-                            
+
                             // Teleport drone above target with slight offset to avoid getting stuck
                             const teleportPos = {
                                 x: targetLoc.x,
@@ -486,7 +488,7 @@ function collectionActive(collectorDrone: Entity, droneLocation: Vector3, target
                                 z: targetLoc.z
                             };
                             collectorDrone.teleport(teleportPos);
-                            world.sendMessage("§eDrone teleported near delivery target after multiple pathfinding failures");
+                            // world.sendMessage("§eDrone teleported near delivery target after multiple pathfinding failures");
                         }
                     } else {
                         // Reset failure counter on success
@@ -503,7 +505,7 @@ function collectionActive(collectorDrone: Entity, droneLocation: Vector3, target
             }
             // Keep grabbed items following
             collectorDrone.runCommand(
-                `execute as @e[type=${targetCollection}, tag=${droneId}_grabbed, r=5] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^1.3`
+                `execute as @e[type=${targetCollection}, tag=${droneId}_grabbed, r=5] at @s facing ${droneLocation.x} ${droneLocation.y + 0.7} ${droneLocation.z} run tp @s ^^^1.7`
             );
         } else {
             // Deliver items
@@ -543,13 +545,13 @@ function collectionActive(collectorDrone: Entity, droneLocation: Vector3, target
 
 function findBestTarget(drone: Entity, droneId: string, droneLocation: Vector3, searchRange: number, targetCollection: string): Entity | undefined {
     const currentCapacity = drone.getProperty('rza:capacity') as number;
-    const targetCapacity = drone.getProperty('rza:target_capacity') as number;
+    // const targetCapacity = drone.getProperty('rza:target_capacity') as number;
 
     // Display capacity information on actionbar
-    const playerOwner = droneData.get(droneId) as Player;
-    if (playerOwner?.isValid()) {
-        playerOwner.onScreenDisplay.setActionBar(`§eDrone Capacity: ${currentCapacity}/16 (Targeted: ${targetCapacity}/16)`);
-    }
+    // const playerOwner = droneData.get(droneId) as Player;
+    // if (playerOwner?.isValid()) {
+    //     playerOwner.onScreenDisplay.setActionBar(`§eDrone Capacity: ${currentCapacity}/16 (Targeted: ${targetCapacity}/16)`);
+    // }
 
     const nearbyItems = drone.dimension.getEntities({
         type: targetCollection,

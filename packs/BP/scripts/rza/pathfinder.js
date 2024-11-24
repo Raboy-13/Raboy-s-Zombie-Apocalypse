@@ -1,4 +1,3 @@
-import { world } from "@minecraft/server";
 import { system } from "@minecraft/server";
 class PathFinder {
     static PASSABLE_BLOCKS = new Set([
@@ -30,7 +29,6 @@ class PathFinder {
     goal;
     openSet = [];
     closedSet = new Set();
-    failedChecks = new Map();
     blockCache = new Map();
     lastFailedPos = null;
     spreadLevel = 1;
@@ -46,10 +44,6 @@ class PathFinder {
         this.goal = goal;
     }
     async findPath(start) {
-        this.openSet = [];
-        this.closedSet.clear();
-        this.failedChecks.clear();
-        this.blockCache.clear();
         const startNode = {
             pos: start,
             g: 0,
@@ -65,9 +59,7 @@ class PathFinder {
             if (iterations > 300 && iterations % 50 === 0)
                 await system.waitTicks(1);
             const current = this.openSet.reduce((min, node) => (node.f < min?.f || !min) ? node : min);
-            this.dimension.spawnParticle('rza:ignite_red', current.pos);
             if (this.heuristic(current.pos, this.goal) < 1) {
-                world.sendMessage(`§aPath found in ${iterations} iterations`);
                 return this.reconstructPath(current);
             }
             this.openSet = this.openSet.filter(node => node !== current);
@@ -103,7 +95,6 @@ class PathFinder {
                 this.cleanupFailedChecks();
             }
         }
-        world.sendMessage(`§cNo path found after ${iterations} iterations`);
         return [];
     }
     async getNeighbors(pos) {
@@ -407,18 +398,12 @@ export async function pathfind(pathingEntity, start, target) {
             y: Math.floor(target.y + 2),
             z: Math.floor(target.z)
         };
-        world.sendMessage(`§ePathfinding started from ${JSON.stringify(startPos)} to ${JSON.stringify(targetPos)}`);
         if (!pathingEntity.dimension.getBlock(startPos) || !pathingEntity.dimension.getBlock(targetPos)) {
-            world.sendMessage(`§cOne or both positions are in unloaded chunks`);
             return false;
         }
         const pathFinder = new PathFinder(pathingEntity.dimension, targetPos);
         const path = await pathFinder.findPath(startPos);
         if (path.length > 0) {
-            world.sendMessage(`§aPath found with ${path.length} steps`);
-            for (const point of path) {
-                pathingEntity.dimension.spawnParticle('rza:ignite_green', point);
-            }
             let currentIndex = 0;
             const intervalId = system.runInterval(() => {
                 if (!pathingEntity.isValid() || currentIndex >= path.length) {
@@ -435,7 +420,6 @@ export async function pathfind(pathingEntity, start, target) {
                     currentIndex++;
                 }
                 catch (error) {
-                    world.sendMessage(`§cPathfinding error: ${error}`);
                     system.clearRun(intervalId);
                 }
             }, 1);
@@ -448,7 +432,6 @@ export async function pathfind(pathingEntity, start, target) {
         }
     }
     catch (error) {
-        world.sendMessage(`§cPathfinding error: ${error}`);
         return false;
     }
 }

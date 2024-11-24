@@ -1,7 +1,7 @@
 import { EntityComponentTypes, EntityDamageCause, EquipmentSlot, ItemComponentTypes, system } from "@minecraft/server";
 export const meleeWeaponCooldown = new Map();
 export function playerMeleeWeaponAttack(entityHit, wielder, weapon) {
-    const weaponId = weapon?.typeId;
+    const weaponId = weapon?.type.id;
     const hitLocation = entityHit.location;
     meleeWeaponCooldown.set(wielder.id, 20);
     if (weaponId?.endsWith('axe') || weaponId?.endsWith('sword')) {

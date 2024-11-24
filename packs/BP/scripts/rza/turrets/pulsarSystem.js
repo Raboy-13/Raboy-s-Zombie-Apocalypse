@@ -25,16 +25,16 @@ export function pulsarSystemMechanics(pulsarSystem) {
             maxDistance: newRadiusOffset
         });
         const validItems = new Set([
-            'Netherite Scrap', 'Netherite Ingot', 'Block of Netherite', 'Netherite Axe',
-            'Netherite Sword', 'Netherite Shovel', 'Netherite Pickaxe', 'Netherite Hoe',
-            'Netherite Helmet', 'Netherite Chestplate', 'Netherite Leggings', 'Netherite Boots',
-            'Totem of Undying', 'Golden Apple', 'Golden Carrot', 'Enchanted Apple',
-            'Nether Star', 'Beacon'
+            'minecraft:netherite_scrap', 'minecraft:netherite_ingot', 'minecraft:netherite_block', 'minecraft:netherite_axe',
+            'minecraft:netherite_sword', 'minecraft:netherite_shovel', 'minecraft:netherite_pickaxe', 'minecraft:netherite_hoe',
+            'minecraft:netherite_helmet', 'minecraft:netherite_chestplate', 'minecraft:netherite_leggings', 'minecraft:netherite_boots',
+            'minecraft:totem_of_undying', 'minecraft:golden_apple', 'minecraft:golden_carrot', 'minecraft:enchanted_golden_apple',
+            'minecraft:nether_star', 'minecraft:beacon'
         ]);
         entities.forEach(entity => {
             const typeId = entity.typeId;
             if (typeId === 'minecraft:item') {
-                const itemName = entity.getComponent('minecraft:item').itemStack.nameTag;
+                const itemName = entity.getComponent('minecraft:item').itemStack.type.id;
                 if (itemName && !validItems.has(itemName)) {
                     if (convertItemsTo === 'Charcoal') {
                         entity.dimension.spawnParticle('rza:item_ignite', entity.location);
@@ -46,7 +46,7 @@ export function pulsarSystemMechanics(pulsarSystem) {
                         entity.dimension.playSound('block.beehive.enter', entity.location, { volume: 2 });
                         entity.dimension.spawnEntity('xp_orb', entity.location);
                     }
-                    entity.kill();
+                    entity.remove();
                 }
             }
             if (entity.hasComponent(EntityComponentTypes.TypeFamily) && entity.getComponent(EntityComponentTypes.TypeFamily).hasTypeFamily('zombie')) {

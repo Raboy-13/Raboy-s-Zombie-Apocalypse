@@ -1,4 +1,4 @@
-import { Dimension, Entity, Vector3, world } from "@minecraft/server";
+import { Dimension, Entity, Vector3 } from "@minecraft/server";
 import { system } from "@minecraft/server";
 
 /**
@@ -65,7 +65,7 @@ class PathFinder {
     private goal: Vector3;
     private openSet: Node[] = [];
     private closedSet = new Set<string>();
-    private failedChecks = new Map<string, number>(); // Track failed checks per position
+    //private failedChecks = new Map<string, number>(); // Track failed checks per position
     private blockCache = new Map<string, boolean>(); // Cache block check results
     private lastFailedPos: string | null = null; // Track last failed position
     private spreadLevel = 1; // Track current spread level
@@ -98,10 +98,10 @@ class PathFinder {
     async findPath(start: Vector3): Promise<Vector3[]> {
         // Debug start
 
-        this.openSet = [];
-        this.closedSet.clear();
-        this.failedChecks.clear(); // Reset failed checks at start of new path
-        this.blockCache.clear(); // Clear cache at start of new path
+        // this.openSet = [];
+        // this.closedSet.clear();
+        // this.failedChecks.clear(); // Reset failed checks at start of new path
+        // this.blockCache.clear(); // Clear cache at start of new path
 
         const startNode: Node = {
             pos: start,
@@ -125,11 +125,11 @@ class PathFinder {
             const current = this.openSet.reduce((min, node) => 
                 (node.f < min?.f || !min) ? node : min);
 
-            this.dimension.spawnParticle('rza:ignite_red', current.pos);
+            // this.dimension.spawnParticle('rza:ignite_red', current.pos);
 
             // Check if we reached the goal
             if (this.heuristic(current.pos, this.goal) < 1) {
-                world.sendMessage(`§aPath found in ${iterations} iterations`);
+                // world.sendMessage(`§aPath found in ${iterations} iterations`);
                 return this.reconstructPath(current);
             }
 
@@ -176,7 +176,7 @@ class PathFinder {
             }
         }
 
-        world.sendMessage(`§cNo path found after ${iterations} iterations`);
+        // world.sendMessage(`§cNo path found after ${iterations} iterations`);
         return [];
     }
 
@@ -636,10 +636,10 @@ export async function pathfind(pathingEntity: Entity, start: Vector3, target: Ve
             z: Math.floor(target.z)
         };
 
-        world.sendMessage(`§ePathfinding started from ${JSON.stringify(startPos)} to ${JSON.stringify(targetPos)}`);
+        // world.sendMessage(`§ePathfinding started from ${JSON.stringify(startPos)} to ${JSON.stringify(targetPos)}`);
 
         if (!pathingEntity.dimension.getBlock(startPos) || !pathingEntity.dimension.getBlock(targetPos)) {
-            world.sendMessage(`§cOne or both positions are in unloaded chunks`);
+            // world.sendMessage(`§cOne or both positions are in unloaded chunks`);
             return false;
         }
 
@@ -647,11 +647,13 @@ export async function pathfind(pathingEntity: Entity, start: Vector3, target: Ve
         const path = await pathFinder.findPath(startPos);
 
         if (path.length > 0) {
-            world.sendMessage(`§aPath found with ${path.length} steps`);
+            // world.sendMessage(`§aPath found with ${path.length} steps`);
             // Visualize the path with particles
+            /*
             for (const point of path) {
                 pathingEntity.dimension.spawnParticle('rza:ignite_green', point);
             }
+            */
             let currentIndex = 0;
 
             const intervalId = system.runInterval(() => {
@@ -669,7 +671,7 @@ export async function pathfind(pathingEntity: Entity, start: Vector3, target: Ve
                     pathingEntity.teleport(currentPoint);
                     currentIndex++;
                 } catch (error) {
-                    world.sendMessage(`§cPathfinding error: ${error}`);
+                    // world.sendMessage(`§cPathfinding error: ${error}`);
                     system.clearRun(intervalId);
                 }
             }, 1);
@@ -681,7 +683,7 @@ export async function pathfind(pathingEntity: Entity, start: Vector3, target: Ve
             return false; // Make sure we explicitly return false here
         }
     } catch (error) {
-        world.sendMessage(`§cPathfinding error: ${error}`);
+        // world.sendMessage(`§cPathfinding error: ${error}`);
         return false; // Also return false on any errors
     }
 }
