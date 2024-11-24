@@ -81,27 +81,31 @@ world.afterEvents.entitySpawn.subscribe((data) => {
     if (entityType === 'rza:collector_drone') {
         const drone = entity;
         const playerOwner = drone.dimension.getPlayers({ closest: 1, location: drone.location })[0];
-        let run = system.run(() => {
-            collectorDroneOwnerPairing(drone, playerOwner);
-            system.clearRun(run);
-        });
+        if (playerOwner) {
+            let run = system.run(() => {
+                collectorDroneOwnerPairing(drone, playerOwner);
+                system.clearRun(run);
+            });
+        }
     }
 
     //Player and hopper pairing for drone delivery
     if (entityType === 'minecraft:hopper_minecart') {
         const hopper = entity;
         const playerOwner = hopper.dimension.getPlayers({ closest: 1, location: hopper.location })[0];
-        let run = system.run(() => {
-            collectorDroneHopperPairing(hopper, playerOwner);
-            system.clearRun(run);
-        });
+        if (playerOwner) {
+            let run = system.run(() => {
+                collectorDroneHopperPairing(hopper, playerOwner);
+                system.clearRun(run);
+            });
+        }
     }
 
     //Electron core activator for storm weaver turret
     if (entityType === 'minecraft:lightning_bolt') {
         const blockHit = entity.dimension.getBlock(entity.location);
 
-        if (blockHit.permutation?.matches('minecraft:lightning_rod')) {
+        if (blockHit && blockHit.permutation?.matches('minecraft:lightning_rod')) {
             let run = system.run(() => {
                 activateInactiveElectronReactorCore(blockHit);
                 system.clearRun(run);
@@ -214,10 +218,12 @@ world.afterEvents.entityDie.subscribe((data) => {
         if (entity?.matches({ type: 'rza:collector_drone' })) {
             const drone = entity;
             const playerOwner = drone.dimension.getPlayers({ closest: 1, location: drone.location, tags: [`${drone.id}_owner`] })[0];
-            let run = system.run(() => {
-                collectorDroneDie(drone, playerOwner);
-                system.clearRun(run);
-            });
+            if (playerOwner) {
+                let run = system.run(() => {
+                    collectorDroneDie(drone, playerOwner);
+                    system.clearRun(run);
+                });
+            }
         }
     } catch (error) { }
 });
@@ -230,7 +236,7 @@ world.afterEvents.entityHurt.subscribe((data) => {
     const isZombie = entity.hasComponent(EntityComponentTypes.TypeFamily) && (entity.getComponent(EntityComponentTypes.TypeFamily) as EntityTypeFamilyComponent).hasTypeFamily('zombie');
 
     //From sonic cannon
-    if (sourceId === 'rza:sonic_cannon' && isZombie) {
+    if (sourceId === 'rza:sonic_cannon' && isZombie && source) {
         let run = system.run(() => {
             sonicCannonHit(entity, source);
             system.clearRun(run);
@@ -238,7 +244,7 @@ world.afterEvents.entityHurt.subscribe((data) => {
     }
 
     //From storm weaver
-    if (sourceId === 'rza:storm_weaver' && isZombie) {
+    if (sourceId === 'rza:storm_weaver' && isZombie && source) {
         let run = system.runTimeout(() => {
             stormWeaverLightning(entity, source);
             system.clearRun(run);
@@ -262,10 +268,12 @@ world.afterEvents.entityHitEntity.subscribe((data) => {
         if (isPlayer && cooldown == 0) {
             const weapon = (source.getComponent(EntityComponentTypes.Equippable) as EntityEquippableComponent).getEquipment(EquipmentSlot.Mainhand);
 
-            let run = system.run(() => {
-                playerMeleeWeaponAttack(entity, source, weapon);
-                system.clearRun(run);
-            });
+            if (weapon) {
+                let run = system.run(() => {
+                    playerMeleeWeaponAttack(entity, source, weapon);
+                    system.clearRun(run);
+                });
+            }
         }
         else if (isNonPlayer && cooldown == 0) {
             let run = system.run(() => {
@@ -343,6 +351,8 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
             let turretName: string;
             const configurator = turret.dimension.getPlayers({ closest: 1, location: turret.location });
             let player = configurator[0];
+
+            if (!player) return;
 
             //Arrow Turret Configurator
             if (turretType === 'rza:arrow_turret') {
@@ -427,11 +437,13 @@ system.runTimeout(() => {
                 world.getDimension('the_end').runCommand(`title @a title Day §4${worldAge}§r`);
                 world.sendMessage('§cWarning! zombies will now  be able to mutate!§r');
                 world.sendMessage(`Current Day: Day §4${worldAge}§r`);
-                world.scoreboard.getObjective('mutated_zombies').setScore('main', 1);
+                const mutatedZombies = world.scoreboard.getObjective('mutated_zombies');
+                if (mutatedZombies) mutatedZombies.setScore('main', 1);
             }
 
             if (worldAge >= 60) {
-                world.scoreboard.getObjective('mutated_zombies').setScore('main', 1);
+                const mutatedZombies = world.scoreboard.getObjective('mutated_zombies');
+                if (mutatedZombies) mutatedZombies.setScore('main', 1);
             }
         }
 
