@@ -7,7 +7,6 @@ const MAX_SKULL_TARGETS = 24;
 const DANGER_CHANCE_THRESHOLD = 28;
 const skullTargetMap = new Map();
 export function witheratorMechanics(witherator) {
-    // Retrieve properties from the witherator entity
     const isActive = witherator.getProperty('rza:active');
     const targetZombies = witherator.getProperty('rza:target_zombies');
     const prioritizeMutants = witherator.getProperty('rza:prioritize_mutants');
@@ -16,14 +15,11 @@ export function witheratorMechanics(witherator) {
     const locY = location.y;
     const locZ = location.z;
     let cooldown = witherator.getProperty('rza:cooldown');
-    // Get nearby zombies, normal skulls, and danger skulls
     const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
     const normalSkulls = witherator.dimension.getEntities({ location: location, type: 'rza:witherator_skull', maxDistance: MAX_SKULL_DISTANCE });
     const dangerSkulls = witherator.dimension.getEntities({ location: location, type: 'rza:witherator_skull_dangerous', maxDistance: MAX_SKULL_DISTANCE });
-    // Check if the witherator is on cooldown
     if (cooldown !== null && cooldown > 0) {
         witherator.setProperty('rza:cooldown', Math.max(0, cooldown - 1));
-        // Track targets for all skulls fired
         const allSkulls = [...normalSkulls, ...dangerSkulls];
         allSkulls.forEach(skull => {
             if (skull.hasTag(`owner_${witherator.id}`)) {
@@ -70,19 +66,16 @@ export function witheratorMechanics(witherator) {
                         trackTargetAll(witherator, skull, family, false);
                         break;
                     default:
-                        // Handle other cases or do nothing
                         break;
                 }
             }
         });
         return;
     }
-    // Check if the witherator is not active
     if (!isActive) {
         witherator.setProperty('rza:cooldown', COOLDOWN_RESET);
         return;
     }
-    // Remove tags of all previously-targeted zombies
     zombies.forEach(zombie => {
         zombie.getTags().forEach(tag => {
             if (tag.startsWith('witherator_skull_')) {
@@ -90,7 +83,6 @@ export function witheratorMechanics(witherator) {
             }
         });
     });
-    // Target All: Prioritize Mutants
     if (targetZombies === 'All' && prioritizeMutants) {
         const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
         if (zombies.length > 0) {
@@ -98,7 +90,6 @@ export function witheratorMechanics(witherator) {
             fireSkulls(witherator, location, locX, locY, locZ, tag);
         }
     }
-    // Target All: Do Not Prioritize Mutants
     if (targetZombies === 'All' && !prioritizeMutants) {
         const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
         if (zombies.length > 0) {
@@ -106,7 +97,6 @@ export function witheratorMechanics(witherator) {
             fireSkulls(witherator, location, locX, locY, locZ, tag);
         }
     }
-    // Target Walkers: Prioritize Mutants
     if (targetZombies === 'Walkers' && prioritizeMutants) {
         const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
         if (zombies.length > 0) {
@@ -114,7 +104,6 @@ export function witheratorMechanics(witherator) {
             fireSkulls(witherator, location, locX, locY, locZ, tag);
         }
     }
-    // Target Walkers: Do Not Prioritize Mutants
     if (targetZombies === 'Walkers' && !prioritizeMutants) {
         const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
         if (zombies.length > 0) {
@@ -122,7 +111,6 @@ export function witheratorMechanics(witherator) {
             fireSkulls(witherator, location, locX, locY, locZ, tag);
         }
     }
-    // Target Miners: Prioritize Mutants
     if (targetZombies === 'Miners' && prioritizeMutants) {
         const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
         if (zombies.length > 0) {
@@ -130,7 +118,6 @@ export function witheratorMechanics(witherator) {
             fireSkulls(witherator, location, locX, locY, locZ, tag);
         }
     }
-    // Target Miners: Do Not Prioritize Mutants
     if (targetZombies === 'Miners' && !prioritizeMutants) {
         const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
         if (zombies.length > 0) {
@@ -138,7 +125,6 @@ export function witheratorMechanics(witherator) {
             fireSkulls(witherator, location, locX, locY, locZ, tag);
         }
     }
-    // Target Ferals: Prioritize Mutants
     if (targetZombies === 'Ferals' && prioritizeMutants) {
         const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
         if (zombies.length > 0) {
@@ -146,7 +132,6 @@ export function witheratorMechanics(witherator) {
             fireSkulls(witherator, location, locX, locY, locZ, tag);
         }
     }
-    // Target Ferals: Do Not Prioritize Mutants
     if (targetZombies === 'Ferals' && !prioritizeMutants) {
         const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
         if (zombies.length > 0) {
@@ -154,7 +139,6 @@ export function witheratorMechanics(witherator) {
             fireSkulls(witherator, location, locX, locY, locZ, tag);
         }
     }
-    // Target Spitters: Prioritize Mutants
     if (targetZombies === 'Spitters' && prioritizeMutants) {
         const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
         if (zombies.length > 0) {
@@ -162,7 +146,6 @@ export function witheratorMechanics(witherator) {
             fireSkulls(witherator, location, locX, locY, locZ, tag);
         }
     }
-    // Target Spitters: Do Not Prioritize Mutants
     if (targetZombies === 'Spitters' && !prioritizeMutants) {
         const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
         if (zombies.length > 0) {
@@ -173,15 +156,11 @@ export function witheratorMechanics(witherator) {
     witherator.setProperty('rza:cooldown', COOLDOWN_RESET);
     return;
 }
-//General function to fire skulls
 function fireSkulls(witherator, location, locX, locY, locZ, tag) {
-    // For client side
     witherator.setProperty('rza:fire', true);
     witherator.dimension.playSound('mob.wither.shoot', location, { volume: 3 });
-    // Determine the type of skull to fire based on a random danger chance
     const dangerChance = Math.floor(Math.random() * 101);
     const skullType = dangerChance <= DANGER_CHANCE_THRESHOLD ? 'rza:witherator_skull_dangerous' : 'rza:witherator_skull';
-    // Define the positions where the skulls will be spawned
     const skullPositions = [
         { x: locX, y: locY + 1.75, z: locZ + 0.37 },
         { x: locX, y: locY + 1.75, z: locZ + 0.75 },
@@ -192,52 +171,41 @@ function fireSkulls(witherator, location, locX, locY, locZ, tag) {
         { x: locX - 0.37, y: locY + 1.75, z: locZ },
         { x: locX - 0.75, y: locY + 1.75, z: locZ }
     ];
-    // Spawn skulls at the defined positions
     skullPositions.forEach(pos => {
         const skull = witherator.dimension.spawnEntity(skullType, pos);
-        const randomSpeedUpward = Math.random() * (1.6 - 1.4) + 1.4; // Random upward speed between 1.4 and 1.6
-        // Add tags to the skull for identification. The purpose of this is for each turret to only control its own skulls to avoid performance issues
+        const randomSpeedUpward = Math.random() * (1.6 - 1.4) + 1.4;
         skull.addTag(`owner_${witherator.id}`);
         skull.addTag(`${tag}`);
-        // Shoot the skull upwards
         skull.getComponent(EntityComponentTypes.Projectile).shoot({ x: 0, y: randomSpeedUpward, z: 0 }, { uncertainty: 0 });
     });
-    // Set a delay to reset the witherator's fire property to false after 1 tick (For client firing animation)
     let shootDelay = system.runTimeout(() => {
         witherator.setProperty('rza:fire', false);
         system.clearRun(shootDelay);
     }, 1);
     return;
 }
-// Generalized function to track and target zombies
 function trackTargetAll(witherator, skull, family, prioritizeMutants) {
     const id = skull.id;
     const location = skull.location;
-    // Check if there is already a targeted zombie
     const targetZombie = witherator.dimension.getEntities({ location: location, tags: [`witherator_skull_${id}`], maxDistance: MAX_SKULL_DISTANCE })[0];
     if (targetZombie) {
         shootSkull(skull, targetZombie, 0.9);
         return;
     }
-    // Get all possible zombie targets within a 96-block radius
     const filterablePossibleTargets = witherator.dimension.getEntities({ location: location, families: [`zombie`, `${family}`], closest: MAX_SKULL_TARGETS, maxDistance: MAX_SKULL_DISTANCE });
     const filterablePossibleTargetsOther = witherator.dimension.getEntities({ location: location, families: ['zombie'], excludeFamilies: [`${family}`], closest: MAX_SKULL_TARGETS, maxDistance: MAX_SKULL_DISTANCE });
-    // Filter out zombies with tags that start with 'witherator_skull_'
     const possibleTargets = filterablePossibleTargets.filter(zombie => !zombie.getTags().some(tag => tag.startsWith('witherator_skull_')));
     const possibleTargetsOther = filterablePossibleTargetsOther.filter(zombie => !zombie.getTags().some(tag => tag.startsWith('witherator_skull_')));
-    // Get the trackable property of the skull
     let trackable = skull.getProperty('rza:trackable');
     if (trackable > 0) {
         skull.setProperty('rza:trackable', Math.max(0, trackable - 1));
         return;
     }
-    // Check if the skull already has a target
     let target = skullTargetMap.get(id);
     if (target && possibleTargets.includes(target)) {
         shootSkull(skull, target, 0.9);
         return;
     }
-    // Function to find targetable zombie based on prioritization and family
     const findTargetableZombie = (targets) => {
         return targets.find(zombie => {
             const tags = zombie.getTags();
@@ -248,13 +216,10 @@ function trackTargetAll(witherator, skull, family, prioritizeMutants) {
             return prioritizeMutants ? (isMutated && !hasTargetTag && isFamilyMatch) : (!isMutated && !hasTargetTag && isFamilyMatch);
         });
     };
-    // Find the first targetable zombie based on prioritization and family
     let targetableZombie = findTargetableZombie(possibleTargets);
-    // If no targetable zombie found in possibleTargets, check possibleTargetsOther
     if (!targetableZombie) {
         targetableZombie = findTargetableZombie(possibleTargetsOther);
     }
-    // Find the first targetable zombie of the opposite type if no prioritized type is found
     const findOppositeTypeZombie = (targets) => {
         return targets.find(zombie => {
             const tags = zombie.getTags();
@@ -269,7 +234,6 @@ function trackTargetAll(witherator, skull, family, prioritizeMutants) {
     if (!oppositeTypeZombie) {
         oppositeTypeZombie = findOppositeTypeZombie(possibleTargetsOther);
     }
-    // Find the final first mutated targetable zombie if no prioritized family is found
     const findFinalTargetableZombieType = (targets) => {
         return targets.find(zombie => {
             const tags = zombie.getTags();
@@ -284,7 +248,6 @@ function trackTargetAll(witherator, skull, family, prioritizeMutants) {
     if (!finalTargetableZombieType) {
         finalTargetableZombieType = findFinalTargetableZombieType(possibleTargetsOther);
     }
-    // Find the final first non-mutated targetable zombie if no prioritized family is found
     const findFinalOppositeTargetableZombieType = (targets) => {
         return targets.find(zombie => {
             const tags = zombie.getTags();
@@ -299,8 +262,6 @@ function trackTargetAll(witherator, skull, family, prioritizeMutants) {
     if (!finalOppositeTargetableZombieType) {
         finalOppositeTargetableZombieType = findFinalOppositeTargetableZombieType(possibleTargetsOther);
     }
-    // Find the nearest tagged zombie if no targetable zombie is found
-    // (Target zombies that are already targeted by other skulls)
     const findNearestTaggedZombie = (targets) => {
         return targets.reduce((nearest, zombie) => {
             const tags = zombie.getTags();
@@ -315,14 +276,11 @@ function trackTargetAll(witherator, skull, family, prioritizeMutants) {
     if (!nearestTaggedZombie) {
         nearestTaggedZombie = findNearestTaggedZombie(possibleTargetsOther);
     }
-    // Tag the targetable zombie if found and set it as its target for the next tick runs
-    // until it hits its target (Lock target while it's still valid)
     const finalTargetableZombie = targetableZombie || oppositeTypeZombie || finalTargetableZombieType || finalOppositeTargetableZombieType;
     if (finalTargetableZombie) {
         finalTargetableZombie.addTag(`witherator_skull_${id}`);
         skullTargetMap.set(id, finalTargetableZombie);
     }
-    // Select the target: prioritized type, then targetable, then nearest tagged zombie, then any possible target
     const selectedTarget = targetableZombie ?? oppositeTypeZombie ?? finalTargetableZombieType ?? finalOppositeTargetableZombieType ?? nearestTaggedZombie;
     target = selectedTarget === null ? undefined : selectedTarget;
     if (target) {
@@ -330,7 +288,6 @@ function trackTargetAll(witherator, skull, family, prioritizeMutants) {
         return;
     }
     else {
-        // Check if the skull already has a target
         let target = skullTargetMap.get(id);
         if (target && possibleTargets.includes(target)) {
             shootSkull(skull, target, 0.9);
@@ -349,7 +306,6 @@ function trackTargetAll(witherator, skull, family, prioritizeMutants) {
     }
     return;
 }
-// General function to shoot and rotate a skull at a target
 function shootSkull(skull, target, speed) {
     const direction = calculateDirection(skull.location, target.location, speed);
     const skullLocation = skull.location;
@@ -363,7 +319,6 @@ function getDistance(loc1, loc2) {
         (loc1.y - loc2.y) ** 2 +
         (loc1.z - loc2.z) ** 2);
 }
-// Used to calculate the direction of the skull projectile with a configurable speed factor
 function calculateDirection(from, to, speedFactor) {
     const direction = {
         x: to.x - from.x,
@@ -377,7 +332,6 @@ function calculateDirection(from, to, speedFactor) {
         z: (direction.z / magnitude) * speedFactor
     };
 }
-// Explosion knockback effect for zombies hit by a skull
 function applyShockwaveEffect(zombie, location, hStrength, vStrength) {
     const zombieLocation = zombie.location;
     const direction = {
@@ -387,22 +341,16 @@ function applyShockwaveEffect(zombie, location, hStrength, vStrength) {
     };
     const magnitude = Math.sqrt(direction.x ** 2 + direction.y ** 2 + direction.z ** 2);
     if (magnitude > 0) {
-        zombie.applyKnockback(direction.x / magnitude, // directionX
-        direction.z / magnitude, // directionZ
-        hStrength, // horizontalStrength
-        vStrength // verticalStrength
-        );
+        zombie.applyKnockback(direction.x / magnitude, direction.z / magnitude, hStrength, vStrength);
     }
     return;
 }
-// General function to handle the skull hit event
 export function witheratorSkullHit(skull, id) {
     try {
         const location = skull.location;
         const type = skull.typeId;
-        // Check the type of skull to determine the effect
         if (type === 'rza:witherator_skull') {
-            const radius = 2; // Radius for the shockwave effect
+            const radius = 2;
             const zombies = skull.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: radius });
             if (zombies.length > 0) {
                 zombies.forEach(zombie => {
@@ -415,9 +363,8 @@ export function witheratorSkullHit(skull, id) {
                 skull.remove();
             }
         }
-        // Handle the dangerous skull effect
         else {
-            const radius = 4; // Radius for the shockwave effect
+            const radius = 4;
             const zombies = skull.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: radius });
             if (zombies.length > 0) {
                 zombies.forEach(zombie => {
@@ -432,7 +379,6 @@ export function witheratorSkullHit(skull, id) {
         }
     }
     catch (error) { }
-    // Remove the skull from the target map to avoid memory leaks
     skullTargetMap.delete(id);
     return;
 }

@@ -3,7 +3,7 @@
     "module": "ES2022",
     "target": "ES2023",
     "moduleResolution": "Node10",
-    "removeComments": false,
+    "removeComments": true,
     "strictFunctionTypes": true,
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,

@@ -1,14 +1,11 @@
 import { EntityDamageCause } from "@minecraft/server";
 import { stormWeaverLightning, stormWeavers } from "./stormWeaver";
-// Helper function to calculate the distance between the repair array and repairable locations
 export function calculateDistance(loc1, loc2) {
     const dx = loc1.x - loc2.x;
     const dy = loc1.y - loc2.y;
     const dz = loc1.z - loc2.z;
-    //Distance calculation will be 1-block step
     return Math.sqrt(dx * dx + dy * dy + dz * dz);
 }
-//Fixed raycast: Starting point rotation and end position are specified; length is determined by the distance of the 2 positions
 export function fixedPosRaycast(entity, dimension, from, to, distance, particle) {
     let step = 1;
     const entityType = entity.typeId;
@@ -17,7 +14,7 @@ export function fixedPosRaycast(entity, dimension, from, to, distance, particle)
     if (entityType == 'rza:storm_weaver')
         step = 0.5;
     for (let i = 0; i <= distance; i += step) {
-        const t = i / distance; // Normalized interpolation factor
+        const t = i / distance;
         const particleLoc = {
             x: from.x + t * (to.x - from.x),
             y: from.y + t * (to.y - from.y),
@@ -30,9 +27,7 @@ export function fixedPosRaycast(entity, dimension, from, to, distance, particle)
     }
     return;
 }
-// Fixed raycast: Starting point rotation and raycast length are specified; there is no end position
 export function fixedLenRaycast(entity, dimension, from, direction, length, particle) {
-    // default step size is 1 block
     let step = 1;
     const entityType = entity.typeId;
     const entityId = entity.id;
@@ -41,21 +36,18 @@ export function fixedLenRaycast(entity, dimension, from, direction, length, part
     if (entityType == 'rza:storm_weaver')
         step = 0.5;
     for (let i = 0; i <= length; i += step) {
-        // Calculate the particle position based on the direction and current step
         const particleLoc = {
             x: from.x + direction.x * i,
             y: from.y + direction.y * i,
             z: from.z + direction.z * i
         };
         try {
-            //Sonic Cannon
             if (entityType == 'rza:sonic_cannon') {
                 const sonicCannon = entity;
                 sonicCannon.dimension.getEntities({ location: particleLoc, families: ['zombie'], maxDistance: 5 }).forEach(zombie => {
                     zombie.applyDamage(10, { cause: EntityDamageCause.entityAttack, damagingEntity: sonicCannon });
                 });
             }
-            //Storm Weaver
             if (entityType === 'rza:storm_weaver' && (stormWeavers?.["rza:chain_length"]?.get(entityId) ?? 0) > 0) {
                 const stormWeaver = entity;
                 const chainer = stormWeaver.dimension.getEntities({

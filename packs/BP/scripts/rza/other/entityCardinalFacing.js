@@ -1,19 +1,18 @@
-// Function to set entity rotation to the nearest cardinal direction (For non-rotating, stationary entities)
 export function setEntityToCardinalDirection(entity) {
     const xRotation = entity.getRotation().x;
     const yRotation = entity.getRotation().y;
     let newYRotation;
     if (yRotation >= -45 && yRotation < 45) {
-        newYRotation = 0; // East
+        newYRotation = 0;
     }
     else if (yRotation >= 45 && yRotation < 135) {
-        newYRotation = 90; // South
+        newYRotation = 90;
     }
     else if (yRotation >= -135 && yRotation < -45) {
-        newYRotation = -90; // North
+        newYRotation = -90;
     }
     else {
-        newYRotation = 180; // West
+        newYRotation = 180;
     }
     entity.setRotation({ x: xRotation, y: newYRotation });
 }
