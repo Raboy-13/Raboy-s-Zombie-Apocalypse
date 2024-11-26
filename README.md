@@ -566,7 +566,7 @@ Experience a complete transformation of Minecraft Bedrock in this expansive post
 ## 🔧 Requirements
 
 - Minecraft Bedrock Edition 1.21.40 or higher
-- Experimental Features: Not Required
+- Experimental Features: Custom Biomes Required
 
 <div align="center">
 
