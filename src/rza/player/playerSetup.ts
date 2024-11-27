@@ -8,7 +8,7 @@ function playerSetup() {
 
         if (initialSpawn) {
             let title = system.runTimeout(() => {
-                player.runCommand("title @s title §6RABOY'S §2ZOMBIE §4APOCALYPSE§r");
+                player.onScreenDisplay.setTitle('title') // Image title in JSON UI
                 let sysmes = system.runTimeout(() => {
                     player.sendMessage(`[SYSTEM] Welcome to §6Raboy's §2Zombie §4Apocalypse§r!`);
                     let sysmes2 = system.runTimeout(() => {

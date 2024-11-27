@@ -1,0 +1,100 @@
+{
+  "namespace": "hud",
+  //---------------------------------------------------------------------------
+  // Hud Screen
+  //---------------------------------------------------------------------------
+  //Static Image
+  "image_element": {
+    "type": "image",
+    "size": [
+      400,
+      400
+    ],
+    "texture": "textures/ui/rza_title",
+    "alpha": "@hud.anim_title_image_alpha_in"
+  },
+  //Don't show title
+  "hud_title_text/title_frame/title": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_front",
+        "value": {
+          "binding_type": "view",
+          "source_property_name": "(not (#text = 'title'))",
+          "target_property_name": "#visible"
+        }
+      }
+    ]
+  },
+  //panel credits
+  "image_panel": {
+    "type": "panel",
+    "controls": [
+      //adding static image here
+      {
+        "image@hud.image_element": {
+          "layer": -1
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'title')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  //conditional image
+  "conditional_image_factory": {
+    "type": "panel",
+    "factory": {
+      "name": "hud_title_text_factory",
+      "control_ids": {
+        "hud_title_text": "title@hud.image_panel"
+      }
+    }
+  },
+  // Hud root panel
+  "root_panel": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_front",
+        "value": {
+          "title@hud.conditional_image_factory": {}
+        }
+      }
+    ]
+  },
+
+  // Animations
+  "anim_title_image_alpha_in": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": "$title_fade_in_time",
+    "from": 0,
+    "to": 1,
+    "next": "@hud.anim_title_image_alpha_stay"
+  },
+
+  "anim_title_image_alpha_stay": {
+    "anim_type": "wait",
+    "duration": 5,
+    "next": "@hud.anim_title_image_alpha_out"
+  },
+
+  "anim_title_image_alpha_out": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": "$title_fade_out_time",
+    "from": 1,
+    "to": 0,
+    "destroy_at_end": "hud_title_text",
+    "end_event": "hud_title_text_complete"
+  }
+}
