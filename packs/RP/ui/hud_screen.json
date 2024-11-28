@@ -71,7 +71,6 @@
       }
     ]
   },
-
   // Animations
   "anim_title_image_alpha_in": {
     "anim_type": "alpha",
@@ -81,13 +80,11 @@
     "to": 1,
     "next": "@hud.anim_title_image_alpha_stay"
   },
-
   "anim_title_image_alpha_stay": {
     "anim_type": "wait",
     "duration": 5,
     "next": "@hud.anim_title_image_alpha_out"
   },
-
   "anim_title_image_alpha_out": {
     "anim_type": "alpha",
     "easing": "linear",
