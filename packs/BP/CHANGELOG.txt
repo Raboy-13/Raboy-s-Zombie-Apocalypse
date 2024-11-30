@@ -297,9 +297,6 @@
 
 [RABOY'S ZOMBIE APOCALYPSE V1.2.3]
 
-*Mobs
-- supercharged Iron Golems can now have turret attachments on their shoulders that fire independently
-
 *Zombies
 NEW ZOMBIE BEHAVIORS: Mutated Zombies - existing and new zombie types now have a chance to have a unique mutation on the 60th day. Mutated zombies also drop more XP than regular ones and have a distinguishable red glowing eyes!
 - ferals now don't break blocks

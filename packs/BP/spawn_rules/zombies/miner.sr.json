@@ -24,7 +24,7 @@
           "default": 10
         },
         "minecraft:herd": {
-          "min_size": 2,
+          "min_size": 1,
           "max_size": 2
         },
         "minecraft:density_limit": {
