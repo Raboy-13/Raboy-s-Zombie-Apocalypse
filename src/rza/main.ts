@@ -139,6 +139,38 @@ world.afterEvents.entitySpawn.subscribe((data) => {
 
     //Witherator turret | Set rotation to the nearest cardinal direction
     if (entityType === 'rza:witherator') setEntityToCardinalDirection(entity);
+
+    //Transform mobs into zombies
+    if (entityType === 'minecraft:creeper' || entityType === 'minecraft:drowned' ||
+        entityType === 'minecraft:enderman' || entityType === 'minecraft:husk' ||
+        entityType === 'minecraft:skeleton' ||
+        entityType === 'minecraft:spider' || entityType === 'minecraft:stray' ||
+        entityType === 'minecraft:zombie') {
+        try {
+            // Spawn the walker zombie at the entity's location 
+            entity.dimension.spawnEntity("rza:walker", entity.location);
+
+            // Remove the original entity
+            entity.remove();
+        } catch (e) { }
+    }
+    else if (entityType === 'minecraft:witch') {
+        try {
+            // Spawn the feral zombie at the entity's location
+            entity.dimension.spawnEntity("rza:feral", entity.location);
+
+            // Remove the original entity
+            entity.remove();
+        } catch (e) { }
+    }
+
+    // Disable phantoms
+    else if (entityType === 'minecraft:phantom') {
+        try {
+            // Instantly despawn the phantom
+            entity.remove();
+        } catch (e) { }
+    }
 });
 
 //General entity Load listener

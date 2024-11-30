@@ -111,6 +111,30 @@ world.afterEvents.entitySpawn.subscribe((data) => {
     }
     if (entityType === 'rza:witherator')
         setEntityToCardinalDirection(entity);
+    if (entityType === 'minecraft:creeper' || entityType === 'minecraft:drowned' ||
+        entityType === 'minecraft:enderman' || entityType === 'minecraft:husk' ||
+        entityType === 'minecraft:skeleton' ||
+        entityType === 'minecraft:spider' || entityType === 'minecraft:stray' ||
+        entityType === 'minecraft:zombie') {
+        try {
+            entity.dimension.spawnEntity("rza:walker", entity.location);
+            entity.remove();
+        }
+        catch (e) { }
+    }
+    else if (entityType === 'minecraft:witch') {
+        try {
+            entity.dimension.spawnEntity("rza:feral", entity.location);
+            entity.remove();
+        }
+        catch (e) { }
+    }
+    else if (entityType === 'minecraft:phantom') {
+        try {
+            entity.remove();
+        }
+        catch (e) { }
+    }
 });
 world.afterEvents.entityLoad.subscribe((data) => {
     const entity = data.entity;

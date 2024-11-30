@@ -1,4 +1,5 @@
 {
+	// Made this zombie not being able to burn in daylight
 	"format_version": "1.17.20",
 	"minecraft:entity": {
 		"description": {
@@ -412,7 +413,6 @@
 				"width": 0.6,
 				"height": 1.9
 			},
-			"minecraft:burns_in_daylight": {},
 			"minecraft:health": {
 				"value": 20,
 				"max": 20
