@@ -1,10 +1,27 @@
 import { Entity, Player } from "@minecraft/server";
 import { ModalFormData } from "@minecraft/server-ui";
 
-//General Configurator
+/**
+ * Configures targeting settings for a turret entity through a UI form.
+ * @param player - The player interacting with the turret configuration
+ * @param turret - The turret entity being configured
+ * @param turretName - Display name of the turret for UI and messages
+ * 
+ * @description
+ * Opens a modal form that allows players to:
+ * - Toggle prioritization of mutated zombies
+ * - Select specific zombie types to target (All, Walkers, Miners, Ferals, Spitters, Alphas)
+ * 
+ * The function maintains the last selected configuration and updates the turret's properties:
+ * - 'rza:prioritize_mutants' (boolean)
+ * - 'rza:target_zombies' (string)
+ * 
+ * After configuration, it triggers appropriate events on the turret entity and
+ * sends confirmation messages to the player.
+ */
 export function turretConfigurator(player: Player, turret: Entity, turretName: string) {
     //Get the last configuration on the entity properties and apply it into the selections
-    let zombieSelection = ['All', 'Walkers', 'Miners', 'Ferals', 'Spitters'];
+    let zombieSelection = ['Walkers', 'Miners', 'Ferals', 'Spitters', 'Alphas'];
     const selectedZombieType = turret.getProperty('rza:target_zombies') as string;
 
     // Remove the selectedZombieType from the array
@@ -16,7 +33,7 @@ export function turretConfigurator(player: Player, turret: Entity, turretName: s
     new ModalFormData()
         .title(`${turretName}`)
         .toggle('Prioritize Mutated Zombies', turret.getProperty('rza:prioritize_mutants') as boolean)
-        .dropdown('§cZombies to target', zombieSelection)
+        .dropdown('§cPriority Target', zombieSelection)
         .show(player)
         .then((result) => {
             if (!result || !result.formValues) return;
@@ -88,6 +105,18 @@ export function turretConfigurator(player: Player, turret: Entity, turretName: s
                 player.sendMessage(`[${turretName}] Targeting §cSpitters§r: Prioritizing Mutants`);
                 turret.triggerEvent('rza:target_spitters_prioritize_mutants');
             }
+
+            //Alphas: Don't Prioritize Mutants
+            if (!toggle && selectedZombieType === 'Alphas') {
+                player.sendMessage(`[${turretName}] Targeting §cAlphas§r: Not Prioritizing Mutants`);
+                turret.triggerEvent('rza:target_alphas');
+            }
+
+            //Alphas: Prioritize Mutants
+            if (toggle && selectedZombieType === 'Alphas') {
+                player.sendMessage(`[${turretName}] Targeting §cAlphas§r: Prioritizing Mutants`);
+                turret.triggerEvent('rza:target_alphas_prioritize_mutants');
+            }
         }).catch(() => {
             player.sendMessage(`[SYSTEM] §cConfiguration Canceled§r: Resetting to previous configuration.`);
         }
@@ -95,7 +124,27 @@ export function turretConfigurator(player: Player, turret: Entity, turretName: s
     return;
 }
 
-//Pulsar System Configurator
+/**
+ * Configures a Pulsar System turret's item conversion settings through a UI form.
+ * @param player - The player interacting with the Pulsar System
+ * @param turret - The Pulsar System turret entity being configured
+ * 
+ * @description
+ * Opens a modal form that allows players to:
+ * - Toggle the system's active state
+ * - Select the type of conversion (Charcoal or XP)
+ * 
+ * The function maintains the last selected configuration and updates the turret's properties:
+ * - 'rza:active_state' (boolean)
+ * - 'rza:convert_items_to' (string)
+ * 
+ * Configuration changes are immediately applied and reflected in:
+ * - Visual feedback through player messages
+ * - Turret entity properties
+ * 
+ * If the configuration is cancelled, the system retains its previous settings
+ * and notifies the player.
+ */
 export function pulsarSystemConfigurator(player: Player, turret: Entity) {
     //Get the last configuration on the entity properties and apply it into the selections
     let convertTo = ['Charcoal', 'XP'];

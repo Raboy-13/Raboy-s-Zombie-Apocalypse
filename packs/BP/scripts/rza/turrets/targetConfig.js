@@ -1,13 +1,13 @@
 import { ModalFormData } from "@minecraft/server-ui";
 export function turretConfigurator(player, turret, turretName) {
-    let zombieSelection = ['All', 'Walkers', 'Miners', 'Ferals', 'Spitters'];
+    let zombieSelection = ['Walkers', 'Miners', 'Ferals', 'Spitters', 'Alphas'];
     const selectedZombieType = turret.getProperty('rza:target_zombies');
     zombieSelection = zombieSelection.filter(zombieType => zombieType !== selectedZombieType);
     zombieSelection.unshift(selectedZombieType);
     new ModalFormData()
         .title(`${turretName}`)
         .toggle('Prioritize Mutated Zombies', turret.getProperty('rza:prioritize_mutants'))
-        .dropdown('§cZombies to target', zombieSelection)
+        .dropdown('§cPriority Target', zombieSelection)
         .show(player)
         .then((result) => {
         if (!result || !result.formValues)
@@ -59,6 +59,14 @@ export function turretConfigurator(player, turret, turretName) {
         if (toggle && selectedZombieType === 'Spitters') {
             player.sendMessage(`[${turretName}] Targeting §cSpitters§r: Prioritizing Mutants`);
             turret.triggerEvent('rza:target_spitters_prioritize_mutants');
+        }
+        if (!toggle && selectedZombieType === 'Alphas') {
+            player.sendMessage(`[${turretName}] Targeting §cAlphas§r: Not Prioritizing Mutants`);
+            turret.triggerEvent('rza:target_alphas');
+        }
+        if (toggle && selectedZombieType === 'Alphas') {
+            player.sendMessage(`[${turretName}] Targeting §cAlphas§r: Prioritizing Mutants`);
+            turret.triggerEvent('rza:target_alphas_prioritize_mutants');
         }
     }).catch(() => {
         player.sendMessage(`[SYSTEM] §cConfiguration Canceled§r: Resetting to previous configuration.`);

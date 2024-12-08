@@ -1,6 +1,6 @@
 {
 	// Made this zombie not being able to burn in daylight
-	"format_version": "1.17.20",
+	"format_version": "1.21.50",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "minecraft:zombie_villager_v2",

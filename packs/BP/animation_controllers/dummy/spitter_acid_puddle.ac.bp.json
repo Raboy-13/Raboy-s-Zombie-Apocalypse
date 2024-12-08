@@ -13,8 +13,7 @@
 				},
 				"effect": {
 					"on_entry": [
-						"/damage @e[type=!item, family=!inanimate, family=!zombie, family=!projectile, r=3] 2 entity_attack entity @s",
-						"/effect @e[type=!item, family=!inanimate, family=!zombie, family=!projectile, family=!turret, r=3] poison 3 0"
+						"/effect @e[type=!item, family=!inanimate, family=!zombie, family=!projectile, family=!turret, r=3] fatal_poison 4 0"
 					],
 					"transitions": [
 						{
@@ -36,8 +35,7 @@
 				},
 				"effect": {
 					"on_entry": [
-						"/damage @e[type=!item, family=!inanimate, family=!zombie, family=!projectile, r=5] 4 entity_attack entity @s",
-						"/effect @e[type=!item, family=!inanimate, family=!zombie, family=!projectile, family=!turret, r=5] poison 5 1"
+						"/effect @e[type=!item, family=!inanimate, family=!zombie, family=!projectile, family=!turret, r=5] fatal_poison 4 1"
 					],
 					"transitions": [
 						{

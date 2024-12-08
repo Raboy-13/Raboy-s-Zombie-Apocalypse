@@ -1,5 +1,5 @@
 {
-	"format_version": "1.19.50",
+	"format_version": "1.21.50",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "minecraft:wandering_trader",
@@ -247,9 +247,6 @@
 			"minecraft:movement.basic": {},
 			"minecraft:jump.static": {},
 			"minecraft:can_climb": {},
-			"minecraft:home": {
-				"restriction_radius": 16
-			},
 			"minecraft:behavior.float": {
 				"priority": 0
 			},
@@ -296,21 +293,21 @@
 				"triggers": [
 					{
 						"cause": "entity_attack",
-						"deals_damage": true,
+						"deals_damage": "yes",
 						"on_damage": {
 							"event": "minecraft:become_scared"
 						}
 					},
 					{
 						"cause": "projectile",
-						"deals_damage": true,
+						"deals_damage": "yes",
 						"on_damage": {
 							"event": "minecraft:become_scared"
 						}
 					},
 					{
 						"cause": "magic",
-						"deals_damage": true,
+						"deals_damage": "yes",
 						"on_damage": {
 							"event": "minecraft:become_scared"
 						}
@@ -342,7 +339,7 @@
 								]
 							}
 						},
-						"deals_damage": false
+						"deals_damage": "no"
 					}
 				]
 			},

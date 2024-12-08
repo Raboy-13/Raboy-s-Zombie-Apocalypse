@@ -20,12 +20,6 @@ export function playerMeleeWeaponAttack(entityHit, wielder, weapon) {
     }
     const cooldown = system.runInterval(() => {
         const cooldownTime = meleeWeaponCooldown.get(wielder.id);
-        if (cooldownTime === 20) {
-            wielder.runCommand('title @s actionbar Weapon Cooldown: 1s');
-        }
-        else if (cooldownTime === 1) {
-            wielder.runCommand('title @s actionbar Weapon Cooldown: 0s');
-        }
         meleeWeaponCooldown.set(wielder.id, Math.max(cooldownTime - 1, 0));
         if (cooldownTime === 0) {
             system.clearRun(cooldown);

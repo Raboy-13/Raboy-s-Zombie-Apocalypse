@@ -1,5 +1,5 @@
 {
-	"format_version": "1.20.80",
+	"format_version": "1.21.50",
 	"minecraft:block": {
 		"description": {
 			"identifier": "rza:electron_reactor_core",

@@ -1,5 +1,5 @@
 {
-	"format_version": "1.19.60",
+	"format_version": "1.21.50",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "minecraft:villager_v2",
@@ -2373,7 +2373,7 @@
 							],
 							"event": "become_witch"
 						},
-						"deals_damage": false
+						"deals_damage": "no"
 					},
 					{
 						"on_damage": {
@@ -2422,7 +2422,7 @@
 								]
 							}
 						},
-						"deals_damage": false
+						"deals_damage": "no"
 					}
 				]
 			},

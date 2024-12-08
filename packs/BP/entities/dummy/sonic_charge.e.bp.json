@@ -1,5 +1,5 @@
 {
-	"format_version": "1.19.60",
+	"format_version": "1.21.50",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "rza:sonic_charge",
@@ -39,10 +39,6 @@
 			},
 			"minecraft:scale": {
 				"value": 0.00001
-			},
-			"minecraft:tick_world": {
-				"never_despawn": true,
-				"radius": 2
 			},
 			"minecraft:timer": {
 				"time": 0.05,

@@ -1,5 +1,5 @@
 {
-	"format_version": "1.19.50",
+	"format_version": "1.21.50",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "rza:iron_golem_explosions",
@@ -30,7 +30,7 @@
 				"triggers": [
 					{
 						"cause": "all",
-						"deals_damage": false
+						"deals_damage": "no"
 					}
 				]
 			},

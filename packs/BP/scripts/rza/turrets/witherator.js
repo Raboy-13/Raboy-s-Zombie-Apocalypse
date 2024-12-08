@@ -65,6 +65,14 @@ export function witheratorMechanics(witherator) {
                         family = 'spitter';
                         trackTargetAll(witherator, skull, family, false);
                         break;
+                    case skull.hasTag('alpha_mutated'):
+                        family = 'alpha';
+                        trackTargetAll(witherator, skull, family, true);
+                        break;
+                    case skull.hasTag('alpha_not_mutated'):
+                        family = 'alpha';
+                        trackTargetAll(witherator, skull, family, false);
+                        break;
                     default:
                         break;
                 }
@@ -150,6 +158,20 @@ export function witheratorMechanics(witherator) {
         const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
         if (zombies.length > 0) {
             const tag = 'spitter_not_mutated';
+            fireSkulls(witherator, location, locX, locY, locZ, tag);
+        }
+    }
+    if (targetZombies === 'Alphas' && prioritizeMutants) {
+        const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
+        if (zombies.length > 0) {
+            const tag = 'alpha_mutated';
+            fireSkulls(witherator, location, locX, locY, locZ, tag);
+        }
+    }
+    if (targetZombies === 'Alphas' && !prioritizeMutants) {
+        const zombies = witherator.dimension.getEntities({ location: location, families: ['zombie'], maxDistance: MAX_ZOMBIE_DISTANCE });
+        if (zombies.length > 0) {
+            const tag = 'alpha_not_mutated';
             fireSkulls(witherator, location, locX, locY, locZ, tag);
         }
     }

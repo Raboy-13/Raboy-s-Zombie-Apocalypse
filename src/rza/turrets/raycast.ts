@@ -1,7 +1,13 @@
 import { Dimension, Entity, EntityDamageCause, Vector3 } from "@minecraft/server"
 import { stormWeaverLightning, stormWeavers } from "./stormWeaver";
 
-// Helper function to calculate the distance between the repair array and repairable locations
+/**
+ * Calculates the Euclidean distance between two 3D points
+ * @param {Vector3} loc1 - The first position vector
+ * @param {Vector3} loc2 - The second position vector
+ * @returns {number} The distance between the two points in blocks
+ * @description Used primarily for repair array calculations. Distance is calculated in 1-block steps.
+ */
 export function calculateDistance(loc1: Vector3, loc2: Vector3): number {
     const dx = loc1.x - loc2.x;
     const dy = loc1.y - loc2.y;
@@ -11,7 +17,20 @@ export function calculateDistance(loc1: Vector3, loc2: Vector3): number {
     return Math.sqrt(dx * dx + dy * dy + dz * dz);
 }
 
-//Fixed raycast: Starting point rotation and end position are specified; length is determined by the distance of the 2 positions
+/**
+ * Performs a raycast between two fixed positions with specified particle effects
+ * @param {Entity} entity - The entity performing the raycast
+ * @param {Dimension} dimension - The dimension where the raycast occurs
+ * @param {Vector3} from - Starting position of the raycast
+ * @param {Vector3} to - End position of the raycast
+ * @param {number} distance - Maximum distance of the raycast in blocks
+ * @param {string} particle - Identifier of the particle to spawn along the ray
+ * @description 
+ * - Step size varies by entity type:
+ *   - Repair Array: 0.5 blocks
+ *   - Storm Weaver: 0.5 blocks
+ *   - Others: 1 block
+ */
 export function fixedPosRaycast(entity: Entity, dimension: Dimension, from: Vector3, to: Vector3, distance: number, particle: string) {
     let step = 1;
     const entityType = entity.typeId;
@@ -33,7 +52,23 @@ export function fixedPosRaycast(entity: Entity, dimension: Dimension, from: Vect
     return;
 }
 
-// Fixed raycast: Starting point rotation and raycast length are specified; there is no end position
+/**
+ * Performs a directional raycast with a fixed length and particle effects
+ * @param {Entity} entity - The entity performing the raycast
+ * @param {Dimension} dimension - The dimension where the raycast occurs
+ * @param {Vector3} from - Starting position of the raycast
+ * @param {Vector3} direction - Direction vector of the raycast
+ * @param {number} length - Length of the raycast in blocks
+ * @param {string} particle - Identifier of the particle to spawn along the ray
+ * @description
+ * - Step size varies by entity type:
+ *   - Sonic Cannon: 2 blocks (Deals 10 damage to zombies within 5 blocks)
+ *   - Storm Weaver: 0.5 blocks (Chains lightning between zombies)
+ *   - Others: 1 block
+ * - Special behaviors:
+ *   - Sonic Cannon: Damages zombies in range
+ *   - Storm Weaver: Chains lightning between zombies if chain length > 0
+ */
 export function fixedLenRaycast(entity: Entity, dimension: Dimension, from: Vector3, direction: Vector3, length: number, particle: string) {
     // default step size is 1 block
     let step = 1;
@@ -66,13 +101,23 @@ export function fixedLenRaycast(entity: Entity, dimension: Dimension, from: Vect
                     location: particleLoc, 
                     families: ['zombie'], 
                     excludeTags: ['chainer'], 
-                    maxDistance: 2, 
+                    maxDistance: 4, 
                     closest: 1 
                 })[0];
+                const zombieTypeId = chainer?.typeId;
                 
                 if (chainer) {
-                    i = length;
-                    stormWeaverLightning(chainer, stormWeaver);
+                    // Check if zombie is an alpha or if it's close enough
+                    if (zombieTypeId === "rza:alpha") {
+                        i = length;
+                        stormWeaverLightning(chainer, stormWeaver);
+                    } else {
+                        const distance = calculateDistance(particleLoc, chainer.location);
+                        if (distance < 2) {
+                            i = length;
+                            stormWeaverLightning(chainer, stormWeaver);
+                        }
+                    }
                 }
             }
             dimension.spawnParticle(particle, particleLoc);

@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.80",
+  "format_version": "1.21.50",
   "minecraft:entity": {
     "description": {
       "identifier": "rza:miner_tnt",
@@ -55,7 +55,7 @@
         "triggers": [
           {
             "cause": "all",
-            "deals_damage": false
+            "deals_damage": "no"
           }
         ]
       },

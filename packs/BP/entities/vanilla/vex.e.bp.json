@@ -71,7 +71,7 @@
 							]
 						}
 					},
-					"deals_damage": false
+					"deals_damage": "no"
 				}
 			},
 			"minecraft:behavior.float": {

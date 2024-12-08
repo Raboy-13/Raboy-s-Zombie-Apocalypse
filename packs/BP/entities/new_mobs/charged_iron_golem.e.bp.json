@@ -1,5 +1,5 @@
 {
-	"format_version": "1.20.0",
+	"format_version": "1.21.50",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "rza:charged_iron_golem",
@@ -168,15 +168,15 @@
 				"triggers": [
 					{
 						"cause": "fall",
-						"deals_damage": false
+						"deals_damage": "no"
 					},
 					{
 						"cause": "block_explosion",
-						"deals_damage": false
+						"deals_damage": "no"
 					},
 					{
 						"cause": "entity_explosion",
-						"deals_damage": false
+						"deals_damage": "no"
 					},
 					{
 						"on_damage": {
@@ -205,7 +205,7 @@
 								]
 							}
 						},
-						"deals_damage": false
+						"deals_damage": "no"
 					}
 				]
 			},

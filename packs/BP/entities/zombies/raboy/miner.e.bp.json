@@ -1,5 +1,5 @@
 {
-	"format_version": "1.19.80",
+	"format_version": "1.21.50",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "rza:miner",
@@ -24,7 +24,7 @@
 					"triggers": [
 						{
 							"cause": "all",
-							"deals_damage": true,
+							"deals_damage": "yes",
 							"damage_modifier": 0,
 							"on_damage": {
 								"filters": [
@@ -45,7 +45,7 @@
 						},
 						{
 							"cause": "projectile",
-							"deals_damage": true,
+							"deals_damage": "yes",
 							"damage_modifier": 0,
 							"on_damage": {
 								"filters": [
@@ -76,7 +76,7 @@
 									]
 								}
 							},
-							"deals_damage": false
+							"deals_damage": "no"
 						}
 					]
 				}

@@ -54,12 +54,22 @@ export function fixedLenRaycast(entity, dimension, from, direction, length, part
                     location: particleLoc,
                     families: ['zombie'],
                     excludeTags: ['chainer'],
-                    maxDistance: 2,
+                    maxDistance: 4,
                     closest: 1
                 })[0];
+                const zombieTypeId = chainer?.typeId;
                 if (chainer) {
-                    i = length;
-                    stormWeaverLightning(chainer, stormWeaver);
+                    if (zombieTypeId === "rza:alpha") {
+                        i = length;
+                        stormWeaverLightning(chainer, stormWeaver);
+                    }
+                    else {
+                        const distance = calculateDistance(particleLoc, chainer.location);
+                        if (distance < 2) {
+                            i = length;
+                            stormWeaverLightning(chainer, stormWeaver);
+                        }
+                    }
                 }
             }
             dimension.spawnParticle(particle, particleLoc);

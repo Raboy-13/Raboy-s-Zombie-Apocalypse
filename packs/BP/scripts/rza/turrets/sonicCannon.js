@@ -7,12 +7,3 @@ export function sonicCannonHit(entity, source) {
     });
     return;
 }
-export function sonicCannonAttachmentHit(entity, source) {
-    const cannonDir = source.getViewDirection();
-    entity.applyImpulse({
-        x: cannonDir.x * 3,
-        y: cannonDir.y * 4,
-        z: cannonDir.z * 3
-    });
-    return;
-}

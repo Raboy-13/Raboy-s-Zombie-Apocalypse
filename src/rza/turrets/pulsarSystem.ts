@@ -1,12 +1,45 @@
 import { Entity, EntityComponentTypes, EntityItemComponent, EntityTypeFamilyComponent, ItemStack, system } from "@minecraft/server";
 
+/**
+ * Global state storage for Pulsar System entities
+ * @property {Map<string,number>} rza:cooldown - Stores cooldown timers for each pulsar system
+ * @property {Map<string,number>} rza:fire_time - Stores active firing duration for each pulsar system
+ * @property {Map<string,number>} rza:pulse_radius_offset - Stores expanding pulse radius for visual effects
+ */
 export let pulsarSystems = {
     "rza:cooldown": new Map(),
-    "rza:fire_time": new Map(),
+    "rza:fire_time": new Map(), 
     "rza:pulse_radius_offset": new Map()
 };
 
-export function pulsarSystemMechanics(pulsarSystem: Entity) {
+/**
+ * Handles the core mechanics of a Pulsar System turret
+ * The Pulsar System is a defense mechanism that:
+ * - Converts invalid items to charcoal or XP
+ * - Applies slowness to zombies
+ * - Buffs nearby players with positive effects
+ * - Creates expanding pulse effects
+ * 
+ * @param {Entity} pulsarSystem - The Pulsar System turret to update
+ * 
+ * Properties used:
+ * - rza:active - Whether the system is active
+ * - rza:active_state - Current operational state
+ * - rza:convert_items_to - Conversion mode ("Charcoal" or "XP")
+ * - rza:fire - Visual firing state
+ * 
+ * Timing:
+ * - Cooldown: 600 ticks (30 seconds)
+ * - Fire duration: 200 ticks (10 seconds)
+ * - Pulse expansion: 0.25 blocks per tick
+ * 
+ * Effects:
+ * - Players: Haste II, Regeneration II, Strength I (15 seconds)
+ * - Zombies: Slowness II (5 seconds)
+ * 
+ * @returns {void}
+ */
+export function pulsarSystemMechanics(pulsarSystem: Entity): void {
     const active = pulsarSystem.getProperty('rza:active');
     const activeState = pulsarSystem.getProperty('rza:active_state');
     const convertItemsTo = pulsarSystem.getProperty('rza:convert_items_to');

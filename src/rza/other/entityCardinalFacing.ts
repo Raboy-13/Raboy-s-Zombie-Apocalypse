@@ -1,6 +1,22 @@
 import { Entity } from "@minecraft/server";
 
-// Function to set entity rotation to the nearest cardinal direction (For non-rotating, stationary entities)
+/**
+ * Snaps an entity's rotation to the nearest cardinal direction (North, South, East, West)
+ * Used for entities that should face fixed directions, like turrets or static structures
+ * 
+ * Cardinal Direction Reference:
+ * - East  (0°)   : -45° to 45°
+ * - South (90°)  : 45° to 135° 
+ * - North (-90°) : -135° to -45°
+ * - West  (180°) : 135° to -135°
+ * 
+ * @param entity - The entity whose rotation should be adjusted
+ * @returns void
+ * 
+ * @example
+ * // Snap a turret to face a cardinal direction
+ * setEntityToCardinalDirection(turretEntity);
+ */
 export function setEntityToCardinalDirection(entity: Entity) {
     const xRotation = entity.getRotation().x;
     const yRotation = entity.getRotation().y;

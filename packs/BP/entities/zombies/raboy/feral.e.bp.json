@@ -1,5 +1,5 @@
 {
-	"format_version": "1.19.80",
+	"format_version": "1.21.50",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "rza:feral",
@@ -579,7 +579,7 @@
 				"triggers": [
 					{
 						"cause": "fall",
-						"deals_damage": false
+						"deals_damage": "no"
 					},
 					{
 						"on_damage": {
@@ -593,7 +593,7 @@
 								]
 							}
 						},
-						"deals_damage": false
+						"deals_damage": "no"
 					}
 				]
 			},

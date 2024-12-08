@@ -1,5 +1,5 @@
 {
-	"format_version": "1.20.80",
+	"format_version": "1.21.50",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "rza:witherator",
@@ -20,13 +20,13 @@
 				"rza:target_zombies": {
 					"client_sync": true,
 					"type": "enum",
-					"default": "All",
+					"default": "Walkers",
 					"values": [
-						"All",
 						"Walkers",
 						"Miners",
 						"Ferals",
-						"Spitters"
+						"Spitters",
+						"Alphas"
 					]
 				},
 				"rza:cooldown": {
@@ -164,7 +164,7 @@
 							"event": "rza:despawn",
 							"target": "self"
 						},
-						"deals_damage": false
+						"deals_damage": "no"
 					},
 					{
 						"on_damage": {
@@ -174,7 +174,7 @@
 								"value": "turret"
 							}
 						},
-						"deals_damage": false
+						"deals_damage": "no"
 					},
 					{
 						"on_damage": {
@@ -184,7 +184,7 @@
 								"value": "villager"
 							}
 						},
-						"deals_damage": false
+						"deals_damage": "no"
 					},
 					{
 						"on_damage": {
@@ -194,7 +194,7 @@
 								"value": "illager"
 							}
 						},
-						"deals_damage": false
+						"deals_damage": "no"
 					}
 				]
 			},

@@ -288,7 +288,7 @@
 [RABOY'S ZOMBIE APOCALYPSE V1.2.21]
 
 *Compatibility
-- added support for the latest version of Minecraft (Currently 1.20.80)
+- added support for the latest version of Minecraft (Currently 1.21.50)
 
 *Mechanics
 - reduced the spawn rate of the Illager settlement
@@ -428,6 +428,21 @@ NEW MECHANIC: Sweep Attack
 
 *Bug Fixes
 - miner zombies now don't overpopulate caves
+
+[RABOY'S ZOMBIE APOCALYPSE V1.2.4]
+TODO: Villagers cure zombified villagers and illagers by themselves (throw a weakness potion and give a zombified villager or illager a golden apple)
+TODO: Environment particles / Sounds
+TODO: Fix illager settlement structure spawning, dynamic elevation generation for the segments
+TODO: Naturally-generating underground bunker
+TODO: Laser Turret
+
+*Utility
+- collector drone remote can now be activated/deactivated by right clicking while sneaking
+
+*Turrets
+- Turrets now have alpha zombies as priority target in the configuration UI
+- Turrets will now target other zombie types when no zombies of the selected priority type are found within detection range
+- pyro charger will now not target zombies that are already on fire
 
 *Known Issues
 -wandering trader throwing animation doesn't work

@@ -1,5 +1,5 @@
 {
-	"format_version": "1.12.0",
+	"format_version": "1.21.50",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "rza:pyro_charger_fireball",
@@ -50,10 +50,6 @@
 				"uncertainty_base": 5,
 				"uncertainty_multiplier": 3,
 				"reflect_on_hurt": false
-			},
-			"minecraft:tick_world": {
-				"never_despawn": true,
-				"radius": 2
 			},
 			"minecraft:timer": {
 				"time": 4,

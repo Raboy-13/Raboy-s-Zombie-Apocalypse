@@ -4,7 +4,7 @@ import { pulsarSystemConfigurator, turretConfigurator } from "./turrets/targetCo
 import { collectorDroneConfigurator, collectorDroneDie, collectorDroneHopperPairing, collectorDroneOwnerPairing, collectorDroneOwnerRepair, collectorDroneUnload, ownerCollectorDroneCounter, collectorDroneMechanics } from "./drones/collectorDrone/mechanics";
 import { collectorDroneRemote } from "./drones/collectorDrone/remote";
 import { sonicCannonHit } from "./turrets/sonicCannon";
-import { stormWeaverLightning, stormWeavers } from "./turrets/stormWeaver";
+import { stormWeaverLightning, stormWeavers, cleanupStormWeaver, restoreChainedZombies } from "./turrets/stormWeaver";
 import { pyroChargerFireball } from "./turrets/pyroCharger";
 import { activateInactiveElectronReactorCore } from "./blocks/electronReactorCore";
 import { ferralLeap } from "./zombies/feral";
@@ -16,6 +16,7 @@ import { witheratorMechanics, witheratorSkullHit } from "./turrets/witherator";
 import { setEntityToCardinalDirection } from "./other/entityCardinalFacing";
 import { alphaZombieMechanics } from "./zombies/alpha";
 import { blockFeatures } from "./blocks/blocks";
+import { spitterAcidPuddleEffect, cleanupAcidPuddleCooldown } from "./zombies/spitter";
 let worldAgeOffset = 0;
 const dimensions = ['overworld', 'nether', 'the_end'].map(name => world.getDimension(name));
 world.afterEvents.worldInitialize.subscribe(() => {
@@ -149,6 +150,10 @@ world.afterEvents.entityLoad.subscribe((data) => {
     }
     if (entityType === 'rza:storm_weaver') {
         stormWeavers["rza:chain_length"].set(entityId, 10);
+        let run = system.runTimeout(() => {
+            restoreChainedZombies(entity);
+            system.clearRun(run);
+        }, 80);
     }
     if (entityType === 'rza:pulsar_system') {
         pulsarSystems["rza:cooldown"].set(entityId, Math.floor(Math.random() * (600 - 100 + 1)) + 100);
@@ -163,6 +168,16 @@ world.afterEvents.entityLoad.subscribe((data) => {
             meleeWeaponCooldown.set(entityId, 0);
     }
 });
+world.beforeEvents.entityRemove.subscribe((data) => {
+    const removedEntity = data.removedEntity;
+    if (removedEntity.typeId === 'rza:storm_weaver' && !stormWeavers["rza:destroyed_weavers"].has(removedEntity.id)) {
+        let run = system.run(() => {
+            cleanupStormWeaver(removedEntity, true);
+            system.clearRun(run);
+        });
+    }
+    return;
+});
 world.afterEvents.entityRemove.subscribe((data) => {
     const entityType = data.typeId;
     const entityId = data.removedEntityId;
@@ -172,8 +187,15 @@ world.afterEvents.entityRemove.subscribe((data) => {
             system.clearRun(run);
         });
     }
-    if (stormWeavers["rza:chain_length"].has(entityId))
-        stormWeavers["rza:chain_length"].delete(entityId);
+    if (entityType === 'rza:storm_weaver') {
+        stormWeavers["rza:destroyed_weavers"].delete(entityId);
+        if (stormWeavers["rza:chain_length"].has(entityId)) {
+            stormWeavers["rza:chain_length"].delete(entityId);
+        }
+        if (stormWeavers["rza:chained_zombies"].has(entityId)) {
+            stormWeavers["rza:chained_zombies"].delete(entityId);
+        }
+    }
     if (pulsarSystems["rza:cooldown"].has(entityId))
         pulsarSystems["rza:cooldown"].delete(entityId);
     if (pulsarSystems["rza:fire_time"].has(entityId))
@@ -184,6 +206,9 @@ world.afterEvents.entityRemove.subscribe((data) => {
         repairArrayCooldown.delete(entityId);
     if (entityId == 'minecraft:pillager' || entityId == 'minecraft:vindicator')
         meleeWeaponCooldown.delete(entityId);
+    if (entityType === 'rza:spitter_acid_puddle_normal' || entityType === 'rza:spitter_acid_puddle_mutated') {
+        cleanupAcidPuddleCooldown(entityId);
+    }
 });
 world.afterEvents.entityDie.subscribe((data) => {
     const entity = data.deadEntity;
@@ -200,6 +225,13 @@ world.afterEvents.entityDie.subscribe((data) => {
         }
     }
     catch (error) { }
+    if (entity?.typeId === 'rza:storm_weaver') {
+        let run = system.run(() => {
+            cleanupStormWeaver(entity, false);
+            stormWeavers["rza:destroyed_weavers"].add(entity.id);
+            system.clearRun(run);
+        });
+    }
 });
 world.afterEvents.entityHurt.subscribe((data) => {
     const entity = data.hurtEntity;
@@ -216,7 +248,7 @@ world.afterEvents.entityHurt.subscribe((data) => {
         let run = system.runTimeout(() => {
             stormWeaverLightning(entity, source);
             system.clearRun(run);
-        }, 3);
+        }, 2);
     }
 });
 world.afterEvents.entityHitEntity.subscribe((data) => {
@@ -272,7 +304,7 @@ world.afterEvents.dataDrivenEntityTrigger.subscribe((data) => {
             const direction = entity.getViewDirection();
             const startOffset = 1.5;
             stormWeavers["rza:chain_length"].set(id, 16);
-            fixedLenRaycast(entity, dimension, { x: location.x + direction.x * startOffset, y: location.y + 0.55 + direction.y * startOffset, z: location.z + direction.z * startOffset }, direction, 32, 'rza:lightning');
+            fixedLenRaycast(entity, dimension, { x: location.x + direction.x * startOffset, y: location.y + 1 + direction.y * startOffset, z: location.z + direction.z * startOffset }, direction, 32, 'rza:lightning');
             system.clearRun(run);
         });
     }
@@ -412,6 +444,12 @@ function mainEntityFeatures(entity) {
     if (typeId == 'rza:witherator') {
         let run = system.run(() => {
             witheratorMechanics(entity);
+            system.clearRun(run);
+        });
+    }
+    if (typeId === 'rza:spitter_acid_puddle_normal' || typeId === 'rza:spitter_acid_puddle_mutated') {
+        let run = system.run(() => {
+            spitterAcidPuddleEffect(entity);
             system.clearRun(run);
         });
     }

@@ -1,19 +1,11 @@
 {
-	"format_version": "1.20.0",
+	"format_version": "1.21.50",
 	"minecraft:entity": {
 		"description": {
 			"identifier": "rza:spitter_acid_puddle_normal",
 			"is_spawnable": false,
 			"is_summonable": true,
-			"is_experimental": false,
-			"animations": {
-				"area_effect": "controller.animation.spitter_acid_puddle_normal.area_effect"
-			},
-			"scripts": {
-				"animate": [
-					"area_effect"
-				]
-			}
+			"is_experimental": false
 		},
 		"component_groups": {
 			"rza:despawn": {
@@ -75,7 +67,7 @@
 				"triggers": [
 					{
 						"cause": "all",
-						"deals_damage": false
+						"deals_damage": "no"
 					}
 				]
 			},

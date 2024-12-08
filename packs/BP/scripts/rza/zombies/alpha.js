@@ -1,18 +1,18 @@
 export function alphaZombieMechanics(alpha) {
-    const mutated = alpha?.getProperty('rza:mutated');
-    const location = alpha.location;
-    const nearbyZombies = alpha.dimension.getEntities({
-        location: location,
-        maxDistance: 8,
-        families: ['zombie'],
-        excludeFamilies: ['alpha']
-    });
-    nearbyZombies.forEach(zombie => {
-        const zombieLocation = zombie.location;
-        if (mutated) {
-            const isMutated = zombie.getProperty('rza:mutated');
-            addZombieEffects(zombie, 2400, zombieLocation);
-            if (!isMutated) {
+    try {
+        const mutated = alpha.getProperty('rza:mutated');
+        const location = alpha.location;
+        const nearbyZombies = alpha.dimension.getEntities({
+            location: location,
+            maxDistance: 8,
+            families: ['zombie'],
+            excludeFamilies: ['alpha']
+        });
+        nearbyZombies.forEach(zombie => {
+            const zombieLocation = zombie.location;
+            const duration = mutated ? 2400 : 1200;
+            addZombieEffects(zombie, duration, zombieLocation);
+            if (mutated && !zombie.getProperty('rza:mutated')) {
                 try {
                     zombie.triggerEvent('rza:mutate');
                     alpha.dimension.spawnParticle(`rza:alpha_zombie_buff`, zombieLocation);
@@ -22,11 +22,9 @@ export function alphaZombieMechanics(alpha) {
                     zombie.addEffect('speed', 2400, { amplifier: 2, showParticles: true });
                 }
             }
-        }
-        else {
-            addZombieEffects(zombie, 1200, zombieLocation);
-        }
-    });
+        });
+    }
+    catch (e) { }
     return;
 }
 function addZombieEffects(zombie, duration, location) {
