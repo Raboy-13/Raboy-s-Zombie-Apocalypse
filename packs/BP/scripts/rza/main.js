@@ -30,7 +30,7 @@ world.afterEvents.worldInitialize.subscribe(() => {
         world.scoreboard.addObjective('max_drones');
     if (!commandBlocksEnabled)
         world.getDimension('overworld').runCommand('gamerule commandblocksenabled true');
-    if (!commandBlockOutput)
+    if (commandBlockOutput)
         world.getDimension('overworld').runCommand('gamerule commandblockoutput false');
 });
 world.beforeEvents.worldInitialize.subscribe(data => {

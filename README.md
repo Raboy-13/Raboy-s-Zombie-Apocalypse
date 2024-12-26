@@ -41,9 +41,9 @@ Experience a complete transformation of Minecraft Bedrock in this expansive post
 
 - **Custom Structures** 🏰
   - **Illager Settlements** (105x102 blocks)
-    - Fortified walls with defensive towers
-    - Populated by illagers and arrow turrets
-    - Rich loot and rare items
+    - Fortified civilation with defensive towers
+    - Populated by illagers, villagers, and arrow turrets
+    - Rich loot
   - **Abandoned Houses**
     - Randomized loot including saplings, turrets, and rare resources
     - Atmospheric ruins scattered across the world
@@ -554,7 +554,7 @@ Experience a complete transformation of Minecraft Bedrock in this expansive post
 - `@minecraft/server-ui` module for user interface elements
 - TypeScript for type safety and cleaner code structure
 - `@minecraft/vanilla-data/lib` for accurate Minecraft identifiers
-- `Raboy's Zombie Apocalypse Structures` pack required to spawn custom structures naturally
+- `Raboy's Zombie Apocalypse Worldgen Pack` pack required to spawn custom structures naturally
 
 ## 📦 Installation
 

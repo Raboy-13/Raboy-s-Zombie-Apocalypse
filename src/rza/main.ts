@@ -31,7 +31,7 @@ world.afterEvents.worldInitialize.subscribe(() => {
     if (mutatedZombies == undefined) world.scoreboard.addObjective('mutated_zombies').addScore('main', 0);
     if (maxDrones === undefined) world.scoreboard.addObjective('max_drones');
     if (!commandBlocksEnabled) world.getDimension('overworld').runCommand('gamerule commandblocksenabled true');
-    if (!commandBlockOutput) world.getDimension('overworld').runCommand('gamerule commandblockoutput false');
+    if (commandBlockOutput) world.getDimension('overworld').runCommand('gamerule commandblockoutput false');
 });
 
 //Custom components registration
