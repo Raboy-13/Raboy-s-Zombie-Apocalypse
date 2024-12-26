@@ -53,15 +53,6 @@
 				3
 			]
 		},
-		// Worldgen Pack
-		{
-			"uuid": "ee99c77b-5bb5-4126-97e5-cde07c4836a9",
-			"version": [
-				1,
-				2,
-				3
-			]
-		},
 		{
 			"module_name": "@minecraft/server",
 			"version": "1.16.0"
